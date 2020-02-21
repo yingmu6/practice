@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE serive [  &lt;!&ndash; 声明根元素 &ndash;&gt;
+        <!ELEMENT serive (provider,consumer,br)> &lt;!&ndash; <!ELEMENT 元素名称 (元素内容)> &ndash;&gt;
+        <!ELEMENT provider      (method)>
+        <!ATTLIST provider id ID>
+        <!ATTLIST provider ref CDATA>
+        <!ATTLIST provider version CDATA>
+        <!ELEMENT method    (#PCDATA)>
+        <!ELEMENT consumer    (#PCDATA)>
+        <!ATTLIST consumer id ID>
+        <!ATTLIST consumer interface CDATA>
+        <!ELEMENT br EMPTY>        &lt;!&ndash; 空元素通过类别关键词EMPTY进行声明： &ndash;&gt;
+        ]>-->
+<serive>
+    <provider id="p1" ref="f" version="f">
+        <method>
+           test
+        </method>
+    </provider>
+    <consumer id="c1" interface="">
+        yy
+    </consumer>
+    <br/>
+</serive>
+
+
+<!--
+DTD（Document Type Define） 文档类型定义语法
+一：元素声明
+1. <!ELEMENT 元素名称 类别>
+2.<!ELEMENT 元素名称 (元素内容)>
+3.<!ELEMENT 元素名称 (子元素名称 1,子元素名称 2,.....)>
+4. <!ELEMENT 元素名称 (子元素名称+)>  用修饰符表示出现的次数，如+表示至少一次
+
+二：属性声明
+<!ATTLIST 元素名称 属性名称 属性类型 默认值>
+CDATA 值为字符数据 (character data)
+ID 值为唯一的 id
+-->
