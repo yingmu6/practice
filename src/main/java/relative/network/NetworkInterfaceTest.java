@@ -1,6 +1,5 @@
 package relative.network;
 
-import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 

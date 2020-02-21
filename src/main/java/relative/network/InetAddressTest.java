@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 public class InetAddressTest {
     public static void main(String[] args) throws Exception {
         //localHost();
-        //bulid();
+        bulid();
         basicUse();
     }
 
