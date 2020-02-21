@@ -17,6 +17,7 @@ public class Server {
     public static final Integer PORT = 8080;
 
     public static void main(String[] args) throws Exception {
+
         //1.第一个线程组 是用于接收Client端连接的
         EventLoopGroup  bootGroup = new NioEventLoopGroup(); //客户端
         //2.第二个线程组 实际业务操作请求
