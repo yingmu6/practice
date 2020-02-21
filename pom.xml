@@ -29,12 +29,29 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>dubbo</artifactId>
-      <version>2.6.7</version>
+      <version>2.5.6</version>
+
+      <!--<exclusions>-->
+        <!--<exclusion>-->
+          <!--<groupId>io.netty</groupId>-->
+          <!--<artifactId>netty</artifactId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+          <!--<groupId>org.jboss.netty</groupId>-->
+          <!--<artifactId>netty</artifactId>-->
+        <!--</exclusion>-->
+      <!--</exclusions>-->
     </dependency>
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
       <artifactId>zookeeper</artifactId>
       <version>3.4.13</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.netty</groupId>
+          <artifactId>netty</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -48,6 +65,12 @@
       <artifactId>zkclient</artifactId>
       <version>0.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.marshalling</groupId>
+      <artifactId>jboss-marshalling</artifactId>
+      <version>2.0.9.Final</version>
+    </dependency>
+
   </dependencies>
 
   <build>
