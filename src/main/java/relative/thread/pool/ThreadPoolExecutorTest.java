@@ -11,8 +11,52 @@ public class ThreadPoolExecutorTest {
     private static int num = 0;
 
     public static void main(String[] args) {
-        // selfDefine();
-        executors();
+         selfDefine();
+        //executors();
+    }
+
+    /**
+     * todo @chenSy 问题集
+     * 1：BlockingQueue在线程池有啥用？
+     * 2：怎样验证线程池的效果？
+     * 3：keepAliveTime的用途？
+     * 4.怎样模拟
+     */
+    private static void selfDefine() {
+        int corePoolSize = 2;
+        int maximumPoolSize = 3;
+        long keepAliveTime = 1L;
+        // 时间单位，枚举值
+        TimeUnit timeUnit = TimeUnit.SECONDS;
+        // fair对访问顺序处理，true表示按FIFO顺序处理
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(3, true);
+//        workQueue.add();
+//        workQueue.add(new ThreadTest());
+        // 自定义线程池
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, timeUnit, workQueue);
+
+        executor.execute(createThread("线程1111"));
+        executor.execute(createThread("线程2222"));
+        executor.execute(createThread("线程3333"));
+        executor.execute(createThread("线程4444"));
+        executor.execute(createThread("线程5555"));
+
+    }
+
+    /**
+     * 1）corePoolSize留在线程池中的线程个数，也就是工作的线程个数，影响workers属性的值，HashSet<Worker> workers = new HashSet<Worker>();
+     * 2）
+     */
+
+    static Thread createThread(String name) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(name);
+            }
+        });
+        thread.setName(name);
+        return thread;
     }
 
     // 实现Runnabale没有返回值
@@ -51,28 +95,5 @@ public class ThreadPoolExecutorTest {
 
     }
 
-    // 自定义线程池参数
-    private static void selfDefine() {
-        int corePoolSize = 1;
-        int maximumPoolSize = 2;
-        long keepAliveTime = 1L;
-        // 时间单位，枚举值
-        TimeUnit timeUnit = TimeUnit.SECONDS;
-        // fair对访问顺序处理，true表示按FIFO顺序处理
-        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(3, true);
-//        workQueue.add();
-//        workQueue.add(new ThreadTest());
-        // 自定义线程池
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, timeUnit, workQueue);
-        executor.execute(new RunnableTest());
-        executor.execute(new RunnableTest());
-        executor.execute(new RunnableTest());
-    }
 
-    /**
-     * todo @chenSy 问题集
-     * 1：BlockingQueue在线程池有啥用？
-     * 2：怎样验证线程池的效果？
-     * 3：keepAliveTime的用途？
-     */
 }
