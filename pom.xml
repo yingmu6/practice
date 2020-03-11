@@ -10,6 +10,7 @@
   <modules>
     <module>web-util</module>
     <module>spring-util</module>
+      <module>basic-util</module>
   </modules>
   <packaging>pom</packaging>
 
