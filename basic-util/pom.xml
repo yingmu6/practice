@@ -13,5 +13,11 @@
     <artifactId>basic-util</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>5.2.4.RELEASE</version>
+        </dependency>
+    </dependencies>
 </project>
