@@ -11,6 +11,7 @@
     <module>web-util</module>
     <module>spring-util</module>
       <module>basic-util</module>
+      <module>dubbo-demo</module>
   </modules>
   <packaging>pom</packaging>
 
