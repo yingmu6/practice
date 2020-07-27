@@ -14,15 +14,12 @@ import java.util.ServiceLoader;
 public class JavaSpiTest {
     public static void main(String[] args) {
         ServiceLoader<Animal> loader = ServiceLoader.load(Animal.class);
-        /**
-         * 为啥没有加载到文件，也没有报错
-         * 1) 接口全路径名与文件名不一致
-         * 2）没有mvn clean install 进行编译打包
-         */
+        // 接口可能有多个实现类，所以要循环遍历
         Iterator it = loader.iterator();
         while (it.hasNext()) {
-            Animal animail = (Animal) it.next();
-            animail.cry();
+            Animal animal = (Animal) it.next();
+            animal.cry();
         }
+
     }
 }
