@@ -9,16 +9,27 @@ package relative.thread;
 public class ThreadLocalTest {
     static ThreadLocal<Animal> threadLocal = new ThreadLocal<Animal>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Animal animal = threadLocal.get();
         if (animal == null) {
             Animal temp = new Animal();
-            temp.setWeight(11);
+            temp.setWeight(12.22);
             threadLocal.set(temp); //设置值
         }
-        System.out.println(threadLocal.get().getWeight());
+//        System.out.println(threadLocal.get().getWeight());
 
-        Thread thread1 = new Thread();
+        /**
+         * ThreadLocal线程的局部变量，各个线程维护的值互不干扰，
+         * 同一个线程中，可以通过ThreadLocal在不同方法中传递对象的值
+         */
+        new Thread(() -> { //
+            Animal temp = new Animal();
+            temp.setWeight(11.11);
+            threadLocal.set(temp);
+            use1();
+            use2();
+        }).start();
+//        Thread.currentThread().join();
         use1();
         use2();
     }
@@ -55,5 +66,12 @@ public class ThreadLocalTest {
      * 理解ThreadLocal  https://zhuanlan.zhihu.com/p/61587053
      * 1）ThreadLocal的用途大致了解了，一是线程安全，二是可以在同一个线程中传递对象，不需要再每个方法里加上参数
      * 2）但是详情使用以及底层原理还需要进一步了解
+     *
+     * 实际上，可以把ThreadLocal看成一个全局Map<Thread, Object>：每个线程获取ThreadLocal变量时，总是使用Thread自身作为key：
+     * Object threadLocalValue = threadLocalMap.get(Thread.currentThread());
+     * 因此，ThreadLocal相当于给每个线程都开辟了一个独立的存储空间，各个线程的ThreadLocal关联的实例互不干扰。
+     * 最后，特别注意ThreadLocal一定要在finally中清除
+     *
+     * Thread Join()的用法  https://www.cnblogs.com/duanxz/p/5038471.html
      */
 }

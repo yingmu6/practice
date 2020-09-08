@@ -17,10 +17,18 @@ public class AtomicUse {
 
     public static void main(String[] args) {
         //basicUse();
-        unsafeUse1();
-        unsafeUse2();
-        unsafeUse3();
-        // todo 此处为啥输出的值每次都不一样？
+//        unsafeUse1();
+//        unsafeUse2();
+//        unsafeUse3();
+
+        increment();
+    }
+
+    public static void increment() {
+        // 达到最大值MAX_VALUE以后，再增长就会变为MIN_VALUE
+        AtomicInteger bNum = new AtomicInteger(Integer.MAX_VALUE);
+        System.out.println(bNum.incrementAndGet());
+        System.out.println(Integer.MIN_VALUE);
     }
 
     // 基本使用
