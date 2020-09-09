@@ -19,5 +19,15 @@
             <artifactId>spring-aspects</artifactId>
             <version>5.2.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsr107.ri</groupId>
+            <artifactId>cache-ri-impl</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
 </project>
