@@ -16,7 +16,6 @@
   <packaging>pom</packaging>
 
   <name>dubbo-util Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
