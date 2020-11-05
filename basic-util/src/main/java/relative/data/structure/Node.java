@@ -6,8 +6,15 @@ package relative.data.structure;
  * Date : 2020-03-07 22:58
  */
 public class Node {
-    private String data;
-    private Node next;
+    protected String data;
+    protected Node next;
+
+    public Node() {
+    }
+
+    public Node(String data) {
+        this.data = data;
+    }
 
     public String getData() {
         return data;
