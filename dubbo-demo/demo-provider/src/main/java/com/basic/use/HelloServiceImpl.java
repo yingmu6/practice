@@ -1,13 +1,15 @@
 package com.basic.use;
 
+import com.alibaba.dubbo.rpc.RpcException;
+
 /**
  * @author : chensy
  * Date : 2020-03-11 23:58
  */
 public class HelloServiceImpl implements HelloService {
     @Override
-    public String sayHello() {
-        System.out.println("客户端请求！");
-        return "服务端返回：你好!";
+    public void sayHello(String str) {
+        if (str.equals("test")) throw new RpcException("Str 异常");
+        System.out.println("aa:" + str);
     }
 }

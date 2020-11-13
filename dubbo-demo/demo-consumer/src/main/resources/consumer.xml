@@ -11,6 +11,14 @@
     <!-- group="test-dubbo" 可以自定义group，但provider与consumer中要一致，在注册中心的目录 即为根目录，若没填，默认/dubbo -->
     <dubbo:registry address="zookeeper://localhost:2181"/>
 
-    <dubbo:reference id="helloService" check="false" interface="com.basic.use.HelloService"/>
+<!--    <dubbo:reference id="helloService" check="false" interface="com.basic.use.HelloService" mock="com.basic.use.HelloServiceMock"/>-->
+    <dubbo:reference id="helloService" check="false" interface="com.basic.use.HelloService" mock="return null"/> <!--todo 为啥不生效 -->
 
+    <!--    <dubbo:reference id="helloService" check="false" interface="com.basic.use.HelloService" stub="true"/>-->
+    <!--
+       stub 使用和配置
+       1）既可以配置在服务端<dubbo:service>，也可以配置在消费端<dubbo:reference>
+       2）stub可以用true、false，也可以指定存根的实现类，若没指定存根的实现类，会按 暴露接口名+"Stub"去查找
+    -->
 </beans>
+
