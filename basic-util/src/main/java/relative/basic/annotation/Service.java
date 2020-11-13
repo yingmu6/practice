@@ -8,20 +8,7 @@ import java.lang.annotation.*;
  */
 @Documented       //元注解
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.TYPE})
 public @interface Service {
-    /**
-     * 性别
-     */
-    int sex() default 1;
-
-    /**
-     * 年龄
-     */
-    int age() default 1;
-
-    /**
-     * 问题集 todo @csy-new
-     * 1）Documented 是否是文档标记，在什么情况下使用
-     */
+    String name() default "test";
 }
