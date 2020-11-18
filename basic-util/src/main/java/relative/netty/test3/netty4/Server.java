@@ -1,4 +1,4 @@
-package relative.netty.test3;
+package relative.netty.test3.netty4;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -17,7 +17,7 @@ public class Server {
     }
 
     public static void basic() {
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup();
+        NioEventLoopGroup bossGroup = new NioEventLoopGroup(); //netty4 使用方式
         NioEventLoopGroup workGroup = new NioEventLoopGroup();
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap

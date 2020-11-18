@@ -1,4 +1,4 @@
-package relative.netty.test3;
+package relative.netty.test3.netty4;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
