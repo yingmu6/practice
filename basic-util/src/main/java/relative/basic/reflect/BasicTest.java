@@ -11,6 +11,16 @@ import java.util.List;
  */
 public class BasicTest {
     public static void main(String[] args) throws Exception {
+//        basicUse();
+        Integer a = 1;
+        isInstance(Integer.class, a);
+    }
+
+    private static <T> void isInstance(Class<T> cls, Object obj) {
+        System.out.println(cls.isInstance(obj)); //判断对象是否是指定类型的实例
+    }
+
+    private static void basicUse() throws NoSuchMethodException {
         Class clazz = Apple.class;
         Constructor constructor = clazz.getConstructor();  //获取构造函数，无参的
         System.out.println(constructor.getName());

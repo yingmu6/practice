@@ -15,7 +15,7 @@ import java.io.File;
 public class Dom4jTest {
     public static void main(String[] args) {
         SAXReader saxReader = new SAXReader();
-        Document document = null; //
+        Document document = null;
         try {
             File file = new File("/Users/chenshengyong/selfPro/util_db/basic-util/src/main/resources/dom.xml");
             document = saxReader.read(file); //Document的实现类为DefaultDocument
@@ -33,5 +33,6 @@ public class Dom4jTest {
         Attribute attribute = book.attribute("id");
         System.out.println("属性名：" + attribute.getName() + ", 属性值：" + attribute.getValue());
 
+        //https://www.jianshu.com/p/aa3b3b4dde04
     }
 }
