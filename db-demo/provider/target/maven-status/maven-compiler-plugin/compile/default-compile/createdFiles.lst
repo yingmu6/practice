@@ -1,0 +1,6 @@
+com/basic/use/spi/Pig.class
+com/basic/use/spi/Animal.class
+com/basic/use/HelloServiceImpl.class
+com/basic/use/spi/Dog.class
+com/basic/use/spi/DubboSpiTest.class
+com/basic/use/ProviderStartUp.class

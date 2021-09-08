@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
 
     @RequestMapping("/toIndex")
-    public String toIndex(ModelMap model) {
+    public String toIndex(ModelMap model) { //
         model.addAttribute("message", "Hello Spring MVC Framework!");
         return "index";
     }
