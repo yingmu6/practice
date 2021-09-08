@@ -11,7 +11,7 @@ public abstract class Animal {
      * 1）向上转型
      * 2）抽象类实现多态
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) { //
         Animal animal = new Dog();
         animal.cry();
 
