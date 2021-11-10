@@ -3,6 +3,7 @@ package relative.javassist;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
+import javassist.LoaderClassPath;
 
 import java.lang.reflect.Method;
 
@@ -18,14 +19,23 @@ public class BasicUseTest {
 //       System.out.println(fruit.buyNum());
 //       fruit.showInfo();
 
-       // 创建类库池：
-       ClassPool classPool = ClassPool.getDefault();
-       // 获取指定类名的CtClass
-       CtClass ctClass = classPool.get("relative.javassist.Fruit");
+        // 创建类库池：
+//        ClassPool classPool = ClassPool.getDefault();
+//        classPool.insertClassPath(new ClassClassPath(Fruit.class));
+//
+//        // 获取指定类名的CtClass
+//        CtClass ctClass = classPool.get("relative.javassist.Fruit");
+//
+////       editMethod(ctClass);
+////        addMethod(ctClass);
+//        addMethodV2(classPool, ctClass);
 
-//       editMethod(ctClass);
-//        addMethod(ctClass);
-        addMethodV2(classPool, ctClass);
+        ClassPool classPool2 = ClassPool.getDefault();
+        // 可能由于JDK版本问题，需要加上这句话 https://www.codeleading.com/article/20243217194/
+//        classPool2.insertClassPath(new ClassClassPath(Animal.class)); //方式一
+        classPool2.appendClassPath(new LoaderClassPath(Thread.currentThread().getContextClassLoader())); //方式二
+        CtClass ctClass2 = classPool2.get(Animal.class.getName());
+        System.out.println(ctClass2);
     }
 
     /**
@@ -77,15 +87,15 @@ public class BasicUseTest {
      *    获取list类型 CtClass listClass = pool.get("java.util.List");
      */
     private static void addMethodV2(ClassPool classPool, CtClass ctClass) throws Exception {
-          CtClass stringClass = classPool.getCtClass("java.lang.String");
-          CtMethod ctMethod = new CtMethod(CtClass.voidType, "test", new CtClass[]{stringClass}, ctClass);
-          ctMethod.setBody("{System.out.println($1);}");
-          ctClass.addMethod(ctMethod);
+        CtClass stringClass = classPool.getCtClass("java.lang.String");
+        CtMethod ctMethod = new CtMethod(CtClass.voidType, "test", new CtClass[] {stringClass}, ctClass);
+        ctMethod.setBody("{System.out.println($1);}");
+        ctClass.addMethod(ctMethod);
 
-          ctClass.toClass();
-          Fruit fruit = new Fruit();
-          Method method = Fruit.class.getMethod("test", new Class[]{String.class});
-          method.invoke(fruit, "你好");
+        ctClass.toClass();
+        Fruit fruit = new Fruit();
+        Method method = Fruit.class.getMethod("test", new Class[] {String.class});
+        method.invoke(fruit, "你好");
 
     }
 

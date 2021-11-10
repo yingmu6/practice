@@ -1,8 +1,8 @@
-package relative.thread;
+package relative.thread.local;
 
 /**
- *
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1306581251653666
+ *
  * @author : chensy
  * Date : 2020/7/28 上午11:31
  */
@@ -10,6 +10,34 @@ public class ThreadLocalTest {
     static ThreadLocal<Animal> threadLocal = new ThreadLocal<Animal>();
 
     public static void main(String[] args) throws Exception {
+
+        for (int i = 0; i < 5; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AnimalClass animalClass = getTheadLocal();
+                    int age = animalClass.getAge() + 1;
+                    animalClass.setAge(age);
+                    setTheadLocal(animalClass);
+                    System.out.println(getTheadLocal());            // ThreadLocal：每个线程有个副本
+                    System.out.println(AnimalContextHolder.TEST++); // 静态变量：线程间共享
+                }
+            }).start();
+        }
+
+    }
+
+    // 设置上下文信息
+    public static void setTheadLocal(AnimalClass animalClass) {
+        AnimalContextHolder.setContext(animalClass);
+    }
+
+    // 获取上下文信息
+    public static AnimalClass getTheadLocal() {
+        return AnimalContextHolder.getContext();
+    }
+
+    public static void basic() {
         Animal animal = threadLocal.get();
         if (animal == null) {
             Animal temp = new Animal();
