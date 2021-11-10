@@ -6,7 +6,7 @@ package com.basic.use;
  */
 public class HelloServiceMock implements HelloService{
     @Override
-    public void sayHello(String str) { //todo @csy 为啥出现异常，不进入此逻辑
-        System.out.println("调用异常了");
+    public String sayHello(String str) { //todo @csy 为啥出现异常，不进入此逻辑
+        return "调用异常了";
     }
 }

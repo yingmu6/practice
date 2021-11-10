@@ -5,5 +5,5 @@ package com.basic.use;
  * Date : 2020-03-11 23:56
  */
 public interface HelloService {
-    void sayHello(String str);
+    String sayHello(String str);
 }

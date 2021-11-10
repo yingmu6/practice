@@ -1,5 +1,7 @@
 package relative.thread.schedule;
 
+import org.apache.dubbo.common.utils.NamedThreadFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class ScheduledExecutorTest {
     private static final ScheduledExecutorService delayExportExecutor =
             Executors.newSingleThreadScheduledExecutor(
-                    new com.alibaba.dubbo.common.utils.NamedThreadFactory("DubboServiceDelayExporter", true));
+                    new NamedThreadFactory("DubboServiceDelayExporter", true));
 
     public static void main(String[] args) throws Exception {
         final long start = System.currentTimeMillis();

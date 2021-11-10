@@ -1,7 +1,7 @@
 package relative.design.proxy.static_p.test;
 
 import relative.design.proxy.IUserDao;
-import relative.design.proxy.UserDao;
+import relative.design.proxy.static_p.UserDao;
 
 /**
  * 静态代理：

@@ -16,16 +16,17 @@ public class HelloServiceStub implements HelloService{
     }
 
     @Override
-    public void sayHello(String str) {
+    public String sayHello(String str) {
         if (str == null || str.length() == 0) {
             throw new IllegalArgumentException("参数不正确");
         }
         try {
             helloService.sayHello(str); //本地存根处理后，可以选择不调用选择服务
-        }catch (Exception e) {
+        } catch (Exception e) {
             // 调用失败，可做容错处理
             System.out.println("出现异常数据");
         }
+        return "出现异常数据";
     }
 
     /**

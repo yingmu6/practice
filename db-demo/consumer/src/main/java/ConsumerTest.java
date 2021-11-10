@@ -11,7 +11,7 @@ public class ConsumerTest {
         context.start();
 
         HelloService helloService = (HelloService) context.getBean("helloService");
-        helloService.sayHello("test");
+        System.out.println(helloService.sayHello("test"));
 
         System.in.read();
     }

@@ -1,10 +1,10 @@
 package relative.basic.collection;
 
-import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.dubbo.common.utils.ConcurrentHashSet;
 
 import java.util.Map;
 import java.util.Set;

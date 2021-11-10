@@ -1,46 +1,13 @@
-# maven ignore
-target/
-*.jar
-!.mvn/wrapper/*
-*.war
-*.zip
-*.tar
-*.tar.gz
-.flattened-pom.xml
-
-# eclipse ignore
-.settings/
-.project
-.classpath
-
-# idea ignore
-.idea/
-*.ipr
+# Default ignored files
+.gitignore
+/.idea/*
 *.iml
-*.iws
-
-# visual-studio-code ignore
-.vscode/
-
-# temp ignore
+*.class
 *.log
-*.cache
-*.diff
-*.patch
-*.tmp
-
-# system ignore
+*.jar
+*.lst
+/basic-util/target/classes
+1.txt
+*/target/
 .DS_Store
-Thumbs.db
-*.orig
 
-# license check result
-license-list
-
-# grpc compiler
-compiler/gradle.properties
-compiler/build/*
-compiler/.gradle/*
-
-# protobuf
-dubbo-serialization/dubbo-serialization-protobuf/build/*
