@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author chensy
  * @date 2021/9/5
  */
-public class FunctionTest {
+public class FunctionTest { //test
     public static void main(String[] args) {
         basic();
         highLeval();
