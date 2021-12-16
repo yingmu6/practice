@@ -10,9 +10,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class BasicTest {
     public static void main(String[] args) {
-        basic();
-        spring();
-        event();
+//        basic();
+//        spring();
+//        event();
+        basic_spring();
     }
 
     public static void basic() {
@@ -20,6 +21,12 @@ public class BasicTest {
         animal.setName("猴子");
         animal.setAge(12);
         System.out.println("普通输出:" + animal.getName() + ";" + animal.getAge());
+    }
+
+    public static void basic_spring() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        Animal animal = (Animal) applicationContext.getBean("animal");
+        System.out.println(animal.getName() + ";;;" + animal.getAge());
     }
 
     public static void spring() {
