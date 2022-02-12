@@ -1,6 +1,6 @@
 package relative.thread.schedule;
 
-import org.apache.dubbo.common.utils.NamedThreadFactory;
+//import org.apache.dubbo.common.utils.NamedThreadFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,17 +12,18 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * ScheduledExecutorService定时周期执行指定的任务
- *  https://blog.csdn.net/tsyj810883979/article/details/8481621
- *
- *
+ * https://blog.csdn.net/tsyj810883979/article/details/8481621
+ * <p>
+ * <p>
  * 定时任务执行
+ *
  * @author chensy
  * @date 2019-05-29 19:50
  */
 public class ScheduledExecutorTest {
-    private static final ScheduledExecutorService delayExportExecutor =
-            Executors.newSingleThreadScheduledExecutor(
-                    new NamedThreadFactory("DubboServiceDelayExporter", true));
+//    private static final ScheduledExecutorService delayExportExecutor =
+//            Executors.newSingleThreadScheduledExecutor(
+//                    new NamedThreadFactory("DubboServiceDelayExporter", true));
 
     public static void main(String[] args) throws Exception {
         final long start = System.currentTimeMillis();
@@ -51,13 +52,13 @@ public class ScheduledExecutorTest {
      * schedule(Runnable command,long delay, TimeUnit unit)
      */
     public void delay() {
-        final long start = System.currentTimeMillis();
-        // 此处创建了线程并放入线程值中，从这里主线程和新的线程就并发执行了
-        delayExportExecutor.schedule(new Runnable() { //内部类访问局部变量需要加final
-            public void run() {
-                System.out.println("值：耗时：" + (System.currentTimeMillis() - start));
-            }
-        }, 5000, TimeUnit.MILLISECONDS);
+//        final long start = System.currentTimeMillis();
+//        // 此处创建了线程并放入线程值中，从这里主线程和新的线程就并发执行了
+//        delayExportExecutor.schedule(new Runnable() { //内部类访问局部变量需要加final
+//            public void run() {
+//                System.out.println("值：耗时：" + (System.currentTimeMillis() - start));
+//            }
+//        }, 5000, TimeUnit.MILLISECONDS);
     }
 
     /**

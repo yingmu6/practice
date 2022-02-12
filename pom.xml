@@ -9,7 +9,6 @@
   <version>1.0</version>
   <modules>
     <module>web-util</module>
-    <module>spring-util</module>
     <module>basic-util</module>
     <module>db-demo</module>
   </modules>

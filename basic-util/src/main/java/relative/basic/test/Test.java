@@ -18,7 +18,7 @@ public class Test {
         System.out.println(type.indexOf("pr"));
 
         System.out.println(type.indexOf('r'));
-        System.out.println("字符串" + type.substring(3,3)); //取不到值，返回空串，左开右闭，此处相当于从【3，2】的值
+        System.out.println("字符串" + type.substring(3, 3)); //取不到值，返回空串，左开右闭，此处相当于从【3，2】的值
 
         //# 对应的十进制值是35，而35位置的值为i，i对应的10进制的值为105
 
@@ -28,5 +28,8 @@ public class Test {
         /**
          * 本来是想找出字符串中某个字符出现的位置，但是用错方法了。charAt(int index) 是获取指定字符的位置
          */
+
+        String str = "aagemini";
+        System.out.println(str.replace("gemini", "queqiao"));
     }
 }

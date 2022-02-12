@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.dubbo.common.utils.ConcurrentHashSet;
 
 import java.util.Map;
 import java.util.Set;
@@ -26,9 +25,9 @@ public class SetTest {
     }
 
     private static void log(String accessLog, Fruit fruit) {
-        Set<Fruit> logSet = LOG_ENTRIES.computeIfAbsent(accessLog, k -> new ConcurrentHashSet<>());
-        logSet.add(fruit); //此处集合logSet改变，也会引起LOG_ENTRIES这个map的改变
-        System.out.println(logSet.size());
+//        Set<Fruit> logSet = LOG_ENTRIES.computeIfAbsent(accessLog, k -> new ConcurrentHashSet<>());
+//        logSet.add(fruit); //此处集合logSet改变，也会引起LOG_ENTRIES这个map的改变
+//        System.out.println(logSet.size());
 
     }
 }
