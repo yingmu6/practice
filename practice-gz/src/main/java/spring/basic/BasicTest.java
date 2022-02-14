@@ -1,23 +1,21 @@
-package basic;
+package spring.basic;
 
-import event.ApplicationContextObj;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import spring.event.ApplicationContextObj;
 
 /**
  * @author chensy
  * @date 2021/9/8
  */
-@Slf4j
 @Getter
 public class BasicTest {
     public static void main(String[] args) {
-//        basic();
+//        spring.event.basic();
 //        spring();
-//        event();
+//        spring.event();
         basic_spring();
 
         ChannelInboundHandlerAdapter adapter = null;
@@ -34,7 +32,6 @@ public class BasicTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
         System.out.println(animal.getName() + ";;;" + animal.getAge());
-        log.debug("111");
     }
 
     public static void spring() {

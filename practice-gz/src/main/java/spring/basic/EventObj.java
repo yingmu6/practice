@@ -1,4 +1,4 @@
-package basic;
+package spring.basic;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -11,6 +11,6 @@ public class EventObj implements ApplicationListener {
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
-        System.out.println("event:::" + applicationEvent.getTimestamp());
+        System.out.println("spring.event:::" + applicationEvent.getTimestamp());
     }
 }

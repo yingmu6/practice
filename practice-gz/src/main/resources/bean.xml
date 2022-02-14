@@ -3,10 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="animal" class="basic.Animal">
+    <bean id="animal" class="spring.basic.Animal">
         <property name="name" value="pig"/>
         <property name="age" value="12"/>
     </bean>
-    <bean id="eventObj" class="basic.EventObj"/>
-    <bean id="contextObj" class="event.ApplicationContextObj"/>
+    <bean id="eventObj" class="spring.basic.EventObj"/>
+    <bean id="contextObj" class="spring.event.ApplicationContextObj"/>
 </beans>

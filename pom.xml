@@ -9,9 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>practice-spring</module>
         <module>practice-db</module>
-        <module>practice-java</module>
         <module>practice-jc</module>
         <module>practice-gz</module>
     </modules>
