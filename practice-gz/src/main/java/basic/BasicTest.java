@@ -1,6 +1,8 @@
 package basic;
 
 import event.ApplicationContextObj;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -10,12 +12,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @date 2021/9/8
  */
 @Slf4j
+@Getter
 public class BasicTest {
     public static void main(String[] args) {
 //        basic();
 //        spring();
 //        event();
         basic_spring();
+
+        ChannelInboundHandlerAdapter adapter = null;
     }
 
     public static void basic() {

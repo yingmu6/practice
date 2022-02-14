@@ -9,7 +9,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>practice-spring</artifactId>
+    <artifactId>practice-gz</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -43,6 +43,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
 
+    </dependencies>
 </project>
