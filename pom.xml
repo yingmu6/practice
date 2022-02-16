@@ -42,13 +42,13 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>4.2.5.RELEASE</version>
+                <version>4.3.19.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
-                <version>4.2.5.RELEASE</version>
+                <version>4.3.19.RELEASE</version>
             </dependency>
 
             <dependency>
@@ -77,15 +77,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba</groupId>
+                <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo</artifactId>
-                <version>2.5.6</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.javassist</groupId>
-                        <artifactId>javassist</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>2.7.8-SELF</version>
             </dependency>
 
             <dependency>

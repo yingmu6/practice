@@ -1,6 +1,6 @@
 package com.basic.use.spi;
 
-import com.alibaba.dubbo.common.extension.ExtensionLoader;
+import org.apache.dubbo.common.extension.ExtensionLoader;
 
 import java.io.File;
 import java.io.IOException;

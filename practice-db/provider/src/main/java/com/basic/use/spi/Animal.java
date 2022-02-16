@@ -1,6 +1,6 @@
 package com.basic.use.spi;
 
-import com.alibaba.dubbo.common.extension.SPI;
+import org.apache.dubbo.common.extension.SPI;
 
 @SPI("dog")
 public interface Animal {
