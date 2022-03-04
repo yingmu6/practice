@@ -1,10 +1,12 @@
-package basic.unit.test;
+package basic.unit.junit;
 
 import org.junit.*;
 
 /**
  * @author chensy
  * @date 2022/3/3
+ *
+ * https://www.w3cschool.cn/junit/2wjx1hvc.html junit使用
  */
 public class JunitTest { //运行类，可以执行多个测试方法
 
