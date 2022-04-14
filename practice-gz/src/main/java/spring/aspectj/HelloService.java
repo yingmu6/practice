@@ -38,4 +38,10 @@ public class HelloService {
     public void anotherSayHi3(String msg) {
         helloService.sayHi(msg);
     }
+
+
+    public void sayHelloWithException() {
+        Long a = null;
+        System.out.println(a.longValue());
+    }
 }

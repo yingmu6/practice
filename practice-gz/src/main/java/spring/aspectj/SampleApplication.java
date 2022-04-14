@@ -16,16 +16,27 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class SampleApplication {
 
     public static void main(String[] args) {
+        basic();
+        exceptionUse();
+    }
+
+    public static void basic() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SampleApplication.class);
         HelloService helloService = context.getBean(HelloService.class);
         helloService.sayHi("hi-1");
-        System.out.println("\n");
-        helloService.anotherSayHi("hi-2");
+//        System.out.println("\n");
+//        helloService.anotherSayHi("hi-2");
+//
+//        System.out.println("\n");
+//        helloService.anotherSayHi2("hhh");
+//
+//        System.out.println("\n");
+//        helloService.anotherSayHi3("hhssh");
+    }
 
-        System.out.println("\n");
-        helloService.anotherSayHi2("hhh");
-
-        System.out.println("\n");
-        helloService.anotherSayHi3("hhssh");
+    public static void exceptionUse() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SampleApplication.class);
+        HelloService helloService = context.getBean(HelloService.class);
+        helloService.sayHelloWithException();
     }
 }

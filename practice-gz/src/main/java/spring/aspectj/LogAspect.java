@@ -7,8 +7,9 @@ package spring.aspectj;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,14 @@ public class LogAspect {
 
     }
 
-    @Around("logPointcut()")
+    @Before("logPointcut()")
+    public void beforeDeal(JoinPoint joinPoint) {
+        System.out.println("调用前处理：" + joinPoint.getSignature());
+    }
+
+
+    //    @Around("execution (* spring.aspectj..*.*(..))")  //可以直接指定切入点表达式
+//    @Around("logPointcut()") //可以先声明切入点，再引入切入点
     public void around(JoinPoint point) {
         String methodName = point.getSignature().getName();
         Object[] args = point.getArgs();
@@ -47,7 +55,7 @@ public class LogAspect {
             //执行方法
             ((ProceedingJoinPoint) point).proceed();
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throwable.printStackTrace(); //将异常捕获，不向上抛出
         } finally {
             if (log != null) {
                 //演示方法执行后，记录一行日志
@@ -55,4 +63,15 @@ public class LogAspect {
             }
         }
     }
+
+
+    @AfterThrowing(value = "logPointcut()", throwing = "e")
+    public void exceptionDeal(JoinPoint joinPoint, Exception e) {
+        System.out.println("捕获到异常信息=" + e.getMessage());
+    }
+
+    /**
+     * 若有多个注解，先执行@Around中((ProceedingJoinPoint) point).proceed() 调用前的逻辑，然后再执行@Before，
+     * 最后执行@Around中((ProceedingJoinPoint) point).proceed()  后面的逻辑
+     */
 }

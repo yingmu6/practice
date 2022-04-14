@@ -30,7 +30,7 @@ public class MockTest {
         mocks.add("haha");
         System.out.println("列表数量：" + mocks.size());
 
-        Mockito.verify(mocks).add("haha");            //校验mock列表是否添加了指定对象
+        Mockito.verify(mocks).add("haha");            //校验mock列表是否添加了指定对象（不走真实调用）
         assertEquals(0, mocks.size());
 
         Mockito.when(mocks.size()).thenReturn(10);    //处理mock对象的属性值
@@ -40,7 +40,7 @@ public class MockTest {
 
     @Test
     public void spy_test() {
-        List mocks = Mockito.spy(ArrayList.class);  //使用spy构建的mock对象，能自动改变对象的属性
+        List mocks = Mockito.spy(ArrayList.class);  //使用spy构建的mock对象，能自动改变对象的属性（默认走真实调用）
         mocks.add("haha");
 
         Mockito.verify(mocks).add("haha");
