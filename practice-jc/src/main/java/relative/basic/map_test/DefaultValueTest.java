@@ -21,11 +21,14 @@ public class DefaultValueTest {
 
     private double c;
 
+    private boolean d;
+
     public static void main(String[] args) {
         DefaultValueTest test = new DefaultValueTest();
         System.out.println(test.map); //输出null
         System.out.println(test.a); //输出null
         System.out.println(test.b); //输出0
         System.out.println(test.c); //输出0.0
+        System.out.println(test.d); //输出false
     }
 }
