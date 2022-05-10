@@ -1,5 +1,6 @@
 package relative.java8;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import org.springframework.util.StringUtils;
@@ -34,8 +35,42 @@ public class StreamTest {
 //        System.out.println(option.isPresent());
 //        System.out.println(isNeedNotice);
 
+//        orderPerson();
+//        mapTest();
+        testEmptyList();
+    }
 
-        orderPerson();
+    public static void testEmptyList() {
+        List<Person> personList = Lists.newArrayList();
+//        Person person1 = new Person();
+//        person1.setAge(1);
+//        personList.add(person1);
+
+        List<Person> newList = personList.stream().
+                filter(x -> x.getAge() != 0).
+                collect(Collectors.toList());
+        System.out.println(JSON.toJSONString(newList));
+    }
+
+    // 测试stream的map功能
+    public static void mapTest() {
+        Person person1 = new Person();
+        person1.setName("zhang");
+
+        Person person2 = new Person();
+        person2.setName("lisi");
+
+        List<Person> personList = Lists.newArrayList();
+        personList.add(person1);
+        personList.add(person2);
+
+        List<Car> carList = personList.stream()
+                .map(x -> {
+                    Car car = new Car();
+                    car.setCarName(x.getName());
+                    return car;
+                }).collect(Collectors.toList());
+        System.out.println("Map转化结果:" + JSON.toJSONString(carList));
     }
 
     // 排序
@@ -84,4 +119,9 @@ class Person {
     private String name;
     private int age;
     private Long gmtCreate;
+}
+
+@Data
+class Car {
+    private String carName;
 }
