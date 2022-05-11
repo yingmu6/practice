@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -37,7 +38,31 @@ public class StreamTest {
 
 //        orderPerson();
 //        mapTest();
-        testEmptyList();
+//        testEmptyList();
+
+        testStreamMap();
+    }
+
+    public static void testStreamMap() {
+        Person person1 = new Person();
+        person1.setName("Zhang");
+        person1.setAge(10);
+
+        Person person2 = new Person();
+        person2.setName("LiSi");
+        person2.setAge(22);
+
+        List<Person> personList = Lists.newArrayList();
+        personList.add(person1);
+        personList.add(person2);
+
+        // 函数式接口是可以用lambda表达式写的（先找到函数式接口，除去default方法，看是否有入参、出参，然后在根据lambda表达式写）
+        // 如toMap()方法需要两个参数都是函数式接口Function，而这个接口的方法是R apply(T t); 参数都是泛型，类型都可以定义，这里说明是接收一个参数，然后返回一个参数
+        Map<String, Integer> map = personList.stream().collect(Collectors.toMap(x -> x.getName(), y -> y.getAge()));
+        map.entrySet().stream().forEach(x -> {
+            System.out.println("键：" + x.getKey() + "，值：" + x.getValue());
+        });
+        System.out.println(map);
     }
 
     public static void testEmptyList() {
@@ -55,10 +80,12 @@ public class StreamTest {
     // 测试stream的map功能
     public static void mapTest() {
         Person person1 = new Person();
-        person1.setName("zhang");
+        person1.setName("Zhang");
+        person1.setAge(44);
 
         Person person2 = new Person();
-        person2.setName("lisi");
+        person2.setName("LiSi");
+        person2.setAge(66);
 
         List<Person> personList = Lists.newArrayList();
         personList.add(person1);
