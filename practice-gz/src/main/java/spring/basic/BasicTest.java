@@ -1,6 +1,5 @@
 package spring.basic;
 
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.Getter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,7 +17,7 @@ public class BasicTest {
 //        spring.event();
         basic_spring();
 
-        ChannelInboundHandlerAdapter adapter = null;
+//        ChannelInboundHandlerAdapter adapter = null;
     }
 
     public static void basic() {

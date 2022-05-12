@@ -178,6 +178,12 @@
                 <scope>provided</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-annotations-api</artifactId>
+                <version>8.5.23</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

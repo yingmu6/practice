@@ -1,12 +1,8 @@
 package relative.basic.collection;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,11 +13,29 @@ public class SetTest {
     private static final Map<String, Set<Fruit>> LOG_ENTRIES = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
-        Fruit fruit = new Fruit(12.0, 13.0);
-        log("aa", fruit);
-        Fruit fruit2 = new Fruit(13.0, 14.0);
-        log("bb", fruit2);
+        toList();
 
+    }
+
+    // 转换为List的方式
+    public static void toList() {
+        Set<Fruit> set = getSet();
+        // set转list
+        List<Fruit> list = new ArrayList<>(set);
+
+        // list转set
+        Set<Fruit> set2 = new HashSet<>(list);
+        System.out.println(list + "," + list.getClass());
+        System.out.println(set2 + "," + set2.getClass());
+    }
+
+    public static Set<Fruit> getSet() {
+        Set<Fruit> set = new HashSet<>();
+        Fruit fruit = new Fruit(12.0, 13.0);
+        Fruit fruit2 = new Fruit(13.0, 14.0);
+        set.add(fruit);
+        set.add(fruit2);
+        return set;
     }
 
     private static void log(String accessLog, Fruit fruit) {
@@ -36,6 +50,7 @@ public class SetTest {
 @Getter
 @Builder
 @AllArgsConstructor
+@ToString
 class Fruit {
     private Double weight;
     private Double price;

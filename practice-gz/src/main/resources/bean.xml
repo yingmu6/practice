@@ -8,9 +8,11 @@
         <property name="name" value="pig"/>
         <property name="age" value="12"/>
     </bean>
-    <bean id="eventObj" class="spring.basic.EventObj"/>
-    <bean id="contextObj" class="spring.event.ApplicationContextObj"/>
+
+<!--    事件监听 -->
+<!--    <bean id="eventObj" class="spring.basic.EventObj"/>-->
+<!--    <bean id="contextObj" class="spring.event.ApplicationContextObj"/>-->
 
     <!-- 若需要使用注解查找bean，如@service等，就需要扫描到包，由spring去查找 -->
-    <context:component-scan base-package="basic"/>
+    <context:component-scan base-package="spring"/>
 </beans>

@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -16,46 +17,49 @@ import java.util.stream.Collectors;
  */
 public class StreamTest {
     public static void main(String[] args) {
-//        boolean isNeedNotice = true;
-//        List<Person> dataPointVOS = Lists.newArrayList();
-//        DataPointVO dataPointVO1 = new DataPointVO();
-//        dataPointVO1.setCode("aa");
-//        dataPointVO1.setValue("false");
-//        DataPointVO dataPointVO2 = new DataPointVO();
-////        dataPointVO2.setCode("bb");
-//        Map<String, String> categoryAndCodeMap = new HashMap<>();
-//        categoryAndCodeMap.put("ttt", "aa");
-//
-//        dataPointVOS.add(dataPointVO1);
-//        dataPointVOS.add(dataPointVO2);
-//        String disturbCategoryCode = "ttt";
-////        dataPointVOS.stream().filter(a -> a.getValue().equals(disturbCategoryCode)).filter(Objects::nonNull).findFirst().get().getValue();
-//        isNeedNotice = !TRUE.equals(dataPointVOS.stream().filter(e -> e.getCode().equals(categoryAndCodeMap.get(disturbCategoryCode))).findFirst().get().getValue());
-//
-//        Optional option = Optional.empty();
-//        System.out.println(option.isPresent());
-//        System.out.println(isNeedNotice);
 
 //        orderPerson();
 //        mapTest();
 //        testEmptyList();
+//        testStreamMap();
 
-        testStreamMap();
+        testGroupBy();
     }
 
+    // 测试stream的group by功能
+    public static void testGroupBy() {
+        List<Person> personList = getPersonList();
+        // 映射时，若映射的key为空，会报"element cannot be mapped to a null key"
+        Map<Integer, List<Person>> mapList = personList.stream().collect(Collectors.groupingBy(x -> x.getOriginType()));
+
+        // x -> x.getOriginType() 写法与Person::getOriginType等价
+        Map<Integer, List<Person>> mapList2 = personList.stream().collect(Collectors.groupingBy(Person::getOriginType));
+
+        // 会将多个属性的值拼接，去group值（从整理值中拼接分组）
+        // 例如映射结果： {张三1=[Person(name=张三, age=18, gmtCreate=189, originType=1)],
+        // 王王2=[Person(name=王王, age=19, gmtCreate=188, originType=2), Person(name=王王, age=19, gmtCreate=187, originType=2)]}
+        Map<Object, List<Person>> mapList3 = personList.stream().collect(Collectors.groupingBy(x -> multiCondition(x)));
+        System.out.println("具体值：" + mapList3.get("王王2"));
+
+        // 对映射后的Map，再次做处理（可以按照预期的结构，再次做映射处理，多个操作合并在一起处理）
+        Map<Integer, Set<String>> mapList4 = personList.stream().collect(Collectors.groupingBy(Person::getOriginType,
+                Collectors.mapping(x -> x.getName(), Collectors.toSet())));
+        
+        System.out.println("第一个Map：" + mapList);
+        System.out.println("第二个Map：" + mapList2);
+        System.out.println("第三个Map：" + mapList3);
+        System.out.println("第四个Map：" + mapList4);
+    }
+
+    // 多个group by 条件
+    private static String multiCondition(Person person) {
+        return person.getName() + person.getOriginType();
+
+    }
+
+    // 测试将流中的元素转换为Map形式
     public static void testStreamMap() {
-        Person person1 = new Person();
-        person1.setName("Zhang");
-        person1.setAge(10);
-
-        Person person2 = new Person();
-        person2.setName("LiSi");
-        person2.setAge(22);
-
-        List<Person> personList = Lists.newArrayList();
-        personList.add(person1);
-        personList.add(person2);
-
+        List<Person> personList = getPersonList();
         // 函数式接口是可以用lambda表达式写的（先找到函数式接口，除去default方法，看是否有入参、出参，然后在根据lambda表达式写）
         // 如toMap()方法需要两个参数都是函数式接口Function，而这个接口的方法是R apply(T t); 参数都是泛型，类型都可以定义，这里说明是接收一个参数，然后返回一个参数
         Map<String, Integer> map = personList.stream().collect(Collectors.toMap(x -> x.getName(), y -> y.getAge()));
@@ -67,10 +71,6 @@ public class StreamTest {
 
     public static void testEmptyList() {
         List<Person> personList = Lists.newArrayList();
-//        Person person1 = new Person();
-//        person1.setAge(1);
-//        personList.add(person1);
-
         List<Person> newList = personList.stream().
                 filter(x -> x.getAge() != 0).
                 collect(Collectors.toList());
@@ -79,18 +79,7 @@ public class StreamTest {
 
     // 测试stream的map功能
     public static void mapTest() {
-        Person person1 = new Person();
-        person1.setName("Zhang");
-        person1.setAge(44);
-
-        Person person2 = new Person();
-        person2.setName("LiSi");
-        person2.setAge(66);
-
-        List<Person> personList = Lists.newArrayList();
-        personList.add(person1);
-        personList.add(person2);
-
+        List<Person> personList = getPersonList();
         List<Car> carList = personList.stream()
                 .map(x -> {
                     Car car = new Car();
@@ -102,27 +91,7 @@ public class StreamTest {
 
     // 排序
     public static void orderPerson() {
-
-        Person person = new Person();
-        person.setName("张三");
-        person.setAge(18);
-        person.setGmtCreate(189L);
-
-        Person person2 = new Person();
-        person2.setName("李李");
-        person2.setAge(13);
-        person2.setGmtCreate(188L);
-
-        Person person3 = new Person();
-        person3.setName("王王");
-        person3.setAge(19);
-        person3.setGmtCreate(187L);
-
-        List<Person> personList = Lists.newArrayList();
-        personList.add(person);
-        personList.add(person2);
-        personList.add(person3);
-
+        List<Person> personList = getPersonList();
         List<Person> newList = personList.stream()
                 .sorted(Comparator.comparing(Person::getAge).reversed())
                 .collect(Collectors.toList());
@@ -139,13 +108,44 @@ public class StreamTest {
                 .collect(Collectors.toList());
         System.out.println("第三个：" + newList3);
     }
+
+
+    // 基础功能：获取用户列表
+    public static List<Person> getPersonList() {
+        Person person = new Person();
+        person.setName("张三");
+        person.setAge(18);
+        person.setGmtCreate(189L);
+        person.setOriginType(1);
+
+        Person person2 = new Person();
+        person2.setName("李李");
+//        person2.setName("王王");
+        person2.setAge(19);
+        person2.setGmtCreate(188L);
+        person2.setOriginType(2);
+
+        Person person3 = new Person();
+        person3.setName("王王");
+        person3.setAge(19);
+        person3.setGmtCreate(187L);
+        person3.setOriginType(2);
+
+        List<Person> personList = Lists.newArrayList();
+        personList.add(person);
+        personList.add(person2);
+        personList.add(person3);
+
+        return personList;
+    }
 }
 
 @Data
 class Person {
     private String name;
-    private int age;
+    private Integer age;
     private Long gmtCreate;
+    private Integer originType;
 }
 
 @Data

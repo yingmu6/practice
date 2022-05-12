@@ -18,7 +18,7 @@ public class MapStructTest {
         AnimalConverter animalConverter = AnimalConverter.INSTANCE;
 
         AnimalVO animalVO = new AnimalVO();
-        animalVO.setName("香蕉");
+        animalVO.setName(null);
         animalVO.setColorName("红色");
         animalVO.setPrice(11);
         animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
