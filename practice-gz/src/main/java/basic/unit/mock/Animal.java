@@ -1,5 +1,8 @@
 package basic.unit.mock;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,4 +24,20 @@ public class Animal {
     public String getAnimalName(String type) {
         return this.nameMap.get(type);
     }
+
+    public String sayHello() {
+        return "Hello";
+    }
+
+    public String getPigCry(Pig pig) {
+        return pig.getName();
+    }
+
+}
+
+@Getter
+@Setter
+class Pig {
+    private String name;
+    private Integer age;
 }

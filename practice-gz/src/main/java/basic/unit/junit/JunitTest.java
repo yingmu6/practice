@@ -25,7 +25,19 @@ public class JunitTest { //运行类，可以执行多个测试方法
         System.out.println("before Method");
     }
 
+//    @Before
+//    public void A
+//
+//    {
+//
+//    } //todo @csy  @BeforeEach待使用
+
+    /**
+     * org.mockito.BDDMockito#given(java.lang.Object)待测试
+     */
+
     @After
+
     public void AfterMethod() { //每个方法调用后被执行，每调用一个方法，就执行一次，类中有多个测试方法时，会被执行多次
         System.out.println("after Method");
     }

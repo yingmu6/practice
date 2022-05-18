@@ -72,6 +72,49 @@ public class MockTest {
         assertEquals("PeiQi", animal.getAnimalName("pig"));
     }
 
+    @Test
+    public void test_return() {
+        Animal animal1 = Mockito.mock(Animal.class);
+        Mockito.when(animal1.sayHello()).thenReturn("hh");
+        System.out.println(animal1.sayHello());
+
+        Animal animal2 = new Animal();
+        System.out.println(animal2.sayHello());
+
+        Animal animal3 = Mockito.mock(Animal.class);
+        Mockito.when(animal3.getAnimalName("22")).thenReturn("hh44"); // 传入参数匹配上，才会返回值（符合预期，才返回mock值）
+
+        System.out.println(animal3.getAnimalName("33"));
+        System.out.println(animal3.getAnimalName("22"));
+
+        Pig pig1 = new Pig();
+        pig1.setName("小猪");
+        Animal animal4 = Mockito.mock(Animal.class);
+        Mockito.when(animal4.getPigCry(pig1)).thenReturn("小猪叫");
+
+        Pig pig2 = new Pig();
+        pig2.setName("大猪");
+        Animal animal5 = Mockito.mock(Animal.class);
+        Mockito.when(animal5.getPigCry(pig2)).thenReturn("大猪叫"); // 对象也可以做比较条件
+
+        System.out.println(animal4.getPigCry(pig1));
+        System.out.println(animal5.getPigCry(pig2));
+
+        Mockito.when(animal5.getPigCry(Mockito.argThat(new ArgumentMatcher<Pig>() {
+            @Override
+            public boolean matches(Pig pig) {
+                if (!(pig instanceof Pig)) {
+                    return false;
+                }
+                return pig.getAge() == 1;
+            }
+        }))).thenReturn("猪1岁了");
+
+        Pig pig3 = new Pig();
+        pig3.setAge(1);
+        System.out.println(animal5.getPigCry(pig3));
+    }
+
 }
 
 /**

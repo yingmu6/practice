@@ -21,6 +21,7 @@ public class MapStructTest {
         animalVO.setName(null);
         animalVO.setColorName("红色");
         animalVO.setPrice(11);
+        animalVO.setAnimal(1);
         animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
 
         AnimalBO animalBO = animalConverter.toAnimalBO(animalVO);
@@ -54,6 +55,7 @@ interface AnimalConverter {
             @Mapping(target = "price", expression = "java(animalVO.getPrice() + 1)"),
 
             @Mapping(target = "color", expression = "java(animalVO.getColorName() + \"haha\")"),
+            @Mapping(target = "isAnimal", expression = "java(1==animalVO.getAnimal()?false:true)")
     })
     AnimalBO toAnimalBO(AnimalVO animalVO);
 }
@@ -70,6 +72,8 @@ class AnimalBO {
     private String color;
 
     private Double weight;
+
+    private Boolean isAnimal;
 }
 
 @Getter
@@ -84,4 +88,6 @@ class AnimalVO {
     private String colorName;
 
     private Double weight;
+
+    private Integer animal;
 }

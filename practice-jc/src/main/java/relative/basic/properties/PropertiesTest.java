@@ -14,7 +14,7 @@ import java.util.Properties;
  * @date 2019-06-04 07:43
  */
 public class PropertiesTest {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception { //todo @csy Properties怎么与输入输出流联合使用的
         PropertiesTest test = new PropertiesTest();
         Properties properties = new Properties();
         test.read(properties);
