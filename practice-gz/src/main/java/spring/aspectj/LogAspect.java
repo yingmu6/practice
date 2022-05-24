@@ -7,10 +7,7 @@ package spring.aspectj;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -65,9 +62,30 @@ public class LogAspect {
     }
 
 
-    @AfterThrowing(value = "logPointcut()", throwing = "e")
+//    @AfterThrowing(value = "logPointcut()", throwing = "e")
+//    public void exceptionDeal(JoinPoint joinPoint, Exception e) {
+//        System.out.println("捕获到异常信息=" + e.getMessage());
+//    }
+
+    @AfterThrowing(pointcut = "logPointcut()", throwing = "e")  //该注解是在异常抛出后处理，所以会先打error日志，所以需要权衡
     public void exceptionDeal(JoinPoint joinPoint, Exception e) {
-        System.out.println("捕获到异常信息=" + e.getMessage());
+//        if (e instanceof NumberFormatException) {
+//            NumberFormatException numberFormatException = (NumberFormatException) e;
+//            System.out.println("字符串异常：" + numberFormatException.getMessage());
+//        }
+    }
+
+    @Around(value = "logPointcut()")
+    public void aroundDeal(JoinPoint point) { //可以捕获异常，然后做相应的逻辑处理
+        try {
+            //执行方法
+            ((ProceedingJoinPoint) point).proceed();
+        } catch (Throwable throwable) {
+            System.out.println("111uuuuuuuuuuuuu");
+//            throwable.printStackTrace(); //将异常捕获，不向上抛出
+        } finally {
+            System.out.println("111");
+        }
     }
 
     /**

@@ -11,7 +11,7 @@ import spring.event.ApplicationContextObj;
  */
 @Getter
 public class BasicTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) { //todo @csy com.alibaba.spring.util.BeanFactoryUtils使用
 //        spring.event.basic();
 //        spring();
 //        spring.event();

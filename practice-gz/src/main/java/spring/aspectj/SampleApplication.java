@@ -9,6 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import spring.inter.IAnimal;
 
 @ComponentScan("spring.aspectj")
 @Configuration
@@ -16,8 +17,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class SampleApplication {
 
     public static void main(String[] args) {
-        basic();
-        exceptionUse();
+//        basic();
+//        exceptionUse();
+//        testNum();
+
+        testAnimal();
     }
 
     public static void basic() {
@@ -38,5 +42,18 @@ public class SampleApplication {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SampleApplication.class);
         HelloService helloService = context.getBean(HelloService.class);
         helloService.sayHelloWithException();
+    }
+
+    //
+    public static void testNum() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SampleApplication.class);
+        HelloService helloService = context.getBean(HelloService.class);
+        helloService.testNum();
+    }
+
+    public static void testAnimal() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SampleApplication.class);
+        IAnimal animal = context.getBean(IAnimal.class);
+        animal.cry();
     }
 }

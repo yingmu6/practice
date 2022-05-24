@@ -44,4 +44,13 @@ public class HelloService {
         Long a = null;
         System.out.println(a.longValue());
     }
+
+    public void testNum() {
+        String str = "ssfd";
+        try {
+            Integer.parseInt(str);
+        } catch (Exception e) {
+            throw new NumberFormatException("转换错误了");
+        }
+    }
 }
