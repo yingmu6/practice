@@ -19,7 +19,7 @@ public class MapStructTest {
 
         AnimalVO animalVO = new AnimalVO();
         animalVO.setName(null);
-        animalVO.setColorName("红色");
+        animalVO.setColorName(" 红  色  ");
         animalVO.setPrice(11);
         animalVO.setAnimal(1);
         animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
@@ -54,7 +54,7 @@ interface AnimalConverter {
 
             @Mapping(target = "price", expression = "java(animalVO.getPrice() + 1)"),
 
-            @Mapping(target = "color", expression = "java(animalVO.getColorName() + \"haha\")"),
+            @Mapping(target = "color", expression = "java(org.apache.commons.lang.StringUtils.deleteWhitespace(animalVO.getColorName()) + \"haha\")"),
             @Mapping(target = "isAnimal", expression = "java(1==animalVO.getAnimal()?false:true)")
     })
     AnimalBO toAnimalBO(AnimalVO animalVO);

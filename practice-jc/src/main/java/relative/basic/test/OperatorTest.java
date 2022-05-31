@@ -15,5 +15,10 @@ public class OperatorTest {
         System.out.println(Objects.nonNull(a) && !a.equals(0)); // !优先级高于 &&
 
         System.out.println(Objects.nonNull(a) && !false); // !优先级高于 &&
+
+
+//        System.out.println(!StringUtils.isAnyEmpty("", "11"));
+        
+
     }
 }

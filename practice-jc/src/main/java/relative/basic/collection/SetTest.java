@@ -1,5 +1,6 @@
 package relative.basic.collection;
 
+import com.google.common.collect.Sets;
 import lombok.*;
 
 import java.util.*;
@@ -13,8 +14,16 @@ public class SetTest {
     private static final Map<String, Set<Fruit>> LOG_ENTRIES = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
-        toList();
+//        toList();
+        basic();
+    }
 
+    public static void basic() {
+        Set<String> set = Sets.newHashSet();
+        System.out.println(set.add("111"));
+        System.out.println(set.add("222"));
+        System.out.println(set.add("222"));
+        System.out.println(set);
     }
 
     // 转换为List的方式
