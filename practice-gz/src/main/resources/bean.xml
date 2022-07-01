@@ -4,10 +4,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="animal" class="spring.basic.Animal">
-        <property name="name" value="pig"/>
-        <property name="age" value="12"/>
-    </bean>
+<!--    <bean id="animal" class="spring.basic.Animal">-->
+<!--        <property name="name" value="pig"/>-->
+<!--        <property name="age" value="12"/>-->
+<!--    </bean>-->
 
 <!--    事件监听 -->
 <!--    <bean id="eventObj" class="spring.basic.EventObj"/>-->

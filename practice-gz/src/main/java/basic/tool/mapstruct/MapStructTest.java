@@ -1,5 +1,6 @@
 package basic.tool.mapstruct;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,17 +16,25 @@ import org.mapstruct.factory.Mappers;
 public class MapStructTest {
     public static void main(String[] args) {
 
-        AnimalConverter animalConverter = AnimalConverter.INSTANCE;
+//        AnimalConverter animalConverter = AnimalConverter.INSTANCE;
+//
+//        AnimalVO animalVO = new AnimalVO();
+//        animalVO.setName(null);
+//        animalVO.setColorName(" 红  色  ");
+//        animalVO.setPrice(11);
+//        animalVO.setAnimal(1);
+//        animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
+//
+//        AnimalBO animalBO = animalConverter.toAnimalBO(animalVO);
+//        System.out.println(animalBO);
 
-        AnimalVO animalVO = new AnimalVO();
-        animalVO.setName(null);
-        animalVO.setColorName(" 红  色  ");
-        animalVO.setPrice(11);
-        animalVO.setAnimal(1);
-        animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
 
-        AnimalBO animalBO = animalConverter.toAnimalBO(animalVO);
-        System.out.println(animalBO);
+        AnimalBO animalBO = new AnimalBO();
+        animalBO.setName("jaja");
+
+        String str = JSON.toJSONString(animalBO);
+        AnimalBO animalBO1 = JSON.parseObject(str, AnimalBO.class);
+        System.out.println(animalBO1);
     }
 }
 
@@ -54,7 +63,7 @@ interface AnimalConverter {
 
             @Mapping(target = "price", expression = "java(animalVO.getPrice() + 1)"),
 
-            @Mapping(target = "color", expression = "java(org.apache.commons.lang.StringUtils.deleteWhitespace(animalVO.getColorName()) + \"haha\")"),
+//            @Mapping(target = "color", expression = "java(org.apache.commons.StringUtils.deleteWhitespace(animalVO.getColorName()) + \"haha\")"),
             @Mapping(target = "isAnimal", expression = "java(1==animalVO.getAnimal()?false:true)")
     })
     AnimalBO toAnimalBO(AnimalVO animalVO);
@@ -62,7 +71,6 @@ interface AnimalConverter {
 
 @Getter
 @Setter
-@ToString
 class AnimalBO {
 
     private String name;
