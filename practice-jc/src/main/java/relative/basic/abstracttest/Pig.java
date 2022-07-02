@@ -6,7 +6,7 @@ package relative.basic.abstracttest;
  */
 public class Pig extends Animal{
     @Override
-    void cry() {
+    void cry() { //此处会默认调用super()，调用父类的构造函数
         System.out.println("猪叫");
     }
 }
