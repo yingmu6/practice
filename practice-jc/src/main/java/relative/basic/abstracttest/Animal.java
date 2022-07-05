@@ -16,7 +16,7 @@ public abstract class Animal { //抽象类 测试
      * 1）向上转型
      * 2）抽象类实现多态
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) { //test
         Animal animal = new Dog(); //会先执行父类的构造函数
         animal.cry();
 
