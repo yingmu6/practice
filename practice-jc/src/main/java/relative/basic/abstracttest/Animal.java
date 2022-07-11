@@ -4,7 +4,7 @@ package relative.basic.abstracttest;
  * @author : chensy
  * Date : 2020/8/24 上午10:07
  */
-public abstract class Animal { // 抽 象 类 测 试
+public abstract class Animal { // 抽象类测试
 
     Animal() {
         System.out.println("这是抽象类");
