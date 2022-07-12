@@ -15,6 +15,27 @@ import java.util.Optional;
  */
 public class BasicTest {
     public static void main(String[] args) {
+        basic0();
+    }
+
+    private static void basic0() {
+        Map<String, String> map = new HashMap<>();
+        map.put("407", "hh");
+
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("407", "hh222");
+        map2.put("408", "hh22233");
+
+        Map<String, String> map3 = new HashMap<>(map);
+        map3.putAll(map2);
+        System.out.println(map3);
+
+        Map<String, String> map4 = new HashMap<>(map2);
+        map4.putAll(map); //会进行值覆盖，后面相同参数key的值，会把前面的key替换覆盖
+        System.out.println(map4);
+    }
+
+    private static void basic1() {
         Map<String, String> map = new HashMap<>();
         map.put("407", "hh");
 
