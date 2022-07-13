@@ -9,6 +9,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author chensy
  * @date 2022/5/11
@@ -16,25 +19,29 @@ import org.mapstruct.factory.Mappers;
 public class MapStructTest {
     public static void main(String[] args) {
 
-//        AnimalConverter animalConverter = AnimalConverter.INSTANCE;
+        AnimalConverter animalConverter = AnimalConverter.INSTANCE;
+
+        AnimalVO animalVO = new AnimalVO();
+        animalVO.setName(null);
+        animalVO.setColorName(" 红  色  ");
+        animalVO.setPrice(11);
+        animalVO.setAnimal(1);
+        animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
+
+        List<String> names = new ArrayList<>();
+        names.add("张三");
+        animalVO.setNames(names);
+
+        AnimalBO animalBO = animalConverter.toAnimalBO(animalVO);
+        System.out.println(JSON.toJSONString(animalBO));
+
+
+//        AnimalBO animalBO = new AnimalBO();
+//        animalBO.setName("jaja");
 //
-//        AnimalVO animalVO = new AnimalVO();
-//        animalVO.setName(null);
-//        animalVO.setColorName(" 红  色  ");
-//        animalVO.setPrice(11);
-//        animalVO.setAnimal(1);
-//        animalVO.setWeight(11.288); //duble类型也会映射，只是若后位是0，会去掉，如11.20，转换后位11.2
-//
-//        AnimalBO animalBO = animalConverter.toAnimalBO(animalVO);
-//        System.out.println(animalBO);
-
-
-        AnimalBO animalBO = new AnimalBO();
-        animalBO.setName("jaja");
-
-        String str = JSON.toJSONString(animalBO);
-        AnimalBO animalBO1 = JSON.parseObject(str, AnimalBO.class);
-        System.out.println(animalBO1);
+//        String str = JSON.toJSONString(animalBO);
+//        AnimalBO animalBO1 = JSON.parseObject(str, AnimalBO.class);
+//        System.out.println(animalBO1);
     }
 }
 
@@ -82,6 +89,8 @@ class AnimalBO {
     private Double weight;
 
     private Boolean isAnimal;
+
+    private List<String> names;
 }
 
 @Getter
@@ -98,4 +107,6 @@ class AnimalVO {
     private Double weight;
 
     private Integer animal;
+
+    private List<String> names;
 }

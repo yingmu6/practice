@@ -1,10 +1,13 @@
 package spring.basic;
 
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author chensy
  * @date 2021/9/8
  */
+@Service
 public class Animal {
     private String name;
     private Integer age;

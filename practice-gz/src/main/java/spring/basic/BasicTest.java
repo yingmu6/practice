@@ -3,6 +3,8 @@ package spring.basic;
 import lombok.Getter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import spring.event.AnimalEventListener;
+import spring.event.AnimalEventObj;
 import spring.event.ApplicationContextObj;
 
 /**
@@ -30,7 +32,24 @@ public class BasicTest {
     public static void basic_spring() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
+        animal.setName("猴子");
+        animal.setAge(11);
         System.out.println(animal.getName() + ";;;" + animal.getAge());
+
+        AnimalEventListener animalEventListener = applicationContext.getBean(AnimalEventListener.class);
+//        ApplicationEventPublisher eventPublisher = new ApplicationEventPublisher() {
+//            @Override
+//            public void publishEvent(ApplicationEvent event) {
+//
+//            }
+//
+//            @Override
+//            public void publishEvent(Object event) {
+//
+//            }
+//        };
+        AnimalEventObj animalEventObj = new AnimalEventObj(animal);
+        animalEventListener.onApplicationEvent(animalEventObj); //todo @csy 感觉没有用到ApplicationEventPublisher，待确定
     }
 
     public static void spring() {
