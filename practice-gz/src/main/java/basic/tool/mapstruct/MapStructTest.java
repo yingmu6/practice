@@ -82,7 +82,7 @@ class AnimalBO {
 
     private String name;
 
-    private String price;
+    private Integer price;
 
     private String color;
 
