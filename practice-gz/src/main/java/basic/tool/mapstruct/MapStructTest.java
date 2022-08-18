@@ -74,6 +74,12 @@ interface AnimalConverter {
             @Mapping(target = "isAnimal", expression = "java(1==animalVO.getAnimal()?false:true)")
     })
     AnimalBO toAnimalBO(AnimalVO animalVO);
+
+    //todo @csy-08-10 怎么进行循环变量（将对象列表进行转换）
+    // /**
+    //     * 钥匙类型列表
+    //     */
+    //    private List<AccessKeyTypeEnum> accessKeyTypes;
 }
 
 @Getter
