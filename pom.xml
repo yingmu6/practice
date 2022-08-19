@@ -12,8 +12,7 @@
         <module>practice-db</module>
         <module>practice-jc</module>
         <module>practice-gz</module>
-        <module>practice-dbo</module>
-        <module>practice-db2</module>
+        <module>db-test</module>
     </modules>
 
     <properties>
