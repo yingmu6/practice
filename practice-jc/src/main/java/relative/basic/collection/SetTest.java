@@ -15,7 +15,17 @@ public class SetTest {
 
     public static void main(String[] args) {
 //        toList();
-        basic();
+//        basic();
+        toArray();
+    }
+
+    public static void toArray() {
+        Set<String> set = Sets.newHashSet();
+        System.out.println(set.add("111"));
+        System.out.println(set.add("222"));
+
+        String[] arr = set.toArray(new String[1]); //将Set转换为数组（会把set中所有元素写到数组中）
+        System.out.println(arr.length);
     }
 
     public static void basic() {

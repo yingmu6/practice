@@ -82,6 +82,23 @@ interface AnimalConverter {
     //    private List<AccessKeyTypeEnum> accessKeyTypes;
 }
 
+/**
+ * 表达式中可以调用：方法，列如：
+ *
+ * @Mappings({
+ * @Mapping(target = "data", expression = "java(toDeserializeData(request.getData()))") //可以定义一个default方法，进行调用
+ * })
+ * DxxRequestBO toDxxRequestBO(DxxRequest request);
+ * <p>
+ * default DxxRequestBO toDeserializeData(String data) {
+ * try {
+ * return JSON.parseObject(data, DxxRequestBO.class);
+ * } catch (Exception e) {
+ * return null;
+ * }
+ * }
+ */
+
 @Getter
 @Setter
 class AnimalBO {
