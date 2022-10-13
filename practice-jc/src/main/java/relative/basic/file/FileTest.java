@@ -20,6 +20,6 @@ public class FileTest {
 
         // 读取文件内容
         InputStream inputStream = new FileInputStream(file2);
-        System.out.println(new String(inputStream.readAllBytes()));
+//        System.out.println(new String(inputStream.readAllBytes()));
     }
 }
