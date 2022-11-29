@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="basic-util" />
-        <module name="api" />
+        <module name="practice-gz" />
         <module name="provider" />
         <module name="spring-util" />
         <module name="web-util" />
+        <module name="api" />
+        <module name="practice-jc" />
         <module name="consumer" />
       </profile>
     </annotationProcessing>
