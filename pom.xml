@@ -12,6 +12,9 @@
         <module>practice-db</module>
         <module>practice-jc</module>
         <module>practice-gz</module>
+        <module>practice-sf</module>
+        <module>practice-sj</module>
+        <module>practice-qt</module>
     </modules>
 
     <properties>
