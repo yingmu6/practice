@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <bean id="helloTaskService" class="spring.task.HelloTaskService" />
+
+    <task:scheduler id="helloScheduler" pool-size="5"/>  <!-- pool-size：指定执行的线程数，如果此处只设定为1，有多个任务要执行时，就会编程串行了，就会依次执行了-->
+
+    <task:scheduled-tasks scheduler="helloScheduler">
+        <task:scheduled ref="helloTaskService" method="sayHelloByFrench" initial-delay="2000" fixed-delay="2000"/>
+        <task:scheduled ref="helloTaskService" method="sayHelloByChinese"  initial-delay="2000" fixed-delay="2000"/>
+        <task:scheduled ref="helloTaskService" method="sayHelloByEnglish" initial-delay="2000" fixed-delay="2000"/>
+    </task:scheduled-tasks>
+</beans>
