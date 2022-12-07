@@ -11,6 +11,7 @@
         <module name="practice-gz" />
         <module name="practice-sf" />
         <module name="practice-qt" />
+        <module name="practice-web" />
         <module name="provider" />
         <module name="spring-util" />
         <module name="web-util" />
