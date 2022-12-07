@@ -18,13 +18,21 @@
     <task:executor id="executorTest" pool-size="5"/>
     <task:executor id="poolTaskExecutor" pool-size="3"/>
 
-    <task:scheduler id="schedulerTest" pool-size="10"/>
-    <task:annotation-driven executor="executorTest" scheduler="schedulerTest"/>
+    <task:scheduler id="schedulerTestFre" pool-size="10"/>
+<!--    <task:scheduler id="schedulerTestChi" pool-size="10"/>-->
+<!--    <task:scheduler id="schedulerTestEng" pool-size="10"/>-->
 
+    <task:annotation-driven/> <!-- 指定注解驱动，可以使用@Sync、@scheduled代替xml执行，该注解只能出现一次 -->
 
-    <task:scheduled-tasks scheduler="schedulerTest">
+    <task:scheduled-tasks scheduler="schedulerTestFre">
         <task:scheduled ref="helloAnnotationServiceV2" method="sayHelloByFrench" initial-delay="2000" fixed-delay="2000"/>
-        <task:scheduled ref="helloAnnotationServiceV2" method="sayHelloByChinese" initial-delay="2000" fixed-delay="2000"/>
-        <task:scheduled ref="helloAnnotationServiceV2" method="sayHelloByEnglish" initial-delay="2000" fixed-delay="2000"/>
     </task:scheduled-tasks>
+
+<!--    <task:scheduled-tasks scheduler="schedulerTestChi">-->
+<!--        <task:scheduled ref="helloAnnotationServiceV2" method="sayHelloByChinese" initial-delay="2000" fixed-delay="2000"/>-->
+<!--    </task:scheduled-tasks>-->
+
+<!--    <task:scheduled-tasks scheduler="schedulerTestEng">-->
+<!--        <task:scheduled ref="helloAnnotationServiceV2" method="sayHelloByEnglish" initial-delay="2000" fixed-delay="2000"/>-->
+<!--    </task:scheduled-tasks>-->  <!-- 使用注解方式@Scheduled，就可以替换<task:scheduled>使用 -->
 </beans>
