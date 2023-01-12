@@ -49,7 +49,7 @@ public class PropertiesTest {
         File file = new File("practice-jc/src/main/java/relative/basic/properties/test.properties"); //带上项目的相对路径，可以使用
         FileInputStream ins = new FileInputStream(file);
         properties.load(ins);
-        System.out.println(properties.toString());
+        System.out.println("打印属性值：" + properties);
     }
 
     /**
