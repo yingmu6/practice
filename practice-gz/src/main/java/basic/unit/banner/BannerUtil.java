@@ -83,7 +83,7 @@ public class BannerUtil {
     public static void main(String[] args) {
         String msg = "QQCKD-20220926-000175";
         //生成条形码路径
-        String path = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\banner\\barcode1.png";
+        String path = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\banner\\barcode2.png";
         generateFile(msg, path);
     }
 }
