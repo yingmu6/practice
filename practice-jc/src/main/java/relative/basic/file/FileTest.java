@@ -9,7 +9,7 @@ import java.io.InputStream;
  * @author chensy
  * @date 2022/5/26
  */
-public class FileTest {
+public class FileTest { //flag
     public static void main(String[] args) throws Exception {
         createFileByRelativePath();
     }
