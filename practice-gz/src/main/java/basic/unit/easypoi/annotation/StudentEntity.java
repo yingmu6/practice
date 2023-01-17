@@ -36,7 +36,7 @@ public class StudentEntity implements Serializable {
     @Excel(name = "学生照片", type = 2 ,width = 40 , height = 20,imageType = 2)
     private byte[] picture;
 
-    @Excel(name = "学生条形码", type = 2 ,width = 40 , height = 20,imageType = 1)
+    @Excel(name = "学生条形码", type = 2 ,width = 60 , height = 40,imageType = 1)
     private String barCode;
 
     public String getBarCode() {

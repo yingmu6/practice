@@ -31,7 +31,7 @@ public class BannerUtil {
             e.printStackTrace();
         }
         try {
-            generateBarCode128(msg, 10.0, 0.2, true, false, outputStream);
+            generateBarCode128(msg, 9.2, 0.18, true, false, outputStream);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +52,7 @@ public class BannerUtil {
         Code128Bean bean = new Code128Bean();
 
         // 分辨率，越大条形码就越大
-        int dpi = 150;
+        int dpi = 180;
 
         // 设置两侧是否留白
         bean.doQuietZone(withQuietZone);
@@ -81,9 +81,18 @@ public class BannerUtil {
     }
 
     public static void main(String[] args) {
-        String msg = "QQCKD-20220926-000175";
+        String msg = "CGRKD-20221212-2444";
         //生成条形码路径
-        String path = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\banner\\barcode2.png";
+        String path = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\banner\\barcode3_180-9.2-0.18.png";
         generateFile(msg, path);
     }
+
+    /**
+     * 分辨率测试验证结果
+     * 1）dpi = 120时，扫不出来
+     * 2）dpi = 150时，能扫出来，但是会有概率出现非正常的字符，如"C+RK%2F-2008"，概率还比较大
+     * 3）dpi = 180时，能扫出来，测试了5次都是正确的
+     * 4）dpi = 210时，能扫出来，测试了5次都是正确的
+     *
+     */
 }

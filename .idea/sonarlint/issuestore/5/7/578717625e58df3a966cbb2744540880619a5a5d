@@ -1,13 +1,0 @@
-
-t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¿Éã‹ıÿÿÿÿ
-t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¿Éã‹ıÿÿÿÿ
-t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¿Éã‹ıÿÿÿÿ
-t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¿Éã‹ıÿÿÿÿ
-7
-java:S1116"Remove this empty statement.(¿Éã‹ıÿÿÿÿ
-N	java:S106"9Replace this use of System.out or System.err by a logger.(‡éÈÓ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(Ğô¹¿ÿÿÿÿÿ
-M	java:S106"9Replace this use of System.out or System.err by a logger.(ÁˆÁ3
-S	java:S106""9Replace this use of System.out or System.err by a logger.(ßá÷ùÿÿÿÿ
-N	java:S106)"9Replace this use of System.out or System.err by a logger.(Å¨¤
-N	java:S106*"9Replace this use of System.out or System.err by a logger.(±­ï‘
