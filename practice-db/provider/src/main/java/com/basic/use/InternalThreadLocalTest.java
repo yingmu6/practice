@@ -8,7 +8,7 @@ package com.basic.use;
  * @Description
  */
 public class InternalThreadLocalTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) { //test
         //InternalThreadLocal<Integer> local
     }
 
