@@ -23,8 +23,24 @@ public class StreamTest {
 //        testEmptyList();
 //        testStreamMap();
 
-        // todo @csy anyMatch()待使用
-        testGroupBy();
+        // @csy anyMatch()待使用_2023-02-07 已执行
+//        testGroupBy();
+//        testFilter();
+
+        testAnyMatch();
+    }
+
+    public static void testAnyMatch() {
+        List<Person> personList = getPersonList();
+        boolean isExist = personList.stream().anyMatch(x -> x.getAge() == 17);
+        System.out.println("是否存在满足条件的任意元素，isExist=" + isExist);
+    }
+
+    public static void testFilter() {
+        List<Person> personList = getPersonList();
+        // filter()过滤元素，保留符合条件的元素
+        List<Person> newList = personList.stream().filter(x -> x.getAge() == 19).collect(Collectors.toList());
+        System.out.println(JSON.toJSONString(newList));
     }
 
     // 测试stream的group by功能
