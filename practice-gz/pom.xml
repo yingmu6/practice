@@ -122,5 +122,6 @@
             <groupId>net.sf.barcode4j</groupId>
             <artifactId>barcode4j-light</artifactId>
         </dependency>
+
     </dependencies>
 </project>

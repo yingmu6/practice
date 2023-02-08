@@ -139,11 +139,11 @@ public class TemplateTest {
         String checkName = "xxx";
         String saveName = "";
         BigDecimal totalNum = new BigDecimal(0.600).setScale(2, BigDecimal.ROUND_UP);
-        String supplierName = "xxxx";
+        String supplierName = "xxxx888889999ooooooooooo";
         String billDate = "2022-12-12";
         String enterpriseName = "xxx";
         String billNo = "XXXX-20221212-2444";
-        String remark = "";
+        String remark = "test测试";
         mapData.put("checkName", checkName);
         mapData.put("saveName", saveName);
         mapData.put("totalNum", totalNum);
@@ -175,9 +175,8 @@ public class TemplateTest {
         mapData.put("maplist", maplist);
 
         // 本地Excel文件路径
-        String fileName = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\origin_template_new.xls";
+        String fileName = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\spd-stock-in_test.xls";
 
-        //生成模板
         TemplateExportParams templateExport = new TemplateExportParams(fileName);
 
         String fileUrl = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\bar.jpg";
@@ -186,23 +185,23 @@ public class TemplateTest {
 
         // 设置条形码图片
         ImageEntity image = new ImageEntity();
-//        image.setHeight(400);
-//        image.setWidth(500);
-//        image.setRowspan(4);
-//        image.setColspan(8);
-
+        image.setHeight(400);
+        image.setWidth(500);
         image.setRowspan(2);
-        image.setColspan(4);
+        image.setColspan(3);
 
         image.setUrl(fileUrl);
         mapData.put("barCodeImage", image);
 
-        Workbook workbook = ExcelExportUtil.exportExcel(templateExport, mapData);
+//        Workbook workbook = ExcelExportUtil.exportExcel(templateExport, mapData);
+
+        Workbook workbook = YygExcelExportUtil.exportExcel(templateExport, mapData);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         workbook.write(bos);
         bos.flush();
 
-        FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\template_practice13.xls");
+//        FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\2007-Microsoft-test-new.xlsx");
+        FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\spd-stock-in_test-4.4.0-v3.xls");
         workbook.write(fos);
         fos.flush();
         fos.close();
