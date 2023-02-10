@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package basic.unit.easypoi.template;
+package basic.unit.easypoi.util;
 
 import cn.afterturn.easypoi.cache.ExcelCache;
 import cn.afterturn.easypoi.entity.ImageEntity;
@@ -62,10 +62,10 @@ import static cn.afterturn.easypoi.util.PoiElUtil.*;
  * 2013-10-17
  * @version 1.0
  */
-public final class YygExcelExportOfTemplateUtil extends BaseExportService {
+public final class SelfExcelExportOfTemplateUtil extends BaseExportService {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(YygExcelExportOfTemplateUtil.class);
+            .getLogger(SelfExcelExportOfTemplateUtil.class);
 
     /**
      * 缓存TEMP 的for each创建的cell ,跳过这个cell的模板语法查找,提高效率

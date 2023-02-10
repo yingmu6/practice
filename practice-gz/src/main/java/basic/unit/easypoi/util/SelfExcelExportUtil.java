@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package basic.unit.easypoi.template;
+package basic.unit.easypoi.util;
 
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
@@ -38,12 +38,12 @@ import java.util.Map;
  * @version 1.0
  * 2013-10-17
  */
-public final class YygExcelExportUtil {
+public final class SelfExcelExportUtil {
 
     public static       int    USE_SXSSF_LIMIT = 1000000;
     public static final String SHEET_NAME      = "sheetName";
 
-    private YygExcelExportUtil() {
+    private SelfExcelExportUtil() {
     }
 
     /**
@@ -168,7 +168,7 @@ public final class YygExcelExportUtil {
     @Deprecated
     public static Workbook exportExcel(TemplateExportParams params, Class<?> pojoClass,
                                        Collection<?> dataSet, Map<String, Object> map) {
-        return new YygExcelExportOfTemplateUtil().createExcelByTemplate(params, pojoClass, dataSet,
+        return new SelfExcelExportOfTemplateUtil().createExcelByTemplate(params, pojoClass, dataSet,
                 map);
     }
 
@@ -180,7 +180,7 @@ public final class YygExcelExportUtil {
      * @return
      */
     public static Workbook exportExcel(TemplateExportParams params, Map<String, Object> map) {
-        return new YygExcelExportOfTemplateUtil().createExcelByTemplate(params, null, null, map);
+        return new SelfExcelExportOfTemplateUtil().createExcelByTemplate(params, null, null, map);
     }
 
     /**
@@ -193,7 +193,7 @@ public final class YygExcelExportUtil {
      */
     public static Workbook exportExcel(Map<Integer, Map<String, Object>> map,
                                        TemplateExportParams params) {
-        return new YygExcelExportOfTemplateUtil().createExcelByTemplate(params, map);
+        return new SelfExcelExportOfTemplateUtil().createExcelByTemplate(params, map);
     }
 
     /**
@@ -206,7 +206,7 @@ public final class YygExcelExportUtil {
      */
     public static Workbook exportExcelClone(Map<Integer, List<Map<String, Object>>> map,
                                             TemplateExportParams params) {
-        return new YygExcelExportOfTemplateUtil().createExcelCloneByTemplate(params, map);
+        return new SelfExcelExportOfTemplateUtil().createExcelCloneByTemplate(params, map);
     }
 
 }

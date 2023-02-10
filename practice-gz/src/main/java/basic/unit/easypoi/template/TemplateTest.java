@@ -1,6 +1,7 @@
 package basic.unit.easypoi.template;
 
 import basic.unit.banner.BannerUtil;
+import basic.unit.easypoi.util.SelfExcelExportUtil;
 import cn.afterturn.easypoi.entity.ImageEntity;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
@@ -139,7 +140,7 @@ public class TemplateTest {
         String checkName = "xxx";
         String saveName = "";
         BigDecimal totalNum = new BigDecimal(0.600).setScale(2, BigDecimal.ROUND_UP);
-        String supplierName = "xxxx888889999ooooooooooo";
+        String supplierName = "xxxx888889999ooooooooooo777";
         String billDate = "2022-12-12";
         String enterpriseName = "xxx";
         String billNo = "XXXX-20221212-2444";
@@ -152,6 +153,8 @@ public class TemplateTest {
         mapData.put("enterpriseName", enterpriseName);
         mapData.put("billNo", billNo);
         mapData.put("remark", remark);
+        mapData.put("enterpriseName", "test公司");
+//        mapData.put("enterpriseName", null); //4.4.0版本可以解决Map中值为null的情况，4.0.0会报空指针
 
         List<Map<String, Object>> maplist = new ArrayList<Map<String, Object>>();
         Map<String, Object> itemMap = new HashMap<String, Object>();
@@ -175,7 +178,7 @@ public class TemplateTest {
         mapData.put("maplist", maplist);
 
         // 本地Excel文件路径
-        String fileName = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\spd-stock-in_test.xls";
+        String fileName = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\stock-in-origin.xls";
 
         TemplateExportParams templateExport = new TemplateExportParams(fileName);
 
@@ -193,24 +196,21 @@ public class TemplateTest {
         image.setUrl(fileUrl);
         mapData.put("barCodeImage", image);
 
-//        Workbook workbook = ExcelExportUtil.exportExcel(templateExport, mapData);
+        Workbook workbook = null;
+        try {
+            workbook = SelfExcelExportUtil.exportExcel(templateExport, mapData);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            workbook.write(bos);
+            bos.flush();
 
-        Workbook workbook = YygExcelExportUtil.exportExcel(templateExport, mapData);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        workbook.write(bos);
-        bos.flush();
+            FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\stock-in-origin-4.4.0.xls");
+            workbook.write(fos);
+            fos.flush();
+            fos.close();
 
-//        FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\2007-Microsoft-test-new.xlsx");
-        FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\spd-stock-in_test-4.4.0-v3.xls");
-        workbook.write(fos);
-        fos.flush();
-        fos.close();
-//
-//        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-//        byte[] bytes = ExcelToPdfUtil.excel2pdf(bis);
-//
-//        System.out.println("打印的PDF地址：" + new String(bytes));
-
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**

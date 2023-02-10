@@ -9,6 +9,8 @@ import java.io.*;
 
 /**
  * 条形码测试工具
+ * (目前barcode4j这个工具不好调试宽高、使用zxing工具比较好)
+ *
  * @Author chenSy
  * @Date 2023/01/12 10:52
  * @Description
@@ -31,7 +33,7 @@ public class BannerUtil {
             e.printStackTrace();
         }
         try {
-            generateBarCode128(msg, 9.2, 0.18, true, false, outputStream);
+            generateBarCode128(msg, 9.5, 0.16, true, false, outputStream);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +54,7 @@ public class BannerUtil {
         Code128Bean bean = new Code128Bean();
 
         // 分辨率，越大条形码就越大
-        int dpi = 180;
+        int dpi = 210;
 
         // 设置两侧是否留白
         bean.doQuietZone(withQuietZone);
@@ -83,7 +85,7 @@ public class BannerUtil {
     public static void main(String[] args) {
         String msg = "CGRKD-20221212-2444";
         //生成条形码路径
-        String path = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\banner\\barcode3_180-9.2-0.18.png";
+        String path = "D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\banner\\barcode4_210-9.5-0.16.png";
         generateFile(msg, path);
     }
 
