@@ -188,9 +188,9 @@ public class TemplateTest {
 
         // 设置条形码图片
         ImageEntity image = new ImageEntity();
-        image.setHeight(400);
-        image.setWidth(500);
-        image.setRowspan(2);
+//        image.setHeight(1500); //宽、高可以不指定，根据跨行、跨列进行自适应
+//        image.setWidth(100);
+        image.setRowspan(1); //跨行、跨列需要指定，不然就会缩为一列了，不会根据图片自适应
         image.setColspan(3);
 
         image.setUrl(fileUrl);
@@ -203,7 +203,7 @@ public class TemplateTest {
             workbook.write(bos);
             bos.flush();
 
-            FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\stock-in-origin-4.4.0.xls");
+            FileOutputStream fos = new FileOutputStream("D:\\self_project\\practice\\practice-gz\\src\\main\\java\\basic\\unit\\easypoi\\template\\stock-in-origin-V2.xls");
             workbook.write(fos);
             fos.flush();
             fos.close();
