@@ -1,4 +1,4 @@
-package relative.java8;
+package relative.java8.stream;
 
 import com.google.common.collect.Lists;
 import org.springframework.util.StringUtils;

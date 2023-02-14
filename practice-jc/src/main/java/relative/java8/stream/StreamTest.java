@@ -1,10 +1,13 @@
-package relative.java8;
+package relative.java8.stream;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,38 @@ import java.util.stream.Collectors;
  * Date : 2020/11/17 下午9:03
  */
 public class StreamTest {
+    /**
+     * 功能描述：
+     *     1）Java 8 API添加了一个新的抽象称为流Stream，可以让你以一种声明的方式处理数据。
+     *        Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。
+     *        Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。
+     *
+     *     2）这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。
+     *       元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。
+     *
+     *     3）Stream（流）是一个来自数据源的元素队列并支持聚合操作
+     *       元素是特定类型的对象，形成一个队列。 Java中的Stream并不会存储元素，而是按需计算。
+     *       数据源 流的来源。 可以是集合，数组，I/O channel， 产生器generator 等。
+     *       聚合操作 类似SQL语句一样的操作， 比如filter, map, reduce, find, match, sorted等。
+     *
+     *     和以前的Collection操作不同， Stream操作还有两个基础的特征：
+     *       Pipelining: 中间操作都会返回流对象本身。 这样多个操作可以串联成一个管道， 如同流式风格（fluent style）。 这样做可以对操作进行优化， 比如延迟执行(laziness)和短路( short-circuiting)。
+     *       内部迭代： 以前对集合遍历都是通过Iterator或者For-Each的方式, 显式的在集合外部进行迭代， 这叫做外部迭代。 Stream提供了内部迭代的方式， 通过访问者模式(Visitor)实现。
+     *
+     *     4）在 Java 8 中, 集合接口有两个方法来生成流：
+     *        stream() − 为集合创建串行流。
+     *        parallelStream() − 为集合创建并行流。
+     *
+     *     5）A stream does not store data and, in that sense, is not a data structure. It also never modifies the underlying data source.
+     *        流不存储数据，从某种意义上来说，它不是一个数据接口，它从来不修改数据源的数据
+     *
+     *     6）Stream支持函数式风格操作，也就是支持lambda表达式、
+     *
+     * 参考链接：
+     *     1）https://www.runoob.com/java/java8-streams.html  菜鸟教程_java Stream流的介绍
+     *     2）https://stackify.com/streams-guide-java-8/ 英文版介绍
+     */
+
     public static void main(String[] args) {
 
 //        orderPerson();
@@ -27,7 +62,32 @@ public class StreamTest {
 //        testGroupBy();
 //        testFilter();
 
-        testAnyMatch();
+//        testAnyMatch();
+
+          testFlatMap();
+    }
+
+    // 测试将元素展开
+    public static void testFlatMap() {
+        List<List<String>> nameList = Arrays.asList( //二元数组
+                Arrays.asList("zhang","chen"),
+                Arrays.asList("wang", "li", "liu")
+        );
+
+        // flatMap方法的参数为：Function<? super T, ? extends Stream<? extends R>> mapper
+        // 即入参为泛型、返回值的类型为Stream类型，所以要使用产生Stream的表达式
+        List<String> nameFlatList = nameList.stream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()); //第一种写法
+
+        List<String> nameFlatList2 = nameList.stream()
+                .flatMap(x -> x.stream()) //第二种写法
+                .collect(Collectors.toList());
+
+        // 将二维数组的所有元素展开，形成一维数组
+        System.out.println(JSON.toJSONString(nameFlatList));
+
+        System.out.println(JSON.toJSONString(nameFlatList2));
     }
 
     public static void testAnyMatch() {

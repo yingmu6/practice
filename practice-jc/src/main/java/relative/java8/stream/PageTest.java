@@ -1,4 +1,4 @@
-package relative.java8;
+package relative.java8.stream;
 
 import java.util.List;
 import java.util.stream.Collectors;
