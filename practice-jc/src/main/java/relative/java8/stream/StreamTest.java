@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -49,6 +48,7 @@ public class StreamTest {
      * 参考链接：
      *     1）https://www.runoob.com/java/java8-streams.html  菜鸟教程_java Stream流的介绍
      *     2）https://stackify.com/streams-guide-java-8/ 英文版介绍
+     *     3）https://www.baeldung.com/java-when-to-use-parallel-stream 并行流英文介绍
      */
 
     public static void main(String[] args) {
@@ -64,7 +64,25 @@ public class StreamTest {
 
 //        testAnyMatch();
 
-          testFlatMap();
+//          testFlatMap();
+
+        testSequential();
+        testParallelStream();
+    }
+
+    public static void testSequential() { //顺序流：都是有同一个线程运行，比如使用main线程
+        // 顺序Stream
+        List<Integer> listOfNumbers = Arrays.asList(1, 2, 3, 4);
+        listOfNumbers.stream().forEach(number ->
+                System.out.println("串行Stream：" + number + " " + Thread.currentThread().getName())
+        );
+    }
+    public static void testParallelStream() { //测试并行流：由多个线程并发执行（todo @pause 待进一步探索）
+        List<Integer> listOfNumbers2 = Arrays.asList(1, 2, 3, 4);
+        listOfNumbers2.parallelStream().forEach(number ->
+                System.out.println("并行Stream：" + number + " " + Thread.currentThread().getName())
+        );
+
     }
 
     // 测试将元素展开
