@@ -20,16 +20,17 @@ public class PropertiesTest {
         Properties properties = new Properties();
         test.read(properties);
 
-        properties.put("hh", "tt00");
-        properties.put("gg", "33388");
-        properties.put("gggdd", "232");
-        test.write(properties);
-        System.out.println(PropertiesTest.class.getResource("")); //带上了前缀 file
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println(PropertiesTest.class.getResource("").getPath()); //取得当前类所在位置
-        System.out.println(PropertiesTest.class.getResource("/").getPath());
-
-        readTomcatProperties();
+//        properties.put("hh", "tt00");
+//        properties.put("gg", "33388");
+//        properties.put("gggdd", "232");
+//        test.write(properties);
+//        System.out.println(PropertiesTest.class.getResource("")); //带上了前缀 file
+//        System.out.println(System.getProperty("user.dir"));
+//        System.out.println(PropertiesTest.class.getResource("").getPath()); //取得当前类所在位置
+//        System.out.println(PropertiesTest.class.getResource("/").getPath());
+//
+//        readTomcatProperties();
+//        System.out.println(properties);
     }
 
     /**
@@ -46,7 +47,9 @@ public class PropertiesTest {
         // 使用相对路径
 //        File file = new File("src/main/java/relative/basic/properties/test.properties"); //此处的相对路径，找不到文件
 
-        File file = new File("practice-jc/src/main/java/relative/basic/properties/test.properties"); //带上项目的相对路径，可以使用
+//        File file = new File("practice-jc/src/main/java/relative/basic/properties/test.properties"); //带上项目的相对路径，可以使用
+
+        File file = new File("D:\\self_project\\practice\\practice-jc\\src\\main\\java\\relative\\basic\\properties\\blog-derby.properties"); //绝对路径是可以找到文件的（）
         FileInputStream ins = new FileInputStream(file);
         properties.load(ins);
         System.out.println("打印属性值：" + properties);
