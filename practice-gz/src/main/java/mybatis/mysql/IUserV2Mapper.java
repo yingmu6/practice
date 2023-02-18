@@ -2,8 +2,8 @@ package mybatis.mysql;
 
 /**
  * @Author chenSy
- * @Date 2023/02/16 18:25
+ * @Date 2023/02/18 00:02
  * @Description
  */
-public interface IUserDAO {
+public interface IUserV2Mapper {
 }

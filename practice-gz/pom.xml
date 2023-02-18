@@ -144,6 +144,16 @@
             <artifactId>derby</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+
     </dependencies>
 
     <!-- 此处不加的话，MapperConfig.xml就加载不了AuthorMapper.xml-->
