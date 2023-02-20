@@ -20,24 +20,34 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mybatis.mysql.IUserMapper">
+<mapper namespace="mybatis.mysql.testV2.dao.impl.StudentDAOImpl">
 
 	<sql id="Base_Column_list">
-		`id`,`name`,`no_id`
+		`id`,`name`,`age`,`student_id`,`score`,`gmt_create`,`gmt_modified`
 	</sql>
 
-	<resultMap id="BaseResultMap" type="mybatis.mysql.User">
+	<resultMap id="BaseResultMap" type="mybatis.mysql.testV2.entity.StudentDO">
 		<id column="id" property="id" />
 		<result property="name" column="name" />
-		<result property="noId" column="no_id" />
+		<result property="age" column="age" />
+		<result property="studentId" column="student_id" />
+		<result property="score" column="score" />
+		<result property="gmtCreate" column="gmt_create" />
+		<result property="gmtModified" column="gmt_modified" />
 	</resultMap>
 
-	<select id="getUserList" resultMap="BaseResultMap">
-		select * from user
+	<select id="getByStudentId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_list"/>
+		from student
+		where `student_id` = #{studentId}
 	</select>
 
-	<select id="getUser" resultMap="BaseResultMap">
-		select * from user
+	<select id="getById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_list"/>
+		from student
         where id=#{id}
 	</select>
+
 </mapper>

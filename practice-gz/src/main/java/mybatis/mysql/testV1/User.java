@@ -1,4 +1,4 @@
-package mybatis.mysql;
+package mybatis.mysql.testV1;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +14,6 @@ public class User {
     private int id;
     private String name;
     private int noId;
+    private Long gmtCreate;
+    private Long gmtModified;
 }

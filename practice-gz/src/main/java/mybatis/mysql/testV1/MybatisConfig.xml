@@ -49,7 +49,7 @@
   </environments>
 
   <mappers>
-    <mapper resource="mybatis/mysql/UserMapper.xml"/>
+    <mapper resource="mybatis/mysql/testV1/UserMapper.xml"/>
   </mappers>
 
 </configuration>

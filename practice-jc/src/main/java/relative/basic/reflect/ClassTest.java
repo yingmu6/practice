@@ -11,6 +11,8 @@ public class ClassTest {
         System.out.println(Integer.valueOf(a).getClass());
         System.out.println(Integer.valueOf(a).getClass().getModifiers()); //输出17
 //        System.out.println(Animal.values());
+
+        //todo @csy-23/02/20 java.lang.Class#toGenericString方法测试
     }
 }
 

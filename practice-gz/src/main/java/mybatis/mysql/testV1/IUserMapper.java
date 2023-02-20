@@ -1,4 +1,4 @@
-package mybatis.mysql;
+package mybatis.mysql.testV1;
 
 import java.util.List;
 

@@ -36,7 +36,7 @@ public class BasicTest {
         animal.setAge(11);
         System.out.println(animal.getName() + ";;;" + animal.getAge());
 
-        AnimalEventListener animalEventListener = applicationContext.getBean(AnimalEventListener.class);
+//        AnimalEventListener animalEventListener = applicationContext.getBean(AnimalEventListener.class);
 //        ApplicationEventPublisher eventPublisher = new ApplicationEventPublisher() {
 //            @Override
 //            public void publishEvent(ApplicationEvent event) {
@@ -48,8 +48,8 @@ public class BasicTest {
 //
 //            }
 //        };
-        AnimalEventObj animalEventObj = new AnimalEventObj(animal);
-        animalEventListener.onApplicationEvent(animalEventObj); //todo @csy 感觉没有用到ApplicationEventPublisher，待确定
+//        AnimalEventObj animalEventObj = new AnimalEventObj(animal);
+//        animalEventListener.onApplicationEvent(animalEventObj); //todo @csy 感觉没有用到ApplicationEventPublisher，待确定
     }
 
     public static void spring() {

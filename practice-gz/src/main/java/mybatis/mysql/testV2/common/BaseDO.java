@@ -1,4 +1,4 @@
-package mybatis.mysql.common;
+package mybatis.mysql.testV2.common;
 
 import lombok.Getter;
 import lombok.Setter;
