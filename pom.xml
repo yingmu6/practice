@@ -16,6 +16,9 @@
         <module>practice-sj</module>
         <module>practice-qt</module>
         <module>practice-web</module>
+        <module>practice-db/db-2.5.x</module>
+        <module>practice-db/db-2.7.x</module>
+        <module>practice-db/db-3.2.x</module>
     </modules>
 
     <properties>

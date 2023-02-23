@@ -32,4 +32,6 @@ public abstract class Animal { // 抽象类测试
         animal3.cry();
 
     }
+
+    //todo @csy-23/02/22 探索接口与实现类、子类与父类、实现类与抽象类的关系
 }

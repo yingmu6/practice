@@ -14,6 +14,8 @@ import lombok.Setter;
 public class BitTest {
     int switchStatus; //一个int占用4个字节，刚好32位
 
+    //todo @csy-23/02/21 按位与、或运算
+
     public static void main(String[] args) {
         BitTest bitTest = new BitTest();
         bitTest.turnOn(6);

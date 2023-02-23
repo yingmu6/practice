@@ -16,9 +16,9 @@ import java.util.Map;
 @Repository("studentDAO")
 public class StudentDAOImpl extends BaseDAO<StudentDO> implements IStudentDAO {
 
-    public StudentDAOImpl() {
-        super();
-    }
+//    public StudentDAOImpl() { //可以不写，spring创建StudentDAOImpl对象时，会调用BaseDAO构造方法
+//        super();
+//    }
 
     @Override
     public StudentDO getByStudentId(String studentId) {
