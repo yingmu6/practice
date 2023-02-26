@@ -15,7 +15,19 @@ import java.util.Optional;
  */
 public class BasicTest {
     public static void main(String[] args) {
-        basic0();
+//        basic0();
+        testEntry();
+    }
+
+    private static void testEntry() {
+        Map<String, String> param = new HashMap<>();
+        param.put("name", "zhang");
+        param.put("sex", "13");
+
+        for (Map.Entry<String, String> entry : param.entrySet()) {
+            System.out.println(entry.getKey() + ",,," + entry.getValue());
+        }
+
     }
 
     private static void basic0() {

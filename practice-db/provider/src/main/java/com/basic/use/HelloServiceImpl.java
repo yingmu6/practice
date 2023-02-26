@@ -9,6 +9,6 @@ public class HelloServiceImpl implements HelloService {
     public String sayHello(String str) {
 //        if (str.equals("test")) throw new RpcException("Str 异常");
 //        System.out.println("aa:" + str);
-        return "aa:" + str;
+        return "aa_test:" + str;
     }
 }
