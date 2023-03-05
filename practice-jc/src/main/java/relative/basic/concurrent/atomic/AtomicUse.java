@@ -16,10 +16,10 @@ public class AtomicUse {
     private static AtomicInteger aNum = new AtomicInteger();
 
     public static void main(String[] args) {
-        //basicUse();
-//        unsafeUse1();
-//        unsafeUse2();
-//        unsafeUse3();
+        basicUse();
+        unsafeUse1();
+        unsafeUse2();
+        unsafeUse3();
 
         increment();
     }

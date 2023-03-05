@@ -23,4 +23,6 @@ public class JSONTest {
         System.out.println(switchConfigMap);
         System.out.println(obj);
     }
+
+    //复杂的JSON字符串与对象 建立数据模型
 }
