@@ -13,6 +13,8 @@
 * Constructor使用  
 * java.lang.Enum.ordinal 枚举中的顺序值测试<br>
 * BeanFactoryPostProcessor这个SPI扩展使用（Dubbo使用到）
+* java.util.IdentityHashMap 使用
+* Thread使用，sleep、yield等调试查看
 
 ### sj相关
 * 工厂模式使用
