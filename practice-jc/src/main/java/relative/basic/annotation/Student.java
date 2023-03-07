@@ -4,12 +4,12 @@ package relative.basic.annotation;
  * @author : chensy
  * Date : 2020/7/7 下午12:44
  */
-@Service(name = "student")
+@CustomerService(name = "student")
 public class Student {
 
     private int sex;
 
-    @Method(methodName = "getSex")
+    @CustomerMethod(methodName = "getSex")
     private int getSex(){
         return this.sex;
     }

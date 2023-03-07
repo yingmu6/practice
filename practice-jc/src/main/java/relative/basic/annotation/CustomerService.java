@@ -9,6 +9,6 @@ import java.lang.annotation.*;
 @Documented       //元注解
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
-public @interface Service {
+public @interface CustomerService {
     String name() default "test";
 }

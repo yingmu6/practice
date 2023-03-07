@@ -19,5 +19,5 @@
     </aop:config>
 
     <bean id="aspectBean" class="relative.spring.aop.Aspect" />
-    <bean id="service" class="relative.spring.aop.ServiceImpl"/>
+    <bean id="customerService" class="relative.spring.aop.ServiceImpl"/>
 </beans>
