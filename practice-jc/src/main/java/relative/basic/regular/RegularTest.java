@@ -1,5 +1,9 @@
 package relative.basic.regular;
 
+import com.google.common.collect.Lists;
+import lombok.val;
+
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,12 +13,59 @@ import java.util.regex.Pattern;
  * 正则表达式可以用来搜索、编辑或处理文本。
  * 正则表达式并不仅限于某一种语言，但是在每种语言中有细微的差别。
  *
+ * https://www.javatpoint.com/java-regex  正则表达式英文使用文档
+ *
  * @author chensy
  * @date 2019-05-30 23:26
  */
 public class RegularTest {
     public static void main(String args[]) {
+//       basicUse();
+//       findAndReplace();
 
+       String date = "2020-12-16"; //对应的正则表达式，为\"(\d{4})-(\d{2})-(\d{2})\" //用小括号
+       useWay();
+    }
+
+    private static void useWay() { //进行匹配的方式
+        //1st way
+        Pattern p = Pattern.compile(".s");//. represents single character
+        Matcher m = p.matcher("as");
+        boolean b = m.matches();
+
+        //2nd way
+        boolean b2=Pattern.compile(".s").matcher("as").matches();
+
+        //3rd way
+        boolean b3 = Pattern.matches(".s", "as");
+
+        System.out.println(b+" "+b2+" "+b3);
+    }
+
+    private static void findAndReplace() {
+        String str = "@EntityDetail88(name = \"小猪\")"; //使用"@EntityDetail(\\D*)" 匹配时，输出"@EntityDetail"，未匹配到的字符串就不输出了
+        String str2 = "@EntityDetail66(describe = \"白色的小猪\")";
+        String str3 = "@EntityDetailuu(name = \"小狗\")"; //使用"@EntityDetail(\\D*)" 匹配时, 完整输出
+        String str4 = "@EntityDetail(describe = \"黑色的小狗\")";
+        List<String> strings = Lists.newArrayList();
+        strings.add(str);
+        strings.add(str2);
+        strings.add(str3);
+        strings.add(str4);
+
+        String pattern = "@EntityDetail(\\D*)";
+//        String pattern = "@EntityDetail\\((\\W*)";
+        for (int i = 0; i < strings.size(); i++) {
+            Pattern r = Pattern.compile(pattern);
+            Matcher m = r.matcher(strings.get(i));
+            if (m.find()) {
+                System.out.println("找到字符串：" + m.group(0)); //
+            }
+        }
+
+    }
+
+    private static void basicUse() {
         // 按指定模式在字符串查找
         String line = "This order was placed for QT3000! OK?";
 
@@ -36,6 +87,7 @@ public class RegularTest {
 
             // 字符传替换
             System.out.println(m.replaceAll("test"));
+
 //
 //            int num = m.groupCount();
 //            for (int i = 0; i< num; i++) {
@@ -52,6 +104,13 @@ public class RegularTest {
     }
 
     /**
+     *
+     * IntelliJ (and all JetBrains ideas) support the ability to find and replace text using regular expressions.
+     * Regular expressions in this context can be very powerful. When you do not use regular expressions enough,
+     * it may take some time to come up with a correct regex, often looking at the docs or examples to
+     * find out how they work. （idea使用正则表达式介绍 https://jamiecraane.dev/2020/12/16/intellij_replace_regex/）
+     *
+     *
      * java.util.regex 包主要包括以下三个类：
      *
      * pattern 对象是一个正则表达式的编译表示。Pattern 类没有公共构造方法。要创建一个 Pattern 对象，
@@ -75,7 +134,7 @@ public class RegularTest {
      * [a-z&&[^bc]]	  除 b 和 c 之外的 a 到 z 字符：[ad-z]（差集）
      *
      *
-     * 预定义字符类
+     * 预定义字符类 （元字符，可以直接使用）
      * \D	非数字字符：[^0-9]
      * \d	数字字符：[0-9]
      * \w	单词字符：[a-zA-Z_0-9]
