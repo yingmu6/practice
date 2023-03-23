@@ -181,7 +181,7 @@
                 <version>1.4.1.Final</version>
             </dependency>
 
-            <!-- mapStruct 根据接口生成实现类 -->
+            <!-- mapStruct 根据接口生成实现类， mapstruct与mapstruct-processor两个模块必不可少 -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>

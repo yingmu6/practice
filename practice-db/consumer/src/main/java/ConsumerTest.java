@@ -13,8 +13,8 @@ public class ConsumerTest {
 
         HelloService helloService = (HelloService) context.getBean("helloService");
 
-        RequestContext requestContext = helloService.getClass().getAnnotation(RequestContext.class); //todo @csy 此处为什么拿不到接口上注解？
-        System.out.println("注解值, name=" + requestContext != null ? requestContext.requestName() : "");
+//        RequestContext requestContext = helloService.getClass().getAnnotation(RequestContext.class); //todo @csy 此处为什么拿不到接口上注解？
+//        System.out.println("注解值, name=" + requestContext != null ? requestContext.requestName() : "");
 
         System.out.println(helloService.sayHello("test"));
 
