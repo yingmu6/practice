@@ -1,15 +1,9 @@
 package basic.tool.mapstruct;
 
 import com.alibaba.fastjson.JSON;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,9 +11,41 @@ import java.util.List;
  * @date 2022/5/11
  */
 public class MapStructTest {
-    public static void main(String[] args) {
+    /**
+     * MapStruct 官方文档 https://mapstruct.org/
+     *           github地址：https://github.com/mapstruct/mapstruct/
+     *           好的介绍文档：https://www.baeldung.com/mapstruct
+     *
+     * 1.What is it?
+     * MapStruct is a code generator that greatly simplifies the implementation of mappings between
+     * Java bean types based on a convention over configuration approach.
+     * （MapStruct对于Java Bean类型的转换是极其简单的）
+     *
+     * 2.Why？
+     * Writing such mapping code is a tedious（冗长的） and error-prone（容易出错） task. MapStruct aims at simplifying this work by automating it as much as possible.
+     * （手写转换代码，是冗长的且容易出错。而Mapstruct是简单的，能自动产生映射代码）
+     *
+     * 3.How？
+     * MapStruct is an annotation processor which is plugged into the Java compiler and can be used in command-line builds (Maven, Gradle etc.)
+     * as well as from within your preferred IDE.
+     *
+     * 使用方式
+     * 1）在接口上使用@Mapper
+     * 2）使用Mappers.getMapper(Class class) 创建接口实例
+     * 3）不同对象之间的属性有差异时，使用@Mapping进行指定name或type
+     */
 
-        AnimalConverter animalConverter = AnimalConverter.INSTANCE;
+    public static void main(String[] args) {
+        basicUse();
+        useMultiVar();
+        formatDate();
+    }
+
+    /**
+     * 场景1：基本转换
+     */
+    private static void basicUse() {
+        IAnimalConverter animalConverter = IAnimalConverter.INSTANCE;
 
         AnimalVO animalVO = new AnimalVO();
         animalVO.setName(null);
@@ -33,103 +59,61 @@ public class MapStructTest {
         animalVO.setNames(names);
 
         AnimalBO animalBO = animalConverter.toAnimalBO(animalVO);
-        System.out.println(JSON.toJSONString(animalBO));
-
-
-//        AnimalBO animalBO = new AnimalBO();
-//        animalBO.setName("jaja");
-//
-//        String str = JSON.toJSONString(animalBO);
-//        AnimalBO animalBO1 = JSON.parseObject(str, AnimalBO.class);
-//        System.out.println(animalBO1);
+        System.out.println("基本使用：" + JSON.toJSONString(animalBO));
     }
-}
 
-@Mapper
-interface AnimalConverter {
 
     /**
-     * 需要引入的包有： mapstruct、mapstruct-processor（会为接口生成实现类，相当于是@Mapper注解的解析器）
-     * 声明了@Mapper注解，
+     * 场景2：多个对象的属性值转换为一个对象的属性值
+     */
+    private static void useMultiVar() {
+        DogBO dogBO = new DogBO();
+        dogBO.setDogName("小狗");
+        dogBO.setDogColor("黑色的");
+
+        PigBO pigBO = new PigBO();
+        pigBO.setPigName("小猪");
+        pigBO.setPigColor("白色的");
+
+        MammalBO mammalBO = IAnimalConverter.INSTANCE.toMammalBO(dogBO, pigBO);
+        System.out.println("多个参数转换：" + JSON.toJSONString(mammalBO));
+    }
+
+    /**
+     * 场景3：使用表达式做计算
      */
 
-    AnimalConverter INSTANCE = Mappers.getMapper(AnimalConverter.class);
+    /**
+     * 场景4：使用枚举值
+     */
 
-    @Mappings({
-//            @Mapping(target = "name", ignore = true),
-//            @Mapping(target = "weight", ignore = true),
-            //ignore：忽略是指将值忽略，不是将字段忽略，字段依然存在，
-            // 只是为null（有些业务场景null的字段可能不返回，达到去掉字段的效果）
-            // @Mapping(target = "weight2", ignore = true)  会检查字段是否存在，字段名不对会报错误，
+    /**
+     * 场景5：忽略字段（从场景2中看，birthday值为null，JSON对应的字符串属性没有打印出来，不知道其它序列化工具会不会打印出来）
+     */
 
-            //两个转换的对象，若有差异字段，若不指示清楚，值就会丢失，但不会报错
-//            @Mapping(source = "colorName", target = "color"),
 
-            // 使用java 表达式 source与expression只能任意定义一个（也就是可以直接将source直接转target，也可以将source经过expression表达式处理后再转）
-            // @Mapping(source = "color", target = "colorName", expression = "java(animalVO.getColor().length())")
+    /**
+     * 场景6：使用@BeforeMapping、@AfterMapping注解
+     */
 
-            @Mapping(target = "price", expression = "java(animalVO.getPrice() + 1)"),
+    /**
+     * 场景7：注入spring 主键到Mapper
+     */
 
-//            @Mapping(target = "color", expression = "java(org.apache.commons.StringUtils.deleteWhitespace(animalVO.getColorName()) + \"haha\")"),
-            @Mapping(target = "isAnimal", expression = "java(1==animalVO.getAnimal()?false:true)")
-    })
-    AnimalBO toAnimalBO(AnimalVO animalVO);
+    /**
+     * 场景8：格式化时间
+     */
+    private static void formatDate() {
+        DogBO dogBO = new DogBO();
+        dogBO.setDogName("小黑");
+        dogBO.setBirthDate(new Date());
 
-    //todo @csy-08-10 怎么进行循环变量（将对象列表进行转换）
-    // /**
-    //     * 钥匙类型列表
-    //     */
-    //    private List<AccessKeyTypeEnum> accessKeyTypes;
+        MammalBO mammalBO = IAnimalConverter.INSTANCE.toMammalBOWithDateFormat(dogBO);
+        System.out.println("时间格式化：" + JSON.toJSONString(mammalBO));
+    }
+
 }
 
-/**
- * 表达式中可以调用：方法，列如：
- *
- * @Mappings({
- * @Mapping(target = "data", expression = "java(toDeserializeData(request.getData()))") //可以定义一个default方法，进行调用
- * })
- * DxxRequestBO toDxxRequestBO(DxxRequest request);
- * <p>
- * default DxxRequestBO toDeserializeData(String data) {
- * try {
- * return JSON.parseObject(data, DxxRequestBO.class);
- * } catch (Exception e) {
- * return null;
- * }
- * }
- */
 
-@Getter
-@Setter
-class AnimalBO {
 
-    private String name;
 
-    private Integer price;
-
-    private String color;
-
-    private Double weight;
-
-    private Boolean isAnimal;
-
-    private List<String> names;
-}
-
-@Getter
-@Setter
-@ToString
-class AnimalVO {
-
-    private String name;
-
-    private Integer price;
-
-    private String colorName;
-
-    private Double weight;
-
-    private Integer animal;
-
-    private List<String> names;
-}
