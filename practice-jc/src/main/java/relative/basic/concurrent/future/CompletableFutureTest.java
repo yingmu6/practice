@@ -17,6 +17,14 @@ public class CompletableFutureTest {
         useAsyncDeal(false);
     }
 
+    /**
+     * 场景1：解决Future处理不能结束的任务
+     */
+
+    /**
+     * 场景2：解决Future处理多个任务，且有前后顺序
+     */
+
     public static void basicUse() throws Exception { //基本使用
         Future<String> future = calculateAsync(new CompletableFuture<>());
         String result = future.get(); //阻塞获取结果

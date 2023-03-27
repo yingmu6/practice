@@ -1,4 +1,4 @@
-package basic.tool.mapstruct;
+package basic.tool.mapstruct.basic;
 
 import com.alibaba.fastjson.JSON;
 
@@ -39,6 +39,9 @@ public class MapStructTest {
         basicUse();
         useMultiVar();
         formatDate();
+        useExpress();
+        useEnum();
+        useIgnore();
     }
 
     /**
@@ -77,24 +80,57 @@ public class MapStructTest {
 
         MammalBO mammalBO = IAnimalConverter.INSTANCE.toMammalBO(dogBO, pigBO);
         System.out.println("多个参数转换：" + JSON.toJSONString(mammalBO));
+
+        MammalBO2 mammalBO2 = new MammalBO2();
+        mammalBO2.setBirthday("2022-12-12 12:34:45");
+        mammalBO2.setWeight(34.23);
+
+        MammalBO mammal2 = IAnimalConverter.INSTANCE.toMammalBO(dogBO, pigBO, mammalBO2);
+        System.out.println("多个参数转换_V2：" + JSON.toJSONString(mammal2));
+
+
     }
 
     /**
      * 场景3：使用表达式做计算
      */
+    public static void useExpress() {
+        PigBO pigBO = new PigBO();
+        pigBO.setPigName("小猪");
+        pigBO.setPigColor("white");
+
+        MammalBO2 mammalBO2 = IAnimalConverter.INSTANCE.toMammalBO2ByExpress(pigBO);
+        System.out.println("使用表达式：" + JSON.toJSONString(mammalBO2));
+    }
 
     /**
      * 场景4：使用枚举值
      */
+    public static void useEnum() {
+        MammalBO2 mammalBO2 = new MammalBO2();
+        mammalBO2.setMammalColor(ColorEnum.RED);
+
+        PigBO pigBO = IAnimalConverter.INSTANCE.toPigBOUseEnum(mammalBO2);
+        System.out.println("使用枚举：" + JSON.toJSONString(pigBO));
+
+    }
 
     /**
      * 场景5：忽略字段（从场景2中看，birthday值为null，JSON对应的字符串属性没有打印出来，不知道其它序列化工具会不会打印出来）
      */
+   public static void useIgnore() {
+       PigBO pigBO = new PigBO();
+       pigBO.setPigName("小猪");
 
+       MammalBO mammalBO = IAnimalConverter.INSTANCE.toMammalBOUseIgnore(pigBO); //将目标字段的值忽略（字段依然有的，只是值为null）
+       System.out.println("忽略字段：" + JSON.toJSONString(mammalBO));
+   }
 
     /**
      * 场景6：使用@BeforeMapping、@AfterMapping注解
+     * （参见basic.tool.mapstruct.advanced.AdvancedTest，就是使用这两个注解，可以在转换前、转换后执行逻辑，比使用表达式强大多了）
      */
+
 
     /**
      * 场景7：注入spring 主键到Mapper
@@ -111,7 +147,6 @@ public class MapStructTest {
         MammalBO mammalBO = IAnimalConverter.INSTANCE.toMammalBOWithDateFormat(dogBO);
         System.out.println("时间格式化：" + JSON.toJSONString(mammalBO));
     }
-
 }
 
 

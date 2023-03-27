@@ -1,4 +1,4 @@
-package basic.tool.mapstruct;
+package basic.tool.mapstruct.basic;
 
 import lombok.Getter;
 import lombok.Setter;

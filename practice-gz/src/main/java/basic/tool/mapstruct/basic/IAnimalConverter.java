@@ -1,4 +1,4 @@
-package basic.tool.mapstruct;
+package basic.tool.mapstruct.basic;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -45,9 +45,26 @@ public interface IAnimalConverter {
     })
     MammalBO toMammalBO(DogBO dogBO, PigBO pigBO);
 
+    @Mappings({
+            @Mapping(target = "name", source = "dogBO.dogName"),
+            @Mapping(target = "color", source = "pigBO.pigColor"),
+    })
+    MammalBO toMammalBO(DogBO dogBO, PigBO pigBO, MammalBO2 mammalBO2); //属性，若有指定Mapping，就按指定的来，未指定则会找参数对象中相同的属性进行映射
+
     @Mapping(source = "dogBO.dogName", target = "name")
     @Mapping(source = "dogBO.birthDate", target = "birthday", dateFormat = "yyyy-MM-dd HH:mm:ss")
     MammalBO toMammalBOWithDateFormat(DogBO dogBO);
+
+    @Mapping(source = "pigName", target = "name")
+    @Mapping(target = "mammalColor", expression = "java(ColorEnum.getByCode(pigBO.getPigColor()))")
+    MammalBO2 toMammalBO2ByExpress(PigBO pigBO);
+
+    @Mapping(target = "pigColor", expression = "java(mammalBO2.getMammalColor().getCode())")
+    PigBO toPigBOUseEnum(MammalBO2 mammalBO2);
+
+    @Mapping(target = "color", ignore = true)
+    @Mapping(target = "name", ignore = true)
+    MammalBO toMammalBOUseIgnore(PigBO pigBO);
 
     /**
      * 表达式中可以调用：方法，列如：
