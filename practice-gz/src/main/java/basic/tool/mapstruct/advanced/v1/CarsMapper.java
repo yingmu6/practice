@@ -1,4 +1,4 @@
-package basic.tool.mapstruct.advanced;
+package basic.tool.mapstruct.advanced.v1;
 
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeforeMapping;

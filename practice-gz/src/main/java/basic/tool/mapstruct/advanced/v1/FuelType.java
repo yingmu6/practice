@@ -1,4 +1,4 @@
-package basic.tool.mapstruct.advanced;
+package basic.tool.mapstruct.advanced.v1;
 
 /**
  * @Author chenSy

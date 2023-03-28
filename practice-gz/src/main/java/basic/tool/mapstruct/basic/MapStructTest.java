@@ -1,6 +1,9 @@
 package basic.tool.mapstruct.basic;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -128,12 +131,16 @@ public class MapStructTest {
 
     /**
      * 场景6：使用@BeforeMapping、@AfterMapping注解
-     * （参见basic.tool.mapstruct.advanced.AdvancedTest，就是使用这两个注解，可以在转换前、转换后执行逻辑，比使用表达式强大多了）
+     * （参见basic.tool.mapstruct.advanced.v1.AdvancedTest，就是使用这两个注解，可以在转换前、转换后执行逻辑，比使用表达式强大多了）
      */
-
+    private static void useSprigIOC() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"META-INF-V2/spring/beanV3.xml"});
+        context.start();
+    }
 
     /**
      * 场景7：注入spring 主键到Mapper
+     * （参见basic.tool.mapstruct.advanced.v2.AdvancedTestV2，能使用spring依赖注入功能，就非常好了）
      */
 
     /**
