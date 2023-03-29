@@ -1,14 +1,12 @@
 package cache.guava;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
+import org.junit.Test;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,6 +37,9 @@ public class GuavaCacheTest {
         removalListenerUse();
     }
 
+    /**
+     * 场景1：缓存的基本set、get
+     */
     private static void basicUse() throws Exception {
         CacheLoader<String, String> loader;
         loader = new CacheLoader<String, String>() {
@@ -71,12 +72,8 @@ public class GuavaCacheTest {
     }
 
     /**
-     *
+     * 场景2：剔除策略_使用过期时间以及移除的监听器
      */
-    private static void evictUse() {
-
-    }
-
     private static void removalListenerUse() throws Exception {
         CacheLoader<String, String> cacheLoader = new CacheLoader<String, String>() {
             @Override
@@ -95,14 +92,39 @@ public class GuavaCacheTest {
 
         Thread.sleep(11000); //缓存获取以及 手动让缓存失效invalidate，都会回调RemovalListener#onRemoval方法，所以可以在缓存清除时，做一些清理工作
         System.out.println("缓存值 value V2 = " + cache.get("name"));
-
         cache.invalidate("name");
     }
+
+    /**
+     * 场景3：过期了加载指定方法，进行初始化
+     */
+    @Test
+    public void testInit() {
+
+    }
+
+    /**
+     * 场景4：剔除策略_指定缓存个数，超过对应剔除
+     */
+
+    /**
+     * 场景5：刷新（手动+自动）以及重新加载
+     */
+
+    /**
+     * 场景6：缓存命中统计
+     */
+
+    /**
+     * 场景7：asMap使用
+     */
+
+    /**
+     * 场景8：剔除策略_按权重清除缓存
+     */
+
+    /**
+     * 场景9：预加载缓存
+     */
 }
 
-class RemovalListenerImpl implements RemovalListener<String, String> {
-    @Override
-    public void onRemoval(RemovalNotification<String, String> removalNotification) {
-        System.out.println("有缓存被移除了：key = " + removalNotification.getKey() + ", value=" + removalNotification.getValue());
-    }
-}
