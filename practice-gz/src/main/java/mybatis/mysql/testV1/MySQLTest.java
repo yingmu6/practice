@@ -26,7 +26,7 @@ public class MySQLTest {
      * 1）Every MyBatis application centers around an instance of SqlSessionFactory. //每个Mybatis应用就对应一个SqlSessionFactory
      * 2）Building a SqlSessionFactory instance from an XML file is very simple. //可通过XML配置文件来构建SqlSessionFactory
      */
-    public static final String MYSQL_CONFIG = "practice-gz/src/main/java/mybatis/mysql/testV1/MybatisConfig.xml";
+    public static final String MYSQL_CONFIG = "classpathMybatisConfig.xml";
 
     private static SqlSessionFactory sqlMapper;
 

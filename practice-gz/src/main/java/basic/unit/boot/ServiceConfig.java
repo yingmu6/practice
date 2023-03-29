@@ -9,6 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @date 2022/3/4
  */
 @RunWith(SpringRunner.class)
-@ImportResource(locations = {"classpath:bean.xml"})
+@ImportResource(locations = {"classpath:META-INF/spring/bean.xml"})
 public class ServiceConfig {
 }

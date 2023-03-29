@@ -16,6 +16,7 @@
         <module>practice-sj</module>
         <module>practice-qt</module>
         <module>practice-web</module>
+        <module>pratice-record</module>
     </modules>
 
     <properties>

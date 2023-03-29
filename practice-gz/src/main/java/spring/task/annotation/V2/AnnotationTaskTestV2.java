@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class AnnotationTaskTestV2 {
     public static void main(String[] args) throws IOException {
-        new ClassPathXmlApplicationContext("spring-annotation-v2.xml");
+        new ClassPathXmlApplicationContext("META-INF/spring/spring-annotation-v2.xml");
 
 //        System.in.read(); //只要启动spring容器，就会去执行定时任务，不用此处阻塞主线程去等待读取
     }

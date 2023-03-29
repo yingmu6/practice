@@ -3,8 +3,6 @@ package spring.basic;
 import lombok.Getter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spring.event.AnimalEventListener;
-import spring.event.AnimalEventObj;
 import spring.event.ApplicationContextObj;
 
 /**
@@ -20,7 +18,6 @@ public class BasicTest {
 //        basic_spring();
 
         basic_spring_V2();
-        basic_spring_V3();
 //        ChannelInboundHandlerAdapter adapter = null;
     }
 
@@ -32,23 +29,15 @@ public class BasicTest {
     }
 
     public static void basic_spring_V2() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/beanV2.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/bean-v2.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
         animal.setName("猴子V2");
         animal.setAge(11);
         System.out.println(animal.getName() + ";;;" + animal.getAge());
     }
 
-    public static void basic_spring_V3() { //特别注意：resources下建立包，不会根据名称建立多级目录的，要逐级new package
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF-V2.spring/beanV3.xml");
-        Animal animal = (Animal) applicationContext.getBean("animal");
-        animal.setName("猴子V3");
-        animal.setAge(11);
-        System.out.println(animal.getName() + ";;;" + animal.getAge());
-    }
-
     public static void basic_spring() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
         animal.setName("猴子");
         animal.setAge(11);
@@ -71,7 +60,7 @@ public class BasicTest {
     }
 
     public static void spring() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
         animal.setName("猪");
         animal.setAge(15);

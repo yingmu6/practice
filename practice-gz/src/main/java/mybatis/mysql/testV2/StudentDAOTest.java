@@ -15,7 +15,7 @@ import spring.basic.Animal;
 public class StudentDAOTest {
 
     public static void main(String[] args) throws Exception{
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
 
         Animal animal = (Animal) applicationContext.getBean("animal");
         System.out.println(JSON.toJSONString(animal));

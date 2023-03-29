@@ -49,7 +49,7 @@
         <!-- 配置mybatis配置文件的位置 -->
         <property name="configLocation" value="classpath:mybatis/conf/mybatis-config.xml"/>
         <!-- 配置扫描Mapper XML的位置 -->
-        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/StudentMapper.xml"/>
     </bean>
 
 <!--    事件监听 -->
