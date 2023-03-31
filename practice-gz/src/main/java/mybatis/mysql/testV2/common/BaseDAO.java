@@ -19,17 +19,10 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
 
     public String nameSpace;
 
-//    @Resource
     public SqlSessionFactory sqlSessionFactory; //使用@Resource这种方式，引入不了值，会是NPE
 
     public BaseDAO() {
         this.nameSpace = this.getClass().getCanonicalName() + ".";
-//        super.setSqlSessionFactory(this.sqlSessionFactory);
-    }
-
-    public BaseDAO(String nameSpace) {
-        this.nameSpace = nameSpace;
-//        super.setSqlSessionFactory(this.sqlSessionFactory);
     }
 
     @Resource(
@@ -43,14 +36,13 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
 
     @Override
     public void add(T t) {
-        before(t);
-        this.executeInsert(nameSpace, t);
+        this.executeInsert(nameSpace + "add", t);
     }
 
     @Override
     public int update(T t) {
         before(t);
-        return this.executeUpdate(nameSpace, t);
+        return this.executeUpdate(nameSpace + "update", t);
     }
 
     private void before(T t) {

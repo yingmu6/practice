@@ -36,6 +36,45 @@
 		<result property="gmtModified" column="gmt_modified" />
 	</resultMap>
 
+	<sql id="set">
+        <if test="id != null">
+			`id` = #{id},
+		</if>
+		<if test="name != null">
+			`name` = #{name},
+		</if>
+		<if test="age != null">
+			`age` = #{age},
+		</if>
+		<if test="studentId != null">
+			`student_id` = #{studentId},
+		</if>
+		<if test="score != null">
+			`score` = #{score},
+		</if>
+		<if test="gmtCreate != null">
+			`gmt_create` = #{gmtCreate},
+		</if>
+		<if test="gmtModified != null">
+			`gmt_modified` = #{gmtModified},
+		</if>
+	</sql>
+
+	<insert id="add" parameterType="mybatis.mysql.testV2.entity.StudentDO">
+	    insert student
+	    <set>
+			<include refid="set"/>
+		</set>
+	</insert>
+
+	<update id="update" parameterType="mybatis.mysql.testV2.entity.StudentDO">
+		update student
+        <set>
+			<include refid="set"/>
+		</set>
+        where id = #{id}
+	</update>
+
 	<select id="getByStudentId" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_list"/>

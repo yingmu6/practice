@@ -48,8 +48,12 @@
     </environment>
   </environments>
 
-  <mappers>
-    <mapper resource="META-INF/mybatis/db-mysql/test-v2/mapper/StudentMapper.xml"/>
-  </mappers>
+  <!-- 已经在spring-database-config.xml的sqlSessionFactory对应的bean实例指定了Mapper位置，
+  此处若再指定，就会重复加载StudentMapper.xml，会出现" Result Maps collection already contains value for
+  mybatis.mysql.testV2.dao.impl.StudentDAOImpl.BaseResultMap"的错误 -->
+
+<!--  <mappers>-->
+<!--    <mapper resource="META-INF/mybatis/db-mysql/test-v2/mapper/StudentMapper.xml"/>-->
+<!--  </mappers>-->
 
 </configuration>

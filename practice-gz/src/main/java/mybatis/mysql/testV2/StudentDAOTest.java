@@ -17,24 +17,19 @@ public class StudentDAOTest {
     public static void main(String[] args) throws Exception{
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
 
-        Animal animal = (Animal) applicationContext.getBean("animal");
-        System.out.println(JSON.toJSONString(animal));
-
         IStudentDAO studentDAO = (IStudentDAO) applicationContext.getBean("studentDAO");
-//        StudentDO studentDO = studentDAO.getById(3);
-//        System.out.println("getById值：" + JSON.toJSONString(studentDO));
+        StudentDO studentDO = studentDAO.getById(3);
+        System.out.println("getById值：" + JSON.toJSONString(studentDO));
 
         StudentDO studentDO1 = studentDAO.getByStudentId("3001");
         System.out.println("getByStudentId值：" + JSON.toJSONString(studentDO1));
 
-        System.in.read();
-    }
+        StudentDO addDO = new StudentDO();
+        addDO.setName("刘六");
+        addDO.setAge(15);
+        addDO.setScore(85);
+        addDO.setStudentId(4001);
 
-    /**
-     * 问题点：
-     * 1）java.lang.AbstractMethodError: org.mybatis.spring.transaction.SpringManagedTransaction.getTimeout()Ljava/lang/Integer
-     *    解答：需要mybatis-spring、mybatis、spring版本相匹配
-     *         https://www.jianshu.com/p/f329b3403113
-     *
-     */
+        studentDAO.add(addDO);
+    }
 }
