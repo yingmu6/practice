@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class DependencyTest {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
         AnimalTotal animalTotal = (AnimalTotal) applicationContext.getBean("animalTotal");
 
         System.out.println(JSON.toJSONString(animalTotal.getAnimalSet())); //todo @csy 此处输出为啥为空

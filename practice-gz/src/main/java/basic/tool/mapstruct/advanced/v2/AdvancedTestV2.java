@@ -12,7 +12,7 @@ public class AdvancedTestV2 {
 
     public static void main(String[] args) {
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"META-INF/spring/bean-test.xml"});
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"META-INF/spring/spring-bean-test.xml"});
         context.start();
 
         //组件模型为spring时，会以Spring组件形式提供，可通过spring获取到bean（这个特性太牛了）

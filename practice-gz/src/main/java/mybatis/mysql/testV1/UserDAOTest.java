@@ -1,14 +1,13 @@
 package mybatis.mysql.testV1;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
@@ -19,23 +18,19 @@ import java.util.List;
  * @Date 2023/02/16 17:28
  * @Description
  */
-public class MySQLTest {
+public class UserDAOTest {
 
     /**
      * 功能介绍：https://mybatis.org/mybatis-3/getting-started.html
      * 1）Every MyBatis application centers around an instance of SqlSessionFactory. //每个Mybatis应用就对应一个SqlSessionFactory
      * 2）Building a SqlSessionFactory instance from an XML file is very simple. //可通过XML配置文件来构建SqlSessionFactory
      */
-    public static final String MYSQL_CONFIG = "classpathMybatisConfig.xml";
+    public static final String MYSQL_CONFIG = "META-INF/mybatis/db-mysql/test-v1/conf/mybatis-config-v1.xml";
 
     private static SqlSessionFactory sqlMapper;
 
-    public static void main(String[] args) throws FileNotFoundException {
-        init();
-        testGetUsers();
-    }
-
-    public static void testGetUsers() { //直接对数据操作
+    @Test
+    public void testGetUsers() { //直接对数据操作
         SqlSession session = sqlMapper.openSession();
         try {
             IUserMapper userMapper = session.getMapper(IUserMapper.class);
@@ -51,15 +46,9 @@ public class MySQLTest {
         }
     }
 
-    public static void init() throws FileNotFoundException{
-        final Reader reader = getReader(MYSQL_CONFIG);
+    @Before
+    public void init() throws Exception {
+        final Reader reader = Resources.getResourceAsReader(MYSQL_CONFIG);
         sqlMapper = new SqlSessionFactoryBuilder().build(reader);
-    }
-
-    public static Reader getReader(String resource) throws FileNotFoundException {
-        File file = new File(resource);
-        FileInputStream ins = new FileInputStream(file);
-        Reader reader = new InputStreamReader(ins);
-        return reader;
     }
 }

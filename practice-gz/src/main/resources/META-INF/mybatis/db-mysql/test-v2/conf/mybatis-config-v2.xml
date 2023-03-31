@@ -41,7 +41,7 @@
       </transactionManager>
       <dataSource type="UNPOOLED">
         <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
       </dataSource>
@@ -49,7 +49,7 @@
   </environments>
 
   <mappers>
-    <mapper resource="mybatis/mysql/testV1/UserMapper.xml"/>
+    <mapper resource="META-INF/mybatis/db-mysql/test-v2/mapper/StudentMapper.xml"/>
   </mappers>
 
 </configuration>

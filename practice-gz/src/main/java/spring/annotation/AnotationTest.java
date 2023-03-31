@@ -23,7 +23,7 @@ public class AnotationTest {
 //    private IAnimal animal;
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
 
 //        for (String beanName : applicationContext.getBeanDefinitionNames()) {
 //            System.out.println("bean的名称：" + beanName);

@@ -15,14 +15,14 @@ import spring.basic.Animal;
 public class StudentDAOTest {
 
     public static void main(String[] args) throws Exception{
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
 
         Animal animal = (Animal) applicationContext.getBean("animal");
         System.out.println(JSON.toJSONString(animal));
 
         IStudentDAO studentDAO = (IStudentDAO) applicationContext.getBean("studentDAO");
-        StudentDO studentDO = studentDAO.getById(3);
-        System.out.println("getById值：" + JSON.toJSONString(studentDO));
+//        StudentDO studentDO = studentDAO.getById(3);
+//        System.out.println("getById值：" + JSON.toJSONString(studentDO));
 
         StudentDO studentDO1 = studentDAO.getByStudentId("3001");
         System.out.println("getByStudentId值：" + JSON.toJSONString(studentDO1));

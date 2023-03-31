@@ -7,20 +7,10 @@
     <context:annotation-config /> <!-- 注解扫描需要加上这就话，不然扫描不出来 -->
     <context:component-scan base-package="mybatis.mysql.testV2.dao"/>
 
-    <bean id="animal" class="spring.basic.Animal">
-        <property name="name" value="pig"/>
-        <property name="age" value="12"/>
-    </bean>
-
     <!-- 使用Druid连接池 -->
     <bean id="jdbcDataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
-<!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?useSSL=false&amp;serverTimezone=UTC"/>-->
-
-<!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?useUnicode=true&amp;allowMultiQueries=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"/>-->
-<!--        jdbc.url=jdbc:mysql://localhost:3306/k3c?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong-->
-
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
@@ -47,15 +37,8 @@
         <!-- 配置扫描Domain的包路径 -->
         <property name="typeAliasesPackage" value="mybatis.mysql.testV2.entity"/>
         <!-- 配置mybatis配置文件的位置 -->
-        <property name="configLocation" value="classpath:mybatis/conf/mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:META-INF/mybatis/db-mysql/test-v2/conf/mybatis-config-v2.xml"/>
         <!-- 配置扫描Mapper XML的位置 -->
-        <property name="mapperLocations" value="classpath:mybatis/mapper/StudentMapper.xml"/>
+        <property name="mapperLocations" value="classpath:META-INF/mybatis/db-mysql/test-v2/mapper/StudentMapper.xml"/>
     </bean>
-
-<!--    事件监听 -->
-<!--    <bean id="eventObj" class="spring.basic.EventObj"/>-->
-<!--    <bean id="contextObj" class="spring.event.ApplicationContextObj"/>-->
-
-<!--     若需要使用注解查找bean，如@service等，就需要扫描到包，由spring去查找 -->
-
 </beans>

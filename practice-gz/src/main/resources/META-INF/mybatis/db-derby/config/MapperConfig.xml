@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+  <settings>
+    <setting name="cacheEnabled" value="true"/>
+    <setting name="lazyLoadingEnabled" value="false"/>
+    <setting name="multipleResultSetsEnabled" value="true"/>
+    <setting name="useColumnLabel" value="true"/>
+    <setting name="useGeneratedKeys" value="false"/>
+    <setting name="defaultExecutorType" value="SIMPLE"/>
+    <setting name="defaultStatementTimeout" value="25"/>
+  </settings>
+
+  <typeAliases>
+    <typeAlias alias="Author" type="mybatis.derby.Author"/>
+    <typeAlias alias="Section" type="mybatis.derby.Section"/>
+  </typeAliases>
+
+<!--  <typeHandlers>-->
+<!--    <typeHandler javaType="String" jdbcType="VARCHAR" handler="org.apache.ibatis.builder.CustomStringTypeHandler"/>-->
+<!--  </typeHandlers>-->
+
+  <objectFactory type="mybatis.derby.ExampleObjectFactory">
+    <property name="objectFactoryProperty" value="100"/>
+  </objectFactory>
+
+  <plugins>
+    <plugin interceptor="mybatis.derby.ExamplePlugin">
+      <property name="pluginProperty" value="100"/>
+    </plugin>
+  </plugins>
+
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC">
+        <property name="" value=""/>
+      </transactionManager>
+      <dataSource type="UNPOOLED">
+<!--        <property name="driver" value="${driver}"/>-->
+<!--        <property name="url" value="${url}"/>-->
+<!--        <property name="username" value="${username}"/>-->
+<!--        <property name="password" value="${password}"/>-->
+
+        <property name="driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+        <property name="url" value="jdbc:derby:ibderby;create=true"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+      </dataSource>
+    </environment>
+  </environments>
+
+  <mappers>
+    <!-- 此处的路径不能使用 classpath:来引用，classpath: 可用于<import>，路径可右键文件copy路径-->
+    <mapper resource="META-INF/mybatis/db-derby/config/AuthorMapper.xml"/>
+  </mappers>
+
+</configuration>

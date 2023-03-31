@@ -17,7 +17,6 @@ public class BasicTest {
 //        spring.event();
 //        basic_spring();
 
-        basic_spring_V2();
 //        ChannelInboundHandlerAdapter adapter = null;
     }
 
@@ -28,16 +27,8 @@ public class BasicTest {
         System.out.println("普通输出:" + animal.getName() + ";" + animal.getAge());
     }
 
-    public static void basic_spring_V2() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/bean-v2.xml");
-        Animal animal = (Animal) applicationContext.getBean("animal");
-        animal.setName("猴子V2");
-        animal.setAge(11);
-        System.out.println(animal.getName() + ";;;" + animal.getAge());
-    }
-
     public static void basic_spring() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
         animal.setName("猴子");
         animal.setAge(11);
@@ -60,7 +51,7 @@ public class BasicTest {
     }
 
     public static void spring() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/bean.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
         Animal animal = (Animal) applicationContext.getBean("animal");
         animal.setName("猪");
         animal.setAge(15);

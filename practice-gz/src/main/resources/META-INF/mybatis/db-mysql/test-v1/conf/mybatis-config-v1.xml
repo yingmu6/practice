@@ -40,21 +40,16 @@
         <property name="" value=""/>
       </transactionManager>
       <dataSource type="UNPOOLED">
-<!--        <property name="driver" value="${driver}"/>-->
-<!--        <property name="url" value="${url}"/>-->
-<!--        <property name="username" value="${username}"/>-->
-<!--        <property name="password" value="${password}"/>-->
-
-        <property name="driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-        <property name="url" value="jdbc:derby:ibderby;create=true"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
       </dataSource>
     </environment>
   </environments>
 
   <mappers>
-    <mapper resource="mybatis/derby/AuthorMapper.xml"/>
+    <mapper resource="META-INF/mybatis/db-mysql/test-v1/mapper/UserMapper.xml"/>
   </mappers>
 
 </configuration>
