@@ -7,7 +7,7 @@ import org.junit.Test;
  * @Date 2023/04/01 15:52
  * @Description
  */
-public class StudentDaoTest extends AbstractDaoTest{
+public class StudentDaoByJunitTest extends AbstractDaoTest{
 
     @Test
     public void testHello() {
