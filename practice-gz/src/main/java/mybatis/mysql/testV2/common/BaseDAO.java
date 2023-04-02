@@ -56,6 +56,11 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
         return this.queryForObject(this.nameSpace + "getById", id);
     }
 
+    @Override
+    public int deleteById(Object id) {
+        return this.executeUpdate(this.nameSpace + "deleteById", id);
+    }
+
     protected T queryForObject(String statementName, Object parameterObject) {
         T returnObject = this.getSqlSession().selectOne(statementName, parameterObject);
         return returnObject;

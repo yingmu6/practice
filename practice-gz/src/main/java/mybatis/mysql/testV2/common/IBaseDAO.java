@@ -11,4 +11,7 @@ public interface IBaseDAO<T> {
     int update(T var1);
 
     T getById(Object var1);
+
+    // 一般考虑软删除，通过update实现，不提供硬删除的接口
+    int deleteById(Object var1);
 }
