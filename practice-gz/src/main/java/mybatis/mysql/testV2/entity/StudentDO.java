@@ -13,12 +13,14 @@ import mybatis.mysql.testV2.common.BaseDO;
 @Getter
 public class StudentDO extends BaseDO<Integer> {
 
+    private String enterpriseNo;
+
     private String name;
 
     private Integer age;
 
     // 学号
-    private Integer studentId;
+    private String studentId;
 
     private Integer score;
 }

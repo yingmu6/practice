@@ -7,11 +7,13 @@
 | xx  | xx  | xx   | xx  | Px   | xx   | xx   |
 
 ### gz相关
-| 序号  | 阅读点                         | 阅读目标       | 优先级 | 当前进度 | 创建时间       | 结束时间 |
-|-----|-----------------------------|------------|-----|------|------------|------|
-| 001 | Spring的ApplicationContext阅读 | 了解spring容器 | P1  | 0%   | 2023-03-28 | xx   |
-| 002 | Mappers.getMapper阅读         | 了解获取实例过程   | P2  | 0%   | 2023-03-28 | xx   |
-| 003 | *JUnit4SpringContextTests阅读 | 了解junit测试  | P2  | 0%   | 2023-03-30 | xx   |
+| 序号  | 阅读点                                 | 阅读目标       | 优先级 | 当前进度 | 创建时间       | 结束时间 |
+|-----|-------------------------------------|------------|-----|------|------------|------|
+| 001 | Spring的ApplicationContext阅读         | 了解spring容器 | P1  | 0%   | 2023-03-28 | xx   |
+| 002 | Mappers.getMapper阅读                 | 了解获取实例过程   | P2  | 0%   | 2023-03-28 | xx   |
+| 003 | *JUnit4SpringContextTests阅读         | 了解junit测试  | P2  | 0%   | 2023-03-30 | xx   |
+| 004 | EnhancedLog4jPropertyConfigurator阅读 | 了解log4j使用  | P2  | 0%   | 2023-04-03 | xx   |
+| 005 | 雪花算法了解，Leaf、UidGenerator            | 了解雪花算法     | P2  | 0%   | 2023-04-03 | xx   |
 
 
 ### jc相关

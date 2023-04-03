@@ -28,6 +28,7 @@
 
 	<resultMap id="BaseResultMap" type="mybatis.mysql.testV2.entity.StudentDO">
 		<id column="id" property="id" />
+		<result property="enterpriseNo" column="enterprise_no" />
 		<result property="name" column="name" />
 		<result property="age" column="age" />
 		<result property="studentId" column="student_id" />
@@ -39,6 +40,9 @@
 	<sql id="set">
         <if test="id != null">
 			`id` = #{id},
+		</if>
+		<if test="enterpriseNo != null">
+			`enterprise_no` = #{enterpriseNo},
 		</if>
 		<if test="name != null">
 			`name` = #{name},
@@ -60,7 +64,7 @@
 		</if>
 	</sql>
 
-	<insert id="add" parameterType="mybatis.mysql.testV2.entity.StudentDO">
+	<insert id="save" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 	    insert student
 	    <set>
 			<include refid="set"/>
@@ -82,16 +86,25 @@
 		where `student_id` = #{studentId}
 	</select>
 
-	<select id="getById" resultMap="BaseResultMap">
+	<select id="get" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_list"/>
 		from student
-        where id=#{id}
+        where id = #{id}
+        and enterprise_no = #{enterpriseNo}
 	</select>
 
-	<delete id="deleteById">
+	<delete id="remove">
 		delete from student
-		where id=#{id}
+		where id = #{id}
+		and enterprise_no = #{enterpriseNo}
 	</delete>
+
+	<select id="queryCountByCondition" parameterType="mybatis.mysql.testV2.condition.PageQueryStudentCondition" resultType="java.lang.Integer">
+		select
+		<include refid="Base_Column_list"/>
+		from student
+		where `student_id` = #{studentId}
+	</select>
 
 </mapper>

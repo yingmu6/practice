@@ -1,17 +1,26 @@
 package mybatis.mysql.testV2.common;
 
+import java.util.List;
+
 /**
  * @Author chenSy
  * @Date 2023/02/19 20:20
  * @Description
  */
 public interface IBaseDAO<T> {
-    void add(T var1);
+    void save(T t);
 
-    int update(T var1);
+    void saveBatch(List<T> list);
 
-    T getById(Object var1);
+    int update(T t);
 
-    // 一般考虑软删除，通过update实现，不提供硬删除的接口
-    int deleteById(Object var1);
+    int updateBatch(List<T> list);
+
+    T get(Object id, String enterpriseNo);
+
+    List<T> findList(Object t);
+
+    T findModel(Object t);
+
+    int remove(Object id, String enterpriseNo);
 }

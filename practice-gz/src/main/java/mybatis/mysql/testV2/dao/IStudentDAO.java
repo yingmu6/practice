@@ -1,7 +1,10 @@
 package mybatis.mysql.testV2.dao;
 
 import mybatis.mysql.testV2.common.IBaseDAO;
+import mybatis.mysql.testV2.condition.PageQueryStudentCondition;
 import mybatis.mysql.testV2.entity.StudentDO;
+
+import java.util.List;
 
 /**
  * @Author chenSy
@@ -9,5 +12,10 @@ import mybatis.mysql.testV2.entity.StudentDO;
  * @Description
  */
 public interface IStudentDAO extends IBaseDAO<StudentDO> {
+
     StudentDO getByStudentId(String studentId);
+
+    int queryCountByCondition(PageQueryStudentCondition condition);
+
+    List<StudentDO> queryByCondition(PageQueryStudentCondition condition);
 }

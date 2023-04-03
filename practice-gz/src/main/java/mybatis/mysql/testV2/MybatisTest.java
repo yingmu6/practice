@@ -11,19 +11,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @Date 2023/02/20 20:18
  * @Description
  */
-public class StudentDAOTest {
+public class MybatisTest {
 
     public static void main(String[] args) throws Exception{
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
         IStudentDAO studentDAO = (IStudentDAO) applicationContext.getBean("studentDAO");
 
-        getStudent(studentDAO);
+//        getStudent(studentDAO);
 //        deleteStudent(studentDAO);
 //        updateStudent(studentDAO);
+        addStudent(studentDAO);
     }
 
     public static void getStudent(IStudentDAO studentDAO) {
-        StudentDO studentDO = studentDAO.getById(3);
+        StudentDO studentDO = studentDAO.get(3, "11a");
         System.out.println("getById值：" + JSON.toJSONString(studentDO));
 
         StudentDO studentDO1 = studentDAO.getByStudentId("3001");
@@ -32,16 +33,17 @@ public class StudentDAOTest {
 
     public static void addStudent(IStudentDAO studentDAO) {
         StudentDO addDO = new StudentDO();
+        addDO.setEnterpriseNo("33a");
         addDO.setName("刘六2");
         addDO.setAge(15);
         addDO.setScore(85);
-        addDO.setStudentId(4001);
+        addDO.setStudentId("4001");
 
-        studentDAO.add(addDO);
+        studentDAO.save(addDO);
     }
 
     public static void deleteStudent(IStudentDAO studentDAO) {
-        studentDAO.deleteById(6);
+        studentDAO.remove(6, "11a");
     }
 
     public static void updateStudent(IStudentDAO studentDAO) {
