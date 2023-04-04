@@ -1,5 +1,8 @@
 package com.csy.dao.test;
 
+import com.google.common.collect.Lists;
+import mybatis.mysql.testV2.condition.ListQueryCondition;
+import mybatis.mysql.testV2.condition.PageQueryStudentCondition;
 import mybatis.mysql.testV2.dao.IStudentDAO;
 import mybatis.mysql.testV2.entity.StudentDO;
 import org.junit.Test;
@@ -7,6 +10,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author chenSy
@@ -22,7 +26,7 @@ public class MybatisByJunitTest extends AbstractDaoTest {
     private IStudentDAO studentDAO;
 
     /**
-     * mybatis使用场景1：使用mybatis能增、删、改、查、分页查询
+     * mybatis使用场景1：使用mybatis能增、删、改、查、分页查询、批量添加、批量修改
      * 注意点：
      * 1）需要设置@Rollback(value = false)，才能把新增、修改、删除的数据提交到数据库，否则junit测试完后就会回滚
      * (此处是junit比main测试的优势之一：junit测试后可以回滚处理的数据，能够完成功能测试，并且不影响数据库数据；而main方法直接就提交到数据库了)
@@ -34,6 +38,24 @@ public class MybatisByJunitTest extends AbstractDaoTest {
      *
      * 4）使用@Rollback(value = false)注解提交事务后，会打印如下日志（若没有设置，或@Rollback(value = true)，就不会打印下面的日志，搜索关键字“Committed” ）
      * [ INFO] [practice-test-stdout] 2023-04-03 17:21:59: 2587 [main] ( TransactionContext.java,140 ) - Committed transaction for test: [DefaultTestContext@551aa95a testClass = MybatisByJunitTest....
+     *
+     * 5）<trim>标签的使用方法（可用于产生动态SQL）
+     * prefix：表示在trim包裹的SQL前添加指定内容
+     * suffix：表示在trim包裹的SQL末尾添加指定内容
+     * prefixOverrides：表示去掉（覆盖）trim包裹的SQL的指定首部内容
+     * suffixOverrides：表示去掉（覆盖）trim包裹的SQL的指定尾部内容
+     *
+     * 6）mybatis动态sql中的两个内置参数（_parameter和_databaseId）
+     *  _parameter:代表整个参数
+     *             单个参数：_parameter就是这个参数
+     *             多个参数：参数会被封装为一个map:_parameter就是代表这个map
+     * _databaseId:如果配置了databaseIdProvider标签
+     *             _databaseId 就是代表当前数据库的别名Oracle
+     *
+     * 7）各个标签的使用以及具体的属性说明，如<insert/><update/>等等
+     *    参考：https://mybatis.org/mybatis-3/sqlmap-xml.html#Result_Maps
+     *
+     * 8）
      */
     @Test
     public void test_getByStudentId() {
@@ -90,7 +112,70 @@ public class MybatisByJunitTest extends AbstractDaoTest {
 
     @Test
     public void test_getByPage() {
+        PageQueryStudentCondition condition = new PageQueryStudentCondition();
+        condition.setEnterpriseNo("11a");
+        int size = studentDAO.queryCountByCondition(condition);
+        if (size == 0) {
+            return;
+        }
 
+        List<StudentDO> totalStudentDOS = Lists.newArrayList();
+        int pageSize = 2; //每页的条数
+        int totalPageNum = this.calculatePageNum(size, pageSize);
+        for (int pageNum = 1; pageNum <= totalPageNum; pageNum++) {
+            // 设置分页参数
+            condition.setOffset(this.calculateStart(pageNum, pageSize));
+            condition.setLimit(pageSize);
+            List<StudentDO> studentDOS = studentDAO.queryByCondition(condition);
+            totalStudentDOS.addAll(studentDOS);
+        }
+
+        Assert.isTrue(totalStudentDOS.size() == size, DEFAULT_ERROR_DESCRIBE);
+    }
+
+    @Test
+    public void test_batchAdd() {
+        List<StudentDO> studentDOS = Lists.newArrayList();
+        StudentDO s1 = new StudentDO();
+        s1.setEnterpriseNo("11a");
+        s1.setName("王2");
+        s1.setAge(13);
+        s1.setScore(89);
+        s1.setStudentId("6001");
+
+        StudentDO s2 = new StudentDO();
+        s2.setEnterpriseNo("11a");
+        s2.setName("李2");
+        s2.setAge(15);
+        s2.setScore(69);
+        s2.setStudentId("7001");
+
+        studentDOS.add(s1);
+        studentDOS.add(s2);
+
+        ListQueryCondition condition = new ListQueryCondition();
+        condition.setEnterpriseNo("11a");
+        List<StudentDO> oldDOS = studentDAO.findList(condition);
+
+        studentDAO.saveBatch(studentDOS);
+
+        List<StudentDO> newDOS = studentDAO.findList(condition);
+        Assert.isTrue(oldDOS.size() + 2 == newDOS.size(), DEFAULT_ERROR_DESCRIBE);
+    }
+
+    @Test
+    public void test_batchUpdate() {
+
+    }
+
+    // 计算总的页数
+    private int calculatePageNum(int totalRecords, int pageSize) {
+        return (totalRecords % pageSize) == 0 ? (totalRecords / pageSize) :  (totalRecords / pageSize) + 1;
+    }
+
+    // 计算分页的起始位置
+    private int calculateStart(int pageIndex, int pageSize) {
+        return (pageIndex - 1) * pageSize;
     }
 
      /**
@@ -98,7 +183,15 @@ public class MybatisByJunitTest extends AbstractDaoTest {
      */
 
     /**
-     * mybatis映射XML的标签元素使用
+     * mybatis使用场景3：mybatis映射XML的标签元素使用
      * 如<select/>、<update/>等等
+     */
+
+    /**
+     * mybatis使用场景4：能够对BaseDAO进行公共处理
+     * 1）对公共字段进行处理，如：enterpriseNo
+     * 2）对创建时间、修改时间进行设置
+     * 3）提供字段，判断是否要对enterpriseNo等做公共处理
+     * 4）看下能否拿到表中的字段（若表中有enterpriseNo，强制填入对应值）
      */
 }

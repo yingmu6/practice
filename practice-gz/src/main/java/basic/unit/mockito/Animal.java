@@ -1,4 +1,4 @@
-package basic.unit.mock;
+package basic.unit.mockito;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,6 +2,7 @@ package basic.unit.log4j;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
+import org.junit.runners.Parameterized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,6 +88,19 @@ public class Log4jTest {
      * 如：log4j.logger.org.apache.zookeeper
      * log4j.logger.org.I0Itec.zkclient等
      */
+
+    /**
+     * properties文件/场景7：接受-D输入的参数
+     * 1）可以编辑配置 Edit Configurations，传入虚拟机参数 如： -Ddynamic.path=/self-project/idea-logs/idea-dynamic-logs
+     *
+     */
+    @Parameterized.Parameter
+    @Test
+    public void test_acceptDynamicParameter() {
+        logger.info("The info level of Dynamic !");
+        logger.warn("The warn level of Dynamic !");
+        logger.error("The error level of Dynamic !");
+    }
 
     //----------log4j.xml文件使用----------------
     /**

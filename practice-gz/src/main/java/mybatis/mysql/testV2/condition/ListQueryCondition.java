@@ -5,20 +5,14 @@ import lombok.Setter;
 
 /**
  * @Author chenSy
- * @Date 2023/04/03 19:32
+ * @Date 2023/04/04 10:35
  * @Description
  */
 @Setter
 @Getter
-public class PageQueryStudentCondition {
+public class ListQueryCondition {
 
     String enterpriseNo;
 
     String name;
-
-    Integer offset;
-
-    Integer limit;
-
-    String orderBy;
 }

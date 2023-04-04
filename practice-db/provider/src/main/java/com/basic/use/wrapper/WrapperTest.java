@@ -1,7 +1,5 @@
 package com.basic.use.wrapper;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.dubbo.common.bytecode.Wrapper;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -28,14 +26,14 @@ public class WrapperTest {
     }
 
     /**
-     * Wrapper使用场景1：基本使用/包含创建Wrapper、获取声明的方法、获取属性值，设置属性值（可通过Wrapper类对目标类进行操作）
+     * Wrapper使用场景1：基本使用/包含创建Wrapper、获取声明的方法、获取属性值，设置属性值、调用目标方法（可通过Wrapper类对目标类进行操作）
      * 注意点：
      * 1）类或接口都创建Wrapper类
      */
     @Test
     public void test_wrapper_basic() {
 
-        Wrapper wrapper = Wrapper.getWrapper(Cart.class); //创建接口对应的Wrapper类
+        Wrapper wrapper = Wrapper.getWrapper(Car.class); //创建接口对应的Wrapper类
         String[] declaredMethodNames = wrapper.getDeclaredMethodNames(); //获取被封装的类中声明的方法
         Assert.isTrue(declaredMethodNames.length == 2, DEFAULT_ERROR_DESCRIBE);
 
@@ -44,11 +42,13 @@ public class WrapperTest {
 
         Wrapper wrapperForClass = Wrapper.getWrapper(Suv.class); //类也可以有封装Wrapper类
         String[] ms = wrapperForClass.getDeclaredMethodNames();
-        Assert.isTrue(ms.length == 3, DEFAULT_ERROR_DESCRIBE);
+        Assert.isTrue(ms.length == 6, DEFAULT_ERROR_DESCRIBE);
 
-//        wrapper  获取属性
+        Object suvObj = new Suv();
+        wrapper.setPropertyValue(suvObj, "carName" , "越野车");
 
-
+        String propertyValue = (String) wrapper.getPropertyValue(suvObj, "carName");
+        Assert.isTrue(propertyValue.equals("越野车"), DEFAULT_ERROR_DESCRIBE);
     }
 
     /**
@@ -59,30 +59,36 @@ public class WrapperTest {
     }
 
     public interface Price {
-        Double getCartPrice();
+        Double setCarPrice(Double carPrice);
     }
 
-    public interface Cart extends Price {
-        String getCartName();
+    public interface Car extends Price {
+        String setCarName(String carName);
 
-        String getCartColor();
+        String setCarColor(String carColor);
     }
 
-    public class Suv implements Cart {
+    public class Suv implements Car {
+
+        private String carName;
+
+        private Double carPrice;
+
+        private String carColor;
 
         @Override
-        public Double getCartPrice() {
-            return null;
+        public Double setCarPrice(Double carPrice) {
+            return this.carPrice = carPrice;
         }
 
         @Override
-        public String getCartName() {
-            return null;
+        public String setCarName(String carName) {
+            return this.carName = carName;
         }
 
         @Override
-        public String getCartColor() {
-            return null;
+        public String setCarColor(String carColor) {
+            return this.carColor = carColor;
         }
     }
 }

@@ -64,6 +64,29 @@
 		</if>
 	</sql>
 
+	<sql id="condition">
+         <trim prefix="where" suffixOverrides="and | or">
+<!--            <if test="_parameter instanceof mybatis.mysql.testV2.condition.PageQueryStudentCondition">-->
+                <if test="enterpriseNo != null">
+			        `enterprise_no` = #{enterpriseNo} and
+		        </if>
+		        <if test="name != null">
+			        `name` = #{name} and
+		        </if>
+<!--			</if> -->
+		 </trim>
+
+		 <if test="orderBy != null and orderBy != '' ">
+			 order by ${orderBy}
+		 </if>
+		 <if test="offset!=null and limit!=null">
+            limit #{ offset },#{ limit }
+        </if>
+        <if test="limit!=null and offset==null">
+            limit #{ limit }
+        </if>
+	</sql>
+
 	<insert id="save" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 	    insert student
 	    <set>
@@ -86,6 +109,13 @@
 		where `student_id` = #{studentId}
 	</select>
 
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_list"/>
+		from student
+		<include refid="condition"></include>
+	</select>
+
 	<select id="get" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_list"/>
@@ -102,9 +132,15 @@
 
 	<select id="queryCountByCondition" parameterType="mybatis.mysql.testV2.condition.PageQueryStudentCondition" resultType="java.lang.Integer">
 		select
-		<include refid="Base_Column_list"/>
-		from student
-		where `student_id` = #{studentId}
+		count(1)
+	    from student
+		<include refid="condition"/>
 	</select>
 
+	<select id="queryByCondition" parameterType="mybatis.mysql.testV2.condition.PageQueryStudentCondition" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_list"/>
+		from student
+		<include refid="condition"/>
+	</select>
 </mapper>
