@@ -5,6 +5,8 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import java.util.Map;
  * @Description
  */
 public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements IBaseDAO<T>{
+    private static final Logger logger = LoggerFactory.getLogger(BaseDAO.class);
 
      public String nameSpace;
 
@@ -141,8 +144,9 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
                 session.commit();
                 session.clearCache();
                 isSuccess = true;
-            } catch (Exception var9) {
+            } catch (Exception e) {
                 session.rollback();
+                logger.error("execute batch insert error ", e);
             } finally {
                 session.close();
             }

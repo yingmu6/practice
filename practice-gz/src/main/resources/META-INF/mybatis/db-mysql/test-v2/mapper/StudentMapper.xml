@@ -64,16 +64,43 @@
 		</if>
 	</sql>
 
-	<sql id="condition">
+	<sql id="batchSet">
+        <if test="item.id != null">
+			`id` = #{item.id},
+		</if>
+		<if test="item.enterpriseNo != null">
+			`enterprise_no` = #{item.enterpriseNo},
+		</if>
+		<if test="item.name != null">
+			`name` = #{item.name},
+		</if>
+		<if test="item.age != null">
+			`age` = #{item.age},
+		</if>
+		<if test="item.studentId != null">
+			`student_id` = #{item.studentId},
+		</if>
+		<if test="item.score != null">
+			`score` = #{item.score},
+		</if>
+		<if test="item.gmtCreate != null">
+			`gmt_create` = #{item.gmtCreate},
+		</if>
+		<if test="item.gmtModified != null">
+			`gmt_modified` = #{item.gmtModified},
+		</if>
+	</sql>
+
+	<sql id="pageCondition">
          <trim prefix="where" suffixOverrides="and | or">
-<!--            <if test="_parameter instanceof mybatis.mysql.testV2.condition.PageQueryStudentCondition">-->
+            <if test="_parameter instanceof mybatis.mysql.testV2.condition.PageQueryStudentCondition">
                 <if test="enterpriseNo != null">
 			        `enterprise_no` = #{enterpriseNo} and
 		        </if>
 		        <if test="name != null">
 			        `name` = #{name} and
 		        </if>
-<!--			</if> -->
+			</if>
 		 </trim>
 
 		 <if test="orderBy != null and orderBy != '' ">
@@ -87,11 +114,41 @@
         </if>
 	</sql>
 
+	<sql id="listCondition">
+         <trim prefix="where" suffixOverrides="and | or">
+            <if test="_parameter instanceof mybatis.mysql.testV2.condition.ListQueryCondition">
+                <if test="enterpriseNo != null">
+			        `enterprise_no` = #{enterpriseNo} and
+		        </if>
+		        <if test="name != null">
+			        `name` = #{name} and
+		        </if>
+			</if>
+		 </trim>
+	</sql>
+
 	<insert id="save" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 	    insert student
 	    <set>
 			<include refid="set"/>
 		</set>
+	</insert>
+
+<!--	<insert id="saveBatch">-->
+<!--        <foreach collection="list" item="item" index="index" separator=";">-->
+<!--		   insert student-->
+<!--		   <set>-->
+<!--			  <include refid="batchSet"/>-->
+<!--		   </set>-->
+<!--		</foreach>-->
+<!--	</insert>-->
+
+	<insert id="saveBatch">
+		insert into student
+        (`id`,`name`,`age`,`student_id`,`score`,`gmt_create`,`gmt_modified`) values
+        <foreach collection="list" index="index" item="item" separator=",">
+          #{item.id},#{item.name},#{item.age},#{item.studentId},#{item.score},#{item.gmtCreate},#{item.gmtModified}
+		</foreach>
 	</insert>
 
 	<update id="update" parameterType="mybatis.mysql.testV2.entity.StudentDO">
@@ -100,6 +157,16 @@
 			<include refid="set"/>
 		</set>
         where id = #{id}
+	</update>
+
+	<update id="updateBatch">
+        <foreach collection="list" item="item" separator=";">
+		   update student
+           <set>
+			  <include refid="batchSet"/>
+		   </set>
+           where id = #{item.id}
+		</foreach>
 	</update>
 
 	<select id="getByStudentId" resultMap="BaseResultMap">
@@ -113,7 +180,7 @@
 		select
 		<include refid="Base_Column_list"/>
 		from student
-		<include refid="condition"></include>
+		<include refid="listCondition"></include>
 	</select>
 
 	<select id="get" resultMap="BaseResultMap">
@@ -134,13 +201,13 @@
 		select
 		count(1)
 	    from student
-		<include refid="condition"/>
+		<include refid="pageCondition"/>
 	</select>
 
 	<select id="queryByCondition" parameterType="mybatis.mysql.testV2.condition.PageQueryStudentCondition" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_list"/>
 		from student
-		<include refid="condition"/>
+		<include refid="pageCondition"/>
 	</select>
 </mapper>

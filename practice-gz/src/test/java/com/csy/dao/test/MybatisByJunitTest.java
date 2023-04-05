@@ -133,6 +133,7 @@ public class MybatisByJunitTest extends AbstractDaoTest {
         Assert.isTrue(totalStudentDOS.size() == size, DEFAULT_ERROR_DESCRIBE);
     }
 
+    @Rollback(value = false)
     @Test
     public void test_batchAdd() {
         List<StudentDO> studentDOS = Lists.newArrayList();
@@ -163,9 +164,23 @@ public class MybatisByJunitTest extends AbstractDaoTest {
         Assert.isTrue(oldDOS.size() + 2 == newDOS.size(), DEFAULT_ERROR_DESCRIBE);
     }
 
+    @Rollback(value = false)
     @Test
     public void test_batchUpdate() {
 
+        StudentDO s1 = new StudentDO();
+        s1.setId(1);
+        s1.setName("张三777");
+
+        StudentDO s2 = new StudentDO();
+        s2.setId(2);
+        s2.setName("李四777");
+
+        List<StudentDO> dos = Lists.newArrayList();
+        dos.add(s1);
+        dos.add(s2);
+
+        studentDAO.updateBatch(dos);
     }
 
     // 计算总的页数
@@ -185,6 +200,13 @@ public class MybatisByJunitTest extends AbstractDaoTest {
     /**
      * mybatis使用场景3：mybatis映射XML的标签元素使用
      * 如<select/>、<update/>等等
+     * 1）All the statements have unique id （XML中的所有语句都有唯一标识的id）
+     * 2）All these Mapped SQL statements are resided within the element named<mapper>.
+     * This element contains an attribute called ‘namespace’（所有的元素都位于<mapper>元素中，该元素有一个属性为namespace）
+     * 3）resultMaps：It is the most important and powerful elements in MyBatis.
+     * The results of SQL SELECT statements are mapped to Java objects (beans/POJO).
+     * （resultMaps包含表字段与POJO属性的映射）
+     *
      */
 
     /**

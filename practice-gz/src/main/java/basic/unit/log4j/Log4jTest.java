@@ -94,7 +94,6 @@ public class Log4jTest {
      * 1）可以编辑配置 Edit Configurations，传入虚拟机参数 如： -Ddynamic.path=/self-project/idea-logs/idea-dynamic-logs
      *
      */
-    @Parameterized.Parameter
     @Test
     public void test_acceptDynamicParameter() {
         logger.info("The info level of Dynamic !");
