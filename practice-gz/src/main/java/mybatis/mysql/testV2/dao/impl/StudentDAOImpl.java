@@ -34,4 +34,20 @@ public class StudentDAOImpl extends BaseDAO<StudentDO> implements IStudentDAO {
     public List<StudentDO> queryByCondition(PageQueryStudentCondition condition) {
         return queryForList(nameSpace + "queryByCondition", condition);
     }
+
+    @Override
+    public int updateScoreByIds(Integer score, List<Integer> ids) {
+        // Map形式设置列表（<foreach collection="ids">）
+        Map<String, Object> params = new HashMap<>();
+        params.put("score", score);
+        params.put("ids", ids);
+        return super.executeUpdate(nameSpace + "updateScoreByIds", params);
+
+        // 传递List形式（<foreach collection="list">）
+//        return super.executeUpdate(nameSpace + "updateScoreByIds", ids);
+
+        // 传递Array形式（<foreach collection="array">>
+//        return super.executeUpdate(nameSpace + "updateScoreByIds", ids.toArray());
+
+    }
 }

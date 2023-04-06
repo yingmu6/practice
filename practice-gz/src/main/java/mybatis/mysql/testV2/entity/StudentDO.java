@@ -23,4 +23,6 @@ public class StudentDO extends BaseDO<Integer> {
     private String studentId;
 
     private Integer score;
+
+    private String extVal;
 }

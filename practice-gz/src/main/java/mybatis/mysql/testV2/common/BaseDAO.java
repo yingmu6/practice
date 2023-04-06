@@ -45,7 +45,7 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
     }
 
     @Override
-    public void saveBatch(List<T> list) {
+    public void saveBatch(List<T> list) { //只开放IBaseDAO的接口给子类使用，其它方法都改为private，进行权限控制（todo @csy 看下哪些接口可以开放）
         if (CollectionUtils.isEmpty(list)) {
             return;
         }

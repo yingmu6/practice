@@ -18,4 +18,6 @@ public interface IStudentDAO extends IBaseDAO<StudentDO> {
     int queryCountByCondition(PageQueryStudentCondition condition);
 
     List<StudentDO> queryByCondition(PageQueryStudentCondition condition);
+
+    int updateScoreByIds(Integer score, List<Integer> ids);
 }

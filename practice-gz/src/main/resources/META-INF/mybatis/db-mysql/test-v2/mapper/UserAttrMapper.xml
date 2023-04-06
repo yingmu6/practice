@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.mysql.testV2.dao.impl.UserAttrDAOImpl">
+
+	<sql id="Base_Column_list">
+		`id`,`name`,`first_attr_1`,`first_attr_2`,`second_attr_1`,`second_attr_2`
+	</sql>
+
+	<resultMap id="BaseResultMap" type="mybatis.mysql.testV2.entity.UserAttrDO">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+		<result property="firstAttr1" column="first_attr_1" />
+		<result property="firstAttr2" column="first_attr_2" />
+		<result property="secondAttr1" column="second_attr_1" />
+		<result property="secondAttr2" column="second_attr_2" />
+	</resultMap>
+
+	<insert id="insertUserAttr">
+		insert into user_attr
+        (
+         `name`,
+		<foreach collection="firstAttr" index="index" separator=",">
+			`first_attr_${index+1}`
+		</foreach>
+		<foreach collection="secondAttr" index="index" separator=",">
+			`first_second_${index+1}`
+		</foreach>
+         )
+         values (
+          #{name},
+          <foreach collection="firstAttr" item="item" separator=",">
+			#{item}
+		 </foreach>
+		 <foreach collection="secondAttr" item="item" separator=",">
+		   #{item}
+		 </foreach>
+		)
+
+	</insert>
+
+	<select id="getAllUserAttr" resultMap="BaseResultMap">
+	   select
+	   <include refid="Base_Column_list"/>
+	   from user_attr
+	</select>
+
+</mapper>

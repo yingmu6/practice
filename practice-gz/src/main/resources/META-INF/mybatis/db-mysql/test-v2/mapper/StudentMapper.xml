@@ -23,7 +23,7 @@
 <mapper namespace="mybatis.mysql.testV2.dao.impl.StudentDAOImpl">
 
 	<sql id="Base_Column_list">
-		`id`,`name`,`age`,`student_id`,`score`,`gmt_create`,`gmt_modified`
+		`id`,`name`,`age`,`student_id`,`score`,`ext_val`,`gmt_create`,`gmt_modified`
 	</sql>
 
 	<resultMap id="BaseResultMap" type="mybatis.mysql.testV2.entity.StudentDO">
@@ -33,6 +33,7 @@
 		<result property="age" column="age" />
 		<result property="studentId" column="student_id" />
 		<result property="score" column="score" />
+		<result property="extVal" column="ext_val" />
 		<result property="gmtCreate" column="gmt_create" />
 		<result property="gmtModified" column="gmt_modified" />
 	</resultMap>
@@ -55,6 +56,9 @@
 		</if>
 		<if test="score != null">
 			`score` = #{score},
+		</if>
+        <if test="extVal != null">
+			`ext_val` = #{extVal},
 		</if>
 		<if test="gmtCreate != null">
 			`gmt_create` = #{gmtCreate},
@@ -82,6 +86,9 @@
 		</if>
 		<if test="item.score != null">
 			`score` = #{item.score},
+		</if>
+        <if test="item.extVal != null">
+			`ext_val` = #{item.extVal},
 		</if>
 		<if test="item.gmtCreate != null">
 			`gmt_create` = #{item.gmtCreate},
@@ -210,4 +217,15 @@
 		from student
 		<include refid="pageCondition"/>
 	</select>
+
+	<update id="updateScoreByIds">
+        update student
+        set `score` = #{score}
+        where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+          #{item}
+		</foreach>
+        and
+
+	</update>
 </mapper>

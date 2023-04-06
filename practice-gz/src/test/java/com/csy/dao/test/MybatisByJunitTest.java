@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import mybatis.mysql.testV2.condition.ListQueryCondition;
 import mybatis.mysql.testV2.condition.PageQueryStudentCondition;
 import mybatis.mysql.testV2.dao.IStudentDAO;
+import mybatis.mysql.testV2.dao.IUserAttrDAO;
 import mybatis.mysql.testV2.entity.StudentDO;
+import mybatis.mysql.testV2.entity.UserAttrDO;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.util.Assert;
@@ -24,6 +26,9 @@ public class MybatisByJunitTest extends AbstractDaoTest {
 
     @Resource
     private IStudentDAO studentDAO;
+
+    @Resource
+    private IUserAttrDAO userAttrDAO;
 
     /**
      * mybatis使用场景1：使用mybatis能增、删、改、查、分页查询、批量添加、批量修改
@@ -183,6 +188,15 @@ public class MybatisByJunitTest extends AbstractDaoTest {
         studentDAO.updateBatch(dos);
     }
 
+    @Rollback(value = false)
+    @Test
+    public void test_updateScoreByIds() {
+        Integer score = 60;
+        List<Integer> ids = Lists.newArrayList(1,2,3,8);
+        int rowNums = studentDAO.updateScoreByIds(score, ids);
+        Assert.isTrue(rowNums == 4, DEFAULT_ERROR_DESCRIBE);
+    }
+
     // 计算总的页数
     private int calculatePageNum(int totalRecords, int pageSize) {
         return (totalRecords % pageSize) == 0 ? (totalRecords / pageSize) :  (totalRecords / pageSize) + 1;
@@ -206,8 +220,28 @@ public class MybatisByJunitTest extends AbstractDaoTest {
      * 3）resultMaps：It is the most important and powerful elements in MyBatis.
      * The results of SQL SELECT statements are mapped to Java objects (beans/POJO).
      * （resultMaps包含表字段与POJO属性的映射）
-     *
+     * 4）<foreach collection="xxx"> 接收值的方式
+     *   4.1）若参数传递的是Map，collection标签属性值为Map中的key，如collection="ids"
+     *   4.2）若参数传递的是List，collection值填写为 collection="collection或list"
+     *   4.3）若参数传递的是Array，collection的值写为collection="array"
      */
+    @Rollback(value = false)
+    @Test
+    public void test_mybatis_tag() {
+
+        List<UserAttrDO> oldUserAttrs = userAttrDAO.getAllUserAttr();
+
+        UserAttrDO userAttrDO = new UserAttrDO();
+        userAttrDO.setName("李四");
+        userAttrDO.setFirstAttr1("ff11");
+        userAttrDO.setFirstAttr2("ff22");
+        userAttrDO.setSecondAttr1("ss11");
+        userAttrDO.setSecondAttr2("ss22");
+        userAttrDAO.insertUserAttr(userAttrDO);
+
+        List<UserAttrDO> newUserAttrs = userAttrDAO.getAllUserAttr();
+        Assert.isTrue(newUserAttrs.size() == (oldUserAttrs.size() + 1), DEFAULT_ERROR_DESCRIBE);
+    }
 
     /**
      * mybatis使用场景4：能够对BaseDAO进行公共处理
