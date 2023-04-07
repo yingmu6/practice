@@ -141,22 +141,23 @@
 		</set>
 	</insert>
 
-<!--	<insert id="saveBatch">-->
-<!--        <foreach collection="list" item="item" index="index" separator=";">-->
-<!--		   insert student-->
-<!--		   <set>-->
-<!--			  <include refid="batchSet"/>-->
-<!--		   </set>-->
-<!--		</foreach>-->
-<!--	</insert>-->
-
 	<insert id="saveBatch">
-		insert into student
-        (`id`,`name`,`age`,`student_id`,`score`,`gmt_create`,`gmt_modified`) values
-        <foreach collection="list" index="index" item="item" separator=",">
-          #{item.id},#{item.name},#{item.age},#{item.studentId},#{item.score},#{item.gmtCreate},#{item.gmtModified}
+        <foreach collection="list" item="item" index="index" separator=";">
+		   insert student
+		   <set>
+			  <include refid="batchSet"/>
+		   </set>
 		</foreach>
 	</insert>
+
+	<!-- 这种批量插入方式是可以的 -->
+<!--	<insert id="saveBatch">-->
+<!--		insert into student-->
+<!--        (`id`,`enterprise_no`,`name`,`age`,`student_id`,`score`,`ext_val`,`gmt_create`,`gmt_modified`) values-->
+<!--        <foreach collection="list" item="item" separator=",">-->
+<!--			(#{item.id},#{item.enterpriseNo},#{item.name},#{item.age},#{item.studentId},#{item.score},#{item.extVal},#{item.gmtCreate},#{item.gmtModified})-->
+<!--		</foreach>-->
+<!--	</insert>-->
 
 	<update id="update" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 		update student
@@ -167,7 +168,7 @@
 	</update>
 
 	<update id="updateBatch">
-        <foreach collection="list" item="item" separator=";">
+        <foreach collection="list" item="item" separator=";" close=";">
 		   update student
            <set>
 			  <include refid="batchSet"/>
@@ -225,7 +226,6 @@
         <foreach collection="ids" item="item" open="(" close=")" separator=",">
           #{item}
 		</foreach>
-        and
 
 	</update>
 </mapper>

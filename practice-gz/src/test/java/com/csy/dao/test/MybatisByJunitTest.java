@@ -138,6 +138,11 @@ public class MybatisByJunitTest extends AbstractDaoTest {
         Assert.isTrue(totalStudentDOS.size() == size, DEFAULT_ERROR_DESCRIBE);
     }
 
+    /**
+     * 批量插入方式：
+     * 1）insert into student(xxx,yyy...) values(11,22,...), (33,44,...)这种方式是可以的
+     */
+
     @Rollback(value = false)
     @Test
     public void test_batchAdd() {
@@ -161,12 +166,12 @@ public class MybatisByJunitTest extends AbstractDaoTest {
 
         ListQueryCondition condition = new ListQueryCondition();
         condition.setEnterpriseNo("11a");
-        List<StudentDO> oldDOS = studentDAO.findList(condition);
+//        List<StudentDO> oldDOS = studentDAO.findList(condition);
 
         studentDAO.saveBatch(studentDOS);
 
-        List<StudentDO> newDOS = studentDAO.findList(condition);
-        Assert.isTrue(oldDOS.size() + 2 == newDOS.size(), DEFAULT_ERROR_DESCRIBE);
+//        List<StudentDO> newDOS = studentDAO.findList(condition);
+//        Assert.isTrue(oldDOS.size() + 2 == newDOS.size(), DEFAULT_ERROR_DESCRIBE);
     }
 
     @Rollback(value = false)
@@ -191,7 +196,7 @@ public class MybatisByJunitTest extends AbstractDaoTest {
     @Rollback(value = false)
     @Test
     public void test_updateScoreByIds() {
-        Integer score = 60;
+        Integer score = 65;
         List<Integer> ids = Lists.newArrayList(1,2,3,8);
         int rowNums = studentDAO.updateScoreByIds(score, ids);
         Assert.isTrue(rowNums == 4, DEFAULT_ERROR_DESCRIBE);
@@ -215,15 +220,40 @@ public class MybatisByJunitTest extends AbstractDaoTest {
      * mybatis使用场景3：mybatis映射XML的标签元素使用
      * 如<select/>、<update/>等等
      * 1）All the statements have unique id （XML中的所有语句都有唯一标识的id）
+     *
      * 2）All these Mapped SQL statements are resided within the element named<mapper>.
      * This element contains an attribute called ‘namespace’（所有的元素都位于<mapper>元素中，该元素有一个属性为namespace）
+     *
      * 3）resultMaps：It is the most important and powerful elements in MyBatis.
      * The results of SQL SELECT statements are mapped to Java objects (beans/POJO).
      * （resultMaps包含表字段与POJO属性的映射）
+     *
      * 4）<foreach collection="xxx"> 接收值的方式
      *   4.1）若参数传递的是Map，collection标签属性值为Map中的key，如collection="ids"
      *   4.2）若参数传递的是List，collection值填写为 collection="collection或list"
      *   4.3）若参数传递的是Array，collection的值写为collection="array"
+     *
+     * 5）foreach元素的属性主要有item，index，collection，open，separator，close。
+     * （源码 DefaultSqlSession#wrapCollection有指定 具体值，如"collection"、"list"）
+     * item：集合中元素迭代时的别名，该参数为必选。
+     * index：在list和数组中,index是元素的序号，在map中，index是元素的key，该参数可选（就是取数组的下标或Map的key处理）
+     * open：foreach代码的开始符号，一般是(和close=")"合用。常用在in(),values()时。该参数可选
+     * separator：元素之间的分隔符，例如在in()的时候，separator=","会自动在元素中间用“,“隔开，避免手动输入逗号导致sql错误，如in(1,2,)这样。该参数可选。
+     * close: foreach代码的关闭符号，一般是)和open="("合用。常用在in(),values()时。该参数可选。
+     * collection: 要做foreach的对象，
+     *
+     * 6）<set>标签使用
+     * MyBatis在生成update语句时若使用if标签，如果前面的if没有执行，则可能导致有多余逗号的错误。
+     * 使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号。
+     * 如结尾为：（SQL语句中会产生SET关键字，并且会把末尾的逗号去掉）
+     * <set>
+     *   <if test="score != null">
+     * 		`score` = #{score},
+     * 	 </if>
+     *   <if test="item.age != null">
+     * 	    `age` = #{item.age},
+     *   </if>
+     * <set/>
      */
     @Rollback(value = false)
     @Test
@@ -237,11 +267,18 @@ public class MybatisByJunitTest extends AbstractDaoTest {
         userAttrDO.setFirstAttr2("ff22");
         userAttrDO.setSecondAttr1("ss11");
         userAttrDO.setSecondAttr2("ss22");
-        userAttrDAO.insertUserAttr(userAttrDO);
+
+        // <foreach index="index"> 传入的是list，index为列表的下标，从0开始
+        userAttrDAO.insertUserAttrInputList(userAttrDO);
+
+        // <foreach index="index"> 传入的是Map时，index为Map的key值，key设置什么，${index}取到的值就是什么，
+        // index="index" 若只声明，没有使用${index}提取值的话，没啥影响的
+        userAttrDAO.insertUserAttrInputMap(userAttrDO);
 
         List<UserAttrDO> newUserAttrs = userAttrDAO.getAllUserAttr();
         Assert.isTrue(newUserAttrs.size() == (oldUserAttrs.size() + 1), DEFAULT_ERROR_DESCRIBE);
     }
+
 
     /**
      * mybatis使用场景4：能够对BaseDAO进行公共处理

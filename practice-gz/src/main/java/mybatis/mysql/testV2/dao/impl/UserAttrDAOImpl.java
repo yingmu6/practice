@@ -19,7 +19,7 @@ import java.util.Map;
 public class UserAttrDAOImpl extends BaseDAO<UserAttrDO> implements IUserAttrDAO {
 
     @Override
-    public void insertUserAttr(UserAttrDO userAttrDO) {
+    public void insertUserAttrInputList(UserAttrDO userAttrDO) {
         List<String> firstAttr = Lists.newArrayList(userAttrDO.getFirstAttr1(), userAttrDO.getFirstAttr2());
         List<String> secondAttr = Lists.newArrayList(userAttrDO.getSecondAttr1(), userAttrDO.getSecondAttr2());
 
@@ -27,7 +27,24 @@ public class UserAttrDAOImpl extends BaseDAO<UserAttrDO> implements IUserAttrDAO
         params.put("name", userAttrDO.getName());
         params.put("firstAttr", firstAttr);
         params.put("secondAttr", secondAttr);
-        super.executeInsert(nameSpace + "insertUserAttr", params);
+        super.executeInsert(nameSpace + "insertUserAttrInputList", params);
+    }
+
+    @Override
+    public void insertUserAttrInputMap(UserAttrDO userAttrDO) {
+        Map<String, String> firstMap = new HashMap<>();
+        firstMap.put("1", userAttrDO.getFirstAttr1());
+        firstMap.put("2", userAttrDO.getFirstAttr2());
+
+        Map<String, String> secondMap = new HashMap<>();
+        secondMap.put("1", userAttrDO.getSecondAttr1());
+        secondMap.put("2", userAttrDO.getSecondAttr2());
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", userAttrDO.getName());
+        params.put("firstAttrMap", firstMap);
+        params.put("secondAttrMap", secondMap);
+        super.executeInsert(nameSpace + "insertUserAttrInputMap", params);
     }
 
     @Override

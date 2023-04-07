@@ -49,7 +49,7 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
         if (CollectionUtils.isEmpty(list)) {
             return;
         }
-        this.executeBatch(nameSpace + "saveBatch", list);
+        this.executeBatchInsert(nameSpace + "saveBatch", list);
     }
 
     @Override
@@ -60,7 +60,9 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
 
     @Override
     public int updateBatch(List<T> list) {
-        return this.executeUpdate(nameSpace + "updateBatch", list);
+//        return this.executeUpdate(nameSpace + "updateBatch", list);
+
+        return this.executeBatchUpdate(nameSpace + "updateBatch", list);
     }
 
     private void before(T t) {
@@ -132,7 +134,7 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
         return primaryKey;
     }
 
-    protected boolean executeBatch(String statementName, List<?> list) {
+    protected boolean executeBatchInsert(String statementName, List<?> list) {
         if (CollectionUtils.isEmpty(list)) {
             return true;
         } else {
@@ -152,6 +154,28 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
             }
 
             return isSuccess;
+        }
+    }
+
+    protected int executeBatchUpdate(String statementName, List<?> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return 0;
+        } else {
+            SqlSession session = this.sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+
+            int num = 0;
+            try {
+                num = session.update(statementName, list);
+                session.commit();
+                session.clearCache();
+            } catch (Exception e) {
+                session.rollback();
+                logger.error("execute batch update error ", e);
+            } finally {
+                session.close();
+            }
+
+            return num;
         }
     }
 

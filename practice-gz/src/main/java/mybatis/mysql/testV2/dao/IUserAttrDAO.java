@@ -11,7 +11,9 @@ import java.util.List;
  * @Description
  */
 public interface IUserAttrDAO extends IBaseDAO<UserAttrDO> {
-    void insertUserAttr(UserAttrDO userAttrDO);
+    void insertUserAttrInputList(UserAttrDO userAttrDO);
+
+    void insertUserAttrInputMap(UserAttrDO userAttrDO);
 
     List<UserAttrDO> getAllUserAttr();
 }

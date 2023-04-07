@@ -35,23 +35,45 @@
 		<result property="secondAttr2" column="second_attr_2" />
 	</resultMap>
 
-	<insert id="insertUserAttr">
+	<insert id="insertUserAttrInputList">
 		insert into user_attr
         (
          `name`,
 		<foreach collection="firstAttr" index="index" separator=",">
 			`first_attr_${index+1}`
-		</foreach>
+		</foreach>,
 		<foreach collection="secondAttr" index="index" separator=",">
-			`first_second_${index+1}`
+			`second_attr_${index+1}`
 		</foreach>
          )
          values (
           #{name},
           <foreach collection="firstAttr" item="item" separator=",">
 			#{item}
-		 </foreach>
+		 </foreach>,
 		 <foreach collection="secondAttr" item="item" separator=",">
+		   #{item}
+		 </foreach>
+		)
+	</insert>
+
+	<insert id="insertUserAttrInputMap">
+		insert into user_attr
+        (
+         `name`,
+		<foreach collection="firstAttrMap" index="key" separator=",">
+			`first_attr_${key}`
+		</foreach>,
+		<foreach collection="secondAttrMap" index="key" separator=",">
+			`second_attr_${key}`
+		</foreach>
+         )
+         values (
+          #{name},
+          <foreach collection="firstAttrMap" item="item" separator=",">
+			#{item}
+		 </foreach>,
+		 <foreach collection="secondAttrMap" item="item" separator=",">
 		   #{item}
 		 </foreach>
 		)

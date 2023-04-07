@@ -15,19 +15,6 @@
     <setting name="defaultStatementTimeout" value="25"/>
   </settings>
 
-  <typeAliases>
-    <typeAlias alias="Author" type="mybatis.derby.Author"/>
-    <typeAlias alias="Section" type="mybatis.derby.Section"/>
-  </typeAliases>
-
-<!--  <typeHandlers>-->
-<!--    <typeHandler javaType="String" jdbcType="VARCHAR" handler="org.apache.ibatis.builder.CustomStringTypeHandler"/>-->
-<!--  </typeHandlers>-->
-
-  <objectFactory type="mybatis.derby.ExampleObjectFactory">
-    <property name="objectFactoryProperty" value="100"/>
-  </objectFactory>
-
   <plugins>
     <plugin interceptor="mybatis.derby.ExamplePlugin">
       <property name="pluginProperty" value="100"/>
