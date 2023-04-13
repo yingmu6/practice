@@ -38,6 +38,12 @@
 		<result property="gmtModified" column="gmt_modified" />
 	</resultMap>
 
+	<resultMap id="BaseResultMapExt" type="mybatis.mysql.testV2.entity.StudentDO">
+		<id column="id" property="id" />
+		<result property="enterpriseNo" column="enterprise_no" />
+		<result property="name" column="name" />
+	</resultMap>
+
 	<sql id="set">
         <if test="id != null">
 			`id` = #{id},
@@ -136,28 +142,77 @@
 
 	<insert id="save" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 	    insert student
-	    <set>
-			<include refid="set"/>
-		</set>
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+		  <if test="item.id != null">`id` = #{item.id},</if>
+		  <if test="item.enterpriseNo != null">`enterprise_no` = #{item.enterpriseNo},</if>
+		  <if test="item.name != null">`name` = #{item.name},</if>
+		  <if test="item.age != null">`age` = #{item.age},</if>
+		  <if test="item.studentId != null">`student_id` = #{item.studentId},</if>
+		  <if test="item.score != null">`score` = #{item.score},</if>
+          <if test="item.extVal != null">`ext_val` = #{item.extVal},</if>
+		  <if test="item.gmtCreate != null">`gmt_create` = #{item.gmtCreate},</if>
+		  <if test="item.gmtModified != null">`gmt_modified` = #{item.gmtModified},</if>
+		</trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+		  <if test="item.id != null">`id` = #{item.id},</if>
+		  <if test="item.enterpriseNo != null">`enterprise_no` = #{item.enterpriseNo},</if>
+		  <if test="item.name != null">`name` = #{item.name},</if>
+		  <if test="item.age != null">`age` = #{item.age},</if>
+		  <if test="item.studentId != null">`student_id` = #{item.studentId},</if>
+		  <if test="item.score != null">`score` = #{item.score},</if>
+          <if test="item.extVal != null">`ext_val` = #{item.extVal},</if>
+		  <if test="item.gmtCreate != null">`gmt_create` = #{item.gmtCreate},</if>
+		  <if test="item.gmtModified != null">`gmt_modified` = #{item.gmtModified},</if>
+		</trim>
 	</insert>
 
-	<insert id="saveBatch">
+	<!-- 该种方式不能批量创建，待研究（已经可以了，在连接的url加上allowMultiQueries=true即可） -->
+	<insert id="saveBatchInsert">
         <foreach collection="list" item="item" index="index" separator=";">
-		   insert student
+		   INSERT `student`
 		   <set>
 			  <include refid="batchSet"/>
 		   </set>
 		</foreach>
 	</insert>
 
-	<!-- 这种批量插入方式是可以的 -->
-<!--	<insert id="saveBatch">-->
-<!--		insert into student-->
-<!--        (`id`,`enterprise_no`,`name`,`age`,`student_id`,`score`,`ext_val`,`gmt_create`,`gmt_modified`) values-->
-<!--        <foreach collection="list" item="item" separator=",">-->
-<!--			(#{item.id},#{item.enterpriseNo},#{item.name},#{item.age},#{item.studentId},#{item.score},#{item.extVal},#{item.gmtCreate},#{item.gmtModified})-->
+	<!-- 该种方式也是可以的，只不过没有<set>方式简洁 -->
+<!--	<insert id="saveBatchInsert">-->
+<!--        <foreach collection="list" item="item" index="index" separator=";">-->
+<!--			insert into student-->
+<!--			<trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--				<if test="item.id != null">`id`, </if>-->
+<!--				<if test="item.enterpriseNo != null">`enterprise_no` ,</if>-->
+<!--				<if test="item.name != null">`name` ,</if>-->
+<!--				<if test="item.age != null">`age` ,</if>-->
+<!--				<if test="item.studentId != null">`student_id` ,</if>-->
+<!--				<if test="item.score != null">`score` ,</if>-->
+<!--				<if test="item.extVal != null">`ext_val` ,</if>-->
+<!--				<if test="item.gmtCreate != null">`gmt_create` ,</if>-->
+<!--				<if test="item.gmtModified != null">`gmt_modified`,</if>-->
+<!--			</trim>-->
+<!--			<trim prefix=" values (" suffix=")" suffixOverrides=",">-->
+<!--				<if test="item.id != null">`id` = #{item.id},</if>-->
+<!--				<if test="item.enterpriseNo != null">`enterprise_no` = #{item.enterpriseNo},</if>-->
+<!--				<if test="item.name != null">`name` = #{item.name},</if>-->
+<!--				<if test="item.age != null">`age` = #{item.age},</if>-->
+<!--				<if test="item.studentId != null">`student_id` = #{item.studentId},</if>-->
+<!--				<if test="item.score != null">`score` = #{item.score},</if>-->
+<!--				<if test="item.extVal != null">`ext_val` = #{item.extVal},</if>-->
+<!--				<if test="item.gmtCreate != null">`gmt_create` = #{item.gmtCreate},</if>-->
+<!--				<if test="item.gmtModified != null">`gmt_modified` = #{item.gmtModified},</if>-->
+<!--			</trim>-->
 <!--		</foreach>-->
 <!--	</insert>-->
+
+	<!-- 这种批量插入方式是可以的，就是可能会由于拼接的SQL过长时，出现异常 -->
+	<insert id="saveBatch">
+		insert into student
+        (`id`,`enterprise_no`,`name`,`age`,`student_id`,`score`,`ext_val`,`gmt_create`,`gmt_modified`) values
+        <foreach collection="list" item="item" separator=",">
+			(#{item.id},#{item.enterpriseNo},#{item.name},#{item.age},#{item.studentId},#{item.score},#{item.extVal},#{item.gmtCreate},#{item.gmtModified})
+		</foreach>
+	</insert>
 
 	<update id="update" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 		update student
@@ -168,7 +223,7 @@
 	</update>
 
 	<update id="updateBatch">
-        <foreach collection="list" item="item" separator=";" close=";">
+        <foreach collection="list" item="item" separator=";">
 		   update student
            <set>
 			  <include refid="batchSet"/>

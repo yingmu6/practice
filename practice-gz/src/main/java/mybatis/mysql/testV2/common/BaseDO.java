@@ -18,6 +18,8 @@ public class BaseDO<P> implements Serializable {
 
     private P id;
 
+    private String enterpriseNo;
+
     private Long gmtCreate;
 
     private Long gmtModified;

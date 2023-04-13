@@ -20,6 +20,14 @@ public class AbstractDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 
     private StopWatch stopWatch;
 
+    public StopWatch getStopWatch() {
+        return stopWatch;
+    }
+
+    public void setStopWatch(StopWatch stopWatch) {
+        this.stopWatch = stopWatch;
+    }
+
     @Before
     public void invokeStart() {
         stopWatch = new StopWatch();

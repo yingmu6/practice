@@ -1,6 +1,13 @@
 package mybatis.mysql.testV2.common;
 
+import mybatis.mysql.testV2.entity.TestDataBase;
+import mybatis.mysql.testV2.entity.TestDataBaseFactory;
+import mybatis.mysql.testV2.entity.TestTable;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
+import org.apache.ibatis.mapping.ResultMap;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,9 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author chenSy
@@ -22,6 +35,8 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
     private static final Logger logger = LoggerFactory.getLogger(BaseDAO.class);
 
      public String nameSpace;
+
+    private Boolean checkEnterpriseNo = true;
 
     public SqlSessionFactory sqlSessionFactory;
 
@@ -49,7 +64,7 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
         if (CollectionUtils.isEmpty(list)) {
             return;
         }
-        this.executeBatchInsert(nameSpace + "saveBatch", list);
+        this.executeBatchInsert(nameSpace + "saveBatchInsert", list);
     }
 
     @Override
@@ -66,9 +81,94 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
     }
 
     private void before(T t) {
-//        if (StringUtils.isEmpty(t.getEnterpriseNo())) {
-//            // 对企业编号进行通用处理 todo 此处逻辑待沉淀
+        checkEnterpriseNo_way1(t);
+//        checkEnterpriseNo_way2(t);
+//        checkEnterprise_way3(t);
+    }
+
+    private void checkEnterpriseNo_way1(T t) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        if (this.checkEnterpriseNo && StringUtils.isEmpty(t.getEnterpriseNo())) {
+            logger.info("方式一: 耗时:{} 毫秒", stopWatch.getTime());
+            throw new RuntimeException("企业编号不为空");
+        }
+    }
+
+    private void checkEnterprise_way3(T t) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        SqlSession session = this.getSqlSession();
+        Connection connection = session.getConnection();
+
+        String catalogFilter = null;
+        String schemaFilter = null;
+        try {
+            TestDataBase db = TestDataBaseFactory.newDatabase(connection, catalogFilter, schemaFilter);
+            String[] tableNames = db.getTableNames();
+            for (String name : tableNames) {
+                TestTable table = db.getTable(name);
+                String[] columnNames = table.getColumns();
+                logger.info("表的名称：{}, 列表名称：{}", tableNames, columnNames);
+            }
+
+            logger.info("当前类名：tableNames:{}, 耗时:{} 毫秒", tableNames, stopWatch.getTime());
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void checkEnterpriseNo_way2(T t) {
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        // 获取xxxMapper.xml中的内容
+        SqlSession session = this.getSqlSession();
+        Configuration configuration = session.getConfiguration();
+
+        List<String> resultMapNames = new ArrayList<>();
+        String currentClassName = this.getClass().getCanonicalName();
+        Collection<String> names = configuration.getResultMapNames();
+        for (String name : names) {
+            if (name.startsWith(currentClassName)) {
+               resultMapNames.add(name);
+            }
+        }
+
+        if (CollectionUtils.isEmpty(resultMapNames)) {
+            return;
+        }
+
+        Set<String> columns = new HashSet<>();
+        // 获取到<resultMap> 中映射的column
+        for (String name : resultMapNames) {
+            ResultMap resultMap = configuration.getResultMap(name);
+            columns.addAll(resultMap.getMappedColumns());
+        }
+
+        logger.info("方式二：class:{}, columns:{}, 耗时:{} 毫秒", currentClassName, columns, stopWatch.getTime());
+
+        // 判断是否包含“企业编号”，若包含传入enterprise_no不为空
+        if (columns.contains("ENTERPRISE_NO") && StringUtils.isEmpty(t.getEnterpriseNo())) {
+           throw new RuntimeException("企业编号不为空");
+        }
+
+        // 可以拿到<sql/>标签的内容
+//        Map<String, XNode> map = configuration.getSqlFragments();
+//        for (String key : map.keySet()) {
+//            if (key.startsWith(currentClassName)) {
+//                XNode xNode = map.get(key);
+//                Node node = xNode.getNode();
+//                logger.info("node信息, {}" , JSON.toJSONString(node));
+//            }
 //        }
+
+        // 通过configuration的mappedStatements可以拿到所有的语句
+//        Collection<MappedStatement> mappedStatements = configuration.getMappedStatements();
     }
 
     @Override
@@ -171,6 +271,7 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
             } catch (Exception e) {
                 session.rollback();
                 logger.error("execute batch update error ", e);
+                // todo @csy 抛出异常
             } finally {
                 session.close();
             }
@@ -186,5 +287,13 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
 
     public String wrapNamespace(String name) {
         return this.getClass().getCanonicalName() + "." + name;
+    }
+
+    public Boolean getCheckEnterpriseNo() {
+        return checkEnterpriseNo;
+    }
+
+    public void setCheckEnterpriseNo(Boolean checkEnterpriseNo) {
+        this.checkEnterpriseNo = checkEnterpriseNo;
     }
 }

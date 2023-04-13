@@ -18,6 +18,10 @@ import java.util.Map;
 @Repository("studentDAO")
 public class StudentDAOImpl extends BaseDAO<StudentDO> implements IStudentDAO {
 
+    public StudentDAOImpl() {
+        super.setCheckEnterpriseNo(false);
+    }
+
     @Override
     public StudentDO getByStudentId(String studentId) {
         Map<String, Object> params = new HashMap<>(3);

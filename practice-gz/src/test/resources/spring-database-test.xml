@@ -11,7 +11,7 @@
     <bean id="jdbcDataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/csy_db?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;allowMultiQueries=true"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
         <property name="connectionProperties" value="org.gjt.mm.mysql.Driver"/>
