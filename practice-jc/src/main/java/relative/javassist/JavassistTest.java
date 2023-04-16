@@ -11,7 +11,24 @@ import java.lang.reflect.Method;
  * @author : chensy
  * Date : 2020/11/12 上午9:49
  */
-public class BasicUseTest {
+public class JavassistTest {
+
+    /**
+     * Javassist相关介绍
+     * 1）Javassist is a class library for dealing with Java bytecode.（Javassist是用来处理java字节码的类库）
+     * Java bytecode is stored in a binary file（二进制文件） called a class file（class文件）.
+     * Each class file contains one Java class or interface.（每个class文件包含一个Java类或接口）
+     *
+     * 2）The class Javassist.CtClass is an abstract representation of a class file.（CtClass是class文件的抽象表示）
+     * A CtClass (compile-time class) object is a handle for dealing with a class file.（CtClass：编译时的对象，用于处理class文件）
+     *
+     * 3）This program first obtains a ClassPool object, which controls bytecode modification with Javassist（项目首先需要一个ClassPool，用于控制字节码的操作）
+     * The ClassPool object is a container of CtClass object representing a class file.（ClassPool是一个容器对象）
+     *
+     * 4）If a CtClass object is converted into a class file by writeFile(), toClass(), or toBytecode(), Javassist freezes that CtClass object.（CtClass对象写入到class文件时，CtClass对象会被冻结）
+     * Further modifications of that CtClass object are not permitted.
+     */
+
     public static void main(String[] args) throws Exception {
         // 此处用户 + ctClass.toClass()，会出现attempted  duplicate class definition for name: "relative/javassist/Fruit"
         // 因为Fruit已经产生一个Class对象，然后再通过ClassPool.toClass()又产生一个Class，所以就报错了
@@ -99,7 +116,22 @@ public class BasicUseTest {
 
     }
 
+    /**
+     * 场景1：了解$获取值方式方式
+     * 1）使用$1、$2等获取入参值
+     * 2）了解$w的获取值方法
+     */
+
+    /**
+     * 场景2：了解CtClasss的冻结、解冻方法
+     */
+
+    /**
+     * 场景3：使用拼接的字符串，构造Class对象并实例化
+     */
+
     // 增加字段和方法，直接调用会报编译错误，需要通过反射机制获取
     // https://zhuanlan.zhihu.com/p/141449080  Java动态字节技术之Javassist
     // http://www.javassist.org/html/ API 文档
+
 }

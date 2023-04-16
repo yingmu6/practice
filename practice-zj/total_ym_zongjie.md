@@ -12,6 +12,8 @@
   * https://en.wikipedia.org/wiki/Snowflake_ID 维基百科
   * https://github.com/xitu/gold-miner/blob/master/TODO/uuid-or-guid-as-primary-keys-be-careful.md  主键id暴露的问题
 * Mockito介绍 https://www.tutorialspoint.com/mockito/mockito_quick_guide.htm
+* Javassit介绍 https://www.javassist.org/tutorial/tutorial.html
+  * https://www.baeldung.com/javassist  
 
 ### 工具相关
 * Arthas is a Java Diagnostic tool open sourced by Alibaba.（可以不用修改代码、重启服务就能解决线上问题） 
