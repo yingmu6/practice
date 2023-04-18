@@ -25,6 +25,12 @@ public class ClassTest {
      * while isAssignableFrom checks if we can assign object of the parameter class (from) to the reference of
      * the class on which the method is called.Note that both of these consider the actual instance not the reference type
      */
+
+
+    /**
+     * 场景2：Method、Filed等使用
+     * 1）Filed中的setAccessible(true)探索
+     */
 }
 
 //todo @csy 枚举使用

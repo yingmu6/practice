@@ -73,7 +73,7 @@ public class MybatisByJunitTest extends AbstractDaoTest {
     @Rollback(value = false)
     @Test
     public void test_addStudent() {
-        StudentDO existDO = studentDAO.getByStudentId("5001");
+        StudentDO existDO = studentDAO.getByStudentId("9001");
         if (existDO != null) {
             return;
         }
@@ -82,10 +82,10 @@ public class MybatisByJunitTest extends AbstractDaoTest {
         addDO.setName("李李");
         addDO.setAge(14);
         addDO.setScore(79);
-        addDO.setStudentId("5001");
+        addDO.setStudentId("9001");
         studentDAO.save(addDO);
 
-        StudentDO dbDO = studentDAO.getByStudentId("5001");
+        StudentDO dbDO = studentDAO.getByStudentId("9001");
         Assert.notNull(dbDO, DEFAULT_ERROR_DESCRIBE);
         Assert.isTrue(dbDO.getName().equals("李李"), DEFAULT_ERROR_DESCRIBE);
     }
