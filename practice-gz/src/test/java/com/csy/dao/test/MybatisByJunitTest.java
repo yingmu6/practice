@@ -312,4 +312,9 @@ public class MybatisByJunitTest extends AbstractDaoTest {
      * b）configuration.getResultMapNames() 可以拿到<resultMap/> 标签的内容
      * c）
      */
+
+    /**
+     * 场景5：部分零散点
+     * 1）LOCATE 关键字使用
+     */
 }

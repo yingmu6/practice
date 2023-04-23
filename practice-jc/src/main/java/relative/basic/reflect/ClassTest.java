@@ -5,6 +5,9 @@ package relative.basic.reflect;
  * Date : 2020/10/27 下午5:23
  */
 public class ClassTest {
+
+    private boolean flag; //默认为false
+
     public static void main(String[] args) {
         System.out.println(1);
         int a = 2;
@@ -13,8 +16,10 @@ public class ClassTest {
 //        System.out.println(Animal.values());
 
         //todo @csy-23/02/20 java.lang.Class#toGenericString方法测试
-    }
 
+        ClassTest classTest = new ClassTest();
+        System.out.println("default:" + classTest.isFlag());
+    }
 
     /**
      * 场景1：isAssignableFrom方法的使用
@@ -30,7 +35,16 @@ public class ClassTest {
     /**
      * 场景2：Method、Filed等使用
      * 1）Filed中的setAccessible(true)探索
+     * 2）Filed的set(Object obj, Object value)方法使用，当obj=null时是什么含义？
      */
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 }
 
 //todo @csy 枚举使用

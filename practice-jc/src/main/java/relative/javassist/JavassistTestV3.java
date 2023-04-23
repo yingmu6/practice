@@ -141,6 +141,11 @@ public class JavassistTestV3 {
     /**
      * 场景7：使用Javassist产生新的类，并设置对应的字段、方法
      */
+
+    /**
+     * 场景8：探索使用debug产生的目录的字节码文件，是否可以进行debug
+     * 1）怎样调试javassist创建的字节码
+     */
     @Test
     public void test_generate_new_class_V1() throws Exception {
 //        CtClass.debugDump = "./debug-class"; //输出调试目录，此处是没有效果的

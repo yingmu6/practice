@@ -16,7 +16,7 @@
   * https://www.baeldung.com/javassist 
   * https://jse.readthedocs.io/en/latest/jdk8/javassistTutorial.html   Javassist Tutorial
 * 编程式事务 https://www.baeldung.com/spring-programmatic-transaction-management
-  * https://spring.io/guides/gs/managing-transactions/ 
+  * https://spring.io/guides/gs/managing-transactions/  官方文档 
 
 ### 工具相关
 * Arthas is a Java Diagnostic tool open sourced by Alibaba.（可以不用修改代码、重启服务就能解决线上问题） 
