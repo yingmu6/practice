@@ -38,6 +38,10 @@ public class ClassTest {
      * 2）Filed的set(Object obj, Object value)方法使用，当obj=null时是什么含义？
      */
 
+    /**
+     * 场景3：ParameterizedType、Type等类型使用
+     */
+
     public boolean isFlag() {
         return flag;
     }
