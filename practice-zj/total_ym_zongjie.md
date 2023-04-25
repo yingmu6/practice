@@ -1,7 +1,7 @@
 ## 总结笔记
 > 记录源码相关联学习的总结
 
-### gz相关
+### gz相关（demo+practice）
 * MapStruct是否生效，可看字节码目录有没有产生实现类，可能是没有完成引入maven，也可能与lombok包冲突（2023/03/23）
 * Mybatis相关文档（2023/03/31）
   * https://mybatis.org/mybatis-3/sqlmap-xml.html 官方文档

@@ -3,9 +3,12 @@ package relative.java8.function;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -13,25 +16,87 @@ import java.util.stream.Collectors;
  * 函数式接口可以被隐式转换为 lambda 表达式。
  * Lambda 表达式和方法引用（实际上也可认为是Lambda表达式）上。
  * <p>
- * https://www.runoob.com/java/java8-functional-interfaces.html
  *
  * @author chensy
  * @date 2021/9/5
  */
-public class FunctionTest { //test
-    public static void main(String[] args) {
-        basic();
-        highLeval();
-    }
+public class FunctionTest {
 
-    // 函数式接口基本使用
-    public static void basic() {
+    /**
+     * 函数式接口详解：
+     * 1）Any interface with a SAM(Single Abstract Method 单个的抽象方法) is a functional interface,
+     * and its implementation may be treated as（被视为） lambda expressions
+     *
+     * https://www.baeldung.com/java-8-functional-interfaces demo参考
+     */
+
+
+    /**
+     * 场景1：使用lambda表达式
+     */
+    @Test
+    public void basic() {
         // 使用lambda表达式来标识函数接口的实现（java8之前是使用匿名类处理的）
         GreetingService greetingService = message -> System.out.println(message + ",hello");
         greetingService.sayHello("你好");
     }
 
-    public static void highLeval() {
+    /**
+     * 场景2：内置的函数式接口使用，如Consumer、IntFunction等
+     */
+    @Test
+    public void useEmbedded() {
+        // 方式一：lambda的写法
+        Consumer<String> consumer1 = param -> System.out.println(param + " V1:haha"); //先定义好函数接口
+        this.dealInfo("function interface V1：", consumer1);
+
+        // 方式二：lambda的写法
+        Consumer<String> consumer2 = (param) -> { //语句块中已有一条语句时，可以去掉{}
+            System.out.println(param + " V2:haha");
+        };
+        this.dealInfo("function interface V2：", consumer2);
+
+        // 方式三：匿名内部类的写法
+        Consumer<String> consumer3 = new Consumer<String>() {
+            @Override
+            public void accept(String param) { //实现接口中逻辑（此处只是先定义函数式接口，在函数式接口使用时，才会真正调用；定义的函数式接口，使用其它的变量值）
+                System.out.println(param + " V3:haha");
+            }
+        };
+        this.dealInfo("function interface V3：", consumer3);
+
+        String testStr = "hello";
+        // 方式四：传递的函数式接口，带上传入前的变量值（当函数式接口真正使用的时候，进行回调时，会保存之前使用到的变量值，如此处的testStr）
+        Consumer<String> consumer4 = param -> System.out.println(param + testStr + " V4:haha");
+        this.dealInfo("function interface V4：", consumer4);
+
+        // IntFunction：写法一
+        IntFunction intFunction1 = x -> {
+            return x + 1;
+        };
+
+        IntFunction intFunction2 = x -> x / 2; //只有一条语句时，可以省去{}，lambda也能推断出返回值的
+
+        System.out.println("int计算1：" + intFunction1.apply(3));
+        System.out.println("int计算2：" + intFunction2.apply(4));
+    }
+
+    private void dealInfo(String str, Consumer<String> consumer) { //可以通过方法参数传递
+        consumer.accept(str); //执行函数接口的操作
+    }
+
+    /**
+     * 场景3：二元操作 BiConsumer、BiFunction
+     */
+    public void testBinaryOperator() {
+
+    }
+
+    /**
+     * 场景4：Predicates等使用
+     */
+    @Test
+    public void highLeval() {
         List<Fruit> fruits = new ArrayList<>();
         Fruit fruit = new Fruit();
         fruit.setName("苹果");
