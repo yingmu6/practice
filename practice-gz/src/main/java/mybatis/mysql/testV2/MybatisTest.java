@@ -17,10 +17,10 @@ public class MybatisTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
         IStudentDAO studentDAO = (IStudentDAO) applicationContext.getBean("studentDAO");
 
-//        getStudent(studentDAO);
+        getStudent(studentDAO);
 //        deleteStudent(studentDAO);
 //        updateStudent(studentDAO);
-        addStudent(studentDAO);
+//        addStudent(studentDAO);
     }
 
     public static void getStudent(IStudentDAO studentDAO) {

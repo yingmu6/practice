@@ -18,6 +18,10 @@ import java.util.Map;
 @Repository("userAttrDAO")
 public class UserAttrDAOImpl extends BaseDAO<UserAttrDO> implements IUserAttrDAO {
 
+    public UserAttrDAOImpl() {
+        super.setCheckEnterpriseNo(false);
+    }
+
     @Override
     public void insertUserAttrInputList(UserAttrDO userAttrDO) {
         List<String> firstAttr = Lists.newArrayList(userAttrDO.getFirstAttr1(), userAttrDO.getFirstAttr2());

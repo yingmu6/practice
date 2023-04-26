@@ -35,6 +35,34 @@
 		<result property="secondAttr2" column="second_attr_2" />
 	</resultMap>
 
+	<sql id="set">
+		<if test="id != null">
+			`id` = #{id},
+		</if>
+		<if test="name != null">
+			`name` = #{name},
+		</if>
+		<if test="firstAttr1 != null">
+			`first_attr_1` = #{firstAttr1},
+		</if>
+		<if test="firstAttr2 != null">
+			`first_attr_2` = #{firstAttr2},
+		</if>
+		<if test="secondAttr1 != null">
+			`second_attr_1` = #{secondAttr1},
+		</if>
+		<if test="secondAttr2 != null">
+			`second_attr_2` = #{secondAttr2},
+		</if>
+	</sql>
+
+	<insert id="save">
+		INSERT `user_attr`
+		<set>
+			<include refid="set"/>
+		</set>
+	</insert>
+
 	<insert id="insertUserAttrInputList">
 		insert into user_attr
         (

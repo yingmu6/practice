@@ -82,7 +82,7 @@ public class FunctionTest {
     }
 
     private void dealInfo(String str, Consumer<String> consumer) { //可以通过方法参数传递
-        consumer.accept(str); //执行函数接口的操作
+        consumer.accept(str); //执行函数接口的操作（接口的行为定义，要看原始输入的地方；该种编程风格，一开始不习惯。因为一般写代码时，都是所见即所得，逻辑都写在看到的地方，而函数式接口需要反查）
     }
 
     /**

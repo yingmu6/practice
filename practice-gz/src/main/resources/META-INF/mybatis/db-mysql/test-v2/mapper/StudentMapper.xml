@@ -142,28 +142,9 @@
 
 	<insert id="save" parameterType="mybatis.mysql.testV2.entity.StudentDO">
 	    insert student
-	    <trim prefix="(" suffix=")" suffixOverrides=",">
-		  <if test="item.id != null">`id` = #{item.id},</if>
-		  <if test="item.enterpriseNo != null">`enterprise_no` = #{item.enterpriseNo},</if>
-		  <if test="item.name != null">`name` = #{item.name},</if>
-		  <if test="item.age != null">`age` = #{item.age},</if>
-		  <if test="item.studentId != null">`student_id` = #{item.studentId},</if>
-		  <if test="item.score != null">`score` = #{item.score},</if>
-          <if test="item.extVal != null">`ext_val` = #{item.extVal},</if>
-		  <if test="item.gmtCreate != null">`gmt_create` = #{item.gmtCreate},</if>
-		  <if test="item.gmtModified != null">`gmt_modified` = #{item.gmtModified},</if>
-		</trim>
-        <trim prefix=" values (" suffix=")" suffixOverrides=",">
-		  <if test="item.id != null">`id` = #{item.id},</if>
-		  <if test="item.enterpriseNo != null">`enterprise_no` = #{item.enterpriseNo},</if>
-		  <if test="item.name != null">`name` = #{item.name},</if>
-		  <if test="item.age != null">`age` = #{item.age},</if>
-		  <if test="item.studentId != null">`student_id` = #{item.studentId},</if>
-		  <if test="item.score != null">`score` = #{item.score},</if>
-          <if test="item.extVal != null">`ext_val` = #{item.extVal},</if>
-		  <if test="item.gmtCreate != null">`gmt_create` = #{item.gmtCreate},</if>
-		  <if test="item.gmtModified != null">`gmt_modified` = #{item.gmtModified},</if>
-		</trim>
+		<set>
+			<include refid="set"/>
+		</set>
 	</insert>
 
 	<!-- 该种方式不能批量创建，待研究（已经可以了，在连接的url加上allowMultiQueries=true即可） -->

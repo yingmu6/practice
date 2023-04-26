@@ -81,8 +81,8 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
     }
 
     private void before(T t) {
-//        checkEnterpriseNo_way1(t);
-        checkEnterpriseNo_way2(t);
+        checkEnterpriseNo_way1(t);
+//        checkEnterpriseNo_way2(t);
 //        checkEnterprise_way3(t);
     }
 
