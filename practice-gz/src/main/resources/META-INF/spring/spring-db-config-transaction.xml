@@ -3,21 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config /> <!-- 注解扫描需要加上这就话，不然扫描不出来 -->
     <context:component-scan base-package="mybatis.mysql.testV2.dao"/>
-<!--    <tx:annotation-driven/>--> <!-- 未生效 -->
+<!--    <tx:annotation-driven/>-->
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="jdbcDataSource"/>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager"/> <!-- 还是未生效 -->
+<!--    <tx:annotation-driven transaction-manager="transactionManager"/> &lt;!&ndash; 还是未生效 &ndash;&gt;-->
 
     <!-- 使用Druid连接池 -->
     <bean id="jdbcDataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -53,4 +56,29 @@
         <!-- 配置扫描Mapper XML的位置 -->
         <property name="mapperLocations" value="classpath:META-INF/mybatis/db-mysql/test-v2/mapper/*.xml"/>
     </bean>
+
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!--开启事务-->
+            <tx:method name="create*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="submit*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="add*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="upsert*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="remove*" propagation="REQUIRED" read-only="false"/>
+
+            <!--只读事务-->
+            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <aop:config proxy-target-class="true">
+        <!--配置事务切点 -->
+        <aop:pointcut id="managersAOP"
+                      expression="execution(public * mybatis.mysql.testV2.dao.*.*(..))"/>
+        <aop:advisor pointcut-ref="managersAOP" advice-ref="txAdvice"/>
+    </aop:config>
 </beans>

@@ -16,7 +16,9 @@
   * https://www.baeldung.com/javassist 
   * https://jse.readthedocs.io/en/latest/jdk8/javassistTutorial.html   Javassist Tutorial
 * 编程式事务 https://www.baeldung.com/spring-programmatic-transaction-management
-  * https://spring.io/guides/gs/managing-transactions/  官方文档 
+  * https://spring.io/guides/gs/managing-transactions/  官方文档
+* 数据库表设计原则： 
+  * https://support.microsoft.com/en-us/office/database-design-basics-eb2159cf-1e30-401a-8084-bd4f9c9ca1f5
 
 ### 工具相关
 * Arthas is a Java Diagnostic tool open sourced by Alibaba.（可以不用修改代码、重启服务就能解决线上问题） 
@@ -31,6 +33,9 @@
 * java序列化 https://www.digitalocean.com/community/tutorials/serialization-in-java
 * markdown语法 https://www.markdownguide.org/extended-syntax/
 * Cmder使用（类似Mac item2）https://github.com/cmderdev/cmder
+* E-R画图 https://www.lucidchart.com/pages/er-diagrams
+  * https://www.databasestar.com/entity-relationship-diagram/
+  * https://creately.com/guides/er-diagrams-tutorial/
 
 ### 零散相关
 * 比较好的英语学习网址 https://learnenglish.britishcouncil.org
@@ -42,3 +47,9 @@
     * 方案一：先写个另外的SQL语句，看下<foreach>的使用方法
     * 方案二：对比之前BaseDAO的封装，也看下官方文档是怎么处理批量的
     * 方案三：对比之前gz的写法，看下怎么执行批量处理
+
+* 数据库表设计原则：
+  * Divides your information into subject-based tables to reduce redundant data.（拆分信息到子表，减少重复数据）
+  * Helps support and ensure the accuracy and integrity of your information.（确保信息完整性和准确性）
+  * Don’t include calculated data（不要包含计算值，计算要经过实时计算）    
+

@@ -1,5 +1,6 @@
 package relative.basic.reflect;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -37,9 +38,20 @@ public class GenericTest {
      * （java泛化类型是比较强大的功能，它可以减少程序人员减少错误，因为在编译期间就会强制检查类型
      * 【若不设置类型，在取值的时候，就会强转类型，强转的类型时就很容易出错，也就是编译器不报错，而运行期报错，这是很头疼的事情了！！！】）
      *
+     * 4）There may be times when you want to restrict the types that can be used as type arguments in a parameterized type
+     * 泛型使用上界、下界，可以严格限制类型
+     *
+     * The Upper Bounded Wildcards section shows that an upper bounded wildcard restricts the unknown type to be
+     * a specific type or a subtype of that type and is represented using the extends keyword.
+     * In a similar way, a lower bounded wildcard restricts the unknown type to be a specific type or a super type of that type.
+     *（上界：表示未知与指定类型相同或是其子类型，如<T extends Foo>，下界：表示未知类型与指定类型相同或是其父类，上界和下界不能同时使用，如<? super Foo>）
+     * 上界和下界，可以形象表示为  <下界 <= T <= 上界>
+     *
+     * 5）可以指定多个类型，如<T extends Number & Comparable>
+     *
      * 参考链接：
      * a）https://www.baeldung.com/java-generics
-     * b）https://docs.oracle.com/javase/tutorial/java/generics/types.html java官方文档
+     * b）https://docs.oracle.com/javase/tutorial/java/generics/types.html java官方文档（比较权威）
      */
 
     /**
@@ -61,7 +73,7 @@ public class GenericTest {
      * 场景2：上界、下界，多泛型使用
      */
      @Test
-     public void useWithBound(){
+     public void useWithBound(){ //测试泛型上界
          String[] strArr = new String[]{"aaa", "bbb", "ccc"};
          Integer[] intArr = new Integer[]{111, 222, 333};
 
@@ -77,7 +89,45 @@ public class GenericTest {
          return Arrays.stream(a).collect(Collectors.toList());
      }
 
+     @Test
+     public void useWithLower() { //测试泛型下界
+         // 测试1：RedApple类型，编译正确（RedApple与下界类型RedApple的相同，编译可行的）
+         RedApple redApple = new RedApple();
+         redApple.setWeight(11.0);
+         RedApple redApple2 = new RedApple();
+         redApple2.setWeight(12.0);
 
+         List<RedApple> list = Lists.newArrayList(redApple, redApple2);
+         System.out.println("测试1：" + getValues(list));
+
+         // 测试2：Apple类型，编译正确（Apple是下界类型RedApple的父类，编译可行的）
+         Apple apple = new Apple();
+         apple.setWeight(11.0);
+         Apple apple2 = new Apple();
+         apple2.setWeight(12.0);
+
+         List<Apple> list2 = Lists.newArrayList(apple, apple2);
+         System.out.println("测试2：" + getValues(list2));
+
+         // 测试3：RedBigApple类型，编译出错（RedBigApple是下界类型RedApple的子类，不满足，编译会报错的）
+         RedBigApple redBigApple = new RedBigApple();
+         redBigApple.setWeight(11.0);
+         RedBigApple redBigApple2 = new RedBigApple();
+         redBigApple2.setWeight(12.0);
+
+         List<RedBigApple> list3 = Lists.newArrayList(redBigApple, redBigApple2);
+         //特别注意点：就是List要指定类型，不然像List list3，编译不会报错，因为不指定默认是Object类型，Object是任何类的父类，所以就不会编译出错了
+//         System.out.println("测试3：" + getValues(list3));
+     }
+
+    /**
+     * 注意点：
+     * 1）返回值类型设置不了下界，参数类型可以设置，此处返回值设置了下界，就会报错
+     */
+     private int getValues(List<? super RedApple> list) {
+//         return redList.stream().map(x -> ((RedApple)x).getWeight()).collect(Collectors.toList());
+         return list.size();
+     }
 
      /**
      * 场景3：ParameterizedType、Type等类型使用

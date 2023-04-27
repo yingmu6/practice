@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TransactionTest {
 
     /**
-     * 编程式事务_概述
+     * 编程式事务_概述：
      * 1）The Spring Framework provides two means of programmatic transaction management:
      * a）Using the TransactionTemplate.
      * b）Using a PlatformTransactionManager implementation directly.
@@ -29,8 +29,13 @@ public class TransactionTest {
      * The second approach is similar to using the JTA UserTransaction API (although exception handling is less cumbersome).
      * （两种编程方式，spring团队推荐使用TransactionTemplate）
      *
+     * 声明式事务_概述：
+     * 1）The Spring Framework's declarative transaction management is made possible with Spring AOP
+     * （声明式时间，会带着AOP方式处理）
+     *
      * 参考链接：
      * 1）https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch11s06.html spring关于编程式事务的介绍
+     * 2）https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch11s05.html spring的事务介绍
      */
 
     private IStudentDAO studentDAO;
@@ -39,7 +44,7 @@ public class TransactionTest {
 
     @Before
     public void init() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-database-config.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-db-config-transaction.xml");
         studentDAO = (IStudentDAO) applicationContext.getBean("studentDAO");
         userAttrDAO = (IUserAttrDAO) applicationContext.getBean("userAttrDAO");
     }
@@ -67,8 +72,8 @@ public class TransactionTest {
 
     @Test
     @Rollback(value = false)
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void basicUseByXml_V3_With_Transaction() {
+//    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void basicUseByXml_V3_With_Transaction() { //测试带有事务的场景（未生效）
         //studentDO插入记录正常，userAttrDO都插入记录异常（带有事务）
         insertStudentByNormal(studentDAO);
         insertUserAttrByError(userAttrDAO);
@@ -112,6 +117,6 @@ public class TransactionTest {
      */
 
     /**
-     * 场景4：事务的传播属性、隔离级别
+     * 场景4：事务的传播属性propagation、隔离级别isolation
      */
 }
