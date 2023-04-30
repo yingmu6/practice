@@ -6,6 +6,12 @@ package relative.basic.test;
 public class StaticTest {
     private static StaticTest totalTest = new StaticTest();
 
+    /**
+     * static测试场景：
+     * 1）static修改类中的成员变量、成员方法
+     * 2）static修饰的类、内部类
+     */
+
     public static void main(String[] args) {
         // 虽然是静态方法，但每调用一次都会new对象，所以对象是不同的
         StaticTest test = StaticTest.getInstance();

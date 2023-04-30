@@ -14,6 +14,19 @@ import java.util.Enumeration;
  * @date 2019-06-13 00:06
  */
 public class ClassLoaderTest {
+
+    /**
+     * 测试场景：
+     * 1）ClassLoader的多种方式获取，如
+     *    a）Thread.currentThread().getContextClassLoader()
+     *    b）clazz.getClassLoader();
+     *    c）ClassLoader.getSystemClassLoader();
+     *
+     * 2）getResources获取资源的方式
+     *
+     * 3）多maven模块的加载指定模块方式
+     */
+
     private int b = 0;
     public static void main(String[] args) throws Exception {
         ClassLoaderTest loaderTest = new ClassLoaderTest();
