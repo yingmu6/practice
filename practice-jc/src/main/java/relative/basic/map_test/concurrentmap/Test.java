@@ -8,6 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2021/8/30
  */
 public class Test {
+
+    /**
+     * 测试场景列举：
+     * 1）ConcurrentHashMap#forEach测试
+     * 2）ConcurrentHashMap的其它高级用法
+     */
+
     public static void main(String[] args) {
         Map<String, String> map = new ConcurrentHashMap<>();
         map.putIfAbsent("ee", "333");
