@@ -78,7 +78,7 @@
     <aop:config proxy-target-class="true">
         <!--配置事务切点 -->
         <aop:pointcut id="managersAOP"
-                      expression="execution(public * mybatis.mysql.testV2.dao.*.*(..))"/>
+                      expression="execution(* mybatis.mysql.testV2.dao.*.*(..))"/>
         <aop:advisor pointcut-ref="managersAOP" advice-ref="txAdvice"/>
     </aop:config>
 </beans>

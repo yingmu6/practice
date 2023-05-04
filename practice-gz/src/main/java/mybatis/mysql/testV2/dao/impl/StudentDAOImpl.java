@@ -1,6 +1,6 @@
 package mybatis.mysql.testV2.dao.impl;
 
-import mybatis.mysql.testV2.common.BaseDAO;
+import mybatis.mysql.testV2.dao.BaseDAO;
 import mybatis.mysql.testV2.condition.PageQueryStudentCondition;
 import mybatis.mysql.testV2.dao.IStudentDAO;
 import mybatis.mysql.testV2.entity.StudentDO;

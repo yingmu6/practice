@@ -1,4 +1,4 @@
-package mybatis.mysql.testV2.common;
+package mybatis.mysql.testV2.dao;
 
 import mybatis.mysql.testV2.entity.TestDataBase;
 import mybatis.mysql.testV2.entity.TestDataBaseFactory;

@@ -1,6 +1,5 @@
 package mybatis.mysql.testV2.dao;
 
-import mybatis.mysql.testV2.common.IBaseDAO;
 import mybatis.mysql.testV2.entity.UserAttrDO;
 
 import java.util.List;

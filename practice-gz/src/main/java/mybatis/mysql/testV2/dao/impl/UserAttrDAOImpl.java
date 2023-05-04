@@ -1,7 +1,7 @@
 package mybatis.mysql.testV2.dao.impl;
 
 import com.google.common.collect.Lists;
-import mybatis.mysql.testV2.common.BaseDAO;
+import mybatis.mysql.testV2.dao.BaseDAO;
 import mybatis.mysql.testV2.dao.IUserAttrDAO;
 import mybatis.mysql.testV2.entity.UserAttrDO;
 import org.springframework.stereotype.Repository;

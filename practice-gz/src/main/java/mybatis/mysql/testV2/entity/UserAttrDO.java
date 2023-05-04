@@ -2,7 +2,7 @@ package mybatis.mysql.testV2.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import mybatis.mysql.testV2.common.BaseDO;
+import mybatis.mysql.testV2.dao.BaseDO;
 
 /**
  * @Author chenSy
