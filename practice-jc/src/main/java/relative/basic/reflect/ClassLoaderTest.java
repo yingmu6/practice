@@ -22,7 +22,7 @@ public class ClassLoaderTest {
      *    b）clazz.getClassLoader();
      *    c）ClassLoader.getSystemClassLoader();
      *
-     * 2）getResources获取资源的方式
+     * 2）getResources获取资源的方式（参数名为相对路径时，获取文件）
      *
      * 3）多maven模块的加载指定模块方式
      */
