@@ -76,11 +76,11 @@
          )
          values (
           #{name},
-          <foreach collection="firstAttr" item="item" separator=",">
-			#{item}
+          <foreach collection="firstAttr" itemImpl="itemImpl" separator=",">
+			#{itemImpl}
 		 </foreach>,
-		 <foreach collection="secondAttr" item="item" separator=",">
-		   #{item}
+		 <foreach collection="secondAttr" itemImpl="itemImpl" separator=",">
+		   #{itemImpl}
 		 </foreach>
 		)
 	</insert>
@@ -98,11 +98,11 @@
          )
          values (
           #{name},
-          <foreach collection="firstAttrMap" item="item" separator=",">
-			#{item}
+          <foreach collection="firstAttrMap" itemImpl="itemImpl" separator=",">
+			#{itemImpl}
 		 </foreach>,
-		 <foreach collection="secondAttrMap" item="item" separator=",">
-		   #{item}
+		 <foreach collection="secondAttrMap" itemImpl="itemImpl" separator=",">
+		   #{itemImpl}
 		 </foreach>
 		)
 

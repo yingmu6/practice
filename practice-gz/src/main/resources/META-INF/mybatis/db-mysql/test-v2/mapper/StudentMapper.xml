@@ -75,32 +75,32 @@
 	</sql>
 
 	<sql id="batchSet">
-        <if test="item.id != null">
-			`id` = #{item.id},
+        <if test="itemImpl.id != null">
+			`id` = #{itemImpl.id},
 		</if>
-		<if test="item.enterpriseNo != null">
-			`enterprise_no` = #{item.enterpriseNo},
+		<if test="itemImpl.enterpriseNo != null">
+			`enterprise_no` = #{itemImpl.enterpriseNo},
 		</if>
-		<if test="item.name != null">
-			`name` = #{item.name},
+		<if test="itemImpl.name != null">
+			`name` = #{itemImpl.name},
 		</if>
-		<if test="item.age != null">
-			`age` = #{item.age},
+		<if test="itemImpl.age != null">
+			`age` = #{itemImpl.age},
 		</if>
-		<if test="item.studentId != null">
-			`student_id` = #{item.studentId},
+		<if test="itemImpl.studentId != null">
+			`student_id` = #{itemImpl.studentId},
 		</if>
-		<if test="item.score != null">
-			`score` = #{item.score},
+		<if test="itemImpl.score != null">
+			`score` = #{itemImpl.score},
 		</if>
-        <if test="item.extVal != null">
-			`ext_val` = #{item.extVal},
+        <if test="itemImpl.extVal != null">
+			`ext_val` = #{itemImpl.extVal},
 		</if>
-		<if test="item.gmtCreate != null">
-			`gmt_create` = #{item.gmtCreate},
+		<if test="itemImpl.gmtCreate != null">
+			`gmt_create` = #{itemImpl.gmtCreate},
 		</if>
-		<if test="item.gmtModified != null">
-			`gmt_modified` = #{item.gmtModified},
+		<if test="itemImpl.gmtModified != null">
+			`gmt_modified` = #{itemImpl.gmtModified},
 		</if>
 	</sql>
 
@@ -149,7 +149,7 @@
 
 	<!-- 该种方式不能批量创建，待研究（已经可以了，在连接的url加上allowMultiQueries=true即可） -->
 	<insert id="saveBatchInsert">
-        <foreach collection="list" item="item" index="index" separator=";">
+        <foreach collection="list" itemImpl="itemImpl" index="index" separator=";">
 		   INSERT `student`
 		   <set>
 			  <include refid="batchSet"/>
@@ -159,29 +159,29 @@
 
 	<!-- 该种方式也是可以的，只不过没有<set>方式简洁 -->
 <!--	<insert id="saveBatchInsert">-->
-<!--        <foreach collection="list" item="item" index="index" separator=";">-->
+<!--        <foreach collection="list" itemImpl="itemImpl" index="index" separator=";">-->
 <!--			insert into student-->
 <!--			<trim prefix="(" suffix=")" suffixOverrides=",">-->
-<!--				<if test="item.id != null">`id`, </if>-->
-<!--				<if test="item.enterpriseNo != null">`enterprise_no` ,</if>-->
-<!--				<if test="item.name != null">`name` ,</if>-->
-<!--				<if test="item.age != null">`age` ,</if>-->
-<!--				<if test="item.studentId != null">`student_id` ,</if>-->
-<!--				<if test="item.score != null">`score` ,</if>-->
-<!--				<if test="item.extVal != null">`ext_val` ,</if>-->
-<!--				<if test="item.gmtCreate != null">`gmt_create` ,</if>-->
-<!--				<if test="item.gmtModified != null">`gmt_modified`,</if>-->
+<!--				<if test="itemImpl.id != null">`id`, </if>-->
+<!--				<if test="itemImpl.enterpriseNo != null">`enterprise_no` ,</if>-->
+<!--				<if test="itemImpl.name != null">`name` ,</if>-->
+<!--				<if test="itemImpl.age != null">`age` ,</if>-->
+<!--				<if test="itemImpl.studentId != null">`student_id` ,</if>-->
+<!--				<if test="itemImpl.score != null">`score` ,</if>-->
+<!--				<if test="itemImpl.extVal != null">`ext_val` ,</if>-->
+<!--				<if test="itemImpl.gmtCreate != null">`gmt_create` ,</if>-->
+<!--				<if test="itemImpl.gmtModified != null">`gmt_modified`,</if>-->
 <!--			</trim>-->
 <!--			<trim prefix=" values (" suffix=")" suffixOverrides=",">-->
-<!--				<if test="item.id != null">`id` = #{item.id},</if>-->
-<!--				<if test="item.enterpriseNo != null">`enterprise_no` = #{item.enterpriseNo},</if>-->
-<!--				<if test="item.name != null">`name` = #{item.name},</if>-->
-<!--				<if test="item.age != null">`age` = #{item.age},</if>-->
-<!--				<if test="item.studentId != null">`student_id` = #{item.studentId},</if>-->
-<!--				<if test="item.score != null">`score` = #{item.score},</if>-->
-<!--				<if test="item.extVal != null">`ext_val` = #{item.extVal},</if>-->
-<!--				<if test="item.gmtCreate != null">`gmt_create` = #{item.gmtCreate},</if>-->
-<!--				<if test="item.gmtModified != null">`gmt_modified` = #{item.gmtModified},</if>-->
+<!--				<if test="itemImpl.id != null">`id` = #{itemImpl.id},</if>-->
+<!--				<if test="itemImpl.enterpriseNo != null">`enterprise_no` = #{itemImpl.enterpriseNo},</if>-->
+<!--				<if test="itemImpl.name != null">`name` = #{itemImpl.name},</if>-->
+<!--				<if test="itemImpl.age != null">`age` = #{itemImpl.age},</if>-->
+<!--				<if test="itemImpl.studentId != null">`student_id` = #{itemImpl.studentId},</if>-->
+<!--				<if test="itemImpl.score != null">`score` = #{itemImpl.score},</if>-->
+<!--				<if test="itemImpl.extVal != null">`ext_val` = #{itemImpl.extVal},</if>-->
+<!--				<if test="itemImpl.gmtCreate != null">`gmt_create` = #{itemImpl.gmtCreate},</if>-->
+<!--				<if test="itemImpl.gmtModified != null">`gmt_modified` = #{itemImpl.gmtModified},</if>-->
 <!--			</trim>-->
 <!--		</foreach>-->
 <!--	</insert>-->
@@ -190,8 +190,8 @@
 	<insert id="saveBatch">
 		insert into student
         (`id`,`enterprise_no`,`name`,`age`,`student_id`,`score`,`ext_val`,`gmt_create`,`gmt_modified`) values
-        <foreach collection="list" item="item" separator=",">
-			(#{item.id},#{item.enterpriseNo},#{item.name},#{item.age},#{item.studentId},#{item.score},#{item.extVal},#{item.gmtCreate},#{item.gmtModified})
+        <foreach collection="list" itemImpl="itemImpl" separator=",">
+			(#{itemImpl.id},#{itemImpl.enterpriseNo},#{itemImpl.name},#{itemImpl.age},#{itemImpl.studentId},#{itemImpl.score},#{itemImpl.extVal},#{itemImpl.gmtCreate},#{itemImpl.gmtModified})
 		</foreach>
 	</insert>
 
@@ -204,12 +204,12 @@
 	</update>
 
 	<update id="updateBatch">
-        <foreach collection="list" item="item" separator=";">
+        <foreach collection="list" itemImpl="itemImpl" separator=";">
 		   update student
            <set>
 			  <include refid="batchSet"/>
 		   </set>
-           where id = #{item.id}
+           where id = #{itemImpl.id}
 		</foreach>
 	</update>
 
@@ -259,8 +259,8 @@
         update student
         set `score` = #{score}
         where id in
-        <foreach collection="ids" item="item" open="(" close=")" separator=",">
-          #{item}
+        <foreach collection="ids" itemImpl="itemImpl" open="(" close=")" separator=",">
+          #{itemImpl}
 		</foreach>
 
 	</update>

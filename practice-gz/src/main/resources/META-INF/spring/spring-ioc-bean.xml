@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="item" class="spring.ioc.ItemImpl1">
+        <property name="name" value="WuXia"/>
+        <property name="num" value="12"/>
+    </bean>
+    <bean id="storeV20" class="spring.ioc.StoreV2">
+        <constructor-arg ref="item"/>  <!-- 构造方法只有一个参数时，可以不用指定index -->
+    </bean>
+
+    <bean id="storeV21" class="spring.ioc.StoreV2"> <!-- 通过构造方法，注入依赖 -->
+        <constructor-arg index="0" name="desc" value="describe"/>
+        <constructor-arg index="1" name="item" ref="item"/>
+    </bean>
+
+    <bean id="storeV22" class="spring.ioc.StoreV2">
+        <property name="item" ref="item"/>
+    </bean>
+</beans>
