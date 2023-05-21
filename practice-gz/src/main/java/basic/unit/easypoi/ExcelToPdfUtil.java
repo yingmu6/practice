@@ -1,7 +1,7 @@
 package basic.unit.easypoi;
 
-import com.aspose.cells.PdfSaveOptions;
-import com.aspose.cells.Workbook;
+//import com.aspose.cells.PdfSaveOptions;
+//import com.aspose.cells.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,23 +16,23 @@ import java.io.InputStream;
 public class ExcelToPdfUtil {
     private static final Logger logger = LoggerFactory.getLogger(Class.class);
     public static byte[] excel2pdf(InputStream inputStream) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PdfSaveOptions saveOptions = new PdfSaveOptions();
-        try {
-            Workbook wb = new Workbook(inputStream);
-            wb.save(baos,saveOptions);
-            return baos.toByteArray();
-        } catch (Exception e) {
-            logger.error("打印异常"+e);
-            e.printStackTrace();
-        }finally {
-            try {
-                inputStream.close();
-            } catch (Exception e) {
-                logger.error("打印输入流关闭异常"+e);
-                e.printStackTrace();
-            }
-        }
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream(); //com.aspose.cell包引入不了，暂时注释掉
+//        PdfSaveOptions saveOptions = new PdfSaveOptions();
+//        try {
+//            Workbook wb = new Workbook(inputStream);
+//            wb.save(baos,saveOptions);
+//            return baos.toByteArray();
+//        } catch (Exception e) {
+//            logger.error("打印异常"+e);
+//            e.printStackTrace();
+//        }finally {
+//            try {
+//                inputStream.close();
+//            } catch (Exception e) {
+//                logger.error("打印输入流关闭异常"+e);
+//                e.printStackTrace();
+//            }
+//        }
         return null;
     }
 }
