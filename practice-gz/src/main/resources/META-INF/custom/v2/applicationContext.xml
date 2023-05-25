@@ -1,0 +1,10 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xqc="http://www.example.org/schema/xqc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.example.org/schema/xqc http://www.example.org/schema/xqc.xsd">
+
+    <xqc:redis id="redis"  ip="localhost" port="6379" desc="redis配置"/>
+    <xqc:mongodb id="mongodb"  ip="localhost" port="6477" desc="mongodb配置"/>
+</beans>

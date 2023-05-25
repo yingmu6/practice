@@ -1,0 +1,2 @@
+# http\://www.mycompany.com/schema/myns=spring.cus_tag.v1.MyNamespaceHandler
+http\://www.example.org/schema/xqc=spring.cus_tag.v2.RedisNamespaceHandler
