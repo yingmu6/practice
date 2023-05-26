@@ -9,7 +9,7 @@ import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-public class RedisBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+public class CachedBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
     @Override
     protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
@@ -23,6 +23,12 @@ public class RedisBeanDefinitionParser extends AbstractSingleBeanDefinitionParse
 
     @Override
     protected Class<?> getBeanClass(Element element) {
-        return RedisTag.class;
+        if (element.getTagName().equals("xqc:redis")) {
+            return RedisTag.class;
+        } else if (element.getTagName().equals("xqc:mongodb")) {
+            return MongodbTag.class;
+        } else {
+            return null;
+        }
     }
 }

@@ -3,6 +3,7 @@ package spring.cus_tag;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import spring.cus_tag.v2.MongodbTag;
 import spring.cus_tag.v2.RedisTag;
 
 /**
@@ -43,9 +44,10 @@ public class CustomerTagTest {
     public void test_basicUse() {
         ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/custom/v2/applicationContext.xml");
         RedisTag redisTag = context.getBean(RedisTag.class);
-        System.out.println("ip值=" + redisTag.getIp() + ", port值=" + redisTag.getPort() + ", desc值=" + redisTag.getDesc());
+        System.out.println("redis ip值=" + redisTag.getIp() + ", port值=" + redisTag.getPort() + ", desc值=" + redisTag.getDesc());
 
-
+        MongodbTag mongodbTag = context.getBean(MongodbTag.class);
+        System.out.println("mongodb ip值=" + mongodbTag.getIp() + ", port值=" + mongodbTag.getPort() + ", desc值=" + mongodbTag.getDesc());
     }
 
     /**
@@ -53,6 +55,6 @@ public class CustomerTagTest {
      */
     @Test
     public void test_nested() {
-
+        System.out.println(11);
     }
 }

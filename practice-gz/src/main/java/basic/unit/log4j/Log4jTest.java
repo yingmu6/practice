@@ -91,7 +91,7 @@ public class Log4jTest {
 
     /**
      * properties文件/场景7：接受-D输入的参数
-     * 1）可以编辑配置 Edit Configurations，传入虚拟机参数 如： -Ddynamic.path=/idea-logs/idea-dynamic-logs
+     * 1）可以编辑配置 Edit Configurations，传入虚拟机参数 如： -Ddynamic.path=idea-logs/idea-dynamic-logs
      *
      */
     @Test
