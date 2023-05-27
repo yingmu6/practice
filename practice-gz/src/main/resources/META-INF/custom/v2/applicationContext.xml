@@ -6,5 +6,13 @@
        http://www.example.org/schema/xqc http://www.example.org/schema/xqc.xsd">
 
     <xqc:redis id="redis"  ip="localhost" port="6379" desc="redis配置"/>
+
     <xqc:mongodb id="mongodb"  ip="localhost" port="6477" desc="mongodb配置"/>
+
+    <bean id="redisExt" class="spring.cus_tag.v2.RedisExt"> <!-- 将自定义标签对应的bean，作为其它bean的属性 -->
+<!--        <property name="redisTag" ref="redis"/>-->  <!-- 第一种写法：通过ref引用 -->
+        <property name="redisTag"> <!-- 第二种写法：包含自定义标签 -->
+            <xqc:redis id="redis-v2"  ip="localhost-v2" port="6379" desc="redis配置-v2"/>
+        </property>
+    </bean>
 </beans>

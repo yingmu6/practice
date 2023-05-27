@@ -61,6 +61,8 @@
 | 004 | Spring IOC和AOP实践         | 熟悉IOC和AOP  | P2  | 30%  | 2023-05-01 |      |
 | 005 | 配置相关@Configuration       | 熟悉配置相关的注解  | P1  | 0%   | 2023-05-17 |      |
 | 006 | BeanDefinitionRegistry使用 | 熟悉Bean注入   | P2  | 0%   | 2023-05-19 |      |
+| 007 | BeanDefinition相关使用       | 熟悉Bean定义   | P2  | 0%   | 2023-05-26 |      |
+| 008 | Bean作用范围                 | 熟悉Bean范围   | P2  | 0%   | 2023-05-26 |      |
 
 ### sf&shuJ相关
 | 序号  | 实践点     | 实践目标    | 优先级  | 当前进度 | 创建时间       | 结束时间       |

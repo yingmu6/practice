@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import spring.cus_tag.v2.MongodbTag;
+import spring.cus_tag.v2.RedisExt;
 import spring.cus_tag.v2.RedisTag;
 
 /**
@@ -34,7 +35,9 @@ public class CustomerTagTest {
      * c）BeanDefinitionHolder decorate(Node, BeanDefinitionHolder, ParserContext) - called when Spring encounters an attribute or nested element of a different namespace.
      *
      * 参考链接：
-     * 1）https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xml-custom.html
+     * 1）https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xml-custom.html 官网说明
+     * 2）https://zhuanlan.zhihu.com/p/107837020 自定义标签实现
+     * 3）https://zhuanlan.zhihu.com/p/189896257 spring的BeanDefinition介绍
      */
 
     /**
@@ -51,10 +54,22 @@ public class CustomerTagTest {
     }
 
     /**
-     * 场景2：使用嵌套标签
+     * 场景2：自定义标签的bean作为其他bean的属性
      */
     @Test
-    public void test_nested() {
-        System.out.println(11);
+    public void test_inner_bean() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/custom/v2/applicationContext.xml");
+        RedisExt ext = context.getBean(RedisExt.class);
+        System.out.println("redis ip值=" + ext.getRedisTag().getIp() + ", port值=" + ext.getRedisTag().getPort() + ", desc值=" + ext.getRedisTag().getDesc());
+
+        RedisExt ext2 = context.getBean(RedisExt.class);
+        System.out.println("ext:" + ext + ", ext2:" + ext2);
     }
+
+     /**
+     * 场景3：使用嵌套标签
+     */
+     public void test_nested() {
+
+     }
 }
