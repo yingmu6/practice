@@ -65,11 +65,4 @@ public class CustomerTagTest {
         RedisExt ext2 = context.getBean(RedisExt.class);
         System.out.println("ext:" + ext + ", ext2:" + ext2);
     }
-
-     /**
-     * 场景3：使用嵌套标签
-     */
-     public void test_nested() {
-
-     }
 }
