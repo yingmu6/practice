@@ -68,6 +68,9 @@ public class PropertiesTest {
         String path2 = "/Users/shengyong.chen/self_pro/practice/practice-jc/src/main/java/relative/basic/properties/out.properties"; //绝对路径可以
         FileOutputStream fos = new FileOutputStream(path2);
         properties.store(fos, "属性输出");
+
+        System.setProperty("address", "fff"); //未设置的话，后面一行就取不了值
+        System.out.println("系统属性：" + System.getProperty("address")); //需要先设置属性的值，才能获取系统属性的值（properties.store操作并没有设置到系统属性中）
     }
 
      /**

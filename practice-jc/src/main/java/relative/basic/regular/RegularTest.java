@@ -2,6 +2,7 @@ package relative.basic.regular;
 
 import com.google.common.collect.Lists;
 import lombok.val;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,30 +20,83 @@ import java.util.regex.Pattern;
  * @date 2019-05-30 23:26
  */
 public class RegularTest {
-    public static void main(String args[]) {
-//       basicUse();
-//       findAndReplace();
+    /**
+     * 正则表达式概述：
+     * 1）A Regular Expression – or regex for short– is a syntax that allows you to match strings with specific patterns.
+     * （正则表达式(Regular Expression，简称regex)是一种允许你将字符串与特定模式匹配的语法）
+     *
+     * 2）The Java Regex or Regular Expression is an API to define a pattern for searching or manipulating strings.
+     * （正则表达式用来搜索和操作字符串）
+     *
+     * 3）Java Regex API provides 1 interface and 3 classes in java.util.regex package.
+     * （java.util.regex包下主要提供了一个接口、三个类），具体如下：
+     * a）MatchResult interface
+     * b）Matcher class:（It implements the MatchResult interface. It is a regex engine which is used to perform match operations on a character sequence.
+     *                    实现了MatchResult接口，它是一个正则表达式引擎，用于对字符序列执行匹配操作）
+     * c）Pattern class：（It is the compiled version of a regular expression. It is used to define a pattern for the regex engine.
+     *                    它是正则表达式的编译版本。它用于定义正则表达式引擎的模式）
+     * d）PatternSyntaxException class
+     *
+     * 4）预定义字符类 （元字符，可以直接使用）
+     *    \D  非数字字符：[^0-9]
+     *    \d  数字字符：[0-9]
+     *    \w  单词字符：[a-zA-Z_0-9]
+     *    \W  非单词字符：[^\w]
+     *
+     * 参考链接：
+     * a）正则表达式详解：https://www.javatpoint.com/java-regex (测试用例参考的网址)
+     * b）正则表达式规则：https://coderpad.io/regular-expression-cheat-sheet/
+     * c）正则表达式在线测试：https://c.runoob.com/front-end/854 （可多用在线测试工具，来实践验证[里面还包含语法说明，比较详细]）
+     */
 
-       String date = "2020-12-16"; //对应的正则表达式，为\"(\d{4})-(\d{2})-(\d{2})\" //用小括号
-       useWay();
-    }
+    /**
+     * 场景1：多种使用方式
+     */
+    @Test
+    public void test_multi_way() { //进行匹配的方式
 
-    private static void useWay() { //进行匹配的方式
-        //1st way
-        Pattern p = Pattern.compile(".s");//. represents single character
-        Matcher m = p.matcher("as");
-        boolean b = m.matches();
+        //第一种方式：（分开定义Match、Pattern）
+        Pattern p = Pattern.compile(".s"); //编译指定的表达式，生成Pattern实例
+        Matcher m = p.matcher("as"); //创建匹配器
+        boolean b = m.matches(); //判断字符串是否匹配成功
 
-        //2nd way
-        boolean b2=Pattern.compile(".s").matcher("as").matches();
+        //第二种方式：不需要产生中间变量，使用级联操作
+        boolean b2 = Pattern.compile(".s").matcher("as").matches();
 
-        //3rd way
+        //第三种方式：在创建Pattern时，指定正则表达式和匹配的字符串
         boolean b3 = Pattern.matches(".s", "as");
 
         System.out.println(b+" "+b2+" "+b3);
     }
 
-    private static void findAndReplace() {
+    /**
+     * 场景2：比较指定的字符
+     */
+    @Test
+    public void test_special_char() {
+        /**
+         * 规则说明：
+         * ".s" 匹配两个字符，并且最后一个字符需要为's'
+         * "..s" 匹配三个字符，并且最后一个字符需要为's'
+         * "..s.s" 匹配五个字符，并且第三个和最后一个字符都需要为's'
+         */
+        System.out.println(Pattern.matches(".s", "as"));//true (2nd char is s)
+        System.out.println(Pattern.matches(".s", "mk"));//false (2nd char is not s)
+        System.out.println(Pattern.matches(".s", "mst"));//false (has more than 2 char)
+        System.out.println(Pattern.matches(".s", "amms"));//false (has more than 2 char)
+        System.out.println(Pattern.matches("..s", "mas"));//true (3rd char is s)
+        System.out.println(Pattern.matches("..s.s", "masas"));//true
+    }
+
+    /**
+     * 场景N：几个特殊正则表达式测试
+     * a）"[\\-._0-9a-zA-Z]+"
+     * b）"[*,\\-._0-9a-zA-Z]+
+     * c）[a-zA-Z][0-9a-zA-Z]*
+     */
+
+    @Test
+    public void findAndReplace() {
         String str = "@EntityDetail88(name = \"小猪\")"; //使用"@EntityDetail(\\D*)" 匹配时，输出"@EntityDetail"，未匹配到的字符串就不输出了
         String str2 = "@EntityDetail66(describe = \"白色的小猪\")";
         String str3 = "@EntityDetailuu(name = \"小狗\")"; //使用"@EntityDetail(\\D*)" 匹配时, 完整输出
@@ -80,85 +134,13 @@ public class RegularTest {
         // 现在创建 matcher 对象  ： 创建一个匹配器，匹配给定的输入与此模式。
         Matcher m = r.matcher(line);
         if (m.find( )) {
-
             System.out.println("正则表达式" + r.pattern());
             // 字符串查找
             System.out.println("Found value 0: " + m.group(0));
-
             // 字符传替换
             System.out.println(m.replaceAll("test"));
-
-//
-//            int num = m.groupCount();
-//            for (int i = 0; i< num; i++) {
-//                // 字符串查找
-//                System.out.println("Found value 0: " + m.group(i));
-//
-//                // 字符传替换
-//                System.out.println(m.replaceAll("test"));
-//
-//            }
         } else {
             System.out.println("NO MATCH");
         }
     }
-
-    /**
-     *
-     * IntelliJ (and all JetBrains ideas) support the ability to find and replace text using regular expressions.
-     * Regular expressions in this context can be very powerful. When you do not use regular expressions enough,
-     * it may take some time to come up with a correct regex, often looking at the docs or examples to
-     * find out how they work. （idea使用正则表达式介绍 https://jamiecraane.dev/2020/12/16/intellij_replace_regex/）
-     *
-     *
-     * java.util.regex 包主要包括以下三个类：
-     *
-     * pattern 对象是一个正则表达式的编译表示。Pattern 类没有公共构造方法。要创建一个 Pattern 对象，
-     * 你必须首先调用其公共静态编译方法，
-     * 它返回一个 Pattern 对象。该方法接受一个正则表达式作为它的第一个参数。
-     *
-     * Matcher 对象是对输入字符串进行解释和匹配操作的引擎。与Pattern 类一样，Matcher
-     * 也没有公共构造方法。你需要调用 Pattern 对象的 matcher 方法来获得一个 Matcher 对象。
-     *
-     * PatternSyntaxException 是一个非强制异常类，它表示一个正则表达式模式中的语法错误。
-     */
-
-    /**
-     * https://blog.csdn.net/yaerfeng/article/details/28855587
-     *
-     * [abc]	 a, b 或 c（简单类）
-     * [^abc]	 除 a, b 或 c 之外的任意字符（取反）
-     * [a-zA-Z]	 a 到 z，或 A 到 Z，包括（范围）
-     * [a-d[m-p]]  a 到 d，或 m 到 p：[a-dm-p]（并集）
-     * [a-z&&[def]]	  d，e 或 f（交集）
-     * [a-z&&[^bc]]	  除 b 和 c 之外的 a 到 z 字符：[ad-z]（差集）
-     *
-     *
-     * 预定义字符类 （元字符，可以直接使用）
-     * \D	非数字字符：[^0-9]
-     * \d	数字字符：[0-9]
-     * \w	单词字符：[a-zA-Z_0-9]
-     * \W	非单词字符：[^\w]
-     *
-     *
-     * 量词（quantifiers）允许指定匹配出现的次数
-     * X+ (贪婪)、X+?	（勉强）、X++	（侵占）    描述：匹配 X 一次或多次
-     *
-     * 分组：用中括号或圆括号
-     * 如，[abc]+表示一次或者多次的 a 或 b 或 c，(abc)+表示一次或者多次的“abc”组。
-     *
-     * 边界匹配器
-     * ^  行首
-     * $  行尾
-     * \G 上一个匹配的结尾
-     *
-     *
-     * 常量
-     * Pattern.CASE_INSENSITIVE	  等价 (?i)
-     * Pattern.COMMENTS	 等价 (?x)
-     *
-     *
-     * 规则可参考常用正则表达式
-     * https://c.runoob.com/front-end/854
-     */
 }
