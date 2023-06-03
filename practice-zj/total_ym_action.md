@@ -29,7 +29,7 @@
 | 006 | Thread的sleep、yield等       | 熟悉线程                  | P3   | 0%   | 2023-03-13 |            |    
 | 007 | Method使用                  | 熟悉Method              | P3   | 0%   | 2023-03-13 |            | 
 | 008 | System的arrayCopy使用        | 熟悉System方法            | P3   | 0%   | 2023-03-13 |            |  
-| 009 | CompletableFuture使用       | 熟悉CompletableFuture使用 | P2   | 0%   | 2023-03-23 |            |
+| 009 | CompletableFuture使用       | 熟悉CompletableFuture使用 | P0   | 0%   | 2023-03-23 |            |
 | 010 | Class的isAssignableFrom使用  | 熟悉Class方法             | Done | 100% | 2023-03-23 | 2023-05-12 |
 | 011 | 写多线程、死锁的测试用例              | 熟悉Class方法             | P2   | 0%   | 2023-03-28 |            |
 | 012 | 序列化、反序列化使用                | 熟悉序列化/反序列化            | P2   | 0%   | 2023-04-04 |            |
@@ -57,6 +57,7 @@
 | 034 | Properties使用以及值覆盖         | 熟悉Properties          | P2   | 100% | 2023-06-01 | 2023-06-01 |
 | 035 | HashMap和HashTable比较       | 熟悉常用Map               | P2   | 0%   | 2023-06-01 |            |
 | 036 | 注解以及高级特性使用                | 熟悉注解                  | P2   | 0%   | 2023-06-02 |            |
+| 037 | Java8的Stream使用            | 熟悉Stream              | P2   | 0%   | 2023-06-03 |            |
 
 ### spr&Net相关
 | 序号  | 实践点                      | 实践目标       | 优先级  | 当前进度 | 创建时间       | 结束时间       |

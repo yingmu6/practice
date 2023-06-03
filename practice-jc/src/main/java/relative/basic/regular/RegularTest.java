@@ -45,7 +45,7 @@ public class RegularTest {
      *
      * 参考链接：
      * a）正则表达式详解：https://www.javatpoint.com/java-regex (测试用例参考的网址)
-     * b）正则表达式规则：https://coderpad.io/regular-expression-cheat-sheet/
+     * b）正则表达式规则：https://coderpad.io/regular-expression-cheat-sheet （定义了正则表达式中符号的含义，可对照着解释正则表达式）
      * c）正则表达式在线测试：https://c.runoob.com/front-end/854 （可多用在线测试工具，来实践验证[里面还包含语法说明，比较详细]）
      */
 
