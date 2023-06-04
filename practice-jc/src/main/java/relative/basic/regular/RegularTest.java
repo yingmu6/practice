@@ -43,6 +43,11 @@ public class RegularTest {
      *    \w  单词字符：[a-zA-Z_0-9]
      *    \W  非单词字符：[^\w]
      *
+     * 5）理解正则表达式的步骤
+     *   a）整理出表达式中元字符、范围字符、量词等
+     *   b）参考正则表达式语法进行语法解读
+     *   c）使用Mather、Pattern用例验证或在线验证
+     *
      * 参考链接：
      * a）正则表达式详解：https://www.javatpoint.com/java-regex (测试用例参考的网址)
      * b）正则表达式规则：https://coderpad.io/regular-expression-cheat-sheet （定义了正则表达式中符号的含义，可对照着解释正则表达式）
@@ -69,13 +74,13 @@ public class RegularTest {
         System.out.println(b+" "+b2+" "+b3);
     }
 
-    /**
+     /**
      * 场景2：比较指定的字符
      */
     @Test
     public void test_special_char() {
         /**
-         * 规则说明：
+         * 规则说明：（区分出是系统预定义的字符，还是自定义字符【自定义字符会加上转义字符"\"】）
          * ".s" 匹配两个字符，并且最后一个字符需要为's'
          * "..s" 匹配三个字符，并且最后一个字符需要为's'
          * "..s.s" 匹配五个字符，并且第三个和最后一个字符都需要为's'
@@ -89,11 +94,183 @@ public class RegularTest {
     }
 
     /**
+     * 场景3：测试指定的范围
+     * 1）	[abc]	a, b, or c (simple class)
+     * 2）	[^abc]	Any character except（除去） a, b, or c (negation 否定)
+     * 3）	[a-zA-Z]	a through z or A through Z, inclusive包含 (range)
+     * 4）	[a-d[m-p]]	a through d, or m through p: [a-dm-p] (union 联合)
+     * 5）	[a-z&&[def]]	d, e, or f (intersection 交集)
+     * 6）	[a-z&&[^bc]]	a through z, except for b and c: [ad-z] (subtraction 子集)
+     * 7）	[a-z&&[^m-p]]	a through z, and not m through p: [a-lq-z](subtraction)
+     *
+     * 特别注意：若没有加上量词修饰，则只匹配一个字符，若要匹配多个字符，要加上量词
+     */
+    @Test
+    public void test_special_range() {
+        // [abc]：在指定字符集中（只包含a、b、c字符）
+        System.out.println("--------分隔线1-------------");
+        System.out.println(Pattern.matches("[abc]", "abcd"));//false（超过一个字符，不匹配）
+        System.out.println(Pattern.matches("[abc]", "a"));//true
+        System.out.println(Pattern.matches("[abc]*", "ab"));//true (匹配多个字符，要加上量词)
+
+        // [^abc]：除去指定的字符集（除去a、b、c字符）
+        System.out.println("--------分隔线2-------------");
+        System.out.println(Pattern.matches("[^abc]", "a"));//false
+        System.out.println(Pattern.matches("[^abc]", "d"));//true
+
+        // [a-zA-Z]：包含指定的范围（包含a到z，或A到Z字符）
+        System.out.println("--------分隔线3-------------");
+        System.out.println(Pattern.matches("[a-zA-Z]", "a"));//true
+        System.out.println(Pattern.matches("[a-zA-Z]", "A"));//true
+        System.out.println(Pattern.matches("[a-zA-Z]", "5"));//false
+
+        // [a-d[m-p]]：包含指定的范围（包含a到z，或m到p字符）
+        System.out.println("--------分隔线4-------------");
+        System.out.println(Pattern.matches("[a-d[m-p]]", "a"));//true
+        System.out.println(Pattern.matches("[a-d[m-p]]", "m"));//true
+        System.out.println(Pattern.matches("[a-d[m-p]]", "am"));//false
+
+        // [a-z&&[def]]：包含指定的范围（包含a到z与[def]的交集，即最终的字符为d、e或f）
+        System.out.println("--------分隔线5-------------");
+        System.out.println(Pattern.matches("[a-z&&[def]]", "d"));//true
+        System.out.println(Pattern.matches("[a-z&&[def]]", "e"));//true
+        System.out.println(Pattern.matches("[a-z&&[def]]", "a"));//false
+
+        // [a-z&&[^bc]]：包含指定的范围（包含a到z且不为b或c的交集，即最终的字符为a到z字符，但是要排除b、c）
+        System.out.println("--------分隔线6-------------");
+        System.out.println(Pattern.matches("[a-z&&[^bc]]", "b"));//false
+        System.out.println(Pattern.matches("[a-z&&[^bc]]", "c"));//false
+        System.out.println(Pattern.matches("[a-z&&[^bc]]", "a"));//true
+
+        // [a-z&&[^m-p]]：包含指定的范围（包含a到z且不在m到p的交集，即最终的字符为a到z字符，但要排除m到p的字符）
+        System.out.println("--------分隔线7-------------");
+        System.out.println(Pattern.matches("[a-z&&[^m-p]]", "m"));//false
+        System.out.println(Pattern.matches("[a-z&&[^m-p]]", "a"));//true
+    }
+
+    /**
+     * 场景4：测试量词
+     * 1) X?	X occurs once or not at all （出现一次或不出现）
+     * 2) X+	X occurs once or more times （出现一次或者多次）
+     * 3) X*	X occurs zero or more times （出现0次或者多次）
+     * 4) X{n}	X occurs n times only       （出现指定的次数n）
+     * 5) X{n,}	X occurs n or more times    （出现n次或n次以上，即 n <= t ）
+     * 6) X{y,z}	X occurs at least y times but less than z times（出现至少y次，但小于z次，即 y <= t <= z）
+     */
+    @Test
+    public void test_Quantifiers() {
+
+        System.out.println("--------分隔线1-------------");
+        System.out.println(Pattern.matches("[amn]?", "a"));//true 字符出现1次
+        System.out.println(Pattern.matches("[amn]?", "m"));//true 字符出现0次
+
+        System.out.println("--------分隔线2-------------");
+        System.out.println(Pattern.matches("[amn]+", "a"));//true
+        System.out.println(Pattern.matches("[amn]+", "ammn"));//true 字符出现一次或多次
+        System.out.println(Pattern.matches("[amn]+", "fd"));//false
+
+        System.out.println("--------分隔线3-------------");
+        System.out.println(Pattern.matches("[amn]*", "a"));//true
+        System.out.println(Pattern.matches("[amn]*", "ammn"));//true 字符出现0次或多次
+
+        System.out.println("--------分隔线4-------------");
+        System.out.println(Pattern.matches("[amn]{2}", "a"));//false
+        System.out.println(Pattern.matches("[amn]{2}", "ammn"));//false 字符出现指定的次数
+        System.out.println(Pattern.matches("[amn]{2}", "an"));//true
+
+        System.out.println("--------分隔线5-------------");
+        System.out.println(Pattern.matches("[amn]{2,}", "a"));//false
+        System.out.println(Pattern.matches("[amn]{2,}", "ammn"));//true 字符出现至少n次以上
+        System.out.println(Pattern.matches("[amn]{2,}", "an"));//true
+
+        System.out.println("--------分隔线6-------------");
+        System.out.println(Pattern.matches("[amn]{2,4}", "a"));//false
+        System.out.println(Pattern.matches("[amn]{2,4}", "ammn"));//true 字符出现至少2次，但小于等于4次
+        System.out.println(Pattern.matches("[amn]{2,4}", "ann"));//true
+        System.out.println(Pattern.matches("[amn]{2,4}", "annmm"));//false
+    }
+
+    /**
+     * 场景5：测试元字符
+     * 1) .	    Any character (may or may not match terminator) //任意字符
+     * 2) \d	Any digits, short of [0-9]                      //任意数字字符
+     * 3) \D	Any non-digit, short for [^0-9]                 //任意非数字字符
+     * 4) \s	Any whitespace character, short for [\t\n\x0B\f\r] //任意空白字符
+     * 5) \S	Any non-whitespace character, short for [^\s]      //任意非空白字符
+     * 6) \w	Any word character, short for [a-zA-Z_0-9]         //任意字符
+     * 7) \W	Any non-word character, short for [^\w]            //任意非字符
+     * 8) \b	A word boundary（边界）
+     * 9) \B	A non word boundary
+     *
+     * 注明：如上元字符，大写表示"非"的含义（可以理解为"大非"）
+     *
+     */
+    @Test
+    public void test_metacharacters() {
+        System.out.println("--------分隔线1-------------");
+        System.out.println(Pattern.matches("\\d", "abc"));//false (non-digit)
+        System.out.println(Pattern.matches("\\d", "1"));//true (digit and comes once)
+        System.out.println(Pattern.matches("\\d*", "4443"));//true ("[\\d]*" 与 "\\d" 两种写法相同)
+        System.out.println(Pattern.matches("\\d", "323abc"));//false (digit and char)
+
+        System.out.println("--------分隔线2-------------");
+        System.out.println(Pattern.matches("\\D", "abc"));//false (non-digit but comes more than once)
+        System.out.println(Pattern.matches("\\D", "1"));//false (digit)
+        System.out.println(Pattern.matches("\\D", "4443"));//false (digit)
+        System.out.println(Pattern.matches("\\D", "323abc"));//false (digit and char)
+        System.out.println(Pattern.matches("\\D", "m"));//true (non-digit and comes once)
+
+        System.out.println("--------分隔线3-------------");
+        System.out.println(Pattern.matches("\\D*", "mak"));//true (non-digit and may come 0 or more times)
+    }
+
+    /**
      * 场景N：几个特殊正则表达式测试
-     * a）"[\\-._0-9a-zA-Z]+"
-     * b）"[*,\\-._0-9a-zA-Z]+
+     * a）[\\-._0-9a-zA-Z]+
+     * b）[*,\\-._0-9a-zA-Z]+
      * c）[a-zA-Z][0-9a-zA-Z]*
      */
+    @Test
+    public void test_special_express() {
+
+        /**
+         * [\\-._0-9a-zA-Z]+
+         * 解读：出现一个或多个[...]中的字符，[...]里面的字符包含：-符号、.字符、0到9 或 a到z 或 A-Z中的字符
+         */
+        System.out.println("--------分隔线1-------------");
+        System.out.println(Pattern.matches("[\\-._0-9a-zA-Z]+", "-._1")); //true（字符在指定范围中出现一次或多次）
+        System.out.println(Pattern.matches("[\\-._0-9a-zA-Z]+", "---")); //true
+        System.out.println(Pattern.matches("[\\-._0-9a-zA-Z]+", ".")); //true
+        System.out.println(Pattern.matches("[\\-._0-9a-zA-Z]+", "___")); //true
+        System.out.println(Pattern.matches("[\\-._0-9a-zA-Z]+", "|")); //false （字符没有在指定范围中）
+
+        /**
+         * [*,\\-._0-9a-zA-Z]+
+         * 解读：出现一个或多个[...]中的字符，[...]里面的字符包含：'*'、','、'-'、'.'、0到9 或 a到z 或 A-Z中的字符
+         */
+        System.out.println("--------分隔线2-------------");
+        System.out.println(Pattern.matches("[*,\\-._0-9a-zA-Z]+", "***,,,---...___")); //true
+        System.out.println(Pattern.matches("[*,\\-._0-9a-zA-Z]+", "***"));             //true
+        System.out.println(Pattern.matches("[*,\\-._0-9a-zA-Z]+", ",,,"));             //true
+        System.out.println(Pattern.matches("[*,\\-._0-9a-zA-Z]+", "___"));             //true
+
+        /**
+         * [a-zA-Z][0-9a-zA-Z]*
+         * 解读：第一个字符是[a-zA-Z]，后面的字符出现0个或多个[0-9a-zA-Z]
+         */
+        System.out.println("--------分隔线3-------------");
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "a45x")); //true
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "3aaa")); //false
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "a"));    //true
+
+        /**
+         * "\\s*[|;]+\\s*"
+         */
+        System.out.println("--------分隔线4-------------");
+        System.out.println(Pattern.matches("\\s*[|;]+\\s*", "||| ")); //true
+        System.out.println(Pattern.matches("\\s*[|;]+\\s*", " ; ")); //true
+
+    }
 
     @Test
     public void findAndReplace() {
@@ -119,7 +296,8 @@ public class RegularTest {
 
     }
 
-    private static void basicUse() {
+    @Test
+    public void basicUse() {
         // 按指定模式在字符串查找
         String line = "This order was placed for QT3000! OK?";
 
