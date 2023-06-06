@@ -6,18 +6,19 @@
 |-----|-------------------------------------|------------|-----|------|------------|------|
 | 001 | Spring的ApplicationContext阅读         | 了解spring容器 | P1  | 0%   | 2023-03-28 | xx   |
 | 002 | Mappers.getMapper阅读                 | 了解获取实例过程   | P2  | 0%   | 2023-03-28 | xx   |
-| 003 | *JUnit4SpringContextTests阅读         | 了解junit测试  | P2  | 0%   | 2023-03-30 | xx   |
+| 003 | JUnit4SpringContextTests阅读          | 了解junit测试  | P2  | 0%   | 2023-03-30 | xx   |
 | 004 | EnhancedLog4jPropertyConfigurator阅读 | 了解log4j使用  | P2  | 0%   | 2023-04-03 | xx   |
 | 005 | 雪花算法了解，Leaf、UidGenerator            | 了解雪花算法     | P2  | 0%   | 2023-04-03 | xx   |
 
 ### java相关
-| 序号  | 阅读点                                  | 阅读目标   | 优先级 | 当前进度 | 创建时间       | 结束时间 |
-|-----|--------------------------------------|--------|-----|------|------------|------|
-| 001 | Spring的PropertyPlaceholderConfigurer | 了解占位符  | P3  | 0%   | 2023-04-11 | xx   |
-| 002 | ProtectionDomain了解                   | 了解占位符  | P3  | 0%   | 2023-04-18 | xx   |
-| 003 | Javassist基本功能阅读                      | 了解基本用途 | P3  | 0%   | 2023-04-18 | xx   |
-| 004 | Executor基本功能阅读                       | 了解基本用途 | P2  | 0%   | 2023-04-23 | xx   |
-| 005 | EventObject、EventListener阅读          | 了解基本用途 | P2  | 0%   | 2023-04-23 | xx   |
+| 序号  | 阅读点                                  | 阅读目标    | 优先级 | 当前进度 | 创建时间       | 结束时间 |
+|-----|--------------------------------------|---------|-----|------|------------|------|
+| 001 | Spring的PropertyPlaceholderConfigurer | 了解占位符   | P3  | 0%   | 2023-04-11 | xx   |
+| 002 | ProtectionDomain了解                   | 了解占位符   | P3  | 0%   | 2023-04-18 | xx   |
+| 003 | Javassist基本功能阅读                      | 了解动态字节码 | P3  | 0%   | 2023-04-18 | xx   |
+| 004 | Executor基本功能阅读                       | 了解线程池   | P2  | 0%   | 2023-04-23 | xx   |
+| 005 | EventObject、EventListener阅读          | 了解事件处理  | P2  | 0%   | 2023-04-23 | xx   |
+| 006 | ThreadPoolExecutor阅读                 | 了解线程池   | P2  | 0%   | 2023-04-23 | xx   |
 
 ### spr&Net相关
 | 序号  | 阅读点              | 阅读目标     | 优先级 | 当前进度 | 创建时间       | 结束时间 |

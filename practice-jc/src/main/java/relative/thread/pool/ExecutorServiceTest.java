@@ -9,17 +9,18 @@ import java.util.List;
 import java.util.concurrent.*;
 
 /**
- * 线程池工具类使用 Executors
+ * 线程池的抽象接口： ExecutorService
  * @author : chensy
  * Date : 2020-02-29 21:28
  */
 public class ExecutorServiceTest {
 
     /**
-     * 线程池概述：
+     * 线程池的抽象接口概述：（ExecutorService是Java中对线程池定义的一个接口，它java.util.concurrent包中，在这个接口中定义了和后台任务执行相关的方法。）
+     *
      * 1）An Executor that provides methods to manage termination and
      *  methods that can produce a Future for tracking progress of one or more asynchronous tasks.
-     *  （ExecutorService：是一个接口，能提供管理并且产生Future的线程池的方法，并且能跟踪一个或多个异步任务）
+     *  （ExecutorService：定义了和后台任务执行相关的方法，且产生Future的线程池的方法，并且能跟踪一个或多个异步任务）
      *
      * 2）ExecutorService is a JDK API that simplifies running tasks in asynchronous mode. Generally speaking,
      *   ExecutorService automatically provides a pool of threads and an API for assigning tasks to it.
@@ -42,10 +43,18 @@ public class ExecutorServiceTest {
      * 7）The ScheduledExecutorService runs tasks after some predefined delay and/or periodically.
      * （ScheduledExecutorService 预定义地运行 延迟和/或周期性的任务）
      *
+     * 8）ThreadPoolExecutor是ExecutorService接口的一个实现类，它提供了一个线程池，可以用于执行异步任务。
+     *    ExecutorService是一个更为抽象的接口，它定义了一些用于异步任务处理的方法。
+     *    （总之，ThreadPoolExecutor是ExecutorService的一个具体实现，它提供了更加底层的控制和配置。
+     *      而ExecutorService则是一个更为抽象的接口，它可以用于处理各种类型的异步任务。）
+     *
+     *
      * 参考链接：
      * a）https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html 官网ExecutorService API
      * b）https://www.baeldung.com/java-executor-service-tutorial ExecutorService使用
      * c）https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executors.html  Executors API
+     * d）https://juejin.cn/s/threadpoolexecutor%20executorservice%20%E5%8C%BA%E5%88%AB ThreadPoolExecutor与ExecutorService的区别
+     * e）https://www.baeldung.com/thread-pool-java-and-guava （Introduction to Thread Pools in Java）
      */
 
     /**
@@ -55,7 +64,7 @@ public class ExecutorServiceTest {
     public void test_basic() {
         // Creates a thread pool that reuses（再次使用） a fixed number(固定数量) of threads operating off a shared unbounded queue（无界队列）.
         // 创建一个固定数量的线程池
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2); //newFixedThreadPool内部使用ThreadPoolExecutor实现
         fixedThreadPool.submit(new Runnable() {
             @Override
             public void run() {
