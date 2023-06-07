@@ -1,5 +1,7 @@
 package relative.thread;
 
+import org.junit.Test;
+
 /**
  * 多线程通过final访问主线程局部变量
  * https://xtuhcy.iteye.com/blog/2170295
@@ -11,20 +13,30 @@ package relative.thread;
  * @date 2019-05-29 14:36
  */
 public class ThreadTest {
-    public static void main(String[] args) {
-//        single_thread();
-        multi_thread();
-    }
+
+    /**
+     * 线程_概述
+     * 1）
+     *
+     * 参考链接：
+     * a）https://docs.oracle.com/javase/tutorial/essential/concurrency/runthread.html Oracle官网关于Thread的介绍
+     */
+
+    /**
+     * 场景1：线程的创建
+     */
 
     // 单线程使用
-    public static void single_thread() {
+    @Test
+    public void test_single_thread() {
         SafeVar safeVar = new SafeVar();
         Thread thread = new Thread(safeVar);
         thread.start();
     }
 
     // 多线程处理
-    public static void multi_thread() {
+    @Test
+    public void test_multi_thread() {
        SafeVar safeVar1 = new SafeVar();
        SafeVar safeVar2 = new SafeVar();
 
@@ -32,10 +44,12 @@ public class ThreadTest {
        // safeVar1.run();
        // safeVar2.run();
 
-       // 多线程时，对于共享变量，有现成安全问题
+       // 多线程时，对于共享变量，有线程安全问题
        Thread thread1 = new Thread(safeVar1);
        Thread thread2 = new Thread(safeVar2);
-       thread1.start(); // todo @csy 此处为啥SafeVar的run方法加了synchronized修饰，和单线程的数据结果不一样？
+       thread1.start();
        thread2.start();
+
+       System.out.println("共享变量值：" + SafeVar.var); //此处输出的共享变量值，可能有多种，因为该语句是在主线程中，其它线程还在运算中
     }
 }

@@ -3,6 +3,7 @@ package relative.thread.pool;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.concurrent.*;
 
@@ -15,6 +16,10 @@ public class ThreadPoolExecutorTest {
 
     /**
      * 线程池的实现类ThreadPoolExecutor概述：
+     * （Java线程池，是典型的池化思想的产物，类似的还有数据库的连接池、redis的连接池等。池化思想，就是在初始的时候去申请资源，
+     * 创建一批可使用的连接，这样在使用的时候，就不必再进行创建连接信息的开销了。线程池既然是容器，那么必然的会有存满的情况。在达到某些特定条件的时候，再来请求的话，
+     * 池子是如何进行请求处理的呢？这里就引出了池的拒绝策略。一般的数据库连接池在达到最大连接数的时候会默认的等待特定的设置的时间或者直接就抛出异常）
+     *
      * 1）A thread pool is a collection of pre-initialized threads.（线程池是一个预初始化的线程集合）
      *
      * 2）If there are more tasks than threads, then tasks need to wait in a queue like structure。
@@ -74,10 +79,15 @@ public class ThreadPoolExecutorTest {
     }
 
     /**
-     * 场景2：使用Executors创建线程池
+     * 场景2：使用Executors创建线程池的多种方式：
+     * 1）Executors.newCachedThreadPool() - (unbounded 无边界 thread pool, with automatic thread reclamation 收回) //创建无边界的线程池，能自动回收现场
+     * 2）Executors.newFixedThreadPool(int) (fixed size thread pool) //创建固定线程数的线程池
+     * 3）Executors.newSingleThreadExecutor() (single background thread) //创建只有一个线程的线程池
+     * 4）Executors.newScheduledThreadPool(int) (fixed size thread pool supporting delayed and periodic（周期的） task execution.) //创建固定线程数的线程池，并且支持周期的任务执行
      */
     @Test
-    public void test_create_by_executors() {
+    public void test_create_by_executors() throws IOException {
+        // 方式一：
         ExecutorService service = Executors.newFixedThreadPool(3);
         // 提交任务后返回Future，可用于获取异步任务执行的结果
         Future future1 = service.submit(new CallableTest());
@@ -92,6 +102,24 @@ public class ThreadPoolExecutorTest {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        /**
+         * 方式二：内部对应的构造方法为 new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+         *                                               60L, TimeUnit.SECONDS,
+         *                                              new SynchronousQueue<Runnable>())
+         * 用整数的最大值作为 线程池的最大线程数，即可认为是无界
+         */
+        ExecutorService service2 = Executors.newCachedThreadPool();
+        service2.submit(() -> System.out.println("线程2"));
+
+        // 方式三：
+        ExecutorService service3 = Executors.newSingleThreadExecutor();
+        service3.submit(() -> System.out.println("线程3"));
+
+        // 方式四：
+        ScheduledExecutorService service4 = Executors.newScheduledThreadPool(3);
+        service4.scheduleWithFixedDelay(() -> System.out.println("test"), 100, 200, TimeUnit.MILLISECONDS);
+        System.in.read();
     }
 
     /**
@@ -112,7 +140,58 @@ public class ThreadPoolExecutorTest {
 
     /**
      * 场景4：线程池各个参数以及核心逻辑测试
+     *
+     * 在执行execute()添加一个任务时，会执行如下的流程：
+     * 1）如果正在运行的线程数量少于corePoolSize（用户自定义的线程数），线程池就会立即创建线程并执行该线程任务
+     * 2）如果正在运行的线程数大于等于corePoolSize，该任务就讲被放入阻塞队列中。
+     * 3）在阻塞队列已满且正在运行的线程数量小于maximumPoolSize时，线程池讲拒绝执行该线程任务并抛出RejectExecutionException异常
+     * 4）在线程任务执行完毕后，该任务将被从线程池队列中移除，线程池将从队列中取下一个线程任务继续执行
+     * 5）在线程处于空闲状态的时间超过keepAliveTime时间时，正在运行的线程数量超过corePoolSize，该线程就会被认定为空闲线程并停止。因此在线程池中所有任务都执行完毕后，
+     *    线程池会收缩到corePoolSize的大小
      */
+    @Test
+    public void test_core_parameters() {
+
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(1, true);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(0, 1, 1L, TimeUnit.SECONDS, workQueue);
+
+        // 将线程提交到线程池中，由线程池来管理线程
+        executor.execute(createThread("线程1111", 2000L));
+        System.out.println("第1次提交，活跃数：" + executor.getActiveCount() + "，阻塞队列中任务数：" + workQueue.size());
+
+        executor.execute(createThread("线程2222", 2000L));
+        System.out.println("第2次提交，活跃数：" + executor.getActiveCount() + "，阻塞队列中任务数：" + workQueue.size());
+
+        executor.execute(createThread("线程3333"));
+        System.out.println("第3次提交，活跃数：" + executor.getActiveCount() + "，阻塞队列中任务数：" + workQueue.size());
+    }
+
+    /**
+     * 场景5：测试线程池拒绝策略
+     * 1）ThreadPoolExecutor.AbortPolicy 默认拒绝策略，拒绝任务并抛出任务
+     * 2）ThreadPoolExecutor.CallerRunsPolicy 使用调用线程直接运行任务
+     * 3）ThreadPoolExecutor.DiscardPolicy 直接拒绝任务，不抛出错误
+     * 4）4ThreadPoolExecutor.DiscardOldestPolicy 触发拒绝策略，只要还有任务新增，一直会丢弃阻塞队列的最老的任务，并将新的任务加入
+     *
+     * 总结起来，也就是一句话，当提交的任务数大于（workQueue.size() + maximumPoolSize ），就会触发线程池的拒绝策略。
+     */
+    @Test
+    public void test_reject_policy() {
+        int corePoolSize = 5;
+        int maximumPoolSize = 10;
+        long keepAliveTime = 5;
+        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>(10);
+        RejectedExecutionHandler handler = new ThreadPoolExecutor.AbortPolicy();
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.SECONDS, workQueue, handler);
+        for(int i = 0; i < 100; i++) {
+            try {
+                executor.execute(new Thread(() -> System.out.println(Thread.currentThread().getName() + " is running")));
+            } catch (Exception e) {
+                System.out.println("抛出异常：" + e.getMessage());
+            }
+        }
+        executor.shutdown();
+    }
 
     class Task implements Runnable {
         private final String name;
@@ -134,6 +213,19 @@ public class ThreadPoolExecutorTest {
     }
 
     private Thread createThread(String name) {
+        Thread thread = new Thread(() -> System.out.println("线程名：" + name));
+        thread.setName(name);
+        return thread;
+    }
+
+    private Thread createThread(String name, Long time) {
+
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         Thread thread = new Thread(() -> System.out.println("线程名：" + name));
         thread.setName(name);
         return thread;
