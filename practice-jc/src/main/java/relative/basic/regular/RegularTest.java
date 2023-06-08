@@ -48,6 +48,8 @@ public class RegularTest {
      *   b）参考正则表达式语法进行语法解读
      *   c）使用Mather、Pattern用例验证或在线验证
      *
+     * 6）可以用圆括号()、方括号[] 框定范围
+     *
      * 参考链接：
      * a）正则表达式详解：https://www.javatpoint.com/java-regex (测试用例参考的网址)
      * b）正则表达式规则：https://coderpad.io/regular-expression-cheat-sheet （定义了正则表达式中符号的含义，可对照着解释正则表达式）
@@ -269,7 +271,18 @@ public class RegularTest {
         System.out.println("--------分隔线4-------------");
         System.out.println(Pattern.matches("\\s*[|;]+\\s*", "||| ")); //true
         System.out.println(Pattern.matches("\\s*[|;]+\\s*", " ; ")); //true
+        System.out.println(Pattern.matches("(\\s*[|;]+\\s*)", " ; ")); //true
+        System.out.println(Pattern.matches("[/\\s*[|;]+\\s]*", "/\t\n\r;")); //true， 匹配'/'符号，非打印字符，如'\t'，'\n'，匹配的正则表达式中没有，匹配的字符串中有，也能匹配上
 
+        /**
+         * [a-zA-Z][0-9a-zA-Z]*
+         * 解读：第一字符为a到z或A到Z，后面的字符可以出现0个或多个 0到9 或 a到z 或A到Z
+         */
+        System.out.println("--------分隔线5-------------");
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "a11aaZ")); //true
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "211aaZ")); //false
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "a")); //true
+        System.out.println(Pattern.matches("[a-zA-Z][0-9a-zA-Z]*", "")); //false  按照正则表达式 [a-zA-Z] 必须出现一个字符
     }
 
     @Test
