@@ -21,7 +21,7 @@ public class AnnotationTest {
      * 2）Compile-time and deployment-time processing — Software tools can process annotation information to generate code, XML files, and so forth.
      * 3）Runtime processing — Some annotations are available to be examined at runtime.
      */
-    public static void main(String[] args) { //todo @pause 注解
+    public static void main(String[] args) { //todo 注解
         CustomerService customerService = Student.class.getAnnotation(CustomerService.class);
         System.out.println(customerService.name());
 
