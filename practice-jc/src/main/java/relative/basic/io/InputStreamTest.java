@@ -13,10 +13,10 @@ import java.net.URL;
  * @author chensy
  * @date 2019-06-13 14:14
  */
-public class StreamTest {
+public class InputStreamTest {
     int b = 0;
     public static void main(String[] args) throws Exception {
-        StreamTest streamTest = new StreamTest();
+        InputStreamTest streamTest = new InputStreamTest();
         streamTest.readContent("com.java.relative.basic.reflect.Fruits");
         streamTest.readContent2("com.java.relative.basic.reflect.Fruits");
         streamTest.readContent3("com.java.relative.basic.reflect.Fruits");

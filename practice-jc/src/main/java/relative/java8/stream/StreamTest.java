@@ -3,6 +3,7 @@ package relative.java8.stream;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.Data;
+import org.junit.Test;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -49,46 +50,69 @@ public class StreamTest {
      *     1）https://www.runoob.com/java/java8-streams.html  菜鸟教程_java Stream流的介绍
      *     2）https://stackify.com/streams-guide-java-8/ 英文版介绍
      *     3）https://www.baeldung.com/java-when-to-use-parallel-stream 并行流英文介绍
+     *     4）https://reflectoring.io/comprehensive-guide-to-java-streams 比较详细的英文介绍
      */
 
-    public static void main(String[] args) {
-
-//        orderPerson();
-//        mapTest();
-//        testEmptyList();
-//        testStreamMap();
-
-        // @csy anyMatch()待使用_2023-02-07 已执行
-//        testGroupBy();
-//        testFilter();
-
-//        testAnyMatch();
-
-//          testFlatMap();
-
-        testSequential();
-        testParallelStream();
-
-        //todo @csy-23/02/20 nomatch方法使用
-    }
-
-    public static void testSequential() { //顺序流：都是有同一个线程运行，比如使用main线程
+    /**
+     * 场景1：顺序流
+     */
+    @Test
+    public void testSequential() { //顺序流：都是有同一个线程运行，比如使用main线程
         // 顺序Stream
         List<Integer> listOfNumbers = Arrays.asList(1, 2, 3, 4);
         listOfNumbers.stream().forEach(number ->
                 System.out.println("串行Stream：" + number + " " + Thread.currentThread().getName())
         );
+        /**
+         * 输出结果：
+         * 串行Stream：1 main
+         * 串行Stream：2 main
+         * 串行Stream：3 main
+         * 串行Stream：4 main
+         *
+         * 结果分析：
+         * 未指定并行流，默认是窜行流，就会在一个线程中，依次执行
+         */
     }
-    public static void testParallelStream() { //测试并行流：由多个线程并发执行（todo @pause 待进一步探索）
+
+    /**
+     * 场景2：并行流
+     * 1）Java8 Stream 流在执行时候是串行化的, 如果说任务执行的耗时比较长, 可以使用Stream的"并行流" ParallelStream
+     * 2）并非耗时就一定要使用并行, 根据不同的业务场景, 合理的使用即可
+     * 3）parallelStream 是一种并行流, 意思为处理任务时并行处理, 这里和并发编程就有了千丝万缕的关系
+     * （前提是硬件支持, 如果单核CPU, 只会存在并发处理, 而不会并行）
+     * 4）并发处理就需要考虑线程安全问题
+     * 5）并行流底层就是使用的 ForkJoinPool, 一种 工作窃取算法线程池
+     *    ForkJoinPool 的优势在于, 可以充分利用多 CPU 的优势，把一个任务拆分成多个"小任务",
+     *    把多个"小任务"放到多个处理器核心上并行执行; 当多个"小任务"执行完成之后, 再将这些执行结果合并起来
+     * 6）It's also very easy to create streams that execute in parallel and make use of multiple processor cores.
+     *  （并行流是容易创建使用多处理器的流）
+     */
+    @Test
+    public void testParallelStream() { //测试并行流：由多个线程并发执行
         List<Integer> listOfNumbers2 = Arrays.asList(1, 2, 3, 4);
         listOfNumbers2.parallelStream().forEach(number ->
                 System.out.println("并行Stream：" + number + " " + Thread.currentThread().getName())
         );
 
+        /**
+         * 结果输出：
+         * 并行Stream：3 main
+         * 并行Stream：4 ForkJoinPool.commonPool-worker-2
+         * 并行Stream：1 main
+         * 并行Stream：2 ForkJoinPool.commonPool-worker-1
+         *
+         * 结果分析：
+         * 运行结果不确定，使用多个线程执行，会随机执行
+         */
     }
 
-    // 测试将元素展开
-    public static void testFlatMap() {
+    /**
+     * 场景3：将流中的内容分摊开，如将二维数组分摊为一维数组
+     * 1）使用flatMap，flat：平的，平躺的
+     */
+    @Test
+    public void test_flatMap() {
         List<List<String>> nameList = Arrays.asList( //二元数组
                 Arrays.asList("zhang","chen"),
                 Arrays.asList("wang", "li", "liu")
@@ -110,24 +134,42 @@ public class StreamTest {
         System.out.println(JSON.toJSONString(nameFlatList2));
     }
 
-    public static void testAnyMatch() {
+    /**
+     * 场景4：匹配任意元素
+     * 1）anyMatch：期待Stream中的所有元素，都与指定谓词Predicate匹配，与noneMatch相反
+     */
+    @Test
+    public void testAnyMatch() {
         List<Person> personList = getPersonList();
         boolean isExist = personList.stream().anyMatch(x -> x.getAge() == 17);
-        System.out.println("是否存在满足条件的任意元素，isExist=" + isExist);
+        System.out.println("是否存在满足条件的任意元素，isExist=" + isExist); //输出：false
+
+        boolean isExist2 = personList.stream().anyMatch(x -> x.getAge() == 18);
+        System.out.println("是否存在满足条件的任意元素，isExist2=" + isExist2); //输出：true
     }
 
-    public static void testFilter() {
+    /**
+     * 场景5：测试过滤功能
+     * 1）过滤出满足条件的元素
+     */
+    @Test
+    public void testFilter() {
         List<Person> personList = getPersonList();
         // filter()过滤元素，保留符合条件的元素
-        List<Person> newList = personList.stream().filter(x -> x.getAge() == 19).collect(Collectors.toList());
-        System.out.println(JSON.toJSONString(newList));
+        List<Person> newList = personList.stream()
+                .filter(x -> x.getAge() == 19)
+                .collect(Collectors.toList());
+        System.out.println(JSON.toJSONString(newList)); //输出：将Person属性age==19的元素保留下来
     }
 
-    // 测试stream的group by功能
-    public static void testGroupBy() {
+    /**
+     * 场景6：group by 分组功能
+     */
+    @Test
+    public void testGroupBy() {
         List<Person> personList = getPersonList();
         // 映射时，若映射的key为空，会报"element cannot be mapped to a null key"
-        Map<Integer, List<Person>> mapList = personList.stream().collect(Collectors.groupingBy(x -> x.getOriginType()));
+        Map<Integer, List<Person>> mapList = personList.stream().collect(Collectors.groupingBy(x -> x.getOriginType())); //将流中的元素看originType进行分组
 
         // x -> x.getOriginType() 写法与Person::getOriginType等价
         Map<Integer, List<Person>> mapList2 = personList.stream().collect(Collectors.groupingBy(Person::getOriginType));
@@ -142,7 +184,7 @@ public class StreamTest {
         Map<Integer, Set<String>> mapList4 = personList.stream().collect(Collectors.groupingBy(Person::getOriginType,
                 Collectors.mapping(x -> x.getName(), Collectors.toSet())));
         
-        System.out.println("第一个Map：" + mapList);
+        System.out.println("第一个Map：" + mapList); //分组
         System.out.println("第二个Map：" + mapList2);
         System.out.println("第三个Map：" + mapList3);
         System.out.println("第四个Map：" + mapList4);
@@ -154,8 +196,11 @@ public class StreamTest {
 
     }
 
-    // 测试将流中的元素转换为Map形式
-    public static void testStreamMap() {
+    /**
+     * 场景7：测试将流中的元素转换为Map形式
+     */
+    @Test
+    public void test_streamMap() {
         List<Person> personList = getPersonList();
         // 函数式接口是可以用lambda表达式写的（先找到函数式接口，除去default方法，看是否有入参、出参，然后在根据lambda表达式写）
         // 如toMap()方法需要两个参数都是函数式接口Function，而这个接口的方法是R apply(T t); 参数都是泛型，类型都可以定义，这里说明是接收一个参数，然后返回一个参数
@@ -163,19 +208,33 @@ public class StreamTest {
         map.entrySet().stream().forEach(x -> {
             System.out.println("键：" + x.getKey() + "，值：" + x.getValue());
         });
-        System.out.println(map);
+
+        /**
+         * 结果输出：
+         * 键：张三，值：18
+         * 键：李李，值：19
+         * 键：王王，值：19
+         */
     }
 
-    public static void testEmptyList() {
+    /**
+     * 场景8：测试空的列表，进行Steam操作
+     * 1）空列表的Stream操作，不会出现NPE
+     */
+    @Test
+    public void test_emptyList() {
         List<Person> personList = Lists.newArrayList();
         List<Person> newList = personList.stream().
                 filter(x -> x.getAge() != 0).
                 collect(Collectors.toList());
-        System.out.println(JSON.toJSONString(newList));
+        System.out.println(JSON.toJSONString(newList)); // 输出：[]
     }
 
-    // 测试stream的map功能
-    public static void mapTest() {
+    /**
+     * 场景9：stream的map功能
+     */
+    @Test
+    public void test_map() {
         List<Person> personList = getPersonList();
         List<Car> carList = personList.stream()
                 .map(x -> {
@@ -184,10 +243,18 @@ public class StreamTest {
                     return car;
                 }).collect(Collectors.toList());
         System.out.println("Map转化结果:" + JSON.toJSONString(carList));
+
+        /**
+         * 输出结果：
+         * Map转化结果:[{"carName":"张三"},{"carName":"李李"},{"carName":"王王"}]
+         */
     }
 
-    // 排序
-    public static void orderPerson() {
+    /**
+     * 场景10：排序
+     */
+    @Test
+    public void test_order() {
         List<Person> personList = getPersonList();
         List<Person> newList = personList.stream()
                 .sorted(Comparator.comparing(Person::getAge).reversed())
@@ -206,6 +273,49 @@ public class StreamTest {
         System.out.println("第三个：" + newList3);
     }
 
+    /**
+     * 场景11：Stream创建
+     */
+    @Test
+    public void test_create_stream() {
+
+    }
+
+    /**
+     * 场景12：reduce使用
+     */
+    @Test
+    public void test_reduce() {
+
+    }
+
+    /**
+     * 场景13：数据遍历
+     */
+    @Test
+    public void test_iterate() {
+
+    }
+
+    /**
+     * 场景N：Stream#noneMatch(java.util.function.Predicate) 方法使用
+     */
+    @Test
+    public void test_noneMatch() {
+        /**
+         * 分析：
+         * 1）none：全无，noneMatch：全部不匹配
+         * 2）Returns whether no elements of this stream match the provided predicate.
+         * （判断此流中是否没有元素与所提供的谓词匹配）
+         * 3）This is a short-circuiting terminal operation （这是一个短路操作）
+         *
+         * 总结：
+         * noneMatch可理解为：期望Stream流中的元素与指定的Predicate谓词全不匹配，若都是则返回true，否则返回false
+         */
+        Integer[] arr = new Integer[] {1, 3, 5};
+        System.out.println("第一个匹配：" + Arrays.stream(arr).noneMatch(var -> var.equals(3))); //输出：false
+        System.out.println("第二个匹配：" + Arrays.stream(arr).noneMatch(var -> var.equals(6))); //输出：true
+    }
 
     // 基础功能：获取用户列表
     public static List<Person> getPersonList() {
