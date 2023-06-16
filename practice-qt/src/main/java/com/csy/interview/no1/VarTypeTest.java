@@ -123,8 +123,8 @@ public class VarTypeTest {
          *
          * 结果分析：
          * 对于三元表达式：express ？ value1 ： value2
-         * 若 value1是变量，value2的类型与value1保持一致
-         * 若 value1是常量，判断value1是否能用value2的类型表示，若能：value2保持原有的类型，若不能，value2的类型要与value1保持一致
+         * 1）若 value1是变量，value2的类型与value1保持一致
+         * 2）若 value1是常量，判断value1是否能用value2的类型表示，若能：value2保持原有的类型，若不能，value2的类型要与value1保持一致
          *
          * 1）i是int变量，所以x要变为int的数值
          * 2）10是常量，可以用x对应的char表示，所以x保持原有类型，所以输出x
