@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 /**
  * @author : chensy
@@ -278,15 +280,28 @@ public class StreamTest {
      */
     @Test
     public void test_create_stream() {
+        // 创建方式一：使用Arrays.stream创建
+        double[] elements = {3.0, 4.5, 6.7, 2.3};
+        DoubleStream stream = Arrays.stream(elements);
+        stream.forEach(System.out::println);
 
+        // 创建方式二：使用集合创建
+        Double[] elements2 = {4.6, 5.8};
+        List<Double> elementsInCollection = Arrays.asList(elements2);
+        Stream<Double> stream2 = elementsInCollection.stream();
+        stream2.forEach(System.out::println);
     }
 
     /**
      * 场景12：reduce使用
+     * reduce()方法将一个Stream的每个元素依次作用于BinaryOperator，并将结果合并。
+     * reduce()是聚合方法，聚合方法会立刻对Stream进行计算
      */
     @Test
     public void test_reduce() {
-
+        int sum = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
+                .reduce(0, (acc, n) -> acc + n);
+        System.out.println(sum);
     }
 
     /**
