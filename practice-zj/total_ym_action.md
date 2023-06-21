@@ -57,8 +57,8 @@
 | 034 | Properties使用以及值覆盖           | 熟悉Properties   | P2   | 100% | 2023-06-01 | 2023-06-01 |
 | 035 | HashMap和HashTable比较         | 熟悉常用Map        | P0   | 0%   | 2023-06-01 |            |
 | 036 | 注解以及高级特性使用                  | 熟悉注解           | P0   | 100% | 2023-06-02 | 2023-06-13 |
-| 037 | Java8的Stream使用              | 熟悉Stream       | P0   | 70%  | 2023-06-03 |            |
-| 038 | Java8的Optional使用            | 熟悉Optional     | P0   | 0%   | 2023-06-04 |            |
+| 037 | Java8的Stream使用              | 熟悉Stream       | Done | 100% | 2023-06-03 | 2023-06-21 |
+| 038 | Java8的Optional使用            | 熟悉Optional     | Done | 100% | 2023-06-04 | 2023-06-21 |
 | 039 | System的getenv/getProperty   | 熟悉获取系统变量值      | P1   | 0%   | 2023-06-05 |            |
 | 040 | URL使用&Encode                | 熟悉URL&编码       | P1   | 0%   | 2023-06-06 |            |
 
@@ -108,6 +108,7 @@
 | 010 | Netty客户端/服务端使用       | 熟悉Netty通讯               | 0%  | P2   | 2023-04-29 |      |
 | 011 | Java SPI实践           | 熟悉Java SPI              | 0%  | P0   | 2023-04-29 |      |
 | 012 | Spring FactoryBean实践 | 熟悉getObject()           | 0%  | P2   | 2023-04-29 |      |
+| 013 | fast JSON字符串解析       | 熟悉fastJson              | 0%  | P1   | 2023-06-18 |      |
 
 ### mShi相关
 | 序号  | 实践点     | 实践目标      | 优先级  | 当前进度 | 创建时间       | 结束时间       |

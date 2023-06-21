@@ -305,14 +305,6 @@ public class StreamTest {
     }
 
     /**
-     * 场景13：数据遍历
-     */
-    @Test
-    public void test_iterate() {
-
-    }
-
-    /**
      * 场景N：Stream#noneMatch(java.util.function.Predicate) 方法使用
      */
     @Test
