@@ -100,16 +100,18 @@ public class LtCode_21 {
     /**
      * 场景2：使用递归合并两个列表
      */
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-
-        if (list2.next == null) {
-            return list1;
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) { //递归终止条件
+            return l2;
+        } else if (l2 == null) {
+            return l1;
+        } else if (l1.val < l2.val) { //l1小于l2的值，就取出l1的值，并且l1的next指向合并的节点
+            l1.next = mergeTwoLists(l1.next, l2);
+            return l1;
+        } else { //l1大于l2的值，就取出l2的值，并且l2的next指向合并的节点
+            l2.next = mergeTwoLists(l1, l2.next);
+            return l2;
         }
-
-        if (list2.val < list1.val) {
-            list1.next = list2;
-        }
-        return mergeTwoLists(list1, list2.next);
     }
 
     public class ListNode {
@@ -128,5 +130,4 @@ public class LtCode_21 {
             this.next = next;
         }
     }
-
 }
