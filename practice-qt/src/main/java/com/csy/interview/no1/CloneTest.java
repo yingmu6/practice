@@ -103,6 +103,32 @@ public class CloneTest {
          */
     }
 
+    /**
+     * 场景3：实现深复制
+     */
+    @Test
+    public void test_deep_copying() throws CloneNotSupportedException {
+        Department hr = new Department(1, "Human Resource");
+
+        EmployeeV2 original = new EmployeeV2(1, "Admin", hr);
+        EmployeeV2 cloned = (EmployeeV2) original.clone();
+
+        //Let change the department name in cloned object and we will verify in original object
+        cloned.getDepartment().setName("Finance");
+
+        System.out.println(original.getDepartment().getName());
+        System.out.println(cloned.getDepartment().getName());
+
+        /**
+         * 输出结果：
+         * Human Resource
+         * Finance
+         *
+         * 结果分析：
+         * 因为EmployeeV2中的成员属性Department已经实现了clone方法，会对其中的内容进行拷贝，而不仅仅是拷贝地址
+         */
+    }
+
     @Getter
     @Setter
     public class Employee implements Cloneable { //实现Clone操作，需要实现Cloneable接口，否则会抛出"java.lang.CloneNotSupportedException"异常
@@ -119,20 +145,48 @@ public class CloneTest {
 
         @Override
         protected Object clone() throws CloneNotSupportedException {
-            return super.clone();
+            return super.clone(); //浅拷贝，对于引用类型，只是拷贝了内存地址
         }
 
     }
 
     @Getter
     @Setter
-    public class Department {
+    public class EmployeeV2 implements Cloneable {
+
+        private int employeeId;
+        private String employeeName;
+        private Department department;
+
+        public EmployeeV2(int id, String name, Department dept) {
+            this.employeeId = id;
+            this.employeeName = name;
+            this.department = dept;
+        }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException { //实现深拷贝（即包含对象类型的成员对象，也要实现clone方法）
+            EmployeeV2 cloned = (EmployeeV2) super.clone();
+            cloned.setDepartment((Department) cloned.getDepartment().clone());
+            return cloned;
+        }
+
+    }
+
+    @Getter
+    @Setter
+    public class Department implements Cloneable{
         private int id;
         private String name;
 
         public Department(int id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone(); //因为此处的成员变量是基本类型，所以直接调用super.clone()，若还包含对象类型，对应的对象还要对应实现clone()方法
         }
     }
 

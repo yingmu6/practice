@@ -16,6 +16,8 @@ public class RecursionTest {
 
     /**
      * 递归算法_概述
+     * （是指一种通过重复将问题分解为同类的子问题而解决问题的方法）
+     *
      * 1）The process in which a function calls itself directly or
      *   indirectly is called recursion and the corresponding（相应的） function is called a recursive function
      *  （函数直接或间接调用自身的过程间接称为递归，对应的函数称为递归函数）
@@ -36,12 +38,17 @@ public class RecursionTest {
      *   b）解决：解决这些子问题；
      *   c）合并：合并子问题的解得到原问题的解
      *
+     * 5）递归的两个基本法则：
+     *   a）基准情形：必须总要有默写基准的性情，他们不用递归就能求解
+     *   b）不断推进：对于那些要递归求解的情形，递归调用必须总能吵着一个基准情形推行
+     *
      * 递归算法_总结
      * 1）需要有递归结束条件，不然出现无限循环
      * 2）递归适合能将问题拆分为小问题，小问题按同样的解题逻辑来实现
      *
      * 参考链接：
      * 1）https://www.geeksforgeeks.org/introduction-to-recursion-data-structure-and-algorithm-tutorials
+     * 2）https://www.jianshu.com/p/924f1b3f64c8 递归算法详解
      */
 
     /**
