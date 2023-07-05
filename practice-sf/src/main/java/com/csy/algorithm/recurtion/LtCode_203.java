@@ -1,5 +1,6 @@
 package com.csy.algorithm.recurtion;
 
+import com.csy.util.ListNode;
 import org.junit.Test;
 
 /**
@@ -41,10 +42,16 @@ public class LtCode_203 {
         node5.next = node6;
         node6.next = node7;
 
-        ListNode tempNode = removeElements(node1, 6);
-        while (tempNode != null) {
-            System.out.println(tempNode.val);
-            tempNode = tempNode.next;
+//        ListNode tempNode = removeElements(node1, 6);
+//        while (tempNode != null) {
+//            System.out.println(tempNode.val);
+//            tempNode = tempNode.next;
+//        }
+
+        ListNode tempNode2 = removeElementsV2(node1, 6);
+        while (tempNode2 != null) {
+            System.out.println(tempNode2.val);
+            tempNode2 = tempNode2.next;
         }
     }
 
@@ -63,24 +70,18 @@ public class LtCode_203 {
      * 方式二：使用迭代方式求解
      */
     public ListNode removeElementsV2(ListNode head, int val) {
-        return null;
-    }
+        ListNode finalNode = new ListNode(0);
+        finalNode.next = head; //指向头结点
 
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
+        ListNode tempNode = finalNode; //使用临时节点处理
+        while (tempNode.next != null) { //对下一个链表结点处理
+            if (tempNode.next.val == val) {
+                tempNode.next = tempNode.next.next;
+            } else {
+                tempNode = tempNode.next;
+            }
         }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
+        return finalNode.next;
     }
 
 }

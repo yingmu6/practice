@@ -20,6 +20,7 @@ public class HashMapTest {
      *
      * 参考链接：
      * 1）https://www.baeldung.com/java-hashmap  HashMap简介
+     * 2）com.csy.interview.no1.MapValueTest 类中已做了部分测试
      */
 
     /**

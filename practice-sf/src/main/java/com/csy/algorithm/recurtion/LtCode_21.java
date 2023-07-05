@@ -1,6 +1,7 @@
 package com.csy.algorithm.recurtion;
 
 import com.alibaba.fastjson.JSON;
+import com.csy.util.ListNode;
 import org.junit.Test;
 
 /**
@@ -111,23 +112,6 @@ public class LtCode_21 {
         } else { //l1大于l2的值，就取出l2的值，并且l2的next指向合并的节点
             l2.next = mergeTwoLists(l1, l2.next);
             return l2;
-        }
-    }
-
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
         }
     }
 }

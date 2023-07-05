@@ -5,6 +5,11 @@ package com.csy.interview.no1.inherit_ext;
  * @date 2023/7/3
  */
 public class Child extends Parent {
+
+    static {
+        System.out.println("child:静态代码块1");
+    }
+
     public static String childStaticString="child静态变量";
 
     static {

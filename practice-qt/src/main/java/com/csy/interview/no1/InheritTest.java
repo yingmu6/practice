@@ -94,6 +94,8 @@ public class InheritTest {
          * 1）parent的静态变量 -> parent的静态代码块 -> child的静态变量 -> child的静态代码块
          * 2）parent的非静态成员变量 -> parent的非静态代码块 -> parent的构造方法
          * 3）child的非静态成员变量 -> child的非静态代码块 -> child的构造方法
+         *
+         * 注明：变量和代码块的执行顺序，按实际声明的顺序为准，可前可后
          */
     }
 
