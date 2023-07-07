@@ -19,6 +19,14 @@ public class LinkedListTest {
      *    b）双向链表：一个节点有两个指针域
      *    c）循环链表：能通过任何一个节点找到其他所有的节点，将两种(双向/单向)链表的最后一个结点指向第一个结点从而实现循环
      *
+     * 3）链表分为数据域和指针域
+     *    区分node = tempNode、node.next = tempNode的区别
+     *    a）node = tempNode，是对象赋值，表明两个对象的引用相同，指向同一块内存地址
+     *    b）node.next = tempNode，表明node的指针域，指向tempNode引用
+     *
+     * 总结：链表中的指针域，不过就是嵌套的引用罢了，只要把具体的引用以及对象实际值分析清楚即可。
+     *     （链表最核心的就是 处理指针域。java中的引用，相当C、C++的指针）
+     *
      * 参考链接：
      * a）https://www.jianshu.com/p/73d56c3d228c 链表的数据结构
      *

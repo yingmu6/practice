@@ -86,18 +86,45 @@ public class LtCode_206 {
         ListNode prev = null;
         ListNode curr = head;
         while (curr != null) {
-            ListNode next = curr.next; // 1）
-            curr.next = prev; // 2）
-            prev = curr; // 3）
-            curr = next; // 4）
+            ListNode next = curr.next; // 1）使用临时节点存储之前链表指向的值，避免后面被更改了（为了下次循环使用）
+            curr.next = prev; // 2）当前节点的指针域，指向上一个节点
+
+            prev = curr; // 3）更改上一个节点
+            curr = next; // 4）更改当前节点
         }
         return prev;
 
         /**
-         * 结果分析：
+         *
+         * 代码分析：
          * 1）代码1）和4）处，是为了依次取出链表中结点
          * 2）代码2）让当前节点的地址域指向上一个节点
-         * 3）代码3）更换前一个节点
+         * 3）代码3）更换前一个节点，代prev=curr值更新后，并不影响curr.next的值
+         * 4）代码3）和4）处，是为了改变变量的值
+         *
+         * 数值分析：
+         * 第一轮循环：
+         * 代码1）：next = node2（val=2，next=node3），取原来的第2个节点，下次循环使用
+         * 代码2）：curr.next = null（因为prev=null）
+         * 代码3）：prev = curr（{val=1，next=null}），即指向原来的第一个节点，但此时next已经变为null了
+         * 代码4）：curr = next（next是代码1）中的值，即处理好了第1个节点的next指向，接着处理下面节点的next指向）
+         *
+         * 第二轮循环：
+         * 代码1）：next = node3（val=3，next=node4），取原来的第3个节点，下次循环使用
+         * 代码2）：curr.next = prev（{val=1，next=null}）
+         * 代码3）：prev = curr（{val=2，next={val=1,next=null}}）
+         * 代码4）：curr = next（next是代码1）中的值，即处理好了第2个节点的next指向，接着处理下面节点的next指向）
+         *
+         * 第3轮循环：
+         * 代码1）：next = node4（val=3，next=node4），取原来的第4个节点，下次循环使用
+         * 代码2）：curr.next = prev（{val=2，next={val=1,next=null}}）
+         * 代码3）：prev = curr（{val=3，next={val=2，next={val=1,next=null}}}）
+         * 代码4）：curr = next（next是代码1）中的值，即处理好了第3个节点的next指向，接着处理下面节点的next指向）
+         *
+         * ...其它类推..
+         *
+         * 思路总结：
+         * 遍历原有链表中的节点，依次将指针域next，指向一个前置节点（前置节点，即为原链表中的上一个节点）
          */
     }
 
@@ -105,13 +132,22 @@ public class LtCode_206 {
      * 场景2：使用递归_实现链表反转
      */
     public ListNode reverse_by_recursion(ListNode head) {
-        if (head == null || head.next == null) {
+        if (head == null || head.next == null) { // 1）
             return head;
         }
-        ListNode newHead = reverse_by_recursion(head.next);
-        head.next.next = head;
-        head.next = null;
+        ListNode newHead = reverse_by_recursion(head.next); // 2）
+        head.next.next = head; // 3）
+        head.next = null;  // 4）
         return newHead;
+
+        /**
+         * 代码分析：
+         *
+         * 数据分析：
+         *
+         * 思路总结：
+         *
+         */
     }
 
     /**
