@@ -45,10 +45,13 @@ public class RecursionTest {
      * 递归算法_总结
      * 1）需要有递归结束条件，不然出现无限循环
      * 2）递归适合能将问题拆分为小问题，小问题按同样的解题逻辑来实现
+     * 3）递归也是循环的一种
+     * （画图理解、数据带入换算等，会比较形象些）
      *
      * 参考链接：
      * 1）https://www.geeksforgeeks.org/introduction-to-recursion-data-structure-and-algorithm-tutorials
      * 2）https://www.jianshu.com/p/924f1b3f64c8 递归算法详解
+     * 3）https://cloud.tencent.com/developer/article/2095781?areaSource=106005.13 递归和迭代的区别
      */
 
     /**

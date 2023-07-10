@@ -1,7 +1,5 @@
 package com.csy.structure.linked;
 
-import org.junit.Test;
-
 /**
  * 链表测试
  * @author : chensy
@@ -24,66 +22,31 @@ public class LinkedListTest {
      *    a）node = tempNode，是对象赋值，表明两个对象的引用相同，指向同一块内存地址
      *    b）node.next = tempNode，表明node的指针域，指向tempNode引用
      *
-     * 总结：链表中的指针域，不过就是嵌套的引用罢了，只要把具体的引用以及对象实际值分析清楚即可。
+     * 4）递归和迭代的区别
+     *   递归中一定有迭代,但是迭代中不一定有递归,大部分可以相互转换.能用迭代的不用递归,递归调用函数,浪费空间,并且递归太深容易造成堆栈的溢出
+     *   递归和迭代都是循环的一种（重点理解）
+     *   简单地说，递归是重复调用函数自身实现循环。迭代是函数内某段代码实现循环，而迭代与普通循环的区别是：循环代码中参与运算的变量同时是保存结果的变量，当前保存的结果作为下一次循环计算的初始值
+     *
+     * 总结：
+     *    a）链表中的指针域，不过就是嵌套的引用罢了，只要把具体的引用以及对象实际值分析清楚即可。
      *     （链表最核心的就是 处理指针域。java中的引用，相当C、C++的指针）
+     *    b）画出链表图，包含数据域、指针域、还是node1、node2等等节点序号，并分析出next指针域代码那个节点，比如head.next.next，先分析出head.next为哪个节点
      *
      * 参考链接：
      * a）https://www.jianshu.com/p/73d56c3d228c 链表的数据结构
-     *
+     * b）https://cloud.tencent.com/developer/article/2095781?areaSource=106005.13 递归和迭代的区别
      */
 
-    // 单向列表
-    @Test
-    public void test_basic() {
-        Node head = new Node();
-        head.setData("head");
-        Node a = new Node();
-        a.setData("A");
-        Node b = new Node();
-        b.setData("B");
+    /**
+     * 场景1：链表增删改查
+     */
 
-        head.setNext(a);
-        a.setNext(b);
+    /**
+     * 场景n：头插法
+     */
 
-        b.setNext(null); //单向链表
-//        b.setNext(head); // 循环列表
-        printNode(head);
-    }
-
-    // 递归调用，输出结果
-    private static void printNode(Node node) {
-        if (node.getNext() != null) {
-            System.out.println(node.getNext().getData());
-        }
-    }
-
-
-    class Node {
-        protected String data;
-        protected Node next;
-
-        public Node() {
-        }
-
-        public Node(String data) {
-            this.data = data;
-        }
-
-        public String getData() {
-            return data;
-        }
-
-        public void setData(String data) {
-            this.data = data;
-        }
-
-        public Node getNext() {
-            return next;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
-        }
-    }
+    /**
+     * 场景n+1：尾插法
+     */
 
 }
