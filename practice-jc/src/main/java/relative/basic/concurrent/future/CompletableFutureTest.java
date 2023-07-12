@@ -3,6 +3,7 @@ package relative.basic.concurrent.future;
 import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -34,6 +35,8 @@ public class CompletableFutureTest {
      * 参考链接：
      * a）https://www.baeldung.com/java-completablefuture  英文版介绍
      * b）https://www.liaoxuefeng.com/wiki/1252599548343744/1306581182447650  使用CompletableFuture
+     * c）https://mikechen.cc/15629.html CompletableFuture原理与用法详解（8大使用场景）
+     * d）https://tech.meituan.com/2022/05/12/principles-and-practices-of-completablefuture.html CompletableFuture原理与实践-外卖商家端API的异步化（写的比较好）
      */
 
     /**
@@ -47,7 +50,7 @@ public class CompletableFutureTest {
         System.out.println("输出的结果：" + result + ",时间戳：" + System.currentTimeMillis() / 1000);
 
         int a = 1;
-        System.out.println("另外的任务：" + a + ",时间戳：" + System.currentTimeMillis() / 1000); //从运行的结果来看，调用future.get()线程会阻塞
+        System.out.println("另外的任务：" + a + ",时间戳：" + System.currentTimeMillis() / 1000); //从运行的结果来看，调用future.get()线程会阻塞主线程中其它任务
     }
 
     /**
@@ -65,7 +68,7 @@ public class CompletableFutureTest {
             return "Hello";
         });
 
-        System.out.println("输出的结果2：" + future.get() + ",时间戳：" + System.currentTimeMillis() / 1000); //也是阻塞着等结果
+        System.out.println("输出的结果2：" + future.get() + ",时间戳：" + System.currentTimeMillis() / 1000); //也是阻塞着等结果（与Future.get()效果类似）
 
         int a = 1;
         System.out.println("另外的任务2：" + a + ",时间戳：" + System.currentTimeMillis() / 1000);
@@ -87,7 +90,7 @@ public class CompletableFutureTest {
             return "test_result";
         });
         future.thenAccept(result -> { //异步任务正常完成时回调
-            System.out.println("成功_输出的结果3：" + ",时间戳：" + System.currentTimeMillis() / 1000);
+            System.out.println("成功_输出的结果3：" + ",时间戳：" + System.currentTimeMillis() / 1000 + ",结果值：" + result);
         });
 
         future.exceptionally(e -> { //异步任务发生异常时回调
@@ -120,5 +123,85 @@ public class CompletableFutureTest {
         });
 
         return completableFuture;
+    }
+
+    /**
+     * 场景4：线程串行化
+     * （当一个线程依赖另一个线程时，可以使用thenApply方法来把这两个线程串行化）
+     */
+    @Test
+    public void test_serialization() throws ExecutionException, InterruptedException {
+        System.out.println("主线程开始");
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "第一个线程！")
+                .thenApply(x -> x + "第二个线程！") //1）
+                .thenApply(x -> x + "第三个线程！"); //2）
+
+        String result = future.get();
+        System.out.println("主线程结束，子线程的结果为：\n" + result);
+
+        /**
+         * 输出结果：
+         * 主线程开始
+         * 主线程结束，子线程的结果为：
+         * 第一个线程！第二个线程！第三个线程！
+         *
+         * 结果分析：
+         * 代码1）、2）线程依次执行，并且前一个线程的结果，作为后一个线程的输入条件
+         */
+    }
+
+    /**
+     * 场景5：thenApply()、thenAccept()联合使用
+     * 1）thenApply()用于多个线程串行化
+     * 2）thenAccept()用于处理异步结果
+     */
+    @Test
+    public void test_combine() {
+        CompletableFuture.supplyAsync(() -> "How")
+                .thenApply(x -> x + " are you ")  // 1)
+                .thenAccept(result -> System.out.println(result)); // 2）
+
+        /**
+         * 输出结果：
+         * How are you
+         *
+         * 结果分析：
+         * 代码1）是为了将多个线程串行化，代码2）是否了处理异步计算的结果
+         */
+    }
+
+    private static String tempStr = "";
+    /**
+     * 场景6：CompletableFuture的创建方式
+     */
+    @Test
+    public void test_create() {
+
+        /**
+         * 主要提供了4个静态方法，来创建CompletableFuture
+         *
+         * 1）public static CompletableFuture<Void> runAsync(Runnable runnable)
+         * 2）public static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor)
+         * 3）public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier)
+         * 4）public static <U > CompletableFuture < U > supplyAsync(Supplier < U > supplier, Executor executor)
+         *
+         * supplyAsync与runAsync的区别主要在于，supplyAsync会返回结果，而runAsync不会返回结果
+         */
+
+        // 方式一：使用runAsync（未指定线程池，就使用默认线程池）
+        CompletableFuture.runAsync(() -> tempStr = "How") //因为runAsync不会返回值，所以借助外部变量tempStr处理
+                .thenApply(x -> {
+                    System.out.println("runAsync中的x的值：" + x); //会输出："x的值：null"
+                    return tempStr = tempStr + " are you";
+                })
+                .thenAccept(x -> System.out.println("runAsync中的结果：" + tempStr));
+
+        // 方式二：使用supplyAsync
+        CompletableFuture.supplyAsync(() -> "How") //因为supplyAsync会返回值，所以后面的线程可以使用前一个线程的结果值
+                .thenApply(x -> {
+                    System.out.println("supplyAsync中的x的值：" + x); //会输出："x的值：How"
+                    return x + " are you";
+                })
+                .thenAccept(x -> System.out.println("supplyAsync中的结果：" + x));
     }
 }
