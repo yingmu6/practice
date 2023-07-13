@@ -32,6 +32,13 @@ public class CompletableFutureTest {
      *   b） CompletableFuture更强大的功能是，多个CompletableFuture可以串行执行（如：后面的CompletableFuture使用的实例创建）
      *   c）除了串行执行外，多个CompletableFuture还可以并行执行（使用CompletableFuture.anyOf()方法处理）
      *
+     * 4）CompletableFuture实现了CompletionStage接口，CompletionStage定义了一些有用的方法
+     *    a）转换（thenCompose）
+     *    b）组合（thenCombine）
+     *    c）消费（thenAccept）
+     *    d）运行（thenRun）
+     *    e）待返回的消费（thenApply）
+     *
      * 参考链接：
      * a）https://www.baeldung.com/java-completablefuture  英文版介绍
      * b）https://www.liaoxuefeng.com/wiki/1252599548343744/1306581182447650  使用CompletableFuture
@@ -156,7 +163,7 @@ public class CompletableFutureTest {
      * 2）thenAccept()用于处理异步结果
      */
     @Test
-    public void test_combine() {
+    public void test_union_apply_accept() {
         CompletableFuture.supplyAsync(() -> "How")
                 .thenApply(x -> x + " are you ")  // 1)
                 .thenAccept(result -> System.out.println(result)); // 2）
@@ -203,5 +210,42 @@ public class CompletableFutureTest {
                     return x + " are you";
                 })
                 .thenAccept(x -> System.out.println("supplyAsync中的结果：" + x));
+    }
+
+    private static Integer num = 10;
+
+    /**
+     * 场景7：结果合并
+     */
+    @Test
+    public void test_result_compose() throws ExecutionException, InterruptedException {
+        System.out.println("主线程开始");
+
+        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+            System.out.println("num加10处理");
+            num += 10;
+            return num; // 1）
+        });
+
+        // 合并
+        CompletableFuture<Integer> future1 = future.thenCompose(i ->
+                CompletableFuture.supplyAsync(() -> { // 2）
+                    return i + 1;
+                }));
+
+        System.out.println(future.get());
+        System.out.println(future1.get());
+
+        /**
+         * 输出结果：
+         * 主线程开始
+         * num加10处理
+         * 20
+         * 21
+         *
+         * 结果分析：
+         * 代码1）异步将num加10
+         * 代码2）将上一个CompletableFuture合并新的CompletableFuture的值
+         */
     }
 }

@@ -50,4 +50,11 @@ public class BitOperationTest {
             System.out.print((num & 1 << i) == 0 ? "0":"1");
         }
     }
+
+    /**
+     * 场景2：按位或
+     *
+     * 验证：(srcIdx | srcSize | srcBytes.length - srcIdx - srcSize) < 0 只要有一个位负数就为负数
+     */
+
 }

@@ -55,4 +55,13 @@ public class VarCalculateTest {
         y = x++ + ++x; //x累加了2次，即 x = -1 + 2 = 1，y= (-1)++ + (++0) = -1 + 1 = 0
         System.out.println("No3: x=" + x + ", y=" + y); //输出的值为：x=1，y=0
     }
+
+    /**
+     * 场景3：进制值输出
+     */
+    @Test
+    public void test_val() {
+        System.out.println(0xE0); //输出值为224，因为E位14，所以计算：14*16+0*1 = 224
+        System.out.println(0xF0); //输出值为240
+    }
 }
