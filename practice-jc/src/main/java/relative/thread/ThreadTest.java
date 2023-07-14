@@ -2,6 +2,8 @@ package relative.thread;
 
 import org.junit.Test;
 
+import java.io.IOException;
+
 /**
  * 多线程通过final访问主线程局部变量
  * https://xtuhcy.iteye.com/blog/2170295
@@ -70,8 +72,44 @@ public class ThreadTest {
     }
 
     /**
-     * 场景3：join方法使用
+     * 场景3：join方法使用（线程加入）
+     *
+     * 理解：就是调用了哪个线程的join方法，就先执行完哪个线程，再执行当前线程，当前线程先进入阻塞状态
      */
+    @Test
+    public void test_join() throws IOException, InterruptedException {
+        long current = System.currentTimeMillis();
+        System.out.println("当前线程开始");
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("执行子线程");
+            }
+        };
+        Thread t1 = new Thread(runnable);
+        t1.start();
+
+        t1.join(); // 线程加入
+
+        System.out.println("当前线程结束，耗时 = " + (System.currentTimeMillis() - current) / 1000);
+        System.in.read();
+
+        /**
+         * 输出结果：
+         * 当前线程开始
+         * 执行子线程
+         * 当前线程结束，耗时 = 5
+         *
+         * 结果分析：
+         * 当前线程执行了t1.join()，就会加入t1子线程。当前线程进入阻塞状态，直到t1执行完成，才进入就绪状态
+         */
+    }
 
     /**
      * 场景4：yield方法使用（线程让步）
