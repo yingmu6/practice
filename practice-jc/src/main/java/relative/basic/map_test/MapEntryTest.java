@@ -11,6 +11,19 @@ import java.util.Set;
  * @date 2019-06-13 19:42
  */
 public class MapEntryTest {
+
+    /**
+     * Map.Entry<K,V>_概述
+     *
+     * 1）Map是java中的接口，Map.Entry是Map的一个内部接口。
+     * 2）Map提供了一些常用方法，如keySet()、entrySet()等方法。
+     * 3）keySet()方法返回值是Map中key值的集合；entrySet()的返回值也是返回一个Set集合，此集合的类型为Map.Entry。
+     * 4）Map.Entry是Map声明的一个内部接口，此接口为泛型，定义为Entry<K,V>。它表示Map中的一个实体（一个key-value对）。接口中有getKey(),getValue方法。
+     *
+     * 参考链接：
+     *
+     */
+
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<>();
         map.put("name", "zhang");
@@ -50,13 +63,3 @@ public class MapEntryTest {
 
 
 }
-
-/**
- * Map是java中的接口，Map.Entry是Map的一个内部接口。
- *
- * Map提供了一些常用方法，如keySet()、entrySet()等方法。
- *
- * keySet()方法返回值是Map中key值的集合；entrySet()的返回值也是返回一个Set集合，此集合的类型为Map.Entry。
- *
- * Map.Entry是Map声明的一个内部接口，此接口为泛型，定义为Entry<K,V>。它表示Map中的一个实体（一个key-value对）。接口中有getKey(),getValue方法。
- */

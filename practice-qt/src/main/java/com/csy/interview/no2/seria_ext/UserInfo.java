@@ -17,9 +17,12 @@ public class UserInfo implements Serializable {
 
     private transient String pwd;
 
-    public UserInfo (String user, String password) {
+    static int age;
+
+    public UserInfo (String user, String password, int age) {
         this.uid = user;
         this.pwd = password;
+        this.age = age;
     }
 
     public String toString() {
@@ -29,6 +32,6 @@ public class UserInfo implements Serializable {
         } else {
             password = pwd;
         }
-        return "用户信息: \n" + "用户名: " + uid + "\n 登录时间:" + loggingDate.toString() + "\n 密码: " + password;
+        return "用户信息: \n" + "用户名: " + uid + "\n 登录时间:" + loggingDate.toString() + "\n 密码: " + password + "\n 年龄：" + age;
     }
 }

@@ -61,6 +61,8 @@
 | 038 | Java8的Optional使用            | 熟悉Optional     | Done | 100% | 2023-06-04 | 2023-06-21 |
 | 039 | System的getenv/getProperty   | 熟悉获取系统变量值      | P1   | 0%   | 2023-06-05 |            |
 | 040 | URL使用&Encode                | 熟悉URL&编码       | P1   | 0%   | 2023-06-06 |            |
+| 041 | Map.Entry使用                 | 熟悉Map.Entry    | P1   | 0%   | 2023-07-15 |            |
+| 042 | InetAddress使用               | 熟悉InetAddress  | P1   | 0%   | 2023-07-15 |            |
 
 ### spr&Net相关
 | 序号  | 实践点                      | 实践目标       | 优先级  | 当前进度 | 创建时间       | 结束时间       |

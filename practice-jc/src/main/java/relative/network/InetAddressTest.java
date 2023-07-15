@@ -10,6 +10,18 @@ import java.nio.charset.Charset;
  * Date : 2020-01-16 17:11
  */
 public class InetAddressTest {
+
+    /**
+     * IP_概述
+     *
+     * 参考链接：
+     * a）https://zhuanlan.zhihu.com/p/72988255 127.0.0.1和0.0.0.0地址的区别
+     */
+
+    /**
+     * 场景1：了解A~E类地址
+     */
+
     public static void main(String[] args) throws Exception {
         //localHost();
         bulid();

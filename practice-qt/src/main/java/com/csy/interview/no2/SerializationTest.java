@@ -13,6 +13,16 @@ public class SerializationTest {
 
     /**
      * 序列化_测试
+     * 1）Serialization is the conversion of the state of an object into a byte stream; deserialization does the opposite
+     *   （序列化是将对象转换为字节流，反序列化刚好相反）
+     *
+     * 2）Classes that are eligible（合适的） for serialization need to implement a special marker interface, Serializable.
+     *   （符合序列化条件的类，需要实现标记接口Serializable）
+     *
+     * 3）
+     *
+     * 参考链接：
+     * a）https://www.baeldung.com/java-serialization
      */
 
     /**
@@ -20,12 +30,12 @@ public class SerializationTest {
      */
     @Test
     public void test_basic() {
-        UserInfo userInfo = new UserInfo("zhang", "123");
+        UserInfo userInfo = new UserInfo("zhang", "123", 10);
         System.out.println(userInfo);
 
         try {
             ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("userInfo.txt")); // 1) 将对象序列化
-            o.writeObject(userInfo);
+            o.writeObject(userInfo); // 2）把对象写到输出流中
             o.close();
         } catch (Exception e) {
 
@@ -33,8 +43,8 @@ public class SerializationTest {
 
         System.out.println("---------分隔线--------");
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("userInfo.txt")); // 2）反序列化对象
-            UserInfo userInfo1 = (UserInfo) in.readObject();
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("userInfo.txt")); // 3）反序列化对象
+            UserInfo userInfo1 = (UserInfo) in.readObject(); // 4）从输入流中读取到对象
             System.out.println(userInfo1);
         } catch (Exception e) {
 
@@ -53,6 +63,7 @@ public class SerializationTest {
          *  密码: NOT SET
          *
          * 结果分析：
+         * 1）UserInfo的字段pwd，使用transient修饰，就不会被序列化
          *
          *
          */
