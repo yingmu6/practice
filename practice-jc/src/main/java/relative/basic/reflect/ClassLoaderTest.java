@@ -39,6 +39,17 @@ public class ClassLoaderTest {
 
     }
 
+    /**
+     * 场景n-1：创建ClassLoader方式
+     * 1）Thread.currentThread()中getContextClassLoader()
+     * 2）Class中getClassLoader()
+     * 3）ClassLoader中getSystemClassLoader()
+     */
+
+    /**
+     * 场景n：getResources以及getSystemResources获取资源
+     */
+
     //实例化对象
     public void instance() {
         try {

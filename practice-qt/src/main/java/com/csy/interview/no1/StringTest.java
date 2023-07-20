@@ -157,6 +157,18 @@ public class StringTest {
          */
     }
 
+    private String string; //对象类型的成员变量默认为null
+    private int var; // 基本类型的成员变量，系统会设置默认值，int的默认值为0
+
+    /**
+     * 场景5：成员变量的默认值
+     */
+    @Test
+    public void test_default() {
+        StringTest stringTest = new StringTest();
+        System.out.println(stringTest);
+    }
+
     private void operate(StringBuffer x, StringBuffer y) {
         x.append(y);
         y = x; //y指向x，内容为"AB"，但是函数结束后，就会自然消亡

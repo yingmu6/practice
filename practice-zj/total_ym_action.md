@@ -42,7 +42,7 @@
 | 019 | synchronized使用              | 熟悉synchronized | P2   | 0%   | 2023-04-25 |            |
 | 020 | Consumer、Function、Predicate | 熟悉方法传递         | P0   | 30%  | 2023-04-25 |            |
 | 021 | Executor线程池使用               | 熟悉线程池的使用       | Done | 100% | 2023-04-25 | 2023-06-07 |
-| 022 | Type/ParameterizedType测试    | 熟悉反射机制的类型      | P1   | 0%   | 2023-04-26 |            |
+| 022 | Type/ParameterizedType测试    | 熟悉反射机制的类型      | P0   | 0%   | 2023-04-26 |            |
 | 023 | ForkJoinPool                | 线程池ForkJoin熟悉  | P1   | 0%   | 2023-04-26 |            |
 | 024 | ConcurrentHashMap使用         | 熟悉对应的使用        | P0   | 0%   | 2023-04-26 |            |
 | 025 | 正则表达式使用                     | 熟悉正则表达式        | Done | 100% | 2023-04-28 | 2023-06-03 |
@@ -63,6 +63,7 @@
 | 040 | URL使用&Encode                | 熟悉URL&编码       | P1   | 0%   | 2023-06-06 |            |
 | 041 | Map.Entry使用                 | 熟悉Map.Entry    | P1   | 0%   | 2023-07-15 |            |
 | 042 | InetAddress使用               | 熟悉InetAddress  | P1   | 0%   | 2023-07-15 |            |
+| 043 | Schedule定时任务使用              | 熟悉定时任务         | P1   | 0%   | 2023-07-19 |            |
 
 ### spr&Net相关
 | 序号  | 实践点                      | 实践目标       | 优先级  | 当前进度 | 创建时间       | 结束时间       |
@@ -75,6 +76,8 @@
 | 006 | BeanDefinitionRegistry使用 | 熟悉Bean注入   | P2   | 0%   | 2023-05-19 |            |
 | 007 | BeanDefinition相关使用       | 熟悉Bean定义   | P2   | 0%   | 2023-05-26 |            |
 | 008 | Bean作用范围                 | 熟悉Bean范围   | P2   | 0%   | 2023-05-26 |            |
+| 009 | 查看Spring容器中的Bean         | 熟悉容器中Bean  | P1   | 0%   | 2023-07-18 |            |
+| 010 | Spring容器事件监听             | 熟悉Spring事件 | P1   | 0%   | 2023-07-20 |            |
 
 ### sf&shuJ相关
 | 序号  | 实践点    | 实践目标   | 优先级 | 当前进度 | 创建时间       | 结束时间    |
