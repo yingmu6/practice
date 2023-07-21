@@ -25,7 +25,7 @@
 | 002 | Constructor使用               | 熟悉构造类使用        | P3   | 0%   | 2023-03-13 |            | 
 | 003 | Enum的ordinal使用              | 熟悉枚举的顺序值       | P3   | 0%   | 2023-03-13 |            |
 | 004 | BeanFactoryPostProcessor    | 熟悉熟悉           | P3   | 0%   | 2023-03-13 |            |
-| 005 | IdentityHashMap使用           | 熟悉熟悉           | P0   | 0%   | 2023-03-13 |            |
+| 005 | IdentityHashMap使用           | 熟悉熟悉           | Done | 100% | 2023-03-13 | 2023-07-21 |
 | 006 | Thread高级实用sleep、yield等      | 熟悉线程           | P0   | 30%  | 2023-03-13 |            |    
 | 007 | Method使用                    | 熟悉Method       | P3   | 0%   | 2023-03-13 |            | 
 | 008 | System的arrayCopy使用          | 熟悉System方法     | P3   | 0%   | 2023-03-13 |            |  
