@@ -74,7 +74,7 @@ public class ThreadTest {
     /**
      * 场景3：join方法使用（线程加入）
      *
-     * 理解：就是调用了哪个线程的join方法，就先执行完哪个线程，再执行当前线程，当前线程先进入阻塞状态
+     * 理解：就是让加入的线程先执行完，再执行当前线程，当前线程先进入阻塞状态
      */
     @Test
     public void test_join() throws IOException, InterruptedException {
@@ -152,6 +152,57 @@ public class ThreadTest {
                 // 当i为30时，该线程就会把CPU时间让掉，让其他或者自己的线程执行（也就是谁先抢到谁执行）
                 if (i == 30) {
                     this.yield();
+                }
+            }
+        }
+    }
+
+    /**
+     * 场景5：线程的终止
+     * 1）正常运行结束
+     * 2）使用退出标志退出线程
+     * 3）使用interrupt方法终止线程
+     * 4）使用stop方法终止线程
+     *   （会造成不可预料的后果，不安全，不推荐）
+     */
+    @Test
+    public void test_stop_by_flag() { //通过退出标志退出线程
+        for (int i = 0; i < 5; i++) {
+            ThreadSafeV1 threadSafeV1 = new ThreadSafeV1();
+            if (i >= 3) {
+                threadSafeV1.exit = true; //更改退出标志
+            }
+            threadSafeV1.start();
+        }
+    }
+
+    public class ThreadSafeV1 extends Thread {
+        public volatile boolean exit = false;
+        public void run() {
+            while (!exit) { //通过退出标志，判断是否执行
+                System.out.println("执行ThreadSafeV1线程");
+                break; //避免无限循环，一个线程就运行一次
+            }
+        }
+    }
+
+    @Test
+    public void test_stop_by_interrupt() { //通过interrupt方法终止线程
+        for (int i = 0; i < 5; i++) {
+            ThreadSafeV2 threadSafeV2 = new ThreadSafeV2();
+            threadSafeV2.start();
+        }
+    }
+
+    public class ThreadSafeV2 extends Thread {
+        public void run() {
+            while (!isInterrupted()) { //在非阻塞过程中通过判断中断标志来退出
+                try {
+                    System.out.println("执行ThreadSafeV2线程");
+                    Thread.sleep(100); //在阻塞过程中捕获中断异常来退出
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    break; //在捕获到异常后执行break跳出循环
                 }
             }
         }

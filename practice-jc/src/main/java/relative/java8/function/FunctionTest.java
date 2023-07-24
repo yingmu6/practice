@@ -36,7 +36,7 @@ public class FunctionTest {
      */
     @Test
     public void basic() {
-        // 使用lambda表达式来标识函数接口的实现（java8之前是使用匿名类处理的）
+        // 使用lambda表达式来表示函数接口的实现（java8之前是使用匿名类处理的）
         GreetingService greetingService = message -> System.out.println(message + ",hello");
         greetingService.sayHello("你好");
     }

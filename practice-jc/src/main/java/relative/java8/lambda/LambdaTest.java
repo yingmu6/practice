@@ -18,6 +18,8 @@ public class LambdaTest {
      * This implied a lot of unnecessary boilerplate code to define something that served as a primitive function representation.
      * （在Java 8之前，我们通常会为需要封装单个功能的每种情况创建一个类。这意味着需要大量不必要的样板代码来定义充当基本函数表示的东西。）
      *
+     * 3）匿名函数（lambda函数，音标：/ˈlæmdə/ ）：lambda函数是一种快速定义单行的最小函数，是从Lisp借用来的，可以用在任何需要函数的地方
+     *
      * https://www.baeldung.com/java-8-functional-interfaces
      */
 
