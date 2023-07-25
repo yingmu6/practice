@@ -6,7 +6,10 @@ import lombok.ToString;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.stream.Collectors;
@@ -86,10 +89,71 @@ public class FunctionTest {
     }
 
     /**
-     * 场景3：二元操作 BiConsumer、BiFunction
+     * 场景3：二元操作 BiConsumer
+     * BiConsumer: Represents an operation that accepts two input arguments and returns no result（接收两个参数处理，且不返回结果）
+     *
+     * 参考链接：https://javabydeveloper.com/java-biconsumer-guide-examples/
      */
-    public void testBinaryOperator() {
+    @Test
+    public void test_BiConsumer_V1() {
+        BiConsumer<Integer, Integer> c1 = (a, b) -> System.out.println(a + b); //定义BiConsumer，指定具体行为
+        c1.accept(10,20); //执行调用，传入实际参数
 
+        BiConsumer<String, String> c2 = (s1, s2) -> System.out.println(s1.contains(s2)); //虽然定义了BiConsumer行为，但是没有进行调用，所以此处没有输出
+        BiConsumer<Integer, Integer> c3 = (a, b) -> System.out.println(a * b);
+
+        // c1.andThen(c2); 语法错误，c2的类型时String，c1的类型为Integer，类型不兼容
+        c1.andThen(c3).accept(5, 10); //andThen()，会返回一个组合，并按顺序执行，多个组合共用传入的参数（and then：然后）
+        c1.accept(5, 10);
+        c3.accept(5, 10);
+
+        /**
+         * 输出结果：
+         * 30
+         * 15
+         * 50
+         * 15
+         * 50
+         *
+         * 结果分析：
+         * 1）30：因为c1的行为a + b，即值为 10 + 20
+         * 2）15：因为使用andThen，将多个BiConsumer组合，会先执行c1、在执行c3，c1值为5+10
+         * 3）50：同上，因为执行c3，c3值为5*10
+         * 4）15：执行c1行为，即值为5+10
+         * 5）50：执行c3行为，即值为5*10
+         */
+    }
+
+    @Test
+    public void test_BiConsumer_V2() {
+        Map<Integer, String> m = new HashMap<>();
+        m.put(1, "Peter");
+        m.put(2, "Mike");
+        m.put(3, "John");
+        m.put(4, "Mike");
+        m.put(5, "Peter");
+        m.put(6, "Anand");
+        m.put(7, "Peter");
+
+        BiConsumer<Integer, String> f =
+                (key, value) -> System.out.println("[entry="+key+", "+value+")]");
+
+        m.forEach(f); //遍历Map中的所有条目，依次执行给定的操作
+
+        /**
+         * 输出结果：
+         * [entry=1, Peter)]
+         * [entry=2, Mike)]
+         * [entry=3, John)]
+         * [entry=4, Mike)]
+         * [entry=5, Peter)]
+         * [entry=6, Anand)]
+         * [entry=7, Peter)]
+         *
+         * 结果分析：
+         * Map#forEach(BiConsumer<? super K, ? super V> action)
+         * 其内部实现逻辑：for循环变脸Entry，依次获取到key、value，然后依次执行BiConsumer#accept方法
+         */
     }
 
     /**
