@@ -1,7 +1,7 @@
 package com.csy.interview.no2;
 
 import com.csy.interview.no2.init_ext.Derived;
-import netscape.security.UserTarget;
+import com.csy.interview.no2.init_ext.InitB;
 import org.junit.Test;
 
 /**
@@ -64,6 +64,45 @@ public class InitOrderTest {
          * 结果分析：
          * 块中的初始化与成员域中的初始化是平级的，
          * 所以会按照从上到下初始化，最后一次初始化为最终的值
+         */
+    }
+
+    /**
+     * 场景3：静态变量的调用
+     */
+    @Test
+    public void test_static_var() {
+        System.out.println(InitB.c);
+
+        /**
+         * 输出结果：
+         * A
+         * C
+         *
+         * 结果分析：
+         * 因为调用InitB.c，static变量c在A类中，所以会加载父类A，所以输出了静态块中的"A"
+         * 因为InitB.c直接访问InitA的变量，不需要访问InitB中的其它内容，所以就不要加载InitB了
+         */
+    }
+
+    /**
+     * 场景4：使用ClassLoader、以及class#forName加载类时，静态块的执行
+     */
+    @Test
+    public void test_static_block() throws Exception {
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        Class clazz = classLoader.loadClass("com.csy.interview.no2.init_ext.InitA");
+        System.out.println("Test");
+        clazz.forName("com.csy.interview.no2.init_ext.InitA");
+
+        /**
+         * 输出结果：
+         * Test
+         * A
+         *
+         * 结果分析：
+         * ClassLoader加载类，不会导致类的初始化。
+         * 而Class.forName()方法不仅会加载类，而且还会执行类的初始化方法
          */
     }
 }
