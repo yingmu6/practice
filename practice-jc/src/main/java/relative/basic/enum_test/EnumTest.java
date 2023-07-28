@@ -1,5 +1,7 @@
 package relative.basic.enum_test;
 
+import org.junit.Test;
+
 /**
  * 枚举测试 Enum、Enumeration
  * https://www.ibm.com/developerworks/cn/java/j-lo-enum/index.html    Java 语言中Enum 类型的使用介绍
@@ -11,12 +13,34 @@ package relative.basic.enum_test;
 public class EnumTest {
     private enum WeekDay { Mon, Tue, Wed, Thu }; //定义Enum类型，简单类型，最后一个枚举值后不用跟任何一个符号
 
-    public static void main(String[] args) {
+    /**
+     * 场景1：基本使用
+     */
+    @Test
+    public void test_basic() {
         EnumTest enumTest = new EnumTest();
         WeekDay weekDay = WeekDay.Tue;
         enumTest.basic(weekDay);
-
         enumTest.useEnumMethod ();
+    }
+
+    /**
+     * 场景2：枚举name()使用
+     */
+    @Test
+    public void test_name() {
+        System.out.println(WeekDay.Mon.name());
+
+        System.out.println(WeekDay.Mon.name() instanceof String);
+
+        /**
+         * 输出结果：
+         * Mon
+         * true
+         *
+         * 结果分析：
+         * name()输出枚举的名称（String类型的）
+         */
     }
 
     public void basic(WeekDay weekDay) { //声明枚举对象

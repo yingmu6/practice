@@ -60,7 +60,7 @@ public class ClassTest {
         assertTrue(triangle.getClass().isAssignableFrom(isoscelesTriangle.getClass()));
     }
 
-    /**
+     /**
      * 场景2：instanceof使用
      *（instanceof检查的是左边的class是否与右边的class相同，或者是其子class）
      * 形象理解：instanceof的作用可以用不等式表示：对象的class <= 类的class
@@ -263,6 +263,27 @@ public class ClassTest {
         } catch (Throwable e) {
             System.err.println(e);
         }
+    }
+
+    /**
+     * 场景5：测试getComponentType()方法
+     */
+    @Test
+    public void testComponentType() {
+        String[] arr = new String[3];
+        System.out.println(Triangle.class.getComponentType());
+        System.out.println(arr.getClass().getComponentType());
+
+        /**
+         *
+         * 输出结果：
+         * null
+         * class java.lang.String
+         *
+         * 结果分析：
+         * getComponentType()： Returns the Class representing the component type of an array.
+         * （返回class类对应的数组类型，不是数组的，返回null）
+         */
     }
 
     /**
