@@ -1,5 +1,8 @@
 package com.csy.interview.no1;
 
+
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +52,43 @@ public class ObjEqualTest {
                 System.out.println("two");
             }
         }
+    }
+
+    /**
+     * 场景3：封装类型比较
+     */
+    @org.junit.Test
+    public void test_wrapper_class_compare() {
+        Integer a = 1;
+        Integer b = 2;
+        Integer c = 3;
+        Integer d = 3;
+        Integer e = 321;
+        Integer f = 321;
+        Long g = 3L;
+        Integer i = new Integer(1);
+        Integer j = new Integer(1);
+        System.out.println(c == d);
+        System.out.println(e == f);
+        System.out.println(c == (a +b));
+        System.out.println(g.equals(a + b));
+        System.out.println(i == j);
+
+        /**
+         * 输出结果：
+         * true
+         * false
+         * true
+         * false
+         * false
+         *
+         * 结果分析：
+         * 1）因为Integer的内部类IntegerCache缓存池，会缓存-128~127的数值，也就是在这个区别的值是同一个Integer对象
+         * 2）由于e、f超过了-128~127区间，所以会为e、f创建不同的对象，所以==比较为false
+         * 3）由于a+b=3，c也为3，在缓存区间，所以是同一个对象
+         * 4）查看Long的equals，会先判断类型是否为Long，因为a+b是Integer，所以直接返回false
+         * 5）i、j通过new，产生了不同的对象，所以==比较的对象地址时不一样的
+         */
     }
 
     class Test {

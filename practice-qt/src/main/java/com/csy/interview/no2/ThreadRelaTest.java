@@ -94,4 +94,14 @@ public class ThreadRelaTest {
          * 所有TestThread中的代码3）就不会输出
          */
     }
+
+    volatile String[] arr = new String[3]; //volatile可以修饰数组（但是作用在数组的引用上，而不是数组的内容）
+
+    /**
+     * 场景4：volatile使用
+     */
+    @Test
+    public void test_volatile() {
+        System.out.println(arr);
+    }
 }

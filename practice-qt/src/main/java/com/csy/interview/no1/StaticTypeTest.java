@@ -32,15 +32,15 @@ public class StaticTypeTest {
      * 参考链接：https://www.baeldung.com/java-static
      */
 
-    /**
-     * 场景1：static变量
-     */
     public static int NUM; //所有的对象共享
 
     public void increase() {
         NUM ++;
     }
 
+    /**
+     * 场景1：static成员变量使用
+     */
     @Test
     public void test_static_field() {
         new StaticTypeTest().increase(); //调用方法后，NUM为1
@@ -77,7 +77,7 @@ public class StaticTypeTest {
         ranks.add("Major");
     }
 
-    /**
+     /**
      * 场景3：static代码块
      * （使用static代码块，可以做预定义或初始化操作）
      */
@@ -86,7 +86,7 @@ public class StaticTypeTest {
         Assert.assertTrue(ranks.size() == 3);
     }
 
-    /**
+     /**
      * 场景4：static内部类
      * 1）Java allows us to create a class within a class. It provides a way of grouping（分组） elements that we'll only use in one place.
      *    This helps to keep our code more organized（有组织的） and readable（可阅读的）.
@@ -115,17 +115,18 @@ public class StaticTypeTest {
         private String name = "B";
     }
 
-    /**
-     * 场景5：静态方法中与非静态方法的调用
-     * 1）Typically, this error occurs when we use a non-static variable inside a static context.
-     *  （通常，当我们在静态上下文中使用非静态变量时，会发生此错误。）
-     */
+
     int instanceVariable = 0;
 
     public static void staticMethod() {
         // System.out.println(instanceVariable); 此处会抛出语法错误：Non-static field 'instanceVariable' cannot be referenced from a static context
     }
 
+    /**
+     * 场景5：静态方法中与非静态方法的调用
+     * 1）Typically, this error occurs when we use a non-static variable inside a static context.
+     *  （通常，当我们在静态上下文中使用非静态变量时，会发生此错误。）
+     */
     @Test
     public void test_access_error() {
         // 如staticMethod中的访问，会抛出语法错误
@@ -135,5 +136,15 @@ public class StaticTypeTest {
          * 1）因为static修饰的成员归属于类，而普通的成员变量归属于对象实例，当加载类的时候，
          *    类成员变量或方法就已经被加载，而此处对象还未创建，所以访问实例中的成员就会抛出异常
          */
+    }
+
+    /**
+     * 场景6：成员方法内部不能定义static变量
+     * （因为static是属于类的，而成员方法属于对象的）
+     */
+    @Test
+    public  void test() {
+//        static final int i = 0; //此处会抛出语法错误，成员方法中内部不能定义static变量
+//        System.out.println(i++);
     }
 }

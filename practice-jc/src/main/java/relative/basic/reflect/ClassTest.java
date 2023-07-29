@@ -266,7 +266,7 @@ public class ClassTest {
     }
 
     /**
-     * 场景5：测试getComponentType()方法
+     * 场景5：测试Class#getComponentType()方法
      */
     @Test
     public void testComponentType() {
@@ -284,6 +284,16 @@ public class ClassTest {
          * getComponentType()： Returns the Class representing the component type of an array.
          * （返回class类对应的数组类型，不是数组的，返回null）
          */
+    }
+
+    /**
+     * 场景6：todo @csy-23/07/29 Filed的synthetic
+     *
+     * 参考链接：https://juejin.cn/post/7028113836028755982
+     */
+    @Test
+    public void test_isSynthetic() {
+
     }
 
     /**
