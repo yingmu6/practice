@@ -105,7 +105,7 @@ public class TypeTest {
         // 处理第4个参数，即List<ArrayList<String>> a2
         Type type = parameterTypes[3];
         if (type instanceof ParameterizedType) {
-            Type[] actualTypes = ((ParameterizedType) type).getActualTypeArguments();
+            Type[] actualTypes = ((ParameterizedType) type).getActualTypeArguments(); //泛型参数的时间参数，可能有多个，如Map<K,V>，就有两个实际参数
             for (Type type1 : actualTypes) {
                 System.out.println("未处理前：" + "，参数名：" + type1.getTypeName() + "，参数实现类：" + type1.getClass().getSimpleName());
             }
@@ -129,6 +129,15 @@ public class TypeTest {
          * 结果分析：
          * List<ArrayList<String>>第一次提取 泛型对应的参数时，为ArrayList<String>，还是泛型类型。 再第二次提取实际类型时，就java.lang.String为基本类型了
          */
+
+    }
+
+    /**
+     * 场景3：Class#getGenericInterfaces方法使用
+     * todo @csy-23/07/30
+     */
+    @Test
+    public void test_getGenericInterfaces() {
 
     }
 

@@ -44,7 +44,7 @@
 | 021 | Executor线程池使用               | 熟悉线程池的使用       | Done | 100% | 2023-04-25 | 2023-06-07 |
 | 022 | Type/ParameterizedType测试    | 熟悉反射机制的类型      | Done | 100% | 2023-04-26 | 2023-07-28 |
 | 023 | ForkJoinPool                | 线程池ForkJoin熟悉  | P1   | 0%   | 2023-04-26 |            |
-| 024 | ConcurrentHashMap使用         | 熟悉对应的使用        | P0   | 0%   | 2023-04-26 |            |
+| 024 | ConcurrentHashMap使用         | 熟悉对应的使用        | P0   | 10%  | 2023-04-26 |            |
 | 025 | 正则表达式使用                     | 熟悉正则表达式        | Done | 100% | 2023-04-28 | 2023-06-03 |
 | 026 | static、final各种使用            | 熟悉static、final | P1   | 0%   | 2023-04-29 |            |
 | 027 | TreeSet了解                   | 熟悉TreeSet      | P3   | 0%   | 2023-05-05 |            |
