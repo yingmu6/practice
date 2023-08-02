@@ -4,9 +4,8 @@ import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author chensy
@@ -145,5 +144,71 @@ public class HashMapTest {
 
         computeMap.compute("score", (key, value) -> value + 20);
         System.out.println("computeMap后的HashMap:" +computeMap);
+    }
+
+    /**
+     * 场景3：ConcurrentHashMap使用
+     * 1）The ConcurrentHashMap operations are thread-safe. ConcurrentHashMap doesn’t allow null for keys and values.
+     *   （ConcurrentHashMap是线程安全的，不允许Null的键和值）
+     *
+     *
+     *
+     * 参考链接：
+     * a）https://www.digitalocean.com/community/tutorials/concurrenthashmap-in-java
+     * b）https://juejin.cn/post/7064061605185028110 ConcurrentHashMap原理
+     */
+    @Test
+    public void test_concurrentHashMap_iterator() { //测试ConcurrentHashMap在循环时修改元素
+        //ConcurrentHashMap
+        Map<String,String> myMap = new ConcurrentHashMap<String,String>();
+        myMap.put("1", "1");
+        myMap.put("2", "1");
+        myMap.put("3", "1");
+        myMap.put("4", "1");
+        myMap.put("5", "1");
+        myMap.put("6", "1");
+        System.out.println("ConcurrentHashMap before iterator: "+myMap);
+        Iterator<String> it = myMap.keySet().iterator();
+
+        while(it.hasNext()){
+            String key = it.next();
+            if(key.equals("3")) myMap.put(key+"new", "new3");
+        }
+        System.out.println("ConcurrentHashMap after iterator: "+myMap);
+
+        /**
+         * 输出结果：
+         * ConcurrentHashMap before iterator: {1=1, 2=1, 3=1, 4=1, 5=1, 6=1}
+         * ConcurrentHashMap after iterator: {1=1, 2=1, 3=1, 4=1, 5=1, 3new=new3, 6=1}
+         *
+         * 结果分析：
+         * ConcurrentHashMap在循环时，是可以修改元素的
+         */
+
+    }
+
+    @Test
+    public void test_hashMap_iterator() { //测试HashMap在循环时修改元素（会抛出ConcurrentModificationException异常）
+
+        try {
+            //HashMap
+            Map myMap = new HashMap<String, String>();
+            myMap.put("1", "1");
+            myMap.put("2", "1");
+            myMap.put("3", "1");
+            myMap.put("4", "1");
+            myMap.put("5", "1");
+            myMap.put("6", "1");
+            System.out.println("HashMap before iterator: " + myMap);
+            Iterator<String> it1 = myMap.keySet().iterator();
+
+            while (it1.hasNext()) {
+                String key = it1.next();
+                if (key.equals("3")) myMap.put(key + "new", "new3");
+            }
+            System.out.println("HashMap after iterator: " + myMap);
+        } catch (ConcurrentModificationException e) {
+            System.out.println("执行时异常");
+        }
     }
 }

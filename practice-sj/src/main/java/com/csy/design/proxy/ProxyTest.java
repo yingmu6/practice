@@ -6,6 +6,7 @@ import com.csy.design.proxy.dynamic.ProxyFactory;
 import com.csy.design.proxy.static_p.ITicket;
 import com.csy.design.proxy.static_p.TrainStation;
 import com.csy.design.proxy.static_p.TrainStationAgent;
+import org.junit.Test;
 
 /**
  * 代理模式测试
@@ -13,39 +14,23 @@ import com.csy.design.proxy.static_p.TrainStationAgent;
  * Date : 2020-03-11 14:31
  */
 public class ProxyTest {
-    public static void main(String[] args) {
-//        staticProxy();
-//        dynamicProxy();
-        cglibProxy();
-    }
-
-    public static void cglibProxy() {
-        TicketBuy ticketBuy = new TicketBuy();
-        CglibProxyFactory cglibProxyFactory = new CglibProxyFactory(ticketBuy);
-        // 直接转换为目标对象，不需要目标对象实现接口
-        TicketBuy proxyInstance = (TicketBuy)cglibProxyFactory.getProxyInstance();
-        System.out.println(proxyInstance.getTicket(100));
-
-    }
 
     /**
-     * 动态代理：
-     * 优点：不用写很多的代理类，运行时动态生成
-     * 缺点：要求目标对象必须实现接口
+     * 代理模式_测试
+     *
+     * 参考链接：
+     * a）https://refactoring.guru/design-patterns/proxy
+     * b）https://www.runoob.com/design-pattern/proxy-pattern.html 菜鸟教程
      */
-    public static void dynamicProxy() {
-        ITicket ticket = new TrainStation();
-        ITicket proxy = (ITicket) new ProxyFactory(ticket).getProxyInstance();
-        System.out.println(proxy.getTicket(150));
-    }
 
     /**
-     * 静态代理：
+     * 场景1：静态代理：
      * 优点：不改变目标对象，就可以对目标对象进行访问控制，功能增强
      * 缺点：1）需要与目标对象实现相同的接口，接口改变，代理对象也要改变
      *      2）只能代理一种类型的对象，多种类型需要再建另外的代理对象
      */
-    public static void staticProxy() {
+    @Test
+    public void staticProxy() {
         // 直接访问目标对象
         ITicket ticket = new TrainStation();
         System.out.println(ticket.getTicket(150));
@@ -54,9 +39,33 @@ public class ProxyTest {
         ITicket target = new TrainStation(); //目标对象
         ITicket proxy = new TrainStationAgent(target); //将目标对象委托给代理对象
         System.out.println(proxy.getTicket(150));
-
-//        TrainStation target2 = new TrainStation(); //目标对象
-//        ITicket proxy2 = new TrainStationAgent(target2); //将目标对象委托给代理对象
-//        System.out.println(proxy2.getTicket(50));
     }
+
+    /**
+     * 场景2：动态代理：
+     * 优点：不用写很多的代理类，运行时动态生成
+     * 缺点：要求目标对象必须实现接口
+     */
+    @Test
+    public void dynamicProxy() {
+        ITicket ticket = new TrainStation();
+        ITicket proxy = (ITicket) new ProxyFactory(ticket).getProxyInstance();
+        System.out.println(proxy.getTicket(150));
+    }
+
+    /**
+     * 场景3：cglib使用
+     */
+    @Test
+    public void cglibProxy() {
+        TicketBuy ticketBuy = new TicketBuy();
+        CglibProxyFactory cglibProxyFactory = new CglibProxyFactory(ticketBuy);
+        // 直接转换为目标对象，不需要目标对象实现接口
+        TicketBuy proxyInstance = (TicketBuy)cglibProxyFactory.getProxyInstance();
+        System.out.println(proxyInstance.getTicket(100));
+    }
+
+    /**
+     * 场景4：JDK代理使用
+     */
 }

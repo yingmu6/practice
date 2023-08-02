@@ -2,6 +2,8 @@ package com.csy.interview.no1;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 /**
  * 变量累加测试（如i++、++i）
  *
@@ -63,5 +65,34 @@ public class VarCalculateTest {
     public void test_val() {
         System.out.println(0xE0); //输出值为224，因为E位14，所以计算：14*16+0*1 = 224
         System.out.println(0xF0); //输出值为240
+    }
+
+    /**
+     *场景4：money计算
+     */
+    @Test
+    public void test_money() {
+        double d1 = 2.55;
+        double d2 = 1.20;
+        System.out.println("double:2.55- 1.20 = " + (d1 - d2)); //精度不准确
+
+        BigDecimal d3 = new BigDecimal("2.55");
+        BigDecimal d4 = new BigDecimal("1.20");
+        System.out.println("BigDecimal(String)2.55 - 1.20 =" + d3.subtract(d4)); //计算精度准确
+
+        BigDecimal amount3 = new BigDecimal(2.55); //若类型为double，内部还是以double内省计算的，计算结果也不准确
+        BigDecimal amount4 = new BigDecimal(1.20);
+        System.out.println("dBigDecimal(double)2.55 - 1.20=" + (amount3.subtract(amount4))); //计算精度不准确
+
+        /**
+         * 输出结果：
+         * double:2.55- 1.20 = 1.3499999999999999
+         * BigDecimal(String)2.55 - 1.20 =1.35
+         * dBigDecimal(double)2.55 - 1.20=1.3499999999999998667732370449812151491641998291015625
+         *
+         * 结果分析：
+         * 使用BigDecimal来表示Money，因为float、double只是计算了一个近似值，无法表示非常精准的值
+         * 构造BigDecimal时，使用字符串构造，内部会依次取字符来精确计算的。若按double类型构造，内部会按double类型计算，也不准确
+         */
     }
 }
