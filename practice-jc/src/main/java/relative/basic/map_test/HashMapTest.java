@@ -187,6 +187,18 @@ public class HashMapTest {
 
     }
 
+    /**
+     * HashMap在迭代时，修改元素，报异常的原因:（因为HashMap的迭代器设计不支持）
+     * 1）在使用HashMap进行遍历和删除操作时，不能在遍历过程中直接删除元素，这是因为HashMap的迭代器设计不支持在遍历时对集合进行结构性修改。
+     *    当在遍历过程中直接删除元素时，会导致迭代器的状态与实际集合的状态不一致，可能引发ConcurrentModificationException(并发修改异常)
+     *
+     * 2）具体来说，当创建HashMap的迭代器时，会生成一个"modCount"字段，表示HashMap结构性修改的次数。每当对HashMap进行插入、删除等操作时，"modCount"都会增加。
+     *    而在迭代器遍历HashMap时，会将当前的"modCount"与之前保存的"expectedModCount"进行比较，如果两者不相等，则会抛出ConcurrentModificationException
+     *
+     * 参考链接：
+     * https://www.cnblogs.com/jingzh/p/17094607.html
+     * https://www.itheima.com/news/20230705/093624.html
+     */
     @Test
     public void test_hashMap_iterator() { //测试HashMap在循环时修改元素（会抛出ConcurrentModificationException异常）
 
