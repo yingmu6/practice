@@ -77,7 +77,7 @@ public class CloneTest {
     }
 
     /**
-     * 场景2：Clone对象的内容改变
+     * 场景2：实现浅复制（Clone对象与原对象相互影响：Clone对象中的对象成员属性的改变，会影响原对象的改变，因为是地址复制，指向同一个内存地址）
      */
     @Test
     public void test_content_change() throws CloneNotSupportedException {
@@ -104,7 +104,7 @@ public class CloneTest {
     }
 
     /**
-     * 场景3：实现深复制
+     * 场景3：实现深复制（Clone对象不影响原对象，因为类型为对象的成员变量，进行了内容的深度拷贝）
      */
     @Test
     public void test_deep_copying() throws CloneNotSupportedException {

@@ -12,6 +12,8 @@ public class CycleTest {
 
     /**
      * 循环_测试
+     *
+     * 可使用break+标识，跳出多重循环
      */
 
     /**
@@ -107,5 +109,28 @@ public class CycleTest {
                 System.out.println("  " + i);
             }
         }
+    }
+
+    /**
+     * 场景4：使用break+标识，可跳出多重循环
+     */
+    @Test
+    public void skipCycle() {
+        out: //可定义标识
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (j >= 2)
+                    break out; //跳到指定标识位置，跳出循环
+                System.out.println(j);
+            }
+        }
+        System.out.println("break");
+
+        /**
+         * 输出结果：
+         * 0
+         * 1
+         * break
+         */
     }
 }
