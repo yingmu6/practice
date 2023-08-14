@@ -1,10 +1,14 @@
 package com.csy.interview.no1;
 
 
+import lombok.Getter;
+import lombok.Setter;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author chensy
@@ -109,5 +113,222 @@ public class ObjEqualTest {
             }
             return false;
         }
+    }
+
+    /**
+     * 场景4：覆盖equals的通用约定（可看Object中equals的方法描述）
+     * 1）任何一个类，覆盖Object的非final方法时，都有责任遵守这些通用规定，如果不能做到这一点，其它依赖这些约定的类（如HashMap）就无法结合该类一起正常运行
+     *   （违反了这些规定，程序将会表现不正常，甚至崩溃，而且很难找到失败的根源）
+     *
+     * 2）equals方法实现了等价关系，需要满足的通用约定
+     *   a）reflexive 自反性：对于任何非null的引用值x，x.equals(x)必须返回false
+     *   b）symmetric 对称性：对于任何非null的引用值x和y，当且仅当x.equals(y)返回true时，y.equals(x)也必须返回true
+     *   c）transitive 传递性：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)也返回true，那么x.equals(z)也必须返回true
+     *   d）consistent 一致性：对于任何非null的引用值x、y，只要equals的比较操作在对象中所有的信息没有被修改，多次调用x.equals(y)就会一个返回true，或者一致返回false
+     *
+     * 3）对于任何非null的引用值，x.equals(null)必须返回false
+     *
+     * 4）覆盖了equals方法的类中，也就必须要覆盖hashCode方法
+     *
+     * 总结：
+     * a）若重写了equals和hashCode方法，要多测试，看是否满足通用约定，写出最佳的方法
+     * b）也可以引用验证工具来测试 EqualsVerifier
+     *
+     * https://www.baeldung.com/java-equals-hashcode-contracts
+     */
+    @org.junit.Test
+    public void test_equals_hashcode_v1() {
+        Money1 income = new Money1(10, "RMB");
+        Money1 expense = new Money1(10, "RMB");
+        System.out.println(income.equals(expense));
+
+        /**
+         * 输出结果：
+         * false
+         *
+         * 结果分析：
+         * 因为没有重写equals，即该方法来自于Object，是比较对象的引用this == obj的内存地址是否相同，因为new了两个对象，内存地址是不同的
+         */
+    }
+
+    @Setter
+    @Getter
+    class Money1 {
+        int amount;
+        String code;
+        public Money1(int amount, String code) {
+            this.amount = amount;
+            this.code = code;
+        }
+    }
+    @org.junit.Test
+    public void test_equals_hashcode_v2() {
+        Money2 income = new Money2(10, "RMB");
+        Money2 expense = new Money2(10, "RMB");
+        System.out.println(income.equals(expense));
+
+        /**
+         * 输出结果：
+         * true
+         *
+         * 结果分析：
+         * 重写了equals，判断了对象的内容是否相等
+         */
+    }
+
+    @Setter
+    @Getter
+    class Money2 {
+        int amount;
+        String code;
+        public Money2(int amount, String code) {
+            this.amount = amount;
+            this.code = code;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == this)
+                return true;
+            if (!(o instanceof Money2))
+                return false;
+            Money2 other = (Money2)o;
+            boolean currencyCodeEquals = (this.code == null && other.code == null)
+                    || (this.code != null && this.code.equals(other.code));
+            return this.amount == other.amount && currencyCodeEquals;
+        }
+    }
+
+    @Setter
+    @Getter
+    class Money3 { //通过idea产生的equals、hashCode方法
+        final int amount;
+        final String code;
+
+        public Money3(int amount, String code) {
+            this.amount = amount;
+            this.code = code;
+        }
+
+        @Override
+        public final boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Money3)) {
+                return false;
+            }
+            Money3 money3 = (Money3) o;
+            return amount == money3.amount && Objects.equals(code, money3.code);
+        }
+
+        @Override
+        public final int hashCode() {
+            return Objects.hash(amount, code);
+        }
+    }
+
+    @Setter
+    @Getter
+    class Money4 {
+        final int amount;
+        final String code;
+
+        public Money4(int amount, String code) {
+            this.amount = amount;
+            this.code = code;
+        }
+
+        @Override
+        public final boolean equals(Object o) {
+            if (o == this)
+                return true;
+            if (!(o instanceof Money4)) //此处要是写为Money2，就会违反自反性
+                return false;
+            Money4 other = (Money4)o;
+            boolean currencyCodeEquals = (this.code == null && other.code == null)
+                    || (this.code != null && this.code.equals(other.code));
+            return this.amount == other.amount && currencyCodeEquals;
+        }
+
+        public final int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + amount;
+            result = prime * result + ((code == null) ? 0 : code.hashCode());
+            return result;
+        }
+    }
+    /**
+     * 场景5：使用equals的校验工具校验重写的equals方法是否正确
+     */
+    @org.junit.Test
+    public void test_equals_by_tool_v1() { //未重写equals或hashCode方法的场景
+        try {
+            EqualsVerifier.forClass(Money1.class).verify();
+        } catch (AssertionError error) {
+            System.out.println("错误信息：" + error.getMessage());
+        }
+
+        /**
+         * 输出结果：
+         * 错误信息：EqualsVerifier found a problem in class Money1.
+         * -> Equals is inherited directly from Object.
+         * Suppress Warning.INHERITED_DIRECTLY_FROM_OBJECT to skip this check.
+         *
+         * 结果分析：
+         * 从返回的异常信息看出，是不建议直接使用Object的equals的
+         */
+
+        try {
+            EqualsVerifier.forClass(Money2.class).verify();
+        } catch (AssertionError error) {
+            System.out.println("错误信息：" + error.getMessage());
+        }
+        /**
+         * 输出结果：
+         * 错误信息：EqualsVerifier found a problem in class Money2.
+         * -> hashCode: hashCodes should be equal:
+         *
+         * 结果分析：
+         * 从返回的异常信息看出，两个对象相等，需要hashCode也要相等，要重写hashCode方法
+         */
+    }
+
+    @org.junit.Test
+    public void test_equals_by_tool_v2() {
+        try {
+            EqualsVerifier.forClass(Money3.class).verify();
+        } catch (AssertionError error) {
+            System.out.println("错误信息：" + error.getMessage());
+        }
+
+        /**
+         * 输出结果：
+         * 校验正常
+         *
+         * 结果分析：
+         * idea产生的equals、hashCode方法，通过EqualsVerifier校验时，需要成员变量和equals、hashCode都要加上final修饰，才能通过校验
+         */
+    }
+
+    @org.junit.Test
+    public void test_equals_by_tool_v3() {
+        try {
+            EqualsVerifier.forClass(Money4.class).verify();
+        } catch (AssertionError error) {
+            System.out.println("错误信息：" + error.getMessage());
+        }
+
+        /**
+         * 输出结果：
+         * 校验异常
+         *
+         * 结果分析：
+         * 自定义的equals、hashCode方法，通过EqualsVerifier校验时，需要成员变量和equals、hashCode都要加上final修饰，才能通过校验
+         *
+         * 遗留问题点：
+         * 为啥此处的方法和变量都得为final的？
+         */
     }
 }

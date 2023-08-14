@@ -33,6 +33,39 @@ public class VarCalculateTest {
         System.out.println(++j); //输出的值为：2，即累加之后的值
     }
 
+    @Test
+    public void test_increase() {
+        int i = 1;
+        System.out.println(i++ + i++);
+        System.out.println("i=" + i);
+        System.out.println(++i + ++i);
+        System.out.println("i=" + i);
+        System.out.println(i++ + i++ + i++);
+        System.out.println("i=" + i);
+
+        /**
+         * 预期输出：
+         * 3
+         * i=3
+         * 9
+         * i=5
+         * 18
+         * i=8
+         *
+         * 实际输出：
+         * 与预期相同
+         *
+         * 结果分析：
+         * 主要分析出变量与表达式的值
+         * 1）因为i++为1，此时变量i=2，i++为2，所以表达式为1+2=3
+         * 2）不管++在变量前后，变量值都会自增1，做了两次运算，所以就加了2
+         * 3）此时变量为3，而++i为4，第二个++i值为5，所以表达式值为4+5=9
+         * 4）变量自增操作了2次，所以结果为3+1+1=5
+         * 5）此时变量为5，第一个i++值为5，第二个i++值为6，第三个i++值为7，所以最终表达式为5+6+7=18
+         * 6）变量再次操作了3次，所以结果为5+1+1+1=8
+         */
+    }
+
     /**
      * 场景2：混合运算
      */
@@ -51,6 +84,24 @@ public class VarCalculateTest {
         myMethod();
 
         System.out.println(x + y++ + x); //输出结果为：(1 + 0++ + 1) = 2
+    }
+
+    @Test
+    public void test_calculate_sum2() {
+        int x = 1, y = 2, z = 3;
+        System.out.println(y+=z--/++x);
+
+        /**
+         * 预期输出：
+         * 3
+         *
+         * 实际输出：
+         * 3
+         *
+         * 结果分析：
+         * 1）先将表达式进行转换，即y = y + (z-- / ++x)
+         * 2）将值带入计算，即y = 2 + (y / z) = 3
+         */
     }
 
     private void myMethod() {

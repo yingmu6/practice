@@ -1,6 +1,10 @@
 package com.csy.interview.no1;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
 
 /**
  * 变量类型
@@ -131,5 +135,89 @@ public class VarTypeTest {
          * 3）65535是常量，可以用x对应的char表示，所以x保持原有类型，所以输出x
          * 4）65536是常量，但是超出了char的范围了，所以不能用char表示，所以x的值要变为int类型，所以输出120
          */
+    }
+
+    /**
+     * 场景5：void以及Void类型
+     * void：
+     * 1）表示什么也不返回
+     *
+     * Void类：
+     * 1）It's not instantiable as its only constructor is private.
+     * Therefore, the only value we can assign to a Void variable is null.
+     *
+     * 2）First, we could use it when doing reflection.
+     *
+     * 3）Another usage of the Void type is with generic classes
+     *
+     * https://www.baeldung.com/java-void-type
+     */
+    @Test
+    public void test_void_type_v1() throws NoSuchMethodException { //反射时使用（是赞成使用Void来判断的）
+        Class cls = VarTypeTest.class;
+        Method method = cls.getMethod("sayHello");
+        if (method.getReturnType().isAssignableFrom(Void.TYPE)) { //在反射时，使用Void类型（此处比较的类型，所以为Void.Type，而不是Void.class）
+            System.out.println("方法返回值是void类型");
+        }
+    }
+
+    public void sayHello() {
+        System.out.println("hello");
+    }
+
+    /**
+     * 1）we might want to avoid using Void in generics if possible. Indeed, encountering a return type
+     * that represents the absence of a result and can only contain null can be cumbersome.
+     * （尽量在使用泛型避免使用Void类型，因为使用Void类型，就要return null代替，返回null是很繁琐的）
+     *
+     * 2）In order to avoid using a Callable<Void>, we might offer another method taking a Runnable parameter instead
+     * （避免使用Callable<Void>，可以使用Runnable来代替）
+     */
+    @Test
+    public void test_void_type_v2() throws Exception { //泛型时使用
+        Callable<Void> callable = new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                System.out.println("Hello!");
+                return null;
+            }
+        };
+
+        Assert.assertTrue(VarTypeTest.defer(callable) == null);
+    }
+
+    public static <V> V defer(Callable<V> callable) throws Exception {
+        return callable.call();
+    }
+
+    /**
+     * 场景6：Null类型
+     * 1）The null reference can be cast to any other reference type（Null类型，可以映射为其它任意类型）
+     *
+     * 2）null是一个空对象，编译器没有为其分配内存，仅仅表明该引用目前没有指向任何对象
+     *
+     * https://www.baeldung.com/java-null
+     */
+    @Test
+    public void test_null_type_v1() {
+//        boolean a = null; 此处编译错误，null不能映射基本类型
+        Boolean b = null;
+        Integer c = null;
+    }
+
+    @Test
+    public void test_null_type_v2() {
+        print(1);
+        print("hello");
+
+//        print(null); 此处编译错误，Ambiguous（模拟两可的） method call ，因为编译器不清楚选哪个方法调用
+    }
+
+    private void print(Integer number) {
+        System.out.println(number);
+    }
+
+    private void print(String string) {
+        System.out.println(string);
     }
 }
