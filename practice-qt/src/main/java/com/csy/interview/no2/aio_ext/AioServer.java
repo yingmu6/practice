@@ -33,18 +33,36 @@ public class AioServer {
                         }  catch (InterruptedException | ExecutionException e) {
                             throw new RuntimeException(e);
                         } finally {
-
+                            try {
+                                result.close();
+                                server.close();
+                            } catch (Exception e) {
+                                System.out.println(e.toString());
+                            }
                         }
                     }
 
                     @Override
                     public void failed(Throwable exc, Object attachment) {
-
+                        System.out.println("服务端异常：" + exc);
                     }
                 });
+
+                try {
+                    // 一直等待
+                    Thread.sleep(Integer.MAX_VALUE);
+                } catch (InterruptedException ex) {
+                    System.out.println(ex);
+                }
             }
         } catch (IOException e) {
-
+            System.out.println(e);
         }
+    }
+
+    public static void main(String[] args) {
+        int port = 8000;
+        AioServer aioServer = new AioServer();
+        aioServer.listen(port);
     }
 }
