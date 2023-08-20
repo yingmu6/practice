@@ -26,6 +26,9 @@ public class FinallyTest {
     public void test_finally_order_v1() {
         try {
             System.out.println("before statement");
+            throw new NullPointerException();
+        } catch (Exception e) {
+            System.out.println("happen error");
         } finally {
             System.out.println("finally statement");
         }
