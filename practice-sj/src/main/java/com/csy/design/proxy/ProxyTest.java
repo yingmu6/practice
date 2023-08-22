@@ -3,10 +3,15 @@ package com.csy.design.proxy;
 import com.csy.design.proxy.cglib.CglibProxyFactory;
 import com.csy.design.proxy.cglib.TicketBuy;
 import com.csy.design.proxy.dynamic.ProxyFactory;
+import com.csy.design.proxy.jdk_proxy.TimingDynamicInvocationHandler;
 import com.csy.design.proxy.static_p.ITicket;
 import com.csy.design.proxy.static_p.TrainStation;
 import com.csy.design.proxy.static_p.TrainStationAgent;
 import org.junit.Test;
+
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 代理模式测试
@@ -67,5 +72,36 @@ public class ProxyTest {
 
     /**
      * 场景4：JDK代理使用
+     *
+     * 参考链接：
+     * a）https://www.baeldung.com/java-dynamic-proxies
+     */
+    @Test
+    public void test_jdk_dynamic_proxy() {
+        Map mapProxyInstance = (Map) Proxy.newProxyInstance(
+                ProxyTest.class.getClassLoader(), new Class[] { Map.class },
+                new TimingDynamicInvocationHandler(new HashMap<>()));
+
+        mapProxyInstance.put("hello", "world");
+
+        mapProxyInstance.get("hello");
+
+        CharSequence csProxyInstance = (CharSequence) Proxy.newProxyInstance(
+                ProxyTest.class.getClassLoader(),
+                new Class[] { CharSequence.class },
+                new TimingDynamicInvocationHandler("Hello World"));
+
+        csProxyInstance.charAt(0);
+        csProxyInstance.length();
+    }
+
+    /**
+     * 输出结果：
+     * Executing put finished in 29729 ns
+     * Executing get finished in 11726 ns
+     * Executing length finished in 14010
+     * Executing charAt finished in 10050 ns
+     *
+     * 结果分析：
      */
 }
