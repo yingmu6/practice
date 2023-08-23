@@ -12,16 +12,16 @@ import java.util.Map;
  * @author chensy
  * @date 2023/8/22
  */
-public class TimingDynamicInvocationHandler implements InvocationHandler {
+public class MyInvocationHandler implements InvocationHandler {
 
     private static Logger LOGGER = LoggerFactory.getLogger(
-            TimingDynamicInvocationHandler.class);
+            MyInvocationHandler.class);
 
     private final Map<String, Method> methods = new HashMap<>();
 
     private Object target;
 
-    public TimingDynamicInvocationHandler(Object target) {
+    public MyInvocationHandler(Object target) {
         this.target = target;
 
         for(Method method: target.getClass().getDeclaredMethods()) {
