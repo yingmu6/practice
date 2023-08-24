@@ -33,11 +33,11 @@ public class MyInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args)
             throws Throwable {
         long start = System.nanoTime();
-        Object result = methods.get(method.getName()).invoke(target, args);
+//        Object result = methods.get(method.getName()).invoke(target, args); // 1)
+        Object result = method.invoke(target, args); // 与1）是等价的，即执行目标方法的调用
         long elapsed = System.nanoTime() - start; //运行时间比较短，若用毫秒，都显示0ms，用ns可形象显示
 
-        LOGGER.info("Executing {} finished in {} ns", method.getName(),
-                elapsed);
+        LOGGER.info("执行方法：{}，结果值：{}，耗费：{} ns", method.getName(), result, elapsed);
 
         return result;
     }

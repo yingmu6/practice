@@ -13,6 +13,9 @@ public class MapTest {
 
     /**
      * Map_测试
+     * 1）负载因子、阈值的计划公式
+     *    a）threshold = capacity * loadFactor
+     *    b）loadFactor = size / capacity
      */
 
     /**
