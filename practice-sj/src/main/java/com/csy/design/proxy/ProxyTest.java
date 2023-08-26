@@ -12,7 +12,11 @@ import com.csy.design.proxy.static_p.TrainStation;
 import com.csy.design.proxy.static_p.TrainStationAgent;
 import org.junit.Assert;
 import org.junit.Test;
+import sun.misc.ProxyGenerator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
@@ -83,16 +87,28 @@ public class ProxyTest {
      *    c）return cons.newInstance(new Object[]{h}); 创建代理类的实例对象并返回
      *
      * 2）代理类产生的步骤：即getProxyClass0(...)
-     *    a）
+     *    a）ProxyClassFactory#apply使用代理Class工厂产生类
+     *    b）做前置校验，如是否能够通过当前加载器加载Class、Class是否为接口、判断接口是否可访问等
+     *    c）ProxyGenerator.generateProxyClass产生代理类Class的字节数组
+     *    d）Proxy#defineClass0：将字节数组通过native方法得到代理类的Class
+     *
+     * 3）CGLIB与JDK动态代理区别
+     *    a）JDK代理只能对实现接口的类生成代理；CGLib是针对类实现代理
+     *    b）JDK代理使用的是反射机制实现aop的动态代理，CGLib代理使用字节码处理框架ASM
+     *    c）JDK动态代理机制是委托机制，CGLib则使用的继承机制
      *
      * 问题点：
      * 1）jdk动态代理能否为实现类创建代理，还是只能为接口？
      *    解答：不能为类创建代理，在创建代理类时ProxyClassFactory#apply会检查是否是接口
      *
      * 2）怎样通过工具，如arthas查看jdk产生的代理对象的源码？ todo @csy-使用工具查看
+     *    解答：方式1：可以通过test_jdk_dynamic_proxy_v2中的输出字节码文件观看
+     *
      *
      * 参考链接：
      * a）https://www.baeldung.com/java-dynamic-proxies
+     * b）https://zhuanlan.zhihu.com/p/93949583  JDK动态代理底层源码分析
+     * c）https://www.cnblogs.com/zjfjava/p/13919437.html CGLIB与JDK动态代理区别
      */
     @Test
     public void test_jdk_dynamic_proxy_v1() {
@@ -125,43 +141,52 @@ public class ProxyTest {
          */
     }
 
-    public static void main(String[] args) throws IOException {
-        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles","true");
-        Map mapProxyInstance = (Map) Proxy.newProxyInstance(
-                ProxyTest.class.getClassLoader(), new Class[] { Map.class },
-                new MyInvocationHandler(new HashMap<>()));
-
-        mapProxyInstance.put("hello", "world");
-
-        mapProxyInstance.get("hello");
-
-        CharSequence csProxyInstance = (CharSequence) Proxy.newProxyInstance(
-                ProxyTest.class.getClassLoader(),
-                new Class[] { CharSequence.class },
-                new MyInvocationHandler("Hello World"));
-
-        csProxyInstance.charAt(0);
-        csProxyInstance.length();
-        System.in.read();
-    }
-
     @Test
-    public void test_jdk_dynamic_proxy_v2() {
-       IHelloProxy helloProxy = (IHelloProxy) Proxy.newProxyInstance(ProxyTest.class.getClassLoader(),
-               new Class[]{IHelloProxy.class}, new MyInvocationHandler2());
+    public void test_jdk_dynamic_proxy_v2() throws IOException {
+//       IHelloProxy helloProxy = (IHelloProxy) Proxy.newProxyInstance(ProxyTest.class.getClassLoader(),
+//               new Class[]{IHelloProxy.class}, new MyInvocationHandler2(new IHelloProxy() { //此处若使用匿名内部类，会抛出"java.lang.IllegalAccessException"异常，访问权限异常
+//                   private String proxyName;
+//                   @Override
+//                   public String getProxyName(String proxyName) {
+//                       return proxyName;
+//                   }
+//
+//                   @Override
+//                   public void setProxyName(String proxyName) {
+//                       this.proxyName = proxyName;
+//                   }
+//               }));
+
+        IHelloProxy helloProxy = (IHelloProxy) Proxy.newProxyInstance(ProxyTest.class.getClassLoader(),
+                new Class[]{IHelloProxy.class}, new MyInvocationHandler2(new HelloProxyImpl())); //要指定接口的实现类，在回调处理器的invoke方式时，调用目标类对应方法
 
        helloProxy.setProxyName("hello");
 
        String proxyName = helloProxy.getProxyName("hello");
        System.out.println("结果值：" + proxyName);
 
+
+       // 输出动态代理对象对应的字节码文件（打开即可用） 从产生的字节码中可以看出，构造代理时会传入InvocationHandler实例对象，然后再调用代理接口方法时，会调用InvocationHandler的invoke方法
+//        byte[] bytes = ProxyGenerator.generateProxyClass("MyProxy", new Class[]{IHelloProxy.class});
+//        File file = new File("/Users/shengyong.chen/self_pro/practice/practice-sj/src/main/java/com/csy/design/proxy/myProxy.class");
+//        FileOutputStream outputStream = new FileOutputStream(file);
+//        outputStream.write(bytes);
+
         /**
          * 结果输出：
          *
+         * 调用目标对象的方法后：setProxyName，结果值：null
+         * 调用目标对象的方法后：getProxyName，结果值：proxy_hello
+         * 结果值：proxy_hello
+         *
          * 结果分析：
+         * 1）在创建代理对象时，指定代理的接口IHelloProxy，以及调用处理器MyInvocationHandler2，调用处理器指定了接口实现类，即目标对象
+         * 2）在调用接口方法时，即调用调用代理对象的方法，会回调InvocationHandler中的invoke方法，可在该方法中做增强处理
          *
          * 问题点答疑：
          * 1）为啥MyInvocationHandler2使用method.invoke，会一直调用setProxyName方法，停不下来？
+         *    解答：通过debug调试来看是，是回调处理器中invoke方法时，调用method.invoke(proxy, args)，在代理对象中递归调用代理对象的方法，且没有递归出口，所以死循环了。
+         *         所以应该在处理器的invoke方法中调用目标对象的方法，可以在调用前，调用后做增强处理（需要维护接口实例类的对象，即target对象）
          */
     }
 
@@ -170,7 +195,7 @@ public class ProxyTest {
 
         try {
             HelloProxyImpl helloProxy = (HelloProxyImpl) Proxy.newProxyInstance(ProxyTest.class.getClassLoader(),
-                    new Class[]{HelloProxyImpl.class}, new MyInvocationHandler2());
+                    new Class[]{HelloProxyImpl.class}, new MyInvocationHandler2(new HelloProxyImpl()));
 
             helloProxy.setProxyName("hello");
 
