@@ -57,4 +57,22 @@ public class BitOperationTest {
      * 验证：(srcIdx | srcSize | srcBytes.length - srcIdx - srcSize) < 0 只要有一个位负数就为负数
      */
 
+
+    /**
+     * 场景3：特定运算的结果
+     */
+    @Test
+    public void test_special_opt() {
+        int a = 1 << 13;
+        System.out.println(a);
+
+        /**
+         * 输出结果：
+         * 8192
+         *
+         * 结果分析：
+         * 左高右低，往做移动一位就*2，移动13位，就是2^13次方
+         */
+    }
+
 }

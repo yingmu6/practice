@@ -130,10 +130,10 @@ public class ProxyTest {
 
         /**
          * 输出结果：
-         * 执行方法：put，结果值：null，耗费：13446 ns
-         * 执行方法：get，结果值：world，耗费：6588 ns
-         * 执行方法：charAt，结果值：H，耗费：6424 ns
-         * 执行方法：length，结果值：11，耗费：6171 ns
+         * 执行方法：put，结果值：null
+         * 执行方法：get，结果值：world
+         * 执行方法：charAt，结果值：H
+         * 执行方法：length，结果值：11
          *
          * 结果分析：
          * 1）耗费时间在每次运行不同，但结果值每次运行结果一致
@@ -158,7 +158,7 @@ public class ProxyTest {
 //               }));
 
         IHelloProxy helloProxy = (IHelloProxy) Proxy.newProxyInstance(ProxyTest.class.getClassLoader(),
-                new Class[]{IHelloProxy.class}, new MyInvocationHandler2(new HelloProxyImpl())); //要指定接口的实现类，在回调处理器的invoke方式时，调用目标类对应方法
+                new Class[]{IHelloProxy.class}, new MyInvocationHandler(new HelloProxyImpl())); //要指定接口的实现类，在回调处理器的invoke方式时，调用目标类对应方法
 
        helloProxy.setProxyName("hello");
 
@@ -175,8 +175,8 @@ public class ProxyTest {
         /**
          * 结果输出：
          *
-         * 调用目标对象的方法后：setProxyName，结果值：null
-         * 调用目标对象的方法后：getProxyName，结果值：proxy_hello
+         * 执行方法：setProxyName，结果值：null
+         * 执行方法：getProxyName，结果值：proxy_hello
          * 结果值：proxy_hello
          *
          * 结果分析：

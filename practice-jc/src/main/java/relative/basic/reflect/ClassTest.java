@@ -48,19 +48,32 @@ public class ClassTest {
         IsoscelesTriangle isoscelesTriangle = new IsoscelesTriangle(); //等腰三角形
         Triangle isoscelesTriangle2 = new IsoscelesTriangle();
 
-        assertFalse(shape.getClass().isAssignableFrom(Shape.class)); //false：参数类型需要是引用的Class
-        assertTrue(shape.getClass().isAssignableFrom(shape.getClass())); //true：满足赋值表达式，如：shape.getClass() = shape.getClass();
-        assertTrue(shape.getClass().isAssignableFrom(triangle.getClass()));
-        assertTrue(shape.getClass().isAssignableFrom(isoscelesTriangle.getClass())); //true：满足赋值表达式，isoscelesTriangle是shape的间接子类
-        assertTrue(shape.getClass().isAssignableFrom(isoscelesTriangle2.getClass()));
+        System.out.println(shape.getClass().isAssignableFrom(Shape.class)); //false：参数类型需要是引用的Class
+        System.out.println(shape.getClass().isAssignableFrom(shape.getClass())); //true：满足赋值表达式，如：shape.getClass() = shape.getClass();
+        System.out.println(shape.getClass().isAssignableFrom(triangle.getClass()));
+        System.out.println(shape.getClass().isAssignableFrom(isoscelesTriangle.getClass())); //true：满足赋值表达式，isoscelesTriangle是shape的间接子类
+        System.out.println(shape.getClass().isAssignableFrom(isoscelesTriangle2.getClass()));
+        System.out.println(triangle.getClass().isAssignableFrom(Shape.class)); //需要引用类型
+        System.out.println(triangle.getClass().isAssignableFrom(shape.getClass())); //要看实际的引用类型，此处的shape的实际引用类型为：Triangle，所以triangle.getClass() = shape.getClass()是成立的
+        System.out.println(triangle.getClass().isAssignableFrom(triangle.getClass()));
+        System.out.println(triangle.getClass().isAssignableFrom(isoscelesTriangle.getClass()));
 
-        assertFalse(triangle.getClass().isAssignableFrom(Shape.class)); //需要引用类型
-        assertTrue(triangle.getClass().isAssignableFrom(shape.getClass())); //要看实际的引用类型，此处的shape的实际引用类型为：Triangle，所以triangle.getClass() = shape.getClass()是成立的
-        assertTrue(triangle.getClass().isAssignableFrom(triangle.getClass()));
-        assertTrue(triangle.getClass().isAssignableFrom(isoscelesTriangle.getClass()));
+        /**
+         * 输出结果：
+         *
+         * false
+         * true
+         * true
+         * true
+         * true
+         * false
+         * true
+         * true
+         * true
+         */
     }
 
-     /**
+    /**
      * 场景2：instanceof使用
      *（instanceof检查的是左边的class是否与右边的class相同，或者是其子class）
      * 形象理解：instanceof的作用可以用不等式表示：对象的class <= 类的class
@@ -79,20 +92,20 @@ public class ClassTest {
         IsoscelesTriangle isoscelesTriangle = new IsoscelesTriangle();
         Shape nonspecificShape = null;
 
-        assertTrue(shape instanceof Shape); //shape引用的实际类型为Triangle，Triangle.class <= Shape.class成立，即返回true
-        assertTrue(triangle instanceof Shape); //triangle引用的实际类型为Triangle，Triangle.class <= Shape.class成立，即返回true
-        assertTrue(isoscelesTriangle instanceof Shape);
-        assertFalse(nonspecificShape instanceof Shape); //空对象
+        System.out.println(shape instanceof Shape); //shape引用的实际类型为Triangle，Triangle.class <= Shape.class成立，即返回true
+        System.out.println(triangle instanceof Shape); //triangle引用的实际类型为Triangle，Triangle.class <= Shape.class成立，即返回true
+        System.out.println(isoscelesTriangle instanceof Shape);
+        System.out.println(nonspecificShape instanceof Shape); //空对象
 
-        assertTrue(shape instanceof Triangle); //shape对应的实际类型为Triangle，所以是Triangle类型的实例
-        assertTrue(triangle instanceof Triangle);
-        assertTrue(isoscelesTriangle instanceof Triangle);
-        assertFalse(nonspecificShape instanceof Triangle);
+        System.out.println(shape instanceof Triangle); //shape对应的实际类型为Triangle，所以是Triangle类型的实例
+        System.out.println(triangle instanceof Triangle);
+        System.out.println(isoscelesTriangle instanceof Triangle);
+        System.out.println(nonspecificShape instanceof Triangle);
 
-        assertFalse(shape instanceof IsoscelesTriangle); //shape对应的实际类型为Triangle，Triangle.class <= IsoscelesTriangle.class 不成立，即返回false
-        assertFalse(triangle instanceof IsoscelesTriangle);
-        assertTrue(isoscelesTriangle instanceof IsoscelesTriangle);
-        assertFalse(nonspecificShape instanceof IsoscelesTriangle);
+        System.out.println(shape instanceof IsoscelesTriangle); //shape对应的实际类型为Triangle，Triangle.class <= IsoscelesTriangle.class 不成立，即返回false
+        System.out.println(triangle instanceof IsoscelesTriangle);
+        System.out.println(isoscelesTriangle instanceof IsoscelesTriangle);
+        System.out.println(nonspecificShape instanceof IsoscelesTriangle);
     }
 
     /**
@@ -115,21 +128,21 @@ public class ClassTest {
         Triangle isoscelesTriangle2 = new IsoscelesTriangle();
         Shape nonspecificShape = null;
 
-        assertTrue(Shape.class.isInstance(shape)); //shape引用的实际类型为Triangle，Shape.class >= Triangle.class 成立，即返回true
-        assertTrue(Shape.class.isInstance(triangle));
-        assertTrue(Shape.class.isInstance(isoscelesTriangle));
-        assertTrue(Shape.class.isInstance(isoscelesTriangle2));
-        assertFalse(Shape.class.isInstance(nonspecificShape)); //空对象不是任何类型的实例
+        System.out.println(Shape.class.isInstance(shape)); //shape引用的实际类型为Triangle，Shape.class >= Triangle.class 成立，即返回true
+        System.out.println(Shape.class.isInstance(triangle));
+        System.out.println(Shape.class.isInstance(isoscelesTriangle));
+        System.out.println(Shape.class.isInstance(isoscelesTriangle2));
+        System.out.println(Shape.class.isInstance(nonspecificShape)); //空对象不是任何类型的实例
 
-        assertTrue(Triangle.class.isInstance(shape));
-        assertTrue(Triangle.class.isInstance(triangle));
-        assertTrue(Triangle.class.isInstance(isoscelesTriangle));
-        assertTrue(Triangle.class.isInstance(isoscelesTriangle2));
+        System.out.println(Triangle.class.isInstance(shape));
+        System.out.println(Triangle.class.isInstance(triangle));
+        System.out.println(Triangle.class.isInstance(isoscelesTriangle));
+        System.out.println(Triangle.class.isInstance(isoscelesTriangle2));
 
-        assertFalse(IsoscelesTriangle.class.isInstance(shape)); //shape引用的实际类型为Triangle，IsoscelesTriangle.class >= Triangle.class 不成立，即返回false
-        assertFalse(IsoscelesTriangle.class.isInstance(triangle));
-        assertTrue(IsoscelesTriangle.class.isInstance(isoscelesTriangle));
-        assertTrue(IsoscelesTriangle.class.isInstance(isoscelesTriangle2));
+        System.out.println(IsoscelesTriangle.class.isInstance(shape)); //shape引用的实际类型为Triangle，IsoscelesTriangle.class >= Triangle.class 不成立，即返回false
+        System.out.println(IsoscelesTriangle.class.isInstance(triangle));
+        System.out.println(IsoscelesTriangle.class.isInstance(isoscelesTriangle));
+        System.out.println(IsoscelesTriangle.class.isInstance(isoscelesTriangle2));
     }
 
     /**

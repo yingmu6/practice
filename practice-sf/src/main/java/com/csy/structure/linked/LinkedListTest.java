@@ -1,5 +1,8 @@
 package com.csy.structure.linked;
 
+import com.csy.structure.linked.ext.MyLinkedList;
+import org.junit.Test;
+
 /**
  * 链表测试
  * @author : chensy
@@ -27,6 +30,11 @@ public class LinkedListTest {
      *   递归和迭代都是循环的一种（重点理解）
      *   简单地说，递归是重复调用函数自身实现循环。迭代是函数内某段代码实现循环，而迭代与普通循环的区别是：循环代码中参与运算的变量同时是保存结果的变量，当前保存的结果作为下一次循环计算的初始值
      *
+     * 5）需要了解对象和引用的关系
+     *    a）A a1 = new A(); 创建对象语句理解：
+     *      它代表A是类，a1是引用，a1不是对象，new A()才是对象，a1引用指向new A()这个对象。
+     *    b）Java中的引用实质就是一个指针，里面存的不是一个对象，而是对象的地址。通过引用可以访问和操作对象、
+     *
      * 总结：
      *    a）链表中的指针域，不过就是嵌套的引用罢了，只要把具体的引用以及对象实际值分析清楚即可。
      *     （链表最核心的就是 处理指针域。java中的引用，相当C、C++的指针）
@@ -35,11 +43,90 @@ public class LinkedListTest {
      * 参考链接：
      * a）https://www.jianshu.com/p/73d56c3d228c 链表的数据结构
      * b）https://cloud.tencent.com/developer/article/2095781?areaSource=106005.13 递归和迭代的区别
+     * c）https://zhuanlan.zhihu.com/p/30141170 链表测试用例
+     * d）https://segmentfault.com/a/1190000022391398 理解Java对象和引用
+     * e）https://blog.csdn.net/joob000/article/details/81196165 尾插法和头插法
      */
 
     /**
-     * 场景1：链表增删改查
+     * 场景1：单项列表的增删改查
      */
+    @Test
+    public void test_linked_with_add() { //单链表添加元素
+        System.out.println("添加节点");
+        MyLinkedList<String> list = initLinked();
+        for(int i = 0; i < list.size(); i++){
+            System.out.println("第" + (i + 1) + "节点为：" + list.GetE(i));
+        }
+
+        /**
+         * 输出结果：
+         *
+         * 添加节点
+         * 第1节点为：one
+         * 第2节点为：two
+         * 第3节点为：three
+         * 第4节点为：four
+         *
+         * 结果分析：
+         *
+         */
+    }
+
+    @Test
+    public void test_linked_with_update() { //单链表修改元素
+        MyLinkedList<String> list = initLinked();
+        System.out.println("修改节点");
+        list.Renew("HaHa", 2);
+        for(int i = 1 ; i <= list.size(); i++){
+            System.out.println("第" + (i + 1) + "节点为：" + list.GetE(i));
+        }
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         */
+    }
+
+    @Test
+    public void test_linked_with_delete() { //单链表删除元素
+        MyLinkedList<String> list = initLinked();
+        System.out.println("删除节点");
+        System.out.println("删除了第一个节点：" + list.Delete(0));
+        for(int i = 0; i <= list.size(); i++){
+            System.out.println("第" + (i + 1) + "节点为：" + list.GetE(i));
+
+        }
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         */
+    }
+
+    @Test
+    public void test_linked_with_find() { //单链表查找元素
+        MyLinkedList<String> list = initLinked();
+        System.out.println("查找节点");
+        System.out.println("第4个节点为：" + list.GetE(3));
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         */
+    }
+
+    private MyLinkedList initLinked() { //初始化链表（供上面增删改查用例使用）
+        MyLinkedList<String> list = new MyLinkedList();
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        return list;
+    }
 
     /**
      * 场景n：头插法

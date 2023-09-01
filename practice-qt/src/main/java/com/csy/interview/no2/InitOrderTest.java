@@ -1,6 +1,6 @@
 package com.csy.interview.no2;
 
-import com.csy.interview.no2.init_ext.Derived;
+import com.csy.interview.no2.init_ext.Child;
 import com.csy.interview.no2.init_ext.InitB;
 import org.junit.Test;
 
@@ -19,16 +19,17 @@ public class InitOrderTest {
      */
     @Test
     public void test_init_order() {
-        new Derived();
+        new Child();
 
         /**
          * 输出结果：
-         * Basic static block
-         * Derived static block
-         * Base block
-         * Base constructor
-         * Derived block
-         * Derived constructor
+         *
+         * 父类静态块
+         * 子类静态块
+         * 父类非静态块
+         * 父类构造方法
+         * 子类非静态块
+         * 子类构造方法
          *
          * 结果分析：
          * 1）先初始化静态块：父类的静态块 -> 子类的静态块
@@ -92,12 +93,14 @@ public class InitOrderTest {
     public void test_static_block() throws Exception {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         Class clazz = classLoader.loadClass("com.csy.interview.no2.init_ext.InitA");
-        System.out.println("Test");
         clazz.forName("com.csy.interview.no2.init_ext.InitA");
+
+        String className = this.getClass().getPackage() + ".InitA";
+//        Class clazz2 = classLoader.loadClass(className); //此种方式为什么找不到类InitA？
+        System.out.println(className);
 
         /**
          * 输出结果：
-         * Test
          * A
          *
          * 结果分析：
