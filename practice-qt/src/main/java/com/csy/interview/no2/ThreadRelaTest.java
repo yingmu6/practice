@@ -3,6 +3,8 @@ package com.csy.interview.no2;
 import com.csy.interview.no2.thread_ext.TestThread;
 import org.junit.Test;
 
+import java.security.PublicKey;
+
 /**
  * @author chensy
  * @date 2023/7/13
@@ -103,5 +105,39 @@ public class ThreadRelaTest {
     @Test
     public void test_volatile() {
         System.out.println(arr);
+    }
+
+    /**
+     * 场景5：线程终止方法
+     * 1）设置flag标志来控制
+     * 2）使用interrupt方法
+     * ...还有其它方式...
+     */
+    @Test
+    public void test_stop_thread() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("thread go to sleep");
+                try {
+                    Thread.sleep(50000);
+                    System.out.println("thread finish");
+                } catch (InterruptedException e) {
+                    System.out.println("thread is interrupted");
+                }
+            }
+        });
+
+        thread.start();
+        thread.interrupt();
+
+        /**
+         * 输出结果：
+         * thread go to sleep
+         * thread is interrupted
+         *
+         * 结果分析：
+         * 1）线程处于阻塞状态，调用interrupt()会抛出中断异常，所以捕获这个异常可以安全结束线程。
+         */
     }
 }
