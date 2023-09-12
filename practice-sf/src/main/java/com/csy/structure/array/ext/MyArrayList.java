@@ -8,7 +8,7 @@ public class MyArrayList {
 
     private transient Object[] data = null;
 
-    private int size = 0;
+    private int size = 0; //元素的实际数量
 
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -16,7 +16,7 @@ public class MyArrayList {
         if (capacity < 0) {
             throw new IllegalArgumentException("illegal capacity value");
         } else {
-            this.data = new Object[capacity];
+            this.data = new Object[capacity]; //构建指定数量的数组
         }
     }
 
@@ -25,9 +25,9 @@ public class MyArrayList {
     }
 
     public void checkIncrease(int index, Object obj) {
-        if (size >= data.length) {
-            Object[] newData = new Object[size * 2];
-            if (index == -1 && obj == null) {
+        if (size >= data.length) { //判断是否需要扩容
+            Object[] newData = new Object[size * 2]; //按两倍扩容
+            if (index == -1 && obj == null) { //数组拷贝
                 System.arraycopy(data, 0, newData, 0, size);
             } else {
                 System.arraycopy(data, index, newData, index + 1, size - index);
@@ -42,24 +42,24 @@ public class MyArrayList {
         return this.size;
     }
 
-    public int indexOf(Object o) {
+    public int indexOf(Object o) { //获取列表中对象对应的下标
         if (o == null) {
             for (int i = 0; i < this.size; i++) {
-                if (data[i] == null) {
+                if (data[i] == null) { //找出第一个为null的元素下标
                     return i;
                 }
             }
         } else {
             for (int i = 0; i < this.size; i++) {
-                if (o.equals(data[i])) {
+                if (o.equals(data[i])) { //使用equals比较对象是否相等
                     return i;
                 }
             }
         }
-        return -1;
+        return -1; //若没找到元素，则返回-1
     }
 
-    public boolean add(Object obj) {
+    public boolean add(Object obj) { //在尾部添加元素
         checkIncrease(-1, null);
         data[size++] = obj;
         return true;
@@ -72,14 +72,14 @@ public class MyArrayList {
         return true;
     }
 
-    public boolean add(int index, Object obj) {
-        if (index == size) {
+    public boolean add(int index, Object obj) { //在指定位置添加元素
+        if (index == size) { //尾部位置添加
             add(obj);
         } else if (checkIndexOut(index)) {
             if (size < data.length) {
-                System.arraycopy(data, index, data, index + 1, size - index);
-                data[index] = obj;
-            } else {
+                System.arraycopy(data, index, data, index + 1, size - index); //将index位置后面的元素，通过数组拷贝，整体向后移动
+                data[index] = obj; //设置index位置的值
+            } else { //容量不够，需要先扩容
                 checkIncrease(index, obj);
             }
             size ++;

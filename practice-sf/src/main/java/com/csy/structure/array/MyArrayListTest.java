@@ -11,13 +11,16 @@ public class MyArrayListTest {
 
     /**
      * 自定义ArrayList_测试
+     * 1）MyArrayList内部维护的结构为数组，在添加时会判断是否要扩容
      *
-     *
-     * 1）ArrayList的底层原理
+     * 2）ArrayList的底层原理
      */
 
+    /**
+     * 场景1：基本使用
+     */
     @Test
-    public void test_my_array_list() { //todo @csy 待调试
+    public void test_my_array_list() {
         MyArrayList list = new MyArrayList();
         list.add(1);
         list.add(2);
@@ -31,9 +34,46 @@ public class MyArrayListTest {
         /**
          * 输出结果：
          *
+         * -1
+         * true
+         * 1
+         * 2
+         * 3
+         *
          * 结果分析：
+         * 1）indexOf(Object o)：是查找对象在列表中的位置，若没有找到返回-1（内部使用equals比较对象）
+         * 2）contain(Object obj)：判断对象是否在列表中，内部会遍历列表，依次使用equals进行比较
+         * 3）getSize()：获取列表的元素个数，列表内部维护着size变量，每添加一个元素都会加1
+         * 4）get(int index)：获取指定下标的元素，由于列表中维护的是数组，所以可以直接通过下标访问数组元素
+         * 5）add(Object o)：底层最终调用add(int index，Object o)，该方法在数组尾部添加元素
+         */
+    }
+
+    /**
+     * 场景2：测试添加
+     */
+    @Test
+    public void test_my_array_list_add() {
+        MyArrayList list = new MyArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(1, 6);
+        list.add(1, 7);
+
+        for (int i = 0; i < list.getSize(); i++) {
+            System.out.println(list.get(i));
+        }
+
+        /**
+         * 输出结果：
+         * 1
+         * 7
+         * 6
+         * 2
+         * 3
          *
-         *
+         * 结果分析：
          */
     }
 }

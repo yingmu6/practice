@@ -1,9 +1,11 @@
 package com.csy.interview.no2;
 
+import com.csy.interview.no2.thread_ext.ErrHandler;
 import com.csy.interview.no2.thread_ext.TestThread;
+import com.csy.interview.no2.thread_ext.ThreadException;
 import org.junit.Test;
 
-import java.security.PublicKey;
+import java.io.IOException;
 
 /**
  * @author chensy
@@ -77,7 +79,7 @@ public class ThreadRelaTest {
         t1.start();
         t2.start();
         try {
-            t1.join();
+            t1.join(); //等到t1执行结束（join：线程加入、线程合并）
             t2.join();
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,6 +140,149 @@ public class ThreadRelaTest {
          *
          * 结果分析：
          * 1）线程处于阻塞状态，调用interrupt()会抛出中断异常，所以捕获这个异常可以安全结束线程。
+         */
+    }
+
+    /**
+     * 场景6：守护线程测试
+     */
+    @Test
+    public void test_daemon_thread() {
+        System.out.println("test3:begin");
+        Thread t1 = new ThreadDemo();
+        t1.setDaemon(true); //设置t1为守护线程
+        t1.start();
+        System.out.println("test3:end");
+
+        /**
+         * 输出结果：
+         * test3:begin
+         * test3:end
+         * Thread-0:begin
+         *
+         * 结果分析：
+         * 1）没有输出Thread-0:end，因为t1为守护线程。main方法执行完后，程序中只有t1守护线程进行，只有守护线程运行时，JVM就可以退出了
+         *
+         * 结果总结：
+         * 1）守护线程的典型用例是垃圾回收器，只要JVM启动，它始终会运行，实时监控和管理系统中可被回收的资源
+         */
+    }
+
+    class ThreadDemo extends Thread {
+        public void run() {
+            System.out.println(Thread.currentThread().getName() + ":begin");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + ":end");
+        }
+    }
+
+    /**
+     * 场景7：线程加入、合并join使用
+     */
+    @Test
+    public void test_thread_join() throws IOException {
+        Thread t = new Thread(new ThreadImp());
+        t.start();
+        try {
+            Long curTime = System.currentTimeMillis();
+            System.out.println("当前时间：" + curTime);
+            t.join(1000); // 1）当前线程等待线程t执行结束1000毫秒
+            if (t.isAlive()) {
+                System.out.println("t has not finished，timeStamp = " + System.currentTimeMillis()); // 2）
+            } else {
+                System.out.println("t has finished，timeStamp = " + System.currentTimeMillis()); // 3)
+            }
+            System.out.println("joinFinish，timeStamp = " + System.currentTimeMillis()); // 4）
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.in.read();
+
+        /**
+         * 输出结果：
+         *
+         * 当前时间：1694487519134
+         * Begin ThreadImp，timeStamp = 1694487519134
+         * t has not finished，timeStamp = 1694487520139
+         * joinFinish，timeStamp = 1694487520139
+         * End ThreadImp，timeStamp = 1694487524138
+         *
+         * 结果分析：
+         * 1）代码1）处：当前线程等待线程t执行1000毫秒
+         * 2）由于线程t的执行体run中，睡眠5秒，所以1秒后还没执行完，当前线程等待指定时间后，就可以恢复执行
+         * 3）因为线程t还在执行，所以t.isAlive()检查线程是否还存活时，线程时存活的。
+         * 4）执行完代码4）后，在等待一段时间，线程t也执行完了
+         *
+         * 结果总结：
+         * 1）join将两个线程合并，可以让线程等待另一个线程执行。
+         */
+    }
+
+    class ThreadImp implements Runnable {
+        @Override
+        public void run() {
+            try {
+                System.out.println("Begin ThreadImp，timeStamp = " + System.currentTimeMillis()); // 5）
+                Thread.sleep(5000);
+                System.out.println("End ThreadImp，timeStamp = " + System.currentTimeMillis()); // 6）
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 场景8：捕获线程抛出的异常
+     */
+    @Test
+    public void test_catch_thread_exception_v1() {
+        Thread thread = new ThreadException();
+        try {
+            thread.start();
+        } catch (Exception e) {
+            System.out.println("exception msg:" + e.getMessage());
+        }
+
+        /**
+         * 输出结果：
+         * Exception in thread "Thread-0" java.lang.ArithmeticException: / by zero
+         * 	at com.csy.interview.no2.thread_ext.ThreadException.run(ThreadException.java:10)
+         *
+         * 结果分析：
+         * 1）try/catch无法捕获线程中抛出的异常，因为线程时一个独立的执行代码片段。
+         */
+    }
+
+    @Test
+    public void test_catch_thread_exception_v2() {
+        Thread thread = new ThreadException();
+        try {
+            Thread.UncaughtExceptionHandler handler = new ErrHandler();
+            thread.setUncaughtExceptionHandler(handler); //为线程设置异常处理类
+            thread.start();
+        } catch (Exception e) {
+            System.out.println("exception msg:" + e.getMessage());
+        }
+
+        /**
+         * 输出结果：
+         *
+         * This is:Thread-0,Message:/ by zero
+         * java.lang.ArithmeticException: / by zero
+         * 	at com.csy.interview.no2.thread_ext.ThreadException.run(ThreadException.java:10)
+         * Simulate clean up
+         *
+         * 结果分析：
+         * 1）在线程中发生异常时，会调用异常处理类的ErrHandler的uncaughtException方法，可在该方法中记录异常日志以及资源清理等
+         *
+         * 结果总结：
+         * 1）查看源码，线程处理EventDispatchThread#pumpOneEventForFilters中若捕获到异常，会先查找线程中设置的UncaughtExceptionHandler
+         *    然后把异常信息传入该方法中，就可以处理相关的业务逻辑了。
          */
     }
 }

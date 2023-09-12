@@ -49,13 +49,52 @@ public class ArrayTest {
         Arrays.parallelSort(arr);
         Arrays.stream(arr).forEach(i -> System.out.print(i + " "));
         System.out.println();
+
+        /**
+         * 输出结果：
+         * 1 3 5 6 8 19 40
+         *
+         * 结果分析：
+         * parallelSort按升序对arr排序
+         */
     }
 
     /**
-     * 输出结果：
-     * 1 3 5 6 8 19 40
-     *
-     * 结果分析：
-     * parallelSort按升序对arr排序
+     * 场景3：使用System.arrayCopy进行数组拷贝
      */
+    @Test
+    public void test_system_array_copy() {
+        int []arr = new int[] {1, 3, 5, 7};
+
+        int []arr2 = new int[arr.length];
+
+        System.arraycopy(arr, 0, arr2, 0, 2);
+
+        String str1 = printArray(arr2);
+        System.out.println("拷贝后的数组：" + str1);
+
+        /**
+         * 输出结果：
+         * 拷贝后的数组：1,3,0,0
+         *
+         * 结果分析：
+         * 1）
+         */
+    }
+
+    private String printArray(int []arr) {
+        String str1 = "";
+        for (int i = 0; i < arr.length; i++) {
+            if (i == arr.length - 1) {
+                str1 = str1 + "," + arr[i];
+            } else {
+                if (i == 0) {
+                    str1 = str1 + arr[i];
+                } else {
+                    str1 = str1 + "," + arr[i];
+                }
+            }
+        }
+        return str1;
+    }
 }
