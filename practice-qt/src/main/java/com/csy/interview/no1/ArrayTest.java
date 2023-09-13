@@ -78,8 +78,57 @@ public class ArrayTest {
          * 拷贝后的数组：1,3,0,0
          *
          * 结果分析：
-         * 1）
+         * 1）使用System.arrayCopy可以从原数组指定位置，拷贝指定数量的元素到目标数组的目标位置上
          */
+    }
+
+    /**
+     * 场景4：使用System.arrayCopy实现数组的新增、删除逻辑
+     */
+    @Test
+    public void test_system_array_copy_for_add_or_remove() {
+        int []arr = new int[] {1, 3, 5, 7};
+
+        // 在下标为2添加元素8
+        int []temp = add(arr, 2, 8);
+        String str1 = printArray(temp);
+        System.out.println("添加元素后的数组：" + str1);
+
+        /**
+         * 输出结果：
+         * 添加元素后的数组：1,3,8,5,7,0,0,0
+         *
+         * 结果分析：
+         * 1）在数组指定下标添加元素时，分为两部分处理，index前、后，依次使用System.arraycopy即可
+         */
+
+        // 移除下标为3的元素
+        remove(arr, 2);
+        String str2 = printArray(arr);
+        System.out.println("移除元素后的数组：" + str2);
+
+        /**
+         * 输出结果：
+         * 移除元素后的数组：1,5,7,0
+         *
+         * 结果分析：
+         * 移除指定位置的元素，则位置后面的元素通过System.arraycopy整体往前移动一位，因为移除不需要扩容，所以可在原有数组执行即可。
+         */
+
+    }
+
+    private int[] add(int []source, int index, int value) {
+        int []target = new int[source.length * 2]; //增加元素时，需要扩容
+
+        System.arraycopy(source, 0, target, 0, index);
+        target[index] = value;
+        System.arraycopy(source, index, target, index + 1, source.length - index);
+        return target;
+    }
+
+    private void remove(int []source, int index) {
+        System.arraycopy(source, index, source, index -1, source.length - index); //整体向前移动一位
+        source[source.length - 1] = 0; //末尾数清零
     }
 
     private String printArray(int []arr) {
