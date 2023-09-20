@@ -2,6 +2,8 @@ package com.csy.interview.no1;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 import static java.lang.Math.sqrt;
 
 /**
@@ -132,5 +134,15 @@ public class CycleTest {
          * 1
          * break
          */
+    }
+
+    /**
+     * 场景5：无限循环
+     */
+    @Test
+    public void test_endless_loop() {
+        for(;;) { //该种写法是无限循环，单线程环境下，直接把当前线程耗死，多线程下可以这么写，通过获取时间片执行（没有结束条件）
+            System.out.println("随机值" + new Random().nextInt());
+        }
     }
 }

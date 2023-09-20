@@ -116,6 +116,7 @@ public class VarCalculateTest {
     public void test_val() {
         System.out.println(0xE0); //输出值为224，因为E位14，所以计算：14*16+0*1 = 224
         System.out.println(0xF0); //输出值为240
+        System.out.println(0x7fff); //输出值为32767，计算等式=7*16^3 + 15*16^2 + 15*16^1 + 15*16^0
     }
 
     /**
