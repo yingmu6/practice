@@ -16,5 +16,18 @@ public class ThreadGroupDestroy {
         //after destroy
         System.out.println("group.isDestroyed=" + group.isDestroyed());
         mainGroup.list();
+
+        /**
+         * 输出结果：
+         * group.isDestroyed=false
+         * java.lang.ThreadGroup[name=main,maxpri=10]
+         *     Thread[main,5,main]
+         *     java.lang.ThreadGroup[name=TestGroup,maxpri=10]
+         * group.isDestroyed=true
+         * java.lang.ThreadGroup[name=main,maxpri=10]
+         *     Thread[main,5,main]
+         *
+         * 结果分析：
+         */
     }
 }

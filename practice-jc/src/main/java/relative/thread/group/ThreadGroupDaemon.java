@@ -30,5 +30,13 @@ public class ThreadGroupDaemon {
         TimeUnit.SECONDS.sleep(3);
         System.out.println(group1.isDestroyed());
         System.out.println(group2.isDestroyed());
+
+        /**
+         * 输出结果：
+         * false
+         * true
+         *
+         * 结果分析：
+         */
     }
 }

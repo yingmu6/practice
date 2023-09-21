@@ -44,6 +44,23 @@ public class ThreadGroupBasic {
         System.out.println("parentOf = " + mainGroup.parentOf(group));
         System.out.println("parentOf = " + mainGroup.parentOf(mainGroup));
 
+        /**
+         * 输出结果：
+         *
+         * getName = main
+         * getParent = java.lang.ThreadGroup[name=system,maxpri=10]
+         * java.lang.ThreadGroup[name=main,maxpri=10]
+         *     Thread[main,5,main]
+         *     java.lang.ThreadGroup[name=group1,maxpri=10]
+         *         Thread[thread,5,group1]
+         * ----------------------------
+         * parentOf = true
+         * parentOf = true
+         *
+         * 结果分析：
+         *
+         */
+
     }
 
     /**

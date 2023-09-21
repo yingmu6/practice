@@ -26,6 +26,7 @@
 | 011 | AbstractQueuedSynchronizer阅读 | 熟悉AQS                 | P1  | 0%   | 2023-09-17 | xx   |
 | 012 | ReentrantLock阅读              | 熟悉可重入原理               | P1  | 0%   | 2023-09-18 | xx   |
 | 013 | ConcurrentHashMap阅读          | 熟悉ConcurrentHashMap原理 | P1  | 0%   | 2023-09-20 | xx   |
+| 014 | Unsafe及native阅读              | 熟悉native方法阅读方式        | P1  | 0%   | 2023-09-21 | xx   |
 
 ### spr&Net相关
 | 序号  | 阅读点                           | 阅读目标     | 优先级 | 当前进度 | 创建时间       | 结束时间 |

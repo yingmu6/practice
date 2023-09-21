@@ -27,7 +27,7 @@ public class RecursiveTaskTest {
      * 5）相关的类和接口：
      *    a）ForkJoinPool类：执行任务分割的线程池，实现ExecutorService接口，即有三种执行任务方式，execute、submit、invoke和invokeAll
      *    b）ForkJoinTask抽象类：实现类Future接口，是一个异步任务。包含fork、join、invoke等方法，fork：创建子任务，join：等待任务完成合并计算结果
-     *    c）
+     *    c）RecursiveTask：异步任务，有返回结果；RecursiveAction：异步任务，无返回结果
      *
      * 参考链接：
      * a）https://juejin.cn/post/7119723548729573413 Fork/Join源码分析（分析的比较全面）

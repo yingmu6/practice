@@ -38,5 +38,15 @@ public class ThreadGroupInterrupt {
         TimeUnit.MILLISECONDS.sleep(2);
 
         group.interrupt();
+
+        /**
+         * 输出结果：
+         * a ==false
+         * t1 will exit
+         * b == false
+         * t2 will exit
+         *
+         * 结果分析：
+         */
     }
 }

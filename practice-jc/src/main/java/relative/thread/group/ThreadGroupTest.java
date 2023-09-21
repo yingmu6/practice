@@ -20,6 +20,14 @@ public class ThreadGroupTest {
         //定义Group2, 指定group1为其父线程
         ThreadGroup group2 = new ThreadGroup(group1, "Group2");
         System.out.println(group2.getParent() == group1);
+
+        /**
+         * 输出结果：
+         * true
+         * true
+         *
+         * 结果分析：
+         */
     }
 }
 
