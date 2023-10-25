@@ -113,7 +113,7 @@ public class ThreadRelaTest {
      * 场景5：线程终止方法
      * 1）设置flag标志来控制
      * 2）使用interrupt方法
-     * ...还有其它方式...
+     * 3）使用stop方法
      */
     @Test
     public void test_stop_thread() {
@@ -141,6 +141,43 @@ public class ThreadRelaTest {
          * 结果分析：
          * 1）线程处于阻塞状态，调用interrupt()会抛出中断异常，所以捕获这个异常可以安全结束线程。
          */
+    }
+
+    @Test
+    public void test_interrupt_thread() throws Exception { //可安全退出线程
+        SafeInterruptThread thread = new SafeInterruptThread();
+        thread.start();
+
+        thread.sleep(1000);
+        thread.interrupt();
+
+        /**
+         * 输出结果：
+         * 线程未中断时，正常业务处理
+         *
+         * 结果分析：
+         * todo @csy 哪种方式才能输出 "线程已中断时，清理工作"
+         */
+    }
+
+    public class SafeInterruptThread extends Thread {
+        @Override
+        public void run() {
+            if(!Thread.currentThread().isInterrupted()) { //线程未中断
+                try {
+                    //...处理正常的业务逻辑...
+                    sleep(10);
+                    System.out.println("线程未中断时，正常业务处理");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt(); //重新设置中断标识
+                }
+            }
+
+            if (Thread.currentThread().isInterrupted()) {
+                //...处理线程结束前必要的一些资源释放以及清理工作
+                System.out.println("线程已中断时，清理工作");
+            }
+        }
     }
 
     /**

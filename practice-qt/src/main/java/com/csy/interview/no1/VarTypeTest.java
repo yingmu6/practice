@@ -190,7 +190,7 @@ public class VarTypeTest {
         return callable.call();
     }
 
-    /**
+     /**
      * 场景6：Null类型
      * 1）The null reference can be cast to any other reference type（Null类型，可以映射为其它任意类型）
      *

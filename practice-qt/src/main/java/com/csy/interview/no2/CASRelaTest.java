@@ -92,13 +92,19 @@ public class CASRelaTest {
 
         /**
          * 运行结果：
+         * 开始睡眠：stamp=0
          * 第一处比较交换的结果：true，stamp=1
          * 第二处比较交换的结果：true，stamp=2
-         * 开始睡眠：stamp=1
          * 结束睡眠：stamp=2
          * 第三处比较交换的结果：false，stamp=2
          *
          * 结果分析：
+         * 1）t1、t2启动后，由于t1睡眠了500毫秒，此时t2先运行，拿到的asRef中的戳记为0，然后t2阻塞1000毫秒
+         * 2）t1恢复执行后，会取内存中值作为预期，然后再做更新，两次操作都成功，此时的戳记为2
+         * 3）t2线程阻塞1000毫秒后，恢复运行，然后拿着一开始拿到的戳记0去更新，因为此时内存中的戳记已经改为2了，所以更新失败了
+         *
+         * 结果总结：
+         * 1）每次操作后，戳记都会+1，版本号与内存中值不同时，更新失败，这就解决了ABA问题
          */
     }
 
@@ -106,6 +112,11 @@ public class CASRelaTest {
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 boolean c1 = asRef.compareAndSet(1, 2, asRef.getStamp(), asRef.getStamp() + 1);
                 System.out.println("第一处比较交换的结果：" + c1 + "，stamp=" + asRef.getStamp());
                 boolean c2 = asRef.compareAndSet(2, 1, asRef.getStamp(), asRef.getStamp() + 1);
