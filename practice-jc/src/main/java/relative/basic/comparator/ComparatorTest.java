@@ -1,5 +1,6 @@
 package relative.basic.comparator;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -63,6 +64,41 @@ public class ComparatorTest {
      */
     @Test
     public void test_order_with_comparator() {
+        List<Player2> player2List = new ArrayList<>();
+        Player2 p1 = new Player2();
+        p1.setName("zhang san");
+        p1.setAge(10);
 
+        Player2 p2 = new Player2();
+        p2.setName("li si");
+        p2.setAge(13);
+
+        Player2 p3 = new Player2();
+        p3.setName("wang wu");
+        p3.setAge(11);
+
+        player2List.add(p1);
+        player2List.add(p2);
+        player2List.add(p3);
+
+        PlayerComparator playerComparator = new PlayerComparator();
+        Collections.sort(player2List, playerComparator); //集合比较时，指定比较器
+
+        System.out.println(JSON.toJSONString(player2List));
+
+        /**
+         * 输出结果：
+         * [{"age":13,"name":"li si","ranking":0},{"age":11,"name":"wang wu","ranking":0},{"age":10,"name":"zhang san","ranking":0}]
+         *
+         * 结果分析：
+         * 按PlayerComparator的compare比较逻辑进行排序
+         */
+    }
+
+    public class PlayerComparator implements Comparator<Player2> {
+        @Override
+        public int compare(Player2 o1, Player2 o2) {
+            return Integer.compare(o2.getAge(), o1.getAge()); //此处按降序排序
+        }
     }
 }
