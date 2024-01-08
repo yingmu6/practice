@@ -39,4 +39,57 @@ public class DeadLockTest {
          * 结果分析：
          */
     }
+
+    /**
+     * 场景2：synchronized修饰方法块时，产生死锁
+     */
+    @Test
+    public void test_deadLock_V2() throws Exception {
+        DeadLockTest deadLockTest = new DeadLockTest();
+        new Thread(() -> deadLockTest.blockMethod1()).start();
+        new Thread(() -> deadLockTest.blockMethod2()).start();
+
+        System.in.read();
+
+        /**
+         * 输出结果：
+         * method 1 execute
+         * method 2 execute
+         *
+         * 结果分析：
+         *
+         * 问题点答疑：
+         * 1）如何判断是否产生了死锁？
+         */
+    }
+
+    String lockA = "lockA";
+    String lockB = "lockB";
+    public void blockMethod1() {
+        try {
+            synchronized (lockA) {
+                for (int i = 1; i < 3; i++) {
+                    System.out.println("method 1 execute");
+                    Thread.sleep(3000);
+                    synchronized (lockB) {}
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void blockMethod2() {
+        try {
+            synchronized (lockB) {
+                for (int i = 1; i < 3; i++) {
+                    System.out.println("method 2 execute");
+                    Thread.sleep(3000);
+                    synchronized (lockA){}
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

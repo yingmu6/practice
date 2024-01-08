@@ -116,6 +116,39 @@ public class SynchronizedV2Test {
          */
     }
 
+    /**
+     * 场景4：synchronized修饰方法块时，锁住的是括号里面配置的对象
+     */
+    @Test
+    public void testBlock() throws Exception {
+        SynchronizedV2Test demo = new SynchronizedV2Test();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                demo.blockMethod1();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                demo.blockMethod2();
+            }
+        }).start();
+
+        System.in.read();
+
+        /**
+         * 输出结果：
+         * blockMethod1 execute
+         * blockMethod1 execute
+         * blockMethod2 execute
+         * blockMethod2 execute
+         *
+         * 结果分析：
+         * 1）由于两个方法都需要获取名为lockA的锁，所以线程会等待，直到一个线程完成后释放锁，另一个线程才能执行
+         */
+    }
 
     public synchronized void generalMethod1() { //synchronized修饰普通方法时，锁住的是当前调用的对象
         try {
@@ -162,6 +195,7 @@ public class SynchronizedV2Test {
     }
 
     String lockA = "lockA";
+//    String lockB = "lockA"; 注意：如果字符串值相等，为同一个字符串对象，此处使用lockA和lockB都是对同一个对象加锁。
     public void blockMethod1() {
         try {
             synchronized (lockA) {

@@ -179,6 +179,65 @@ public class ReentrantLockTest {
          */
     }
 
+    /**
+     * 场景5：ReentrantLock基本使用
+     */
+    @Test
+    public void test_basic_use_V2() throws Exception {
+        ReenterLockDemo lockDemo = new ReenterLockDemo();
+        Thread t1 = new Thread(lockDemo);
+        t1.start();
+        t1.join();
+        System.out.println(lockDemo.getI());
+
+        /**
+         * 输出结果：
+         * 10
+         *
+         * 结果分析：
+         * 由于Lock的类型为ReentrantLock，属于可重入锁，所以一个线程可以多次获取锁
+         *
+         * 问题点答疑：
+         * 1）哪些锁是不可重入的？多次用锁，会报错吗？
+         */
+    }
+
+    /**
+     * 场景6：ReentrantLock高级使用：避免死锁（响应中断、可轮训锁、定时锁）
+     */
+    @Test
+    public void test_advanced_used() {
+
+    }
+
+    public class InterruptiblyLock {
+        public ReentrantLock lock1;
+    }
+
+    public class ReenterLockDemo implements Runnable {
+        public ReentrantLock lock = new ReentrantLock();
+        public int i = 0;
+
+        @Override
+        public void run() {
+            for (int j = 0; j < 10; j++) {
+                lock.lock();
+                lock.lock(); //可重复加锁
+
+                try {
+                    i++;
+                } finally {
+                    lock.unlock();
+                    lock.unlock();
+                }
+            }
+        }
+
+        public int getI() {
+            return i;
+        }
+    }
+
     class ReadWriteDemo {
         private ReentrantReadWriteLock rw = new ReentrantReadWriteLock();
 
