@@ -101,6 +101,9 @@ public class BlockingQueueTest {
          */
     }
 
+    /**
+     * 场景3：测试延迟队列
+     */
     @Test
     public void test_delay_queue() throws IOException {
         DelayQueue<MyDelayItem> dq = new DelayQueue<>();
@@ -135,5 +138,26 @@ public class BlockingQueueTest {
          *
          * 2）由运行结果可知：消费端消费的队首元素，需要元素的getDelay() <= 0，即已过期了，才能消费
          */
+    }
+
+    /**
+     * 场景4：测试延迟队列
+     */
+    @Test
+    public void test_delay_queue_v2() {
+
+    }
+
+    public class DelayData implements Delayed {
+
+        @Override
+        public long getDelay(TimeUnit unit) {
+            return 0;
+        }
+
+        @Override
+        public int compareTo(Delayed o) {
+            return 0;
+        }
     }
 }

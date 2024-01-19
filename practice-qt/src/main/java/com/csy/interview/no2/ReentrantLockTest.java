@@ -174,7 +174,7 @@ public class ReentrantLockTest {
          * 结果分析：
          * 1）使用写锁时，没有交替执行，一直执行完一个线程
          *
-         * 问题点答疑：
+         * 问题点答疑：todo @Ms-01/19
          * 1）运行中，为什么只看Thread-0线程运行，Thread-1线程没有看到运行？
          */
     }
@@ -207,11 +207,100 @@ public class ReentrantLockTest {
      */
     @Test
     public void test_advanced_used() {
+        long time = System.currentTimeMillis();
+        InterruptiblyLock interruptiblyLock = new InterruptiblyLock();
+        Thread thread1 = interruptiblyLock.lock1();
+        Thread thread2 = interruptiblyLock.lock2();
 
+        while (true) {
+            if (System.currentTimeMillis() - time >= 3000) {
+                thread2.interrupt();
+            }
+        }
+
+        /**
+         * 输出结果：
+         * java.lang.InterruptedException
+         * ......
+         * Thread-1，退出。
+         * Thread-0，执行完毕！
+         * Thread-0，退出。
+         *
+         * 结果分析：todo @Ms-01/19
+         */
     }
 
     public class InterruptiblyLock {
-        public ReentrantLock lock1;
+        public ReentrantLock lock1 = new ReentrantLock();
+        public ReentrantLock lock2 = new ReentrantLock();
+
+        public Thread lock1() {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        lock1.lockInterruptibly();
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        lock2.lockInterruptibly();
+                        System.out.println(Thread.currentThread().getName() + "，执行完毕！");
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (lock1.isHeldByCurrentThread()) {
+                            lock1.unlock();
+                        }
+
+                        if (lock2.isHeldByCurrentThread()) {
+                            lock2.unlock();
+                        }
+
+                        System.out.println(Thread.currentThread().getName() + "，退出。");
+                    }
+                }
+            });
+            t.start();
+            return t;
+        };
+
+        public Thread lock2() {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        lock2.lockInterruptibly();
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        lock1.lockInterruptibly();
+                        System.out.println(Thread.currentThread().getName() + "，执行完毕！");
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (lock1.isHeldByCurrentThread()) {
+                            lock1.unlock();
+                        }
+
+                        if (lock2.isHeldByCurrentThread()) {
+                            lock2.unlock();
+                        }
+
+                        System.out.println(Thread.currentThread().getName() + "，退出。");
+                    }
+                }
+            });
+
+            t.start();
+            return t;
+        }
     }
 
     public class ReenterLockDemo implements Runnable {
