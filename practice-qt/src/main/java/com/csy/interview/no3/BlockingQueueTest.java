@@ -145,19 +145,52 @@ public class BlockingQueueTest {
      */
     @Test
     public void test_delay_queue_v2() {
+        DelayQueue<DelayData> queue = new DelayQueue<>();
+        DelayData data = new DelayData();
+        data.setNumber(33);
+        queue.add(data);
+        while (true) {
+            try {
+                long currentTime = System.currentTimeMillis();
+                DelayData delay = queue.take();
+                System.out.println("获取到数据：" + delay.getNumber() + ", 耗时：" + (System.currentTimeMillis() - currentTime) / 1000);
+            } catch (Exception e) {
+            }
+        }
 
+        /** todo @Ms-01-20
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 问题点答疑：
+         * 1）为什么没有结果输出？
+         */
     }
 
     public class DelayData implements Delayed {
 
+        private Integer number;
+
+        private long delayTime = 1000;
+
+        public Integer getNumber() {
+            return number;
+        }
+
+        public void setNumber(Integer number) {
+            this.number = number;
+        }
+
         @Override
         public long getDelay(TimeUnit unit) {
-            return 0;
+            return this.delayTime;
         }
 
         @Override
         public int compareTo(Delayed o) {
-            return 0;
+            DelayData compare = (DelayData) o;
+            return this.number.compareTo(compare.getNumber());
         }
     }
 }
