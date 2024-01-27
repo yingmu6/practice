@@ -27,7 +27,7 @@ public class CountDownLatchTest {
      *   Causes the current thread to wait until the latch has counted down to
      *    zero, unless the thread is interrupted.
      *
-     * 5）CountDownLatch：经常被称为闭锁，它能够使指定线程等待计数线程完成各自工作后再执行。
+     * 5）CountDownLatch：经常被称为闭锁，它能够使指定线程等待计数线程完成各自工作后再执行。（可以实现类似计数器的功能）
      *                   Latch：门栓，很形象的描述它的工作模式，用户需要一道道解开门栓，才能打开门
      *
      * 6）CountDownLatch提供了对一组线程任务进行约束的能力，可以在任务中灵活根据条件来调用latch#countDown()方法，从而决定是否中断CountDownLatch#await造成的阻塞。

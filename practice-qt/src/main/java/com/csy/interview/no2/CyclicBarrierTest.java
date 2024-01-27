@@ -19,6 +19,8 @@ public class CyclicBarrierTest {
      * 1）The barrier is called cyclic because it can be re-used after the waiting threads are released.
      *
      * 2）通过debug看源码，在每次调用await()时，会将计数减1，若计数不为0，则线程会阻塞等待。否则，通过condition#signAll唤醒所有线程，继续后续的任务
+     *
+     * 3）与CountDownLatch的区别是：可以重复被使用
      */
 
     /**
