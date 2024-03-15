@@ -20,15 +20,9 @@ public class ProxyFactory {
                 target.getClass().getInterfaces(), new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        System.out.println("代理调用前");
-                        /**
-                         * 此处要注意：是要调用目标对象的方法，而不是代理调用代理proxy
-                         * 若此处method.invoke(proxy, args) ，
-                         * 会报java.lang.instrument ASSERTION FAILED ***: "!errorOutstanding"
-                         * with messagetransform method call failed at JPLISAgent
-                         */
+                        System.out.println("代理调用前 xx");
                         Object result = method.invoke(target, args);
-                        System.out.println("代理调用后");
+                        System.out.println("代理调用后 yy");
                         return result;
                     }
                 });

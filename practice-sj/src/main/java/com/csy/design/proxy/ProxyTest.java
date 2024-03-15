@@ -42,6 +42,11 @@ public class ProxyTest {
      * 优点：不改变目标对象，就可以对目标对象进行访问控制，功能增强
      * 缺点：1）需要与目标对象实现相同的接口，接口改变，代理对象也要改变
      *      2）只能代理一种类型的对象，多种类型需要再建另外的代理对象
+     *
+     * 具体使用流程：
+     * 1）定义代理类，与目标类实现相同的接口
+     * 2）代理类持有目标类的引用，可通过构造方法传入
+     * 3）代理类的方法内，调用目标对象的相同方法（）
      */
     @Test
     public void staticProxy() {
@@ -64,7 +69,7 @@ public class ProxyTest {
     public void dynamicProxy() {
         ITicket ticket = new TrainStation();
         ITicket proxy = (ITicket) new ProxyFactory(ticket).getProxyInstance();
-        System.out.println(proxy.getTicket(150));
+        System.out.println(proxy.getTicket(150)); //代理对象的方法被调用时，会进入到InvocationHandler的invoke方法中，将增强逻辑放在该方法中
     }
 
     /**
@@ -101,7 +106,7 @@ public class ProxyTest {
      * 1）jdk动态代理能否为实现类创建代理，还是只能为接口？
      *    解答：不能为类创建代理，在创建代理类时ProxyClassFactory#apply会检查是否是接口
      *
-     * 2）怎样通过工具，如arthas查看jdk产生的代理对象的源码？ todo @csy-使用工具查看
+     * 2）怎样通过工具，如arthas查看jdk产生的代理对象的源码？
      *    解答：方式1：可以通过test_jdk_dynamic_proxy_v2中的输出字节码文件观看
      *
      *
@@ -211,6 +216,15 @@ public class ProxyTest {
          *
          * 结果分析：
          * jdk不能为类创建代理，只能为接口，在代理工厂创建代理类时会做检查ProxyClassFactory#apply是否是接口
+         */
+
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 问题点答疑：
          */
     }
 
