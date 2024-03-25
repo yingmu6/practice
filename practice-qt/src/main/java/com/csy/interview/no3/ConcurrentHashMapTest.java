@@ -87,7 +87,7 @@ public class ConcurrentHashMapTest {
          * 结果总结：
          * 1）在使用ConcurrentHashMap计算值时，尽量避免使用非原子操作，如果使用了非原子操作，就是用锁来实现多线程安全。
          *
-         * 问题点答疑：
+         * 总结概括：
          * 1）TestTask的成员变量private ConcurrentHashMap<Integer, Integer> map是私有的，不是共享资源，按道理不应该出现线程不安全，是怎么出现的？
          *    解答：并不是说private修饰，就一定是线程安全的，要看多个线程是否共享资源。比如当前5个线程执行testAdd，而该方法里面传入同一个Map，也就是此时这个Map是共享资源了
          */

@@ -83,6 +83,22 @@
             <artifactId>hamcrest-core</artifactId>
         </dependency>
 
+        <!-- 打印log4j日志的话，下面3个maven依赖都是必须得，并且log4j.properties需要在resources的目录下 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

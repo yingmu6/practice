@@ -1,4 +1,7 @@
-package com.csy.interview.no2.nio_ext;
+package com.csy.interview.offer_come.basic.nio;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -9,7 +12,9 @@ import java.nio.channels.SocketChannel;
  * @author chensy
  * @date 2024/1/5
  */
-public class OfferMyClient {
+public class NioClient {
+
+    Logger logger = LoggerFactory.getLogger(NioClient.class);
 
     private int size = 1024;
 
@@ -25,29 +30,27 @@ public class OfferMyClient {
 
     }
 
-    private void receive() throws IOException {
+    public void receive() throws IOException {
         while (true) {
             byteBuffer.clear();
-            int count;
-            while ((count = socketChannel.read(byteBuffer)) > 0) {
+            while (socketChannel.read(byteBuffer) > 0) {
                 byteBuffer.flip();
+                StringBuffer buffer = new StringBuffer();
                 while (byteBuffer.hasRemaining()) {
-                    System.out.println((char) byteBuffer.get());
+                    buffer.append((char) byteBuffer.get());
                 }
-                send2Server("say hi".getBytes());
+
+                logger.info("客户端_收到消息：{}，时间：{}", buffer, System.currentTimeMillis());
                 byteBuffer.clear();
             }
         }
     }
 
-    private void send2Server(byte[] bytes) throws IOException {
+    public void send(byte[] bytes) throws IOException {
         byteBuffer.clear();
         byteBuffer.put(bytes);
         byteBuffer.flip();
         socketChannel.write(byteBuffer);
     }
 
-    public static void main(String[] args) throws IOException {
-        new OfferMyClient().connectServer();
-    }
 }

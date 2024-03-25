@@ -9,7 +9,7 @@ import org.junit.Test;
  * @Date 2023/04/06 00:02
  * @Description
  */
-public class InnerClassTest {
+public class TestForInnerClass {
 
     /**
      * 内部类_整体概述
@@ -82,7 +82,7 @@ public class InnerClassTest {
         /**
          * 写法一：外部类.静态内部类，如InnerClassTest.StaticNested
          */
-        InnerClassTest.StaticNested nested = new InnerClassTest.StaticNested();
+        TestForInnerClass.StaticNested nested = new TestForInnerClass.StaticNested();
         nested.run();
         static_var++;
         /**
@@ -116,7 +116,7 @@ public class InnerClassTest {
      */
     @Test
     public void test_local_nested() { //测试局部内部类
-        InnerClassTest innerClassTest = new InnerClassTest(); //创建外部类
+        TestForInnerClass innerClassTest = new TestForInnerClass(); //创建外部类
         innerClassTest.run(); //调用外部内的方法（方法中包含局部内部类）
     }
 

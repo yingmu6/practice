@@ -1,9 +1,12 @@
 package relative.java8.function;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +36,7 @@ public class FunctionTest {
      * https://www.baeldung.com/java-8-functional-interfaces demo参考
      */
 
+    Logger logger = LoggerFactory.getLogger(FunctionTest.class);
 
     /**
      * 场景1：使用lambda表达式
@@ -40,8 +44,35 @@ public class FunctionTest {
     @Test
     public void basic() {
         // 使用lambda表达式来表示函数接口的实现（java8之前是使用匿名类处理的）
-        GreetingService greetingService = message -> System.out.println(message + ",hello");
-        greetingService.sayHello("你好");
+        GreetingService greetingService = message -> {
+            String msg = message + ",hello";
+            logger.info(msg);
+            return msg;
+        };
+        greetingService.sayHello("你好"); //抽象方法
+
+        logger.info("default方法：{}", greetingService.sayHi()); //默认方法
+        logger.info("default方法2：{}", greetingService.sayHi2());
+
+        logger.info("static方法：{}", GreetingService.sayHa()); //静态方法（要用类名访问）
+        logger.info("static方法2：{}", GreetingService.sayHa2());
+
+        /**
+         * 输出结果：
+         * 你好,hello
+         * default方法： Hi
+         * default方法2： Hi2
+         * static方法： Ha
+         * static方法2： Ha2
+         *
+         * 结果分析：
+         * 1）用lambda表示函数式接口GreetingService的实例，然后调用实例的方法时，就会进入lambda中的逻辑
+         * 2）调用函数式接口中的default、static方法（static方法要用类名来访问）
+         *
+         * 总结概括：
+         * 1）先构建函数式接口的实例，再调用实例的方法。
+         * 2）函数式接口中只有一个抽象方法，可以有多个default、static方法
+         */
     }
 
     /**
@@ -49,29 +80,30 @@ public class FunctionTest {
      */
     @Test
     public void useEmbedded() {
-        // 方式一：lambda的写法
-        Consumer<String> consumer1 = param -> System.out.println(param + " V1:haha"); //先定义好函数接口
-        this.dealInfo("function interface V1：", consumer1);
+
+        // 方式一：lambda的写法（lambda表达式对应函数式接口的抽象方法）
+        Consumer<String> consumer1 = param -> logger.info(param + " V1:haha"); //先定义好函数接口
+        this.dealInfo("V1：", consumer1);
 
         // 方式二：lambda的写法
         Consumer<String> consumer2 = (param) -> { //语句块中已有一条语句时，可以去掉{}
-            System.out.println(param + " V2:haha");
+            logger.info(param + " V2:haha");
         };
-        this.dealInfo("function interface V2：", consumer2);
+        this.dealInfo("V2：", consumer2);
 
         // 方式三：匿名内部类的写法
         Consumer<String> consumer3 = new Consumer<String>() {
             @Override
             public void accept(String param) { //实现接口中逻辑（此处只是先定义函数式接口，在函数式接口使用时，才会真正调用；定义的函数式接口，使用其它的变量值）
-                System.out.println(param + " V3:haha");
+                logger.info(param + " V3:haha");
             }
         };
-        this.dealInfo("function interface V3：", consumer3);
+        this.dealInfo("V3：", consumer3);
 
         String testStr = "hello";
         // 方式四：传递的函数式接口，带上传入前的变量值（当函数式接口真正使用的时候，进行回调时，会保存之前使用到的变量值，如此处的testStr）
-        Consumer<String> consumer4 = param -> System.out.println(param + testStr + " V4:haha");
-        this.dealInfo("function interface V4：", consumer4);
+        Consumer<String> consumer4 = param -> logger.info(param + testStr + "，V4:haha");
+        this.dealInfo("V4：", consumer4);
 
         // IntFunction：写法一
         IntFunction intFunction1 = x -> {
@@ -80,8 +112,34 @@ public class FunctionTest {
 
         IntFunction intFunction2 = x -> x / 2; //只有一条语句时，可以省去{}，lambda也能推断出返回值的
 
-        System.out.println("int计算1：" + intFunction1.apply(3));
-        System.out.println("int计算2：" + intFunction2.apply(4));
+        IntFunction<String> intFunction3 = x -> "result：" + x;
+
+        logger.info("参数值：{}，计算公式：x + 1，结果：{}", 3, intFunction1.apply(3));
+        logger.info("参数值：{}，计算公式：x / 1，结果：{}", 4, intFunction2.apply(4));
+        logger.info("参数值：{}，处理逻辑：result：+ x，结果：{}", 5, intFunction3.apply(5));
+
+        /**
+         * 输出结果：
+         * V1： V1:haha
+         * V2： V2:haha
+         * V3： V3:haha
+         * V4：hello，V4:haha
+         * 参数值：3，计算公式：x + 1，结果：4
+         * 参数值：4，计算公式：x / 1，结果：2
+         * 参数值：5，处理逻辑：result：+ x，结果：result：5
+         *
+         * 结果分析：
+         * 1）lambda表达式，其实就是一个匿名类，所以与匿名类写法最终的结果一致。
+         * 2）虽然是先定义了lambda表达式，lambda的执行逻辑写在前面，但只有真实通过函数式接口的引用调用方法时，才会进入lambda定义的逻辑中
+         * 3）lambda表达式要与函数式接口的抽象方法的签名保持一致
+         *
+         * 总结概括：
+         * 1）lambda表达式对应函数式接口的抽象方法，
+         *    a）如Consumer的抽象方法为void accept(T t); 该方法的含义为：接收一个参数T进行处理，不返回值，那么lambda可以表示为表示 (param) - > {...}，
+         *    b）又如：IntFunction的抽象方法为R apply(int value); 该方法的含义为：接收一个int型参数，经过处理后，返回指定的R类型
+         *
+         */
+
     }
 
     private void dealInfo(String str, Consumer<String> consumer) { //可以通过方法参数传递
@@ -96,11 +154,11 @@ public class FunctionTest {
      */
     @Test
     public void test_BiConsumer_V1() {
-        BiConsumer<Integer, Integer> c1 = (a, b) -> System.out.println(a + b); //定义BiConsumer，指定具体行为
+        BiConsumer<Integer, Integer> c1 = (a, b) -> logger.info("a + b = {}",a + b); //定义BiConsumer，指定具体行为
         c1.accept(10,20); //执行调用，传入实际参数
 
-        BiConsumer<String, String> c2 = (s1, s2) -> System.out.println(s1.contains(s2)); //虽然定义了BiConsumer行为，但是没有进行调用，所以此处没有输出
-        BiConsumer<Integer, Integer> c3 = (a, b) -> System.out.println(a * b);
+        BiConsumer<String, String> c2 = (s1, s2) -> logger.info("s1.contains(s2): {}",s1.contains(s2)); //虽然定义了BiConsumer行为，但是没有进行调用，所以此处没有输出
+        BiConsumer<Integer, Integer> c3 = (a, b) -> logger.info("a * b = {}", a * b);
 
         // c1.andThen(c2); 语法错误，c2的类型时String，c1的类型为Integer，类型不兼容
         c1.andThen(c3).accept(5, 10); //andThen()，会返回一个组合，并按顺序执行，多个组合共用传入的参数（and then：然后）
@@ -136,7 +194,7 @@ public class FunctionTest {
         m.put(7, "Peter");
 
         BiConsumer<Integer, String> f =
-                (key, value) -> System.out.println("[entry="+key+", "+value+")]");
+                (key, value) -> logger.info("[entry="+key+", "+value+")]");
 
         m.forEach(f); //遍历Map中的所有条目，依次执行给定的操作
 
@@ -160,7 +218,7 @@ public class FunctionTest {
      * 场景4：Predicates等使用
      */
     @Test
-    public void highLeval() {
+    public void highLevel() {
         List<Fruit> fruits = new ArrayList<>();
         Fruit fruit = new Fruit();
         fruit.setName("苹果");
@@ -185,12 +243,12 @@ public class FunctionTest {
                     }
                     return false;
                 }).collect(Collectors.toList());
-        System.out.println(filterFruits);
+        logger.info(JSON.toJSONString(filterFruits));
 
         List<Fruit> filterFruits2 = fruits.stream()
                 .filter(FunctionTest::filterFruits) //方法引用：是lambda表达式的一种特殊形式，如果正好有某个方法满足一个lambda表达式的形式，那就可以将这个lambda表达式用方法引用的方式表示
                 .collect(Collectors.toList());
-        System.out.println("函数式接口：" + filterFruits2);
+        logger.info("函数式接口：" + filterFruits2);
     }
 
     public static Boolean filterFruits(Fruit fruit) {

@@ -69,6 +69,9 @@ public class Log4jTest {
      * 而INFO、DEBUG、TRACE、 ALL级别的log则会被忽略。Log4j建议只使用四个级别，优先级从高到低分别是ERROR、WARN、INFO、DEBUG。
      * （经过实践证明：优先级从高到低，的确是：ERROR > WARN > INFO > DEBUG）
      * 3）控制台日志，即org.apache.log4j.ConsoleAppender会输出DEBUG及以上的日志（最终的日志输出：要结合log4j.rootLogger做交集）
+     *
+     * 注明：输出文件的日志级别可以不设置（如log4j.appender.D.Threshold=DEBUG），若不设置，
+     * 则取rootLogger设置的级别（log4j.rootLogger=INFO,x,x 第一个值即为整体日志级别），若设置了则和设置的级别求交集
      */
     @Test
     public void test_multiLevel() {

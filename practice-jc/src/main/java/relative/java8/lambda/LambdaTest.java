@@ -35,6 +35,8 @@ public class LambdaTest {
      *   (params) -> statement
      *   (params) -> { statements; }
      *
+     * 6）lambda表达式由三部分组成：参数列表、箭头、主体（lambda表示式与函数式接口的抽象方法的签名一一对应）
+     *
      * 参考链接：
      * a）https://www.baeldung.com/java-8-functional-interfaces 函数式接口介绍
      * b）https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html lambda官方介绍

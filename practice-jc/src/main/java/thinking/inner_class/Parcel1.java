@@ -6,7 +6,7 @@ package thinking.inner_class;
  */
 public class Parcel1 {
 
-    class Contents {
+    class Contents { //成员内部类
         private int i = 11;
         public int value() {
             return i;
@@ -27,19 +27,5 @@ public class Parcel1 {
         Contents c = new Contents();
         Destination d = new Destination(dest);
         System.out.println(d.readLabel());
-    }
-
-    public static void main(String[] args) {
-        Parcel1 p = new Parcel1();
-        p.ship("Tasmania");
-
-        /**
-         * 输出结果：
-         * Tasmania
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
     }
 }

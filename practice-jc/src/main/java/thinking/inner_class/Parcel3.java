@@ -25,19 +25,4 @@ public class Parcel3 {
             return label;
         }
     }
-
-    public static void main(String[] args) {
-        Parcel3 p = new Parcel3();
-        Parcel3.Contents c = p.new Contents();
-        Parcel3.Destination d = p.new Destination("Tasmania");
-
-        /**
-         * 输出结果：
-         * （输出空白内容）
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
-    }
 }
