@@ -9,7 +9,7 @@ public class Parcel6 {
     /**
      * 在作用域中的内部类
      */
-    private void internalTracking(boolean b) {
+    public String internalTracking(boolean b) {
         if (b) {
             class TrackingSlip {
                 private String id;
@@ -22,25 +22,11 @@ public class Parcel6 {
             }
 
             TrackingSlip ts = new TrackingSlip("slip");
-            String s = ts.getSlip();
+            return ts.getSlip();
+        } else {
+            return null;
         }
-    }
 
-    public void track() {
-        internalTracking(true);
-    }
-
-    public static void main(String[] args) {
-        Parcel6 p = new Parcel6();
-        p.track();
-
-        /**
-         * 输出结果：
-         * （输出空白内容）
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
+        // TrackingSlip ts2 = new TrackingSlip("slip"); //此处会编译错误，因为超出了TrackingSlip的作用范围
     }
 }

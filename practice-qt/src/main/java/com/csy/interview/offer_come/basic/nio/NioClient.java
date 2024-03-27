@@ -23,7 +23,7 @@ public class NioClient {
     private SocketChannel socketChannel;
 
     public void connectServer() throws IOException {
-        socketChannel = socketChannel.open();
+        socketChannel = socketChannel.open(); //此处SocketChannel的实例为：SocketChannelImpl@xxx
         socketChannel.connect(new InetSocketAddress("127.0.0.1", 9999));
         socketChannel.configureBlocking(false);
         byteBuffer = ByteBuffer.allocate(size);

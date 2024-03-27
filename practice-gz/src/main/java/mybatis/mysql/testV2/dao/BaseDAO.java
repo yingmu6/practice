@@ -44,10 +44,8 @@ public class BaseDAO<T extends BaseDO> extends SqlSessionDaoSupport implements I
         this.nameSpace = this.getClass().getCanonicalName() + ".";
     }
 
-    @Resource(
-            name = "sqlSessionFactory"
-    )
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+    @Resource(name = "sqlSessionFactory")
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) { //@Resource(...)修饰方法时，会将对应名称的实例注入到方法中
         this.sqlSessionFactory = sqlSessionFactory;
         super.setSqlSessionFactory(sqlSessionFactory);
     }

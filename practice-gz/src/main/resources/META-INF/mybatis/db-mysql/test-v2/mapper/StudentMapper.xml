@@ -149,7 +149,7 @@
 
 	<!-- 该种方式不能批量创建，待研究（已经可以了，在连接的url加上allowMultiQueries=true即可） -->
 	<insert id="saveBatchInsert">
-        <foreach collection="list" itemImpl="itemImpl" index="index" separator=";">
+        <foreach collection="list" item="itemImpl" index="index" separator=";">
 		   INSERT `student`
 		   <set>
 			  <include refid="batchSet"/>
@@ -190,7 +190,7 @@
 	<insert id="saveBatch">
 		insert into student
         (`id`,`enterprise_no`,`name`,`age`,`student_id`,`score`,`ext_val`,`gmt_create`,`gmt_modified`) values
-        <foreach collection="list" itemImpl="itemImpl" separator=",">
+        <foreach collection="list" item="itemImpl" separator=",">
 			(#{itemImpl.id},#{itemImpl.enterpriseNo},#{itemImpl.name},#{itemImpl.age},#{itemImpl.studentId},#{itemImpl.score},#{itemImpl.extVal},#{itemImpl.gmtCreate},#{itemImpl.gmtModified})
 		</foreach>
 	</insert>
@@ -204,7 +204,7 @@
 	</update>
 
 	<update id="updateBatch">
-        <foreach collection="list" itemImpl="itemImpl" separator=";">
+        <foreach collection="list" item="itemImpl" separator=";">
 		   update student
            <set>
 			  <include refid="batchSet"/>
@@ -259,7 +259,7 @@
         update student
         set `score` = #{score}
         where id in
-        <foreach collection="ids" itemImpl="itemImpl" open="(" close=")" separator=",">
+        <foreach collection="ids" item="itemImpl" open="(" close=")" separator=",">
           #{itemImpl}
 		</foreach>
 

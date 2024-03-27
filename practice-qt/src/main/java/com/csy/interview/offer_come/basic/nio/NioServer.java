@@ -41,16 +41,16 @@ public class NioServer {
     }
 
     public void initChannel(int port) throws IOException {
-        serverSocketChannel = ServerSocketChannel.open();
+        serverSocketChannel = ServerSocketChannel.open(); //此处ServerSocketChannel的实例为：ServerSocketChannelImpl@xxx
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress(port));
-        selector = Selector.open();
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        selector = Selector.open(); //此处Selector的实例为：KQueueSelectorImpl@xxx
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT); //方法返回的实例为：SelectionKeyImpl@xxx
         byteBuffer = ByteBuffer.allocate(size);
         logger.info("Nio Server bind port:{}", port);
     }
 
-    public void listener() throws Exception {
+    public void listener() throws Exception { //监听端口
         while (true) {
             int n = selector.select();
             if (n == 0) {
@@ -60,16 +60,17 @@ public class NioServer {
             Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
             while (iterator.hasNext()) {
                 SelectionKey key = iterator.next();
-                if (key.isAcceptable()) {
+                if (key.isAcceptable()) { //连接事件
                     ServerSocketChannel server = (ServerSocketChannel) key.channel();
-                    SocketChannel channel = server.accept(); //todo 该channel和客户端创建的channel是同一个对象吗？是怎么获取到的？
-                    registerChannel(selector, channel, SelectionKey.OP_READ);
+                    SocketChannel channel = server.accept(); //获取到连接的客户端SocketChannel（此处SocketChannel的实例为：ServerSocketChannelImpl@xxx）
+//                    ServerSocketChannel channel = (ServerSocketChannel) server.accept(); //此处不能强制转换，类型不一样，会报编译错误
+                    registerChannel(selector, channel, SelectionKey.OP_READ); //监听客户端SocketChannel的读事件（即该通道有数据时，就会触发）
                     remoteClientNum++;
                     // logger.info("NIO Server：online client num = {}", remoteClientNum);
                     write(channel, "hello client".getBytes());
                 }
 
-                if (key.isReadable()) {
+                if (key.isReadable()) { //读取事件
                     read(key);
                 }
 

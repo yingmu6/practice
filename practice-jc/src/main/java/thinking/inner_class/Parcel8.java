@@ -1,5 +1,7 @@
 package thinking.inner_class;
 
+import thinking.inner_class.basic.Wrapping;
+
 /**
  * @author chensy
  * @date 2024/3/16
@@ -7,7 +9,7 @@ package thinking.inner_class;
 public class Parcel8 {
 
     /**
-     * 匿名内部类（调用基类的构造器）
+     * 匿名内部类（调用基类中的方法）
      */
     public Wrapping wrapping(int x) {
         return new Wrapping(x) {
@@ -15,19 +17,5 @@ public class Parcel8 {
                 return super.value() * 47;
             }
         };
-    }
-
-    public static void main(String[] args) {
-        Parcel8 p = new Parcel8();
-        Wrapping w = p.wrapping(10);
-
-        /**
-         * 输出结果：
-         * （输出空白内容）
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
     }
 }

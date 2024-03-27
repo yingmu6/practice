@@ -36,21 +36,4 @@ public class ProjectElement implements Element {
         this.visitorTime = visitorTime;
     }
 
-    public static void main(String[] args) {
-        Element element = new ProjectElement("mobike", "share bicycle");
-        element.accept(new CTOVisitor());
-        element.accept(new CEOVisitor());
-
-        /**
-         * 输出结果：
-         * CTO Visitor Element
-         * {"projectContent":"share bicycle","projectName":"mobike","visitorName":"CTO","visitorTime":1710547759853}
-         * CEO Visitor Element
-         * {"projectContent":"share bicycle","projectName":"mobike","visitorName":"CEO","visitorTime":1710547760065}
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
-    }
 }

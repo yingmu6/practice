@@ -1,5 +1,7 @@
 package thinking.inner_class;
 
+import thinking.inner_class.basic.Contents;
+
 /**
  * @author chensy
  * @date 2024/3/16
@@ -19,19 +21,5 @@ public class Parcel7b {
 
     public Contents contents() {
         return new MyContents();
-    }
-
-    public static void main(String[] args) {
-        Parcel7b p = new Parcel7b();
-        Contents c = p.contents();
-
-        /**
-         * 输出结果：
-         * （输出空白内容）
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
     }
 }

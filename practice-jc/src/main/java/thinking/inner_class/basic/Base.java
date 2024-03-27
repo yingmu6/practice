@@ -1,4 +1,4 @@
-package thinking.inner_class;
+package thinking.inner_class.basic;
 
 /**
  * @author chensy

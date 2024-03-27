@@ -1,5 +1,7 @@
 package thinking.inner_class;
 
+import thinking.inner_class.basic.Destination;
+
 /**
  * @author chensy
  * @date 2024/3/16
@@ -7,9 +9,9 @@ package thinking.inner_class;
 public class Parcel9 {
 
     /**
-     * 匿名内部类：使用外部定义的对象（参数需要为final）
+     * 匿名内部类
      */
-    public Destination destination(final String dest) {
+    public Destination destination(String dest) {
         return new Destination() {
             private String label = dest;
             @Override
@@ -17,19 +19,5 @@ public class Parcel9 {
                 return label;
             }
         };
-    }
-
-    public static void main(String[] args) {
-        Parcel9 p = new Parcel9();
-        Destination d = p.destination("Tasmania");
-
-        /**
-         * 输出结果：
-         * （输出空白内容）
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
     }
 }

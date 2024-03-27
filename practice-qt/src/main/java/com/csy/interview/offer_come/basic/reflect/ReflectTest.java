@@ -1,8 +1,6 @@
 package com.csy.interview.offer_come.basic.reflect;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -13,9 +11,14 @@ import java.lang.reflect.Method;
  * @author chensy
  * @date 2024/3/23
  */
-public class ReflectTest {
+public class ReflectTest { //todo @Ym 概要&原理
 
-    Logger logger = LoggerFactory.getLogger(ReflectTest.class);
+    /**
+     * 反射&Class
+     * 知识概要：
+     *
+     * 参考链接：
+     */
 
     /**
      * 场景1：创建Class的三种方式
@@ -26,20 +29,24 @@ public class ReflectTest {
         // 方式一：调用对象的getClass()方法
         Person p = new Person();
         Class cls1 = p.getClass();
-        logger.info("class1:{}", cls1);
+        System.out.println("方式一: " + cls1);
 
         // 方式二：通过类的class属性获取
         Class cls2 = Person.class;
-        logger.info("class2:{}", cls2);
+        System.out.println("方式二: " + cls2);
 
         // 方式三：通过Class类中的forName(...)静态方法获取（最安全和性能最好的方法）
         Class cls3 = Class.forName("com.csy.interview.offer_come.basic.reflect.Person"); //此处的类名要写成完整限定名称，若写简写"Person"，就找不到类
-        logger.info("class3:{}", cls3);
+        System.out.println("方式三: " + cls3);
 
         /**
          * 输出结果：
+         * 方式一: class com.csy.interview.offer_come.basic.reflect.Person
+         * 方式二: class com.csy.interview.offer_come.basic.reflect.Person
+         * 方式三: class com.csy.interview.offer_come.basic.reflect.Person
          *
          * 结果分析：
+         * 1）通过对象、类以及Class的forName获取到Class类
          *
          * 总结概括：
          * 1）通过调试，三种方式获取的Class对象实例都是同一个。
@@ -56,17 +63,17 @@ public class ReflectTest {
 
         Method[] methods = clazz.getDeclaredMethods();
         for (Method m : methods) {
-            logger.info("反射获取的method：{}", m.toString());
+            System.out.println("反射获取的method：" + m.toString());
         }
 
         Field[] fields = clazz.getDeclaredFields();
         for (Field f : fields) {
-            logger.info("反射获取的field：{}", f.toString());
+            System.out.println("反射获取的field：" + f.toString());
         }
 
         Constructor[] constructors = clazz.getDeclaredConstructors();
         for (Constructor c : constructors) {
-            logger.info("反射获取的constructor：{}", c.toString());
+            System.out.println("反射获取的constructor：" + c.toString());
         }
 
         /**
@@ -84,8 +91,11 @@ public class ReflectTest {
          * 反射获取的constructor：public com.csy.interview.offer_come.basic.reflect.Person(java.lang.String,java.lang.Integer,java.lang.String)
          *
          * 结果分析：
+         * 1）获取到Class的对象实例后，获取到相应的方法Method、字段Field信息
          *
          * 总结概括：
+         * 1）获取到Class对象，就能拿到运行时类的信息
+         *
          */
     }
 
@@ -98,12 +108,12 @@ public class ReflectTest {
         // 方式一：
         Class clazz = Class.forName("com.csy.interview.offer_come.basic.reflect.Person");
         Person person1 = (Person) clazz.newInstance();
-        logger.info("通过Class的newInstance创建对象，{}", person1);
+        System.out.println("通过Class的newInstance创建对象，" + person1);
 
         // 方式二：
         Constructor constructor = clazz.getDeclaredConstructor(String.class, Integer.class, String.class);
         Person person2 = (Person) constructor.newInstance("张三", 30, "小河村");
-        logger.info("通过Constructor的newInstance创建对象，{}", person2);
+        System.out.println("通过Constructor的newInstance创建对象，" + person2);
 
         /**
          * 输出结果：
@@ -111,8 +121,12 @@ public class ReflectTest {
          * 通过Constructor的newInstance创建对象，com.csy.interview.offer_come.basic.reflect.Person@7bfcd12c
          *
          * 结果分析：
+         * 1）通过Class对象的newInstance()方法创建对象
+         * 2）沟通Constructor的newInstance()方法创建对象
          *
          * 总结概括：
+         * 1）在代码中可以通过new构建对象，也可以通过反射机制在运行时创建对象
+         *
          */
     }
 
@@ -130,15 +144,17 @@ public class ReflectTest {
         method.invoke(object, "alex");
 
         Method method1 = clazz.getMethod("getName");
-        logger.info("getName()返回值：{}", method1.invoke(object));
+        System.out.println("getName()返回值：{}" + method1.invoke(object));
 
         /**
          * 输出结果：
          * getName()返回值：alex
          *
          * 结果分析：
+         * 1）获取到Method对象后，就可以通过invoke调用
          *
          * 总结概括：
+         * 1）Method包含方法的所有信息
          */
     }
 }
