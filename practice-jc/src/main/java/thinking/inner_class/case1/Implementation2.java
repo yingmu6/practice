@@ -10,7 +10,7 @@ public class Implementation2 implements Service {
 
     @Override
     public void method1() {
-        System.out.println("Implementation1 method1");
+        System.out.println("Implementation2 method1");
     }
 
     @Override

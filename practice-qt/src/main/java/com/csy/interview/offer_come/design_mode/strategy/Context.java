@@ -4,9 +4,9 @@ package com.csy.interview.offer_come.design_mode.strategy;
  * @author chensy
  * @date 2024/3/15
  */
-public class Context {
+public class Context { //上下文
 
-    private TravelStrategy travelStrategy;
+    private TravelStrategy travelStrategy; //维护着策略的引用
 
     public TravelStrategy getTravelStrategy() {
         return travelStrategy;
@@ -18,28 +18,5 @@ public class Context {
 
     public void travelModel() {
         this.travelStrategy.travelMode();
-    }
-
-    public static void main(String[] args) {
-        Context context = new Context();
-        TravelStrategy travelByAirStrategy = new TravelByAirStrategy();
-        context.setTravelStrategy(travelByAirStrategy);
-        context.travelModel();
-
-        System.out.println("change TravelStrategy to travelByCarStrategy......");
-        TravelStrategy travelByCarStrategy = new TravelByCarStrategy();
-        context.setTravelStrategy(travelByCarStrategy);
-        context.travelModel();
-
-        /**
-         * 输出结果：
-         * travel by air
-         * change TravelStrategy to travelByCarStrategy......
-         * travel by car
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
     }
 }

@@ -8,7 +8,7 @@ import java.io.*;
  * @author chensy
  * @date 2024/3/23
  */
-public class PersistentTest { //todo @Ym 概要&总结
+public class PersistentTest {
 
     /**
      * 序列化和反序列化

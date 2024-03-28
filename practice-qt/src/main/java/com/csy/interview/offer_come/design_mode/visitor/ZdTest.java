@@ -30,8 +30,10 @@ public class ZdTest {
          * {"projectContent":"share bicycle","projectName":"mobike","visitorName":"CEO","visitorTime":1710547760065}
          *
          * 结果分析：
+         * 1）CTOVisitor、CEOVisitor都实现了Visitor的访问逻辑
          *
-         * 问题点答疑：
+         * 总结概括：
+         *
          */
     }
 }

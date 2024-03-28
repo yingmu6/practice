@@ -5,12 +5,17 @@ package thinking.inner_class.case3;
  * @date 2024/3/26
  */
 public class MNA {
-    private void f() {}
+    private void f() {
+        System.out.println("MNA f()");
+    }
 
     class A {
-        private void g() {}
+        private void g() {
+            System.out.println("A g()");
+        }
         public class B {
             void h() {
+                System.out.println("B h()");
                 g();
                 f();
             }

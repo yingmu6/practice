@@ -15,11 +15,11 @@ public class Implementation1 implements Service {
 
     @Override
     public void method2() {
-        System.out.println("Implementation2 method2");
+        System.out.println("Implementation1 method2");
     }
 
     public static ServiceFactory factory =
-            new ServiceFactory() {
+            new ServiceFactory() { //匿名类
                 @Override
                 public Service getService() {
                     return new Implementation1();
