@@ -14,7 +14,7 @@ public class BusinessHandler extends AbstractHandler implements Handler {
 
     @Override
     public void operator() {
-        System.out.println("business info handler...");
+        System.out.println(name + " info handler...");
         if (getHandler() != null) {
             getHandler().operator();
         }

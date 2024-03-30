@@ -11,6 +11,7 @@ public class MyIncrement {
     }
 
     static void f(MyIncrement mi) {
-        mi.increment();
+        mi.increment(); //可访问创建对象的方法（说明传入的实例，在当前类初始化前就创建好的）
+        // increment(); //此处会编译错误，静态方法不能调用非静态方法
     }
 }

@@ -8,24 +8,24 @@ public class GreenhouseControls extends Controller {
 
     private boolean light = false;
 
-    public class LightOn extends Event {
-        public LightOn(long delayTime) {
-            super(delayTime);
+    public class LightOn extends Event { //开灯事件（成员内部类）
+        public LightOn(long startTime, long delayTime) {
+            super(startTime, delayTime);
         }
 
         @Override
-        public void action() {
+        public void action() { //执行的动作
             light = true;
         }
 
         public String toString() {
-            return "Light is on";
+            return super.appendTime("Light is on");
         }
     }
 
-    public class LightOff extends Event {
-        public LightOff(long delayTime) {
-            super(delayTime);
+    public class LightOff extends Event { //关灯事件
+        public LightOff(long startTime, long delayTime) {
+            super(startTime, delayTime);
         }
 
         @Override
@@ -34,15 +34,15 @@ public class GreenhouseControls extends Controller {
         }
 
         public String toString() {
-            return "Light is off";
+            return super.appendTime("Light is off");
         }
     }
 
     private boolean water = false;
 
-    public class WaterOn extends Event {
-        public WaterOn(long delayTime) {
-            super(delayTime);
+    public class WaterOn extends Event { //打开水的事件
+        public WaterOn(long startTime, long delayTime) {
+            super(startTime, delayTime);
         }
 
         @Override
@@ -51,13 +51,13 @@ public class GreenhouseControls extends Controller {
         }
 
         public String toString() {
-            return "Greenhouse water is on";
+            return super.appendTime("Greenhouse water is on");
         }
     }
 
-    public class WaterOff extends Event {
-        public WaterOff(long delayTime) {
-            super(delayTime);
+    public class WaterOff extends Event { //关闭水的事件
+        public WaterOff(long startTime, long delayTime) {
+            super(startTime, delayTime);
         }
 
         @Override
@@ -66,14 +66,14 @@ public class GreenhouseControls extends Controller {
         }
 
         public String toString() {
-            return "Greenhouse water is off";
+            return super.appendTime("Greenhouse water is off");
         }
     }
 
-    private String thermostat = "Day";
+    private String thermostat = "Day"; //恒温器
     public class ThermostatNight extends Event {
-        public ThermostatNight(long delayTime) {
-            super(delayTime);
+        public ThermostatNight(long start, long delayTime) {
+            super(start, delayTime);
         }
 
         @Override
@@ -82,13 +82,13 @@ public class GreenhouseControls extends Controller {
         }
 
         public String toString() {
-            return "Thermostat on night setting";
+            return super.appendTime("Thermostat on night setting");
         }
     }
 
     public class ThermostatDay extends Event {
-        public ThermostatDay(long delayTime) {
-            super(delayTime);
+        public ThermostatDay(long startTime, long delayTime) {
+            super(startTime, delayTime);
         }
 
         @Override
@@ -97,64 +97,7 @@ public class GreenhouseControls extends Controller {
         }
 
         public String toString() {
-            return "Thermostat on day setting";
-        }
-    }
-
-    public class Bell extends Event {
-        public Bell(long delayTime) {
-            super(delayTime);
-        }
-
-        @Override
-        public void action() {
-            addEvent(new Bell(delayTime));
-        }
-
-        public String toString() {
-            return "Bing!";
-        }
-    }
-
-    public class Restart extends Event {
-        private Event[] eventList;
-
-        public Restart(long delayTime, Event[] eventList) {
-            super(delayTime);
-            this.eventList = eventList;
-            for (Event e : eventList) {
-                addEvent(e);
-            }
-        }
-
-        @Override
-        public void action() {
-            for (Event e : eventList) {
-                e.start();
-                addEvent(e);
-            }
-
-            start();
-            addEvent(this);
-        }
-
-        public String toString() {
-            return "Restarting System";
-        }
-    }
-
-    public static class Terminate extends Event {
-        public Terminate(long delayTime) {
-            super(delayTime);
-        }
-
-        @Override
-        public void action() {
-            System.exit(0);
-        }
-
-        public String toString() {
-            return "Terminating";
+            return super.appendTime("Thermostat on day setting");
         }
     }
 }

@@ -9,18 +9,4 @@ public class MultiImplementation {
     static void takesD(D d) {}
 
     static void takesE(E e) {}
-
-    public static void main(String[] args) {
-        Z z = new Z();
-        takesD(z);
-        takesE(z.makeE());
-
-        /**
-         * 输出结果：
-         *
-         * 结果分析：
-         *
-         * 总结概括：
-         */
-    }
 }

@@ -6,6 +6,6 @@ package thinking.inner_class.case4;
  */
 public class Z extends D {
     E makeE() {
-        return new E() {};
+        return new E() {}; //返回匿名实现类
     }
 }

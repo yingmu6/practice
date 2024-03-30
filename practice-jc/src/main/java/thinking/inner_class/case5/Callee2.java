@@ -14,7 +14,7 @@ public class Callee2 extends MyIncrement {
         System.out.println(i);
     }
 
-    private class Closure implements Incrementable {
+    private class Closure implements Incrementable { //closure：闭包
 
         private int i = 0;
 

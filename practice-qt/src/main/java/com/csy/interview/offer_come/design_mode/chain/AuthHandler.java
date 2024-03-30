@@ -14,29 +14,9 @@ public class AuthHandler extends AbstractHandler implements Handler {
 
     @Override
     public void operator() {
-        System.out.println("user auth...");
+        System.out.println(name + " auth...");
         if (getHandler() != null) {
             getHandler().operator();
         }
-    }
-
-    public static void main(String[] args) {
-        AuthHandler authHandler = new AuthHandler("auth");
-        BusinessHandler businessHandler = new BusinessHandler("business");
-        ResponseHandler responseHandler = new ResponseHandler("response");
-        authHandler.setHandler(businessHandler);
-        businessHandler.setHandler(responseHandler);
-        authHandler.operator();
-
-        /**
-         * 输出结果：
-         * user auth...
-         * business info handler...
-         * message response...
-         *
-         * 结果分析：
-         *
-         * 问题点答疑：
-         */
     }
 }
