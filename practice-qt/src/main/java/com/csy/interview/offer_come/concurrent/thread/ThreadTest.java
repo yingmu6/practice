@@ -2,6 +2,7 @@ package com.csy.interview.offer_come.concurrent.thread;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -13,12 +14,37 @@ import java.util.concurrent.*;
 public class ThreadTest {
 
     /**
+     * 知识点：线程
+     *
+     * 知识点概括：
+     * 1）
+     *
+     * 问题点答疑：
+     * 参考链接：线程池原理：https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html
+     */
+
+
+    /**
      * 场景1：通过继承Thread的方式创建线程
      */
     @Test
-    public void createByExtendThread() {
+    public void createByExtendThread() throws IOException {
         NewThread newThread = new NewThread();
         newThread.start();
+
+        /**
+         * 输出结果：
+         * create a thread by extends Thread
+         *
+         * 结果分析：
+         * 1）通过继承Thread类，并重写run()，实现线程的创建
+         *
+         * 结果概括：
+         * 1）创建Thread对象时，内部会初始化线程的相关信息，如：线程名称，线程分组，线程优先级，线程ID等
+         * 2）线程的run()是由JVM虚拟机调用的，使用者只需调用线程的start()，待线程获取到运行资源时，由虚拟机调用。
+         * 3）使用者不能手动调用run()方法，若手动调用，就是普通的调用方式，不是线程调用了
+         */
+        System.in.read(); //若不加此句，测试用例所在的主线程就会停止，若想在NewThread的run()断点时，就看不到效果了
     }
 
     /**
@@ -29,26 +55,58 @@ public class ThreadTest {
        ChildThread childThread = new ChildThread();
        Thread thread = new Thread(childThread);
        thread.start();
+
+        /**
+         * 输出结果：
+         * create a thread by implements Runnable
+         *
+         * 结果分析：
+         * 1）通过实现Runnable接口，然后作为持有run()的目标对象交由线程执行
+         *
+         * 结果概括：
+         * 1）实现Runnable接口的run()后，就指定了线程的执行逻辑，然后Runnable作为目标对象传入给Thread，再启动start线程
+         */
     }
 
     /**
      * 场景3：通过ExecutorService和Callable实现有返回值的线程
      */
     @Test
-    public void useExecutorAndCallable() throws ExecutionException, InterruptedException {
-        ExecutorService pool = Executors.newFixedThreadPool(5);
+    public void useExecutorAndCallable() throws ExecutionException, InterruptedException, IOException {
+        ExecutorService pool = Executors.newFixedThreadPool(1); //创建固定大小的线程池，即核心数和最大数相同（线程固定不会收缩）
         List<Future> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Callable c = new MyCallable(i + "");
+        for (int i = 0; i < 3; i++) {
+            Callable c = new MyCallable(i + ""); //Callable：可以返回结果的任务
             Future future = pool.submit(c);
             System.out.println("submit a callable thread:" + i);
             list.add(future);
         }
 
-        pool.shutdown();
+//        pool.shutdown();
         for (Future future : list) {
             System.out.println("get the result from callable thread:" + future.get().toString());
         }
+
+        System.in.read();
+
+        /**
+         * 输出结果：
+         * submit a callable thread:0
+         * submit a callable thread:1
+         * submit a callable thread:2
+         * get the result from callable thread:0
+         * get the result from callable thread:1
+         * get the result from callable thread:2
+         *
+         * 结果分析：
+         * 1）MyCallable实现了Callable接口，即为可返回结果的线程，将其提交到线程池，每次提交都会得到一个FutureTask对象实例
+         * 2）FutureTask实现了Runnable、Future接口，内部通过FutureTask调用提交任务的run()方法，并将结果存起来。
+         *
+         * 结果概括：
+         * 1）线程池中运行的线程为Worker，Worker继承AQS且实现Runnable接口，也就是可以执行加锁的线程的，它内部持有FutureTask的引用，而FutureTask又持有提交任务的Callable引用
+         * 2）当提前任务到线程池时，会先判断线程池中工作的Worker数是否超过corePoolSize，若没有超过，直接创建一个Worker执行任务，超过了就把任务先缓存到阻塞队列中
+         * 3）若阻塞队列已经满了，看下运行的Worker数是否超过最大线程数，若超过则执行受拒策略，没超过则创建Worker线程执行任务，但新建的线程会根据keepLiveTime进行超时回收
+         */
     }
 
     /**

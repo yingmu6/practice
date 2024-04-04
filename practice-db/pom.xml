@@ -13,9 +13,10 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>api</module>
-        <module>provider</module>
-        <module>consumer</module>
+        <module>dubbo-xml</module>
+        <module>dubbo-annotation</module>
+        <module>dubbo-interface</module>
+        <module>dubbo-api</module>
     </modules>
 
     <!-- 没有使用<dependencyManagement>，所以子模块provider、consumer可以直接获取practice-db的包 -->
