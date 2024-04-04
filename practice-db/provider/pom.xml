@@ -22,6 +22,7 @@
             <artifactId>dubbo</artifactId>
         </dependency>
 
+        <!-- 引入内部的模块 -->
         <dependency>
             <groupId>com.csy</groupId>
             <artifactId>api</artifactId>

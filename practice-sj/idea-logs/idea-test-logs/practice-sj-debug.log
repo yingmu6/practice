@@ -1,0 +1,110 @@
+[ INFO] [practice-sj-D] 2023-08-22 11:25:04: 0    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing put finished in 29729 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:25:04: 5    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing length finished in 14010 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:02: 0    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing put finished in 21982 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:02: 4    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing get finished in 11726 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:02: 6    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing charAt finished in 10050 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:02: 9    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing length finished in 10165 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:42: 0    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing put finished in 28826 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:42: 3    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing get finished in 6949 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:42: 5    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing charAt finished in 6057 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:27:42: 5    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing length finished in 5664 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:28:39: 0    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing put finished in 0 ms
+[ INFO] [practice-sj-D] 2023-08-22 11:28:39: 11   [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing get finished in 0 ms
+[ INFO] [practice-sj-D] 2023-08-22 11:28:39: 15   [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing charAt finished in 0 ms
+[ INFO] [practice-sj-D] 2023-08-22 11:28:39: 16   [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing length finished in 0 ms
+[ INFO] [practice-sj-D] 2023-08-22 11:29:20: 0    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing put finished in 16320 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:29:20: 3    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing get finished in 7465 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:29:20: 7    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing charAt finished in 13940 ns
+[ INFO] [practice-sj-D] 2023-08-22 11:29:20: 7    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing length finished in 10127 ns
+[ INFO] [practice-sj-D] 2023-08-23 11:59:25: 0    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing isEmpty finished in 39074 ns
+[ INFO] [practice-sj-D] 2023-08-23 11:59:25: 7    [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing size finished in 14634 ns
+[ INFO] [practice-sj-D] 2023-08-23 11:59:38: 13381 [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing put finished in 27599 ns
+[ INFO] [practice-sj-D] 2023-08-23 11:59:38: 13382 [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing get finished in 10937 ns
+[ INFO] [practice-sj-D] 2023-08-23 11:59:38: 13385 [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing charAt finished in 12008 ns
+[ INFO] [practice-sj-D] 2023-08-23 11:59:38: 13385 [main] ( TimingDynamicInvocationHandler.java,39 ) - Executing length finished in 13632 ns
+[ INFO] [practice-sj-D] 2023-08-23 12:02:43: 0    [main] ( MyInvocationHandler.java,39 ) - Executing put finished in 30218 ns
+[ INFO] [practice-sj-D] 2023-08-23 12:02:43: 3    [main] ( MyInvocationHandler.java,39 ) - Executing get finished in 12429 ns
+[ INFO] [practice-sj-D] 2023-08-23 12:02:43: 6    [main] ( MyInvocationHandler.java,39 ) - Executing charAt finished in 11607 ns
+[ INFO] [practice-sj-D] 2023-08-23 12:02:43: 6    [main] ( MyInvocationHandler.java,39 ) - Executing length finished in 7364 ns
+[ INFO] [practice-sj-D] 2023-08-24 10:59:49: 0    [main] ( MyInvocationHandler.java,39 ) - 执行 put 耗费 24471 ns
+[ INFO] [practice-sj-D] 2023-08-24 10:59:49: 2    [main] ( MyInvocationHandler.java,39 ) - 执行 get 耗费 7951 ns
+[ INFO] [practice-sj-D] 2023-08-24 10:59:49: 4    [main] ( MyInvocationHandler.java,39 ) - 执行 charAt 耗费 9221 ns
+[ INFO] [practice-sj-D] 2023-08-24 10:59:49: 5    [main] ( MyInvocationHandler.java,39 ) - 执行 length 耗费 10411 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:00:29: 0    [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：138575 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:00:29: 6    [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：14668 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:00:32: 2436 [main] ( MyInvocationHandler.java,39 ) - 执行方法：put， 耗费：44597 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:00:32: 2437 [main] ( MyInvocationHandler.java,39 ) - 执行方法：get， 耗费：8418 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:00:32: 2439 [main] ( MyInvocationHandler.java,39 ) - 执行方法：charAt， 耗费：12230 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:00:32: 2440 [main] ( MyInvocationHandler.java,39 ) - 执行方法：length， 耗费：8535 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:04:51: 0    [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：4328599 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:04:51: 6    [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：367199 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:04: 12827 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：584097 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:04: 12831 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：235389 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:51: 60360 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：792703 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:51: 60362 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：657327 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:55: 63925 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：668537 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:55: 63927 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：544548 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:56: 65102 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：598736 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:56: 65104 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：544938 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:57: 65487 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：498018 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:57: 65488 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：315672 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:57: 66103 [main] ( MyInvocationHandler.java,39 ) - 执行方法：put， 耗费：51120984040 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:57: 66170 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：829436 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:57: 66172 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：485159 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:59: 67579 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：561953 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:59: 67583 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：376430 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:59: 68460 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：638903 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:05:59: 68462 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：569892 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:01: 69610 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：1114699 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:01: 69614 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：395225 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:02: 70668 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：417226 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:02: 70672 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：386031 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:02: 71394 [main] ( MyInvocationHandler.java,39 ) - 执行方法：isEmpty， 耗费：627374 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:02: 71397 [main] ( MyInvocationHandler.java,39 ) - 执行方法：size， 耗费：482709 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:38: 107168 [main] ( MyInvocationHandler.java,39 ) - 执行方法：get， 耗费：1833834075 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:38: 107172 [main] ( MyInvocationHandler.java,39 ) - 执行方法：charAt， 耗费：27178 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:38: 107172 [main] ( MyInvocationHandler.java,39 ) - 执行方法：length， 耗费：10212 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:57: 0    [main] ( MyInvocationHandler.java,39 ) - 执行方法：put， 耗费：14307 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:57: 3    [main] ( MyInvocationHandler.java,39 ) - 执行方法：get， 耗费：16684 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:57: 6    [main] ( MyInvocationHandler.java,39 ) - 执行方法：charAt， 耗费：8968 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:06:57: 6    [main] ( MyInvocationHandler.java,39 ) - 执行方法：length， 耗费：11444 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:07:26: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put， 耗费：16064 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:07:26: 4    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get， 耗费：8941 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:07:26: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt， 耗费：8419 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:07:26: 7    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length， 耗费：6776 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:12: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null， 耗费：22296 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:12: 3    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world， 耗费：6769 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:12: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H， 耗费：10124 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:12: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11， 耗费：14269 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:27: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null，耗费：13446 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:27: 2    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world，耗费：6588 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:27: 4    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H，耗费：6424 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:09:27: 4    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11，耗费：6171 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:10:29: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null，耗费：16466 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:10:29: 3    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world，耗费：8104 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:10:29: 5    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H，耗费：8011 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:10:29: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11，耗费：6327 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:24:50: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null，耗费：16692 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:24:50: 4    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world，耗费：8028 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:24:50: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H，耗费：8588 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:24:50: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11，耗费：7147 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:26:34: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null，耗费：12472 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:26:34: 3    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world，耗费：8971 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:26:34: 5    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H，耗费：16612 ns
+[ INFO] [practice-sj-D] 2023-08-24 11:26:34: 6    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11，耗费：6218 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:20:41: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null，耗费：18530 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:20:41: 3    [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world，耗费：7388 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:20:41: 5    [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H，耗费：8516 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:20:41: 5    [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11，耗费：6261 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:30:44: 0    [main] ( MyInvocationHandler.java,40 ) - 执行方法：isEmpty，结果值：true，耗费：611823 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:30:44: 20   [main] ( MyInvocationHandler.java,40 ) - 执行方法：size，结果值：0，耗费：440783 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:30:58: 14525 [main] ( MyInvocationHandler.java,40 ) - 执行方法：isEmpty，结果值：true，耗费：608190 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:30:58: 14527 [main] ( MyInvocationHandler.java,40 ) - 执行方法：size，结果值：0，耗费：422493 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:31:05: 21341 [main] ( MyInvocationHandler.java,40 ) - 执行方法：isEmpty，结果值：true，耗费：457673 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:31:05: 21343 [main] ( MyInvocationHandler.java,40 ) - 执行方法：size，结果值：0，耗费：269333 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:31:26: 42250 [main] ( MyInvocationHandler.java,40 ) - 执行方法：isEmpty，结果值：false，耗费：617959 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:31:26: 42252 [main] ( MyInvocationHandler.java,40 ) - 执行方法：size，结果值：1，耗费：448644 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:32:12: 88089 [main] ( MyInvocationHandler.java,40 ) - 执行方法：put，结果值：null，耗费：66863780678 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:32:12: 88090 [main] ( MyInvocationHandler.java,40 ) - 执行方法：get，结果值：world，耗费：26665 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:32:12: 88092 [main] ( MyInvocationHandler.java,40 ) - 执行方法：charAt，结果值：H，耗费：9106 ns
+[ INFO] [practice-sj-D] 2023-08-25 12:32:12: 88093 [main] ( MyInvocationHandler.java,40 ) - 执行方法：length，结果值：11，耗费：6796 ns

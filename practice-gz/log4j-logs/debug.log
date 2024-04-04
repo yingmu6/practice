@@ -1,0 +1,58 @@
+[ INFO] [D] 2024-03-18 10:18:26: 1    [main] ( Log4jTest.java,79 ) - The info level !
+[ WARN] [D] 2024-03-18 10:18:26: 5    [main] ( Log4jTest.java,80 ) - Ths warn level !
+[ERROR] [D] 2024-03-18 10:18:26: 5    [main] ( Log4jTest.java,81 ) - The error level !
+[ INFO] [D] 2024-03-20 11:59:58: 0    [main] ( Log4jTest.java,79 ) - The info level !
+[ WARN] [D] 2024-03-20 11:59:58: 3    [main] ( Log4jTest.java,80 ) - Ths warn level !
+[ERROR] [D] 2024-03-20 11:59:58: 4    [main] ( Log4jTest.java,81 ) - The error level !
+[ INFO] [D] 2024-03-25 19:31:38: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:31:38 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:31:38: 60   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:31:39: 969  [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:36:15: 1    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:36:15 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:36:15: 56   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:36:16: 1031 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:36:17: 1487 [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+[ INFO] [D] 2024-03-25 19:39:20: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:39:20 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:39:20: 61   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:39:21: 1013 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:39:21: 1489 [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+[ INFO] [D] 2024-03-25 19:39:43: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:39:43 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:39:43: 60   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:39:44: 986  [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:39:53: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:39:53 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:39:53: 54   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:39:54: 1091 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:51:48: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:51:48 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:51:48: 61   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:51:50: 1089 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:52:35: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:52:35 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:52:35: 59   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:52:36: 1427 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 19:53:22: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 19:53:22 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 19:53:22: 60   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 19:53:23: 1131 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 20:14:29: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@ba8d91c: startup date [Mon Mar 25 20:14:29 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 20:14:29: 70   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 20:14:30: 1231 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 20:20:30: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@ba8d91c: startup date [Mon Mar 25 20:20:30 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 20:20:30: 71   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ WARN] [D] 2024-03-25 20:20:42: 11871 [main] ( AbstractApplicationContext.java,551 ) - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'studentDAO' defined in file [/Users/shengyong.chen/self_pro/practice/practice-gz/target/classes/mybatis/mysql/testV2/dao/impl/StudentDAOImpl.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+[ INFO] [D] 2024-03-25 20:52:05: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@279ad2e3: startup date [Mon Mar 25 20:52:05 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 20:52:05: 80   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 20:52:06: 1332 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 20:56:04: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 20:56:04 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 20:56:04: 178  [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 20:56:41: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 20:56:41 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 20:56:41: 58   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 20:58:04: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 20:58:04 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 20:58:04: 61   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 20:58:05: 932  [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 23:34:45: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 23:34:45 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 23:34:45: 100  [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 23:35:57: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 23:35:57 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 23:35:57: 56   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 23:38:04: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 23:38:04 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 23:38:04: 51   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 23:38:05: 965  [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited
+[ INFO] [D] 2024-03-25 23:38:31: 0    [main] ( AbstractApplicationContext.java,583 ) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4411d970: startup date [Mon Mar 25 23:38:31 CST 2024]; root of context hierarchy
+[ INFO] [D] 2024-03-25 23:38:31: 74   [main] ( XmlBeanDefinitionReader.java,317 ) - Loading XML bean definitions from class path resource [META-INF/spring/spring-database-config.xml]
+[ INFO] [D] 2024-03-25 23:38:32: 1022 [main] ( DruidDataSource.java,996 ) - {dataSource-1} inited

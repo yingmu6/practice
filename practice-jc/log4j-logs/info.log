@@ -1,0 +1,62 @@
+[ INFO] [I] 2024-03-20 14:48:32: 0    [main] ( FunctionTest.java,46 ) - 你好,hello
+[ INFO] [I] 2024-03-20 14:51:11: 0    [main] ( FunctionTest.java,47 ) - 你好,hello
+[ INFO] [I] 2024-03-20 14:55:40: 0    [main] ( FunctionTest.java,48 ) - 你好,hello
+[ INFO] [I] 2024-03-20 14:55:40: 2    [main] ( FunctionTest.java,48 ) - haha,hello
+[ INFO] [I] 2024-03-20 14:55:40: 4    [main] ( FunctionTest.java,53 ) - default方法：haha,hello, say Hi
+[ INFO] [I] 2024-03-20 14:58:42: 0    [main] ( FunctionTest.java,48 ) - 你好,hello
+[ INFO] [I] 2024-03-20 14:58:42: 3    [main] ( FunctionTest.java,48 ) - haha,hello
+[ INFO] [I] 2024-03-20 14:58:42: 4    [main] ( FunctionTest.java,53 ) - default方法：haha,hello, say Hi
+[ INFO] [I] 2024-03-20 15:05:22: 0    [main] ( FunctionTest.java,48 ) - 你好,hello
+[ INFO] [I] 2024-03-20 15:05:22: 5    [main] ( FunctionTest.java,53 ) - default方法： Hi 
+[ INFO] [I] 2024-03-20 15:05:22: 5    [main] ( FunctionTest.java,54 ) - default方法2： Hi2 
+[ INFO] [I] 2024-03-20 15:05:22: 5    [main] ( FunctionTest.java,56 ) - static方法： Ha 
+[ INFO] [I] 2024-03-20 15:05:22: 5    [main] ( FunctionTest.java,57 ) - static方法2： Ha2 
+[ INFO] [I] 2024-03-20 15:07:06: 0    [main] ( FunctionTest.java,48 ) - 你好,hello
+[ INFO] [I] 2024-03-20 15:07:06: 5    [main] ( FunctionTest.java,53 ) - default方法： Hi 
+[ INFO] [I] 2024-03-20 15:07:06: 6    [main] ( FunctionTest.java,54 ) - default方法2： Hi2 
+[ INFO] [I] 2024-03-20 15:07:06: 6    [main] ( FunctionTest.java,56 ) - static方法： Ha 
+[ INFO] [I] 2024-03-20 15:07:06: 7    [main] ( FunctionTest.java,57 ) - static方法2： Ha2 
+[ INFO] [I] 2024-03-20 15:14:55: 1    [main] ( FunctionTest.java,85 ) - function interface V1： V1:haha
+[ INFO] [I] 2024-03-20 15:14:55: 4    [main] ( FunctionTest.java,90 ) - function interface V2： V2:haha
+[ INFO] [I] 2024-03-20 15:14:55: 4    [main] ( FunctionTest.java,98 ) - function interface V3： V3:haha
+[ INFO] [I] 2024-03-20 15:14:55: 5    [main] ( FunctionTest.java,105 ) - function interface V4：hello V4:haha
+[ INFO] [I] 2024-03-20 15:14:55: 7    [main] ( FunctionTest.java,115 ) - int计算1：4
+[ INFO] [I] 2024-03-20 15:14:55: 7    [main] ( FunctionTest.java,116 ) - int计算2：2
+[ INFO] [I] 2024-03-20 15:17:21: 0    [main] ( FunctionTest.java,85 ) - V1： V1:haha
+[ INFO] [I] 2024-03-20 15:17:21: 3    [main] ( FunctionTest.java,90 ) - V2： V2:haha
+[ INFO] [I] 2024-03-20 15:17:21: 4    [main] ( FunctionTest.java,98 ) - V3： V3:haha
+[ INFO] [I] 2024-03-20 15:17:21: 6    [main] ( FunctionTest.java,105 ) - V4：hello V4:haha
+[ INFO] [I] 2024-03-20 15:17:21: 7    [main] ( FunctionTest.java,115 ) - int计算1：4
+[ INFO] [I] 2024-03-20 15:17:21: 7    [main] ( FunctionTest.java,116 ) - int计算2：2
+[ INFO] [I] 2024-03-20 15:19:53: 0    [main] ( FunctionTest.java,85 ) - V1： V1:haha
+[ INFO] [I] 2024-03-20 15:19:53: 3    [main] ( FunctionTest.java,90 ) - V2： V2:haha
+[ INFO] [I] 2024-03-20 15:19:53: 3    [main] ( FunctionTest.java,98 ) - V3： V3:haha
+[ INFO] [I] 2024-03-20 15:19:53: 5    [main] ( FunctionTest.java,105 ) - V4：hello V4:haha
+[ INFO] [I] 2024-03-20 15:19:53: 8    [main] ( FunctionTest.java,115 ) - 参数值：3，计算公式：x + 1，结果：4
+[ INFO] [I] 2024-03-20 15:19:53: 8    [main] ( FunctionTest.java,116 ) - 参数值：4，计算公式：x / 1，结果：2
+[ INFO] [I] 2024-03-20 15:20:51: 0    [main] ( FunctionTest.java,85 ) - V1： V1:haha
+[ INFO] [I] 2024-03-20 15:20:51: 3    [main] ( FunctionTest.java,90 ) - V2： V2:haha
+[ INFO] [I] 2024-03-20 15:20:51: 3    [main] ( FunctionTest.java,98 ) - V3： V3:haha
+[ INFO] [I] 2024-03-20 15:20:51: 5    [main] ( FunctionTest.java,105 ) - V4：hello，V4:haha
+[ INFO] [I] 2024-03-20 15:20:51: 8    [main] ( FunctionTest.java,115 ) - 参数值：3，计算公式：x + 1，结果：4
+[ INFO] [I] 2024-03-20 15:20:51: 9    [main] ( FunctionTest.java,116 ) - 参数值：4，计算公式：x / 1，结果：2
+[ INFO] [I] 2024-03-20 15:28:24: 0    [main] ( FunctionTest.java,85 ) - V1： V1:haha
+[ INFO] [I] 2024-03-20 15:28:24: 3    [main] ( FunctionTest.java,90 ) - V2： V2:haha
+[ INFO] [I] 2024-03-20 15:28:24: 3    [main] ( FunctionTest.java,98 ) - V3： V3:haha
+[ INFO] [I] 2024-03-20 15:28:24: 4    [main] ( FunctionTest.java,105 ) - V4：hello，V4:haha
+[ INFO] [I] 2024-03-20 15:28:24: 7    [main] ( FunctionTest.java,117 ) - 参数值：3，计算公式：x + 1，结果：4
+[ INFO] [I] 2024-03-20 15:28:24: 7    [main] ( FunctionTest.java,118 ) - 参数值：4，计算公式：x / 1，结果：2
+[ INFO] [I] 2024-03-20 15:28:24: 7    [main] ( FunctionTest.java,119 ) - 参数值：5，处理逻辑：result：+ x，结果：2
+[ INFO] [I] 2024-03-20 15:29:01: 0    [main] ( FunctionTest.java,85 ) - V1： V1:haha
+[ INFO] [I] 2024-03-20 15:29:01: 3    [main] ( FunctionTest.java,90 ) - V2： V2:haha
+[ INFO] [I] 2024-03-20 15:29:01: 4    [main] ( FunctionTest.java,98 ) - V3： V3:haha
+[ INFO] [I] 2024-03-20 15:29:01: 5    [main] ( FunctionTest.java,105 ) - V4：hello，V4:haha
+[ INFO] [I] 2024-03-20 15:29:01: 10   [main] ( FunctionTest.java,117 ) - 参数值：3，计算公式：x + 1，结果：4
+[ INFO] [I] 2024-03-20 15:29:01: 10   [main] ( FunctionTest.java,118 ) - 参数值：4，计算公式：x / 1，结果：2
+[ INFO] [I] 2024-03-20 15:29:01: 10   [main] ( FunctionTest.java,119 ) - 参数值：5，处理逻辑：result：+ x，结果：result：5
+[ INFO] [I] 2024-03-25 10:25:02: 0    [main] ( Parcel1.java,34 ) - 访问成员内部类Contents, c.value() = 11
+[ INFO] [I] 2024-03-25 10:25:02: 4    [main] ( Parcel1.java,36 ) - 访问成员内部类Destination, d.readLabel() = Tasmania
+[ INFO] [I] 2024-03-25 10:25:51: 0    [main] ( Parcel1.java,34 ) - 访问成员内部类Contents, c.value() = 11
+[ INFO] [I] 2024-03-25 10:25:51: 4    [main] ( Parcel1.java,36 ) - 访问成员内部类Destination, d.readLabel() = Tasmania
+[ INFO] [I] 2024-03-25 10:39:02: 0    [main] ( Parcel1.java,35 ) - 访问成员内部类，Tasmania
+[ INFO] [I] 2024-03-25 10:39:27: 0    [main] ( Parcel1.java,35 ) - 访问成员内部类Destination：Tasmania

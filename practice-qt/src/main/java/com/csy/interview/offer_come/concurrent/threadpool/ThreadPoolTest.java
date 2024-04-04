@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.concurrent.*;
+import java.util.stream.IntStream;
 
 /**
  * @author chensy
@@ -22,6 +23,9 @@ public class ThreadPoolTest {
      *    executor has been shutdown or because its capacity has been reached（即任务不能提交到线程池时会执行受拒策略）
      *
      * 2）测试用例，怎么模拟进入到线程池拒绝策略中
+     *
+     * 参考链接：
+     * a）https://juejin.cn/post/6946087172143317023 Java线程池源码解析（讲解得比较形象）
      */
 
     /**
@@ -84,5 +88,34 @@ public class ThreadPoolTest {
 
         // 方式四：
         ExecutorService e4 = Executors.newWorkStealingPool();
+    }
+
+    /**
+     * 场景3：模拟输出线程受拒策略
+     */
+    @Test
+    public void basicTest() {
+        RejectedExecutionHandler handler = new DiscardOldestNPolicy(3);
+
+        ExecutorService executors = new ThreadPoolExecutor(2,
+                3,
+                10, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(4),handler);
+
+        IntStream.range(0, 10).forEach(i -> {
+            executors.submit(() -> {
+                IntStream.range(0, 50).forEach(j -> System.out.println(Thread.currentThread().getName()));
+            });
+        });
+
+        executors.shutdown();
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
     }
 }
