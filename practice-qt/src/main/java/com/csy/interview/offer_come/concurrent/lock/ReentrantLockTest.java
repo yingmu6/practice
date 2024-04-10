@@ -15,9 +15,16 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ReentrantLockTest {
 
     /**
-     * ReentrantLock可重入锁_测试
+     * 知识点：ReentrantLock可重入锁
      * 1）重入锁：又叫做递归锁，是指在同一个线程中，外部方法获取锁之后，内部方法依然可以获取到锁。【可以简单理解为：同一个线程中可以多次获取到锁】
      *   （如果锁不具备重入性，那么当同一个线程两次获取到锁时会发生死锁）
+     *
+     * 问题点：
+     * 1）ReentrantLock为什么具有可重入性？Lock的本质是什么，CAS吗？
+     *
+     * 2）ReentrantLock中的FailSync和NonfairSync有什么用途以及区别？
+     *
+     * 3）ReentrantLock中Sync的state是怎么变化的？todo @Ym
      */
 
     private Lock lock = new ReentrantLock();

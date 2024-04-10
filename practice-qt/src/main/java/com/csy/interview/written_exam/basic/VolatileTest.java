@@ -9,8 +9,11 @@ import org.junit.Test;
 public class VolatileTest {
 
     /**
-     * volatile_测试
+     * 知识点：volatile_测试
      * 1）volatile能保证可见性、有序性，但不能保证原子性
+     *
+     * 问题点：
+     * 1）volatile的底层原理是什么？todo @Ym 待了解
      */
 
     /**

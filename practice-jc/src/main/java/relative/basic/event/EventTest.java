@@ -20,7 +20,7 @@ public class EventTest {
      *
      */
     @Test
-    public void test_basic() {
+    public void test_basic() { //todo @Ym EventListener使用
         System.out.println(11);
     }
 }

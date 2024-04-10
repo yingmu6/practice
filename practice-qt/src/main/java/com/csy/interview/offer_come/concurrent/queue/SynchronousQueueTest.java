@@ -12,7 +12,12 @@ import java.util.concurrent.SynchronousQueue;
 public class SynchronousQueueTest {
 
     /**
-     * SynchronousQueue是一个不存储元素的阻塞队列
+     * 知识点：SynchronousQueue
+     *
+     * 1）SynchronousQueue，实际上它不是一个真正的队列，因为SynchronousQueue没有容量。与其他BlockingQueue（阻塞队列）不同,
+     *    SynchronousQueue是一个不存储元素的BlockingQueue。只是它维护一组线程，这些线程在等待着把元素加入或移出队列。
+     *
+     * 参考链接：https://juejin.cn/post/7031196740128768037
      */
 
     /**

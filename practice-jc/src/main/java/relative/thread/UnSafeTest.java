@@ -9,6 +9,13 @@ import org.junit.Test;
 public class UnSafeTest {
 
     /**
+     * 知识点：UnSafe
+     *
+     * 问题点：
+     * 1）怎么使用UnSafe，底层原理是什么，能否看到底层native源码？todo @Ym
+     */
+
+    /**
      *计数器
      */
     private static int num = 0;

@@ -12,7 +12,7 @@ import java.util.List;
  * @author : chensy
  * Date : 2020-02-05 00:06
  */
-public class BasicUseTest {
+public class ZookeeperTest {
     public static void main(String[] args)  throws Exception {
        use();
        System.in.read();
