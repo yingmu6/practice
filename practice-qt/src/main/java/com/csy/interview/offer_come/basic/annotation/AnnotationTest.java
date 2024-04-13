@@ -33,4 +33,17 @@ public class AnnotationTest {
          * 参考链接：https://blog.unclezs.com/pages/83a49c/#%E6%B3%A8%E8%A7%A3%E7%9A%84%E7%94%A8%E5%A4%84
          */
     }
+
+    /**
+     * 通过javap查看编译后注解的特性
+     * 执行： javap /Users/shengyong.chen/self_remote/practice/practice-qt/target/classes/com/csy/interview/offer_come/basic/annotation/FruitProvider.class
+     *
+     * 得到注解编译后的字节码文件（可以看到注解是一个接口，且继承了Annotation接口）
+     *
+     * public interface com.csy.interview.offer_come.basic.annotation.FruitProvider extends java.lang.annotation.Annotation {
+     *   public abstract int id();
+     *   public abstract java.lang.String name();
+     *   public abstract java.lang.String address();
+     * }
+     */
 }

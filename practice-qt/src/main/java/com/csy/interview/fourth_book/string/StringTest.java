@@ -36,23 +36,21 @@ public class StringTest {
         System.out.println("s3 == s4: " + (s3 == s4));
         System.out.println("s1.equals(s4): " + s1.equals(s4));
         System.out.println("s3.equals(s4): " + s3.equals(s4));
+        System.out.println("s1 == s3: " + (s1 == s3));
+        System.out.println("s3 == \"abc\": " + (s3 == "abc")); //String是字符串对象，而"abc"是一个常量，两者的对象地址不一样
+
 
         /**
-         * 预期输出：
-         * true
-         * true
-         * true
-         * false
-         * true
-         * true
          *
-         * 实际输出：
+         * 结果输出：
          * s1 == s5: true
          * s1 == s2: true
          * s1.equals(s2): true
          * s3 == s4: false
          * s1.equals(s4): true
          * s3.equals(s4): true
+         * s1 == s3: false
+         * s3 == "abc": false
          *
          * 结果分析：
          * 1）"==" 比较基本类型时，判断值是否相等，比较对象类型时，判断是否指向同一内存地址

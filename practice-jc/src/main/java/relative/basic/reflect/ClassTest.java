@@ -310,6 +310,23 @@ public class ClassTest {
     }
 
     /**
+     * 场景7：测试Class的名称、简称等
+     */
+    @Test
+    public void testClassName() {
+        System.out.println(Shape.class.getSimpleName() + "，" + Shape.class.getName() + "，" + Shape.class.getCanonicalName());
+
+        /**
+         * 输出结果：
+         * Shape，relative.basic.reflect.ClassTest$Shape，relative.basic.reflect.ClassTest.Shape
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
+    }
+
+    /**
      * ------测试用例--------
      */
     public interface Shape { //图形

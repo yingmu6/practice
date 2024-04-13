@@ -19,7 +19,7 @@ public class Burrito {
      *
      * 3）枚举本质上是通过普通的类来实现的，只是编译器为我们进行了处理。每个枚举类型都继承自java.lang.Enum，并自动添加了values和valueOf方法。
      *
-     * 4）可使用javap来查看字节码文件 todo @Ym 待使用
+     * 4）可使用javap来查看字节码文件，可使用javap --help查看指令
      *
      * 参考链接：
      * a）https://juejin.cn/post/6986825010597855245 Java枚举的深入理解以及实现原理
@@ -52,5 +52,22 @@ public class Burrito {
          * 1）所有的枚举类都默认实现了java.lang.Enum，此处打印枚举对象时，会进入Enum的toString()方法，会输出枚举名称
          */
     }
+
+    /**
+     * 使用javap查看编译后的字节码文件（通过javap即可清晰看清Enum类的特性）
+     *
+     * 如：javap /Users/shengyong.chen/self_remote/practice/practice-jc/target/classes/thinking/enum_type/case1/Shrubbery.class
+     *
+     * 生成的枚举类为：
+     * public final class thinking.enum_type.case1.Shrubbery extends java.lang.Enum<thinking.enum_type.case1.Shrubbery> {
+     *   public static final thinking.enum_type.case1.Shrubbery GROUND;
+     *   public static final thinking.enum_type.case1.Shrubbery CRAWLING;
+     *   public static final thinking.enum_type.case1.Shrubbery HANGING;
+     *   public static thinking.enum_type.case1.Shrubbery[] values();
+     *   public static thinking.enum_type.case1.Shrubbery valueOf(java.lang.String);
+     *   static {};
+     * }
+     *
+     */
 
 }

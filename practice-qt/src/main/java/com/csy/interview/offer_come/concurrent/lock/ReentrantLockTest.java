@@ -12,29 +12,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author chensy
  * @date 2023/9/7
  */
-public class ReentrantLockTest {
-
-    /**
-     * 知识点：ReentrantLock可重入锁
-     * 1）重入锁：又叫做递归锁，是指在同一个线程中，外部方法获取锁之后，内部方法依然可以获取到锁。【可以简单理解为：同一个线程中可以多次获取到锁】
-     *   （如果锁不具备重入性，那么当同一个线程两次获取到锁时会发生死锁）
-     *
-     * 问题点：
-     * 1）ReentrantLock为什么具有可重入性？Lock的本质是什么，CAS吗？
-     *
-     * 2）ReentrantLock中的FailSync和NonfairSync有什么用途以及区别？
-     *
-     * 3）ReentrantLock中Sync的state是怎么变化的？todo @Ym
-     */
-
-    private Lock lock = new ReentrantLock();
+public class ReentrantLockTest { //Ms_Doing
 
      /**
-     * 场景1：可重入锁基本使用
+     * 场景1：可重入锁基本使用（NonfairSync实现）
      */
     @Test
-    public void test_basic_use() {
-        method1();
+    public void test_basic_use_v1() {
+        Lock nonFailLock = new ReentrantLock(); //默认Sync的实例为NonfairSync
+        method1(nonFailLock);
 
         /**
          * 输出结果：
@@ -46,14 +32,34 @@ public class ReentrantLockTest {
          */
     }
 
-    private void method1() {
+    /**
+     * 场景2：可重入锁基本使用（FairSync实现）
+     */
+    @Test
+    public void test_basic_use_v2() {
+
+        Lock fairLock = new ReentrantLock(true);
+        method1(fairLock);
+
+        /**
+         * 输出结果：
+         * method1 is called
+         * method2 is called
+         *
+         * 结果分析：
+         * 1）ReentrantLock中的FairSync和NonFairSync的主要区别是FailSync在lock时，会判断hasQueuedPredecessors()
+         *    队列中是否有其它的线程等待锁，若没有再抢锁。
+         */
+    }
+
+    private void method1(Lock lock) {
         lock.lock();
         System.out.println("method1 is called");
-        method2();
+        method2(lock);
         lock.unlock();
     }
 
-    private void method2() {
+    private void method2(Lock lock) {
         lock.lock();
         System.out.println("method2 is called");
         lock.unlock();
@@ -81,10 +87,8 @@ public class ReentrantLockTest {
 
         /**
          * 输出结果：
-         * method1 is called，timestamp=Thu Sep 07 10:56:37 CST 2023
-         * method1 is called，timestamp=Thu Sep 07 10:56:42 CST 2023
-         * method2 is called，timestamp=Thu Sep 07 10:56:42 CST 2023
-         * method2 is called，timestamp=Thu Sep 07 10:56:42 CST 2023
+         * method1 is called，timestamp=Fri Apr 12 13:36:07 CST 2024
+         * method2 is called，timestamp=Fri Apr 12 13:36:12 CST 2024
          *
          * 结果分析：
          * 1）线程1执行了method1后，sleep 5秒，因为处理的同一个对象demo，所以线程1还未执行完时，线程2需要等待
@@ -180,9 +184,6 @@ public class ReentrantLockTest {
          *
          * 结果分析：
          * 1）使用写锁时，没有交替执行，一直执行完一个线程
-         *
-         * 问题点答疑：
-         * 1）运行中，为什么只看Thread-0线程运行，Thread-1线程没有看到运行？
          */
     }
 
@@ -293,7 +294,6 @@ public class ReentrantLockTest {
                 lock.lock();
                 System.out.println("method1 is called，timestamp=" + new Date());
                 Thread.sleep(5000); //线程睡眠5秒
-                System.out.println("method1 is called，timestamp=" + new Date());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
@@ -303,7 +303,6 @@ public class ReentrantLockTest {
 
         public void method2() {
             lock.lock();
-            System.out.println("method2 is called，timestamp=" + new Date());
             System.out.println("method2 is called，timestamp=" + new Date());
             lock.unlock();
         }
