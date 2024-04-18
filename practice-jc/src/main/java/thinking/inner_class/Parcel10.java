@@ -1,7 +1,5 @@
 package thinking.inner_class;
 
-import thinking.inner_class.basic.Destination;
-
 /**
  * @author chensy
  * @date 2024/3/26
@@ -24,5 +22,28 @@ public class Parcel10 {
                 return label;
             }
         };
+    }
+
+    /**
+     * 场景10：匿名内部类
+     */
+    public static void main(String[] args) {
+        Parcel10 p = new Parcel10();
+        Destination d = p.destination("Tasmania", 101.395F);
+        System.out.println(d.readLabel());
+
+        /**
+         *
+         * 输出结果：
+         * Over budget!
+         * Tasmania
+         *
+         * 结果分析：
+         * 1）在匿名类的代码块中，访问到外部类的方法入参值
+         *
+         * 总结概括：
+         * 1）匿名类能访问外部类方法的入参
+         *
+         */
     }
 }
