@@ -39,6 +39,22 @@ public class HashMapTest {
 
         System.out.println(map.get("name"));
         System.out.println(map.get("age"));
+
+        /**
+         * 输出结果：
+         * zhang
+         * 18
+         *
+         * 结果分析
+         *
+         * 结果概括：
+         * 1）阈值 = 负载因子 * 容量，table数组按2倍扩容（HashMap是Node数组+链表的组合）
+         * 2）HashMap维护者Node<K,V>[] table;节点数组，节点Node又包含
+         *    final int hash;
+         *    final K key;
+         *    V value;
+         *    Node<K,V> next;
+         */
     }
 
     /**
