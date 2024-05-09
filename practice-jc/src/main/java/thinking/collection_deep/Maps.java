@@ -1,9 +1,10 @@
 package thinking.collection_deep;
 
 import net.mindview.util.CountingMapData;
+import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static net.mindview.util.Print.print;
 import static net.mindview.util.Print.printnb;
@@ -47,13 +48,98 @@ public class Maps { //@thinking Done
         print("map.isEmpty()：" + map.isEmpty());
     }
 
-    public static void main(String[] args) {
+    /**
+     * 场景1：HashMap测试
+     */
+    @Test
+    public void testHashMap() {
+
         test(new HashMap<>());
-//        test(new TreeMap<>());
-//        test(new LinkedHashMap<>());
-//        test(new IdentityHashMap<>());
-//        test(new ConcurrentHashMap<>());
-//        test(new WeakHashMap<>());
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
+    }
+
+    /**
+     * 场景2：TreeMap测试
+     */
+    @Test
+    public void testTreeMap() {
+
+        test(new TreeMap<>());
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
+    }
+
+    /**
+     * 场景3：LinkedHashMap测试
+     */
+    @Test
+    public void testLinkedHashMap() {
+
+        test(new LinkedHashMap<>());
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
+    }
+
+    /**
+     * 场景4：IdentityHashMap测试
+     */
+    @Test
+    public void testIdentityHashMap() {
+
+        test(new IdentityHashMap<>());
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
+    }
+
+    /**
+     * 场景5：ConcurrentHashMap测试
+     */
+    @Test
+    public void testConcurrentHashMap() {
+
+        test(new ConcurrentHashMap<>());
+
+        /**
+         * 输出结果：
+         *
+         * 结果分析：
+         *
+         * 结果概括：
+         */
+    }
+
+    /**
+     * 场景6：WeakHashMap测试
+     */
+    @Test
+    public void testWeakHashMap() {
+
+        test(new WeakHashMap<>());
 
         /**
          * 输出结果：

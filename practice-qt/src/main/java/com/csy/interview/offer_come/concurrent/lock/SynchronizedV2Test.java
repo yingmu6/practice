@@ -8,7 +8,11 @@ import java.io.IOException;
  * @author chensy
  * @date 2024/1/6
  */
-public class SynchronizedV2Test {
+public class SynchronizedV2Test { //@MsY-done
+
+    /**
+     * 知识点：synchronized各种场景的使用
+     */
 
     /**
      * 场景1：synchronized修饰普通方法，锁住的是当前实例对象（作用于同一个对象）
@@ -41,7 +45,7 @@ public class SynchronizedV2Test {
          *
          * 结果分析：
          * 1）因为synchronized修饰的是普通方法，所以锁住的是当前对象即demoV1，虽然启动了两个线程，但第二个线程要做等待，直到第一个线程处理完释放锁才能进行
-         * 2）第一个线程执行完，释放了锁，第二个线程才能进行处理
+         * 2）第一个线程执行完，释放了锁，第二个线程才能进行处理，也就是会进行阻塞等待
          */
     }
 
@@ -77,6 +81,7 @@ public class SynchronizedV2Test {
          *
          * 结果分析：
          * 1）synchronized作用在普通方法上，锁住的是当前调用方法的对象。因为调用的对象demoV1、demoV2不一样，用的不是同一把锁，所以就可以并发执行了
+         *   （阻塞等待，是发生在共享资源竞争的时候）
          */
     }
 
@@ -139,7 +144,7 @@ public class SynchronizedV2Test {
         System.in.read();
 
         /**
-         * 输出结果：
+         * 输出结果：（顺序执行）
          * blockMethod1 execute
          * blockMethod1 execute
          * blockMethod2 execute

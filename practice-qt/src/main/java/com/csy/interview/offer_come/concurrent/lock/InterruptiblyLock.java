@@ -48,7 +48,7 @@ public class InterruptiblyLock {
             @Override
             public void run() {
                 try {
-                    lock2.lockInterruptibly();
+                    lock2.lockInterruptibly(); //若加锁不成功，一直循环尝试加锁，直到线程被中断
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {

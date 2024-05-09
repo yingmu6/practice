@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author chensy
  * @date 2023/9/7
  */
-public class ReentrantLockTest { //Ms_Doing
+public class ReentrantLockTest { //@MsY_Done
 
     /**
      * 知识点：ReentrantLock可重入锁
@@ -30,6 +30,7 @@ public class ReentrantLockTest { //Ms_Doing
      *         并且把state加1。ReentrantLock的本质就是借助了AQS的volatile变量state实现的，也就是CAS
      *
      * 2）ReentrantLock中的FailSync和NonfairSync有什么用途以及区别？
+     *    解答：主要区别是公平与不公平，即是否需要判断队列中是否还有其它线程等待锁的使用。
      *
      * 3）ReentrantLock中Sync的state是怎么变化的？
      *   解答：state是AQS中volatile int的变量，描述同步的状态。在加锁时+1，释放锁时-1，是线程安全的
@@ -218,7 +219,9 @@ public class ReentrantLockTest { //Ms_Doing
          * Thread-0写操作完毕
          *
          * 结果分析：
-         * 1）使用写锁时，没有交替执行，一直执行完一个线程
+         * 1）使用写锁时，没有交替执行，一直执行完一个线程。
+         * 2）在执行写锁时，会执行ReentrantReadWriteLock.Sync#tryAcquire(int)方法，会判断当前线程与独占线程是否同一个
+         *    若不是同一个，则加入AQS同步器的队列中
          */
     }
 
@@ -238,7 +241,9 @@ public class ReentrantLockTest { //Ms_Doing
          * 10
          *
          * 结果分析：
-         * 由于Lock的类型为ReentrantLock，属于可重入锁，所以一个线程可以多次获取锁
+         * 1）由于Lock的类型为ReentrantLock，属于可重入锁，所以一个线程可以多次获取锁
+         * 2）ReentrantLock加锁时，会进入ReentrantLock.Sync#nonfairTryAcquire方法，里面会判断
+         *    当前线程和独占线程是否为同一个，若为同一个，则可以加锁成功，即state值加1
          *
          */
     }
@@ -268,6 +273,7 @@ public class ReentrantLockTest { //Ms_Doing
          * Thread-0，退出。
          *
          * 结果分析：
+         * 1）ReentrantLock#lockInterruptibly()在加锁不成功时，会一直循环尝试加锁，直到线程被中断
          */
     }
 

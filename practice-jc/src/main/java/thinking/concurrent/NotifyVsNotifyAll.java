@@ -9,7 +9,14 @@ import java.util.concurrent.Executors;
  * @author chensy
  * @date 2024/4/14
  */
-public class NotifyVsNotifyAll {
+public class NotifyVsNotifyAll { //@JaY-Doing
+
+    /**
+     * 知识点：
+     *
+     * 知识点概要：
+     * 1）
+     */
     static class Blocker {
         synchronized void waitingCall() {
             try {
@@ -36,7 +43,7 @@ public class NotifyVsNotifyAll {
     }
 
     public static void main(String[] args) {
-        ExecutorService exec = Executors.newCachedThreadPool();
+        ExecutorService exec = Executors.newCachedThreadPool(); //按需创建线程
         for (int i = 0; i < 5; i++)
             exec.execute(new Task());
         exec.execute(new Task2());
@@ -51,5 +58,17 @@ public class NotifyVsNotifyAll {
                 }
             }
         }, 400, 400);
+
+        /**
+         * 输出结果：（一直输出）
+         *  notify()
+         *
+         *  notify()
+         *
+         *  ......
+         *
+         * 结果分析：
+         * 1）
+         */
     }
 }
