@@ -14,7 +14,7 @@ import java.io.IOException;
  * @author chensy
  * @date 2019-05-29 14:36
  */
-public class ThreadTest {
+public class ThreadTest { //@JcY-Doing
 
     /**
      * 线程_概述
@@ -119,24 +119,33 @@ public class ThreadTest {
      * （当前线程可能抢到时间片执行，也可能没有抢到时间片执行）
      */
     @Test
-    public void test_yield() {
+    public void test_yield() throws IOException { //Done
         YieldTest yt1 = new YieldTest("张三");
         YieldTest yt2 = new YieldTest("李四");
         yt1.start();
         yt2.start();
+        System.in.read(); //需要加上这句代码，不然当线程yield让步休眠后，就看不到后续线程重新获取CPU时间片，执行的结果了
 
         /**
          * 结果输出（每次运行都有不能的结果输出，哪个线程抢到时间片，就对应执行哪个线程）
          *
          * 结果一：
-         * ...李四----30...
-         * ...张三----14...
-         * ...张三----15...
+         * ......
+         * 李四----30
+         * 张三----14
+         * 张三----15
+         * .....
          *
          * 结果二：
-         * ...张三----30...
-         * ...李四----1...
-         * ...李四----2...
+         * ......
+         * 张三----30
+         * 李四----1
+         * 李四----2
+         * ......
+         *
+         * 结果分析：
+         * 1）两个线程启动后，在i递增到i == 30时，就会执行yield()，线程让出CPU时间片，重新进入竞争
+         *    若线程再次获取到时间片时，就会继续执行。
          */
     }
 

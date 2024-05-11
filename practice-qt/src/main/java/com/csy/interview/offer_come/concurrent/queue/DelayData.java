@@ -11,7 +11,8 @@ public class DelayData implements Delayed {
 
     private Integer number;
 
-    private long delayTime = 50000;
+//    private long delayTime = 50000;
+    private long delayTime = 5000;
 
     public Integer getNumber() {
         return number;

@@ -9,6 +9,14 @@ import java.util.concurrent.TimeUnit;
  * @date 2024/4/13
  */
 public class SleepingTask extends LiftOff {
+
+    /**
+     * 知识点：休眠
+     *
+     * 知识点概括：
+     * 1）
+     */
+
     public void run() {
         try {
             while (countDown-- > 0) {
@@ -20,11 +28,32 @@ public class SleepingTask extends LiftOff {
         }
     }
 
-    public static void main(String[] args) { //休眠
+    public static void main(String[] args) {
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < 5; i++) {
             exec.execute(new SleepingTask());
         }
         exec.shutdown();
+
+        /**
+         * 输出结果：（输出顺序可能会变）
+         *
+         * #1(9)，
+         * #3(9)，
+         * #4(9)，
+         * #2(9)，
+         * #0(9)，
+         * ........
+         * #0(1)，
+         * #2(1)，
+         * #3(1)，
+         * #1(Liftoff!)，
+         * #0(Liftoff!)，
+         * #4(Liftoff!)，
+         * #3(Liftoff!)，
+         * #2(Liftoff!)，
+         *
+         * 结果分析：
+         */
     }
 }
