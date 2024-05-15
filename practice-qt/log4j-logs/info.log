@@ -363,3 +363,8 @@
 [ INFO] [I] 2024-03-26 09:12:33: 0    [main] ( NioServer.java,50 ) - Nio Server bind port:9999
 [ INFO] [I] 2024-03-26 09:12:37: 4468 [main] ( NioServer.java,93 ) - 服务端_收到消息：hello server，时间：1711415557903
 [ INFO] [I] 2024-03-26 09:12:37: 0    [main] ( NioClient.java,43 ) - 客户端_收到消息：hello client，时间：1711415557903
+[ INFO] [I] 2024-05-15 06:54:38: 0    [main] ( GenericTest.java,26 ) - 1
+[ INFO] [I] 2024-05-15 06:54:38: 5    [main] ( GenericTest.java,30 ) - 2
+[ INFO] [I] 2024-05-15 07:01:25: 0    [main] ( GenericTest.java,62 ) - 10
+[ INFO] [I] 2024-05-15 07:01:25: 5    [main] ( GenericTest.java,66 ) - 10.05
+[ INFO] [I] 2024-05-15 07:01:25: 158  [main] ( GenericTest.java,71 ) - [{"id":10},{"id":10.05}]

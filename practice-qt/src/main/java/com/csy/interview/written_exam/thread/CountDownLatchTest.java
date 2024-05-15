@@ -8,12 +8,13 @@ import java.util.concurrent.CountDownLatch;
  * @author chensy
  * @date 2023/9/17
  */
-public class CountDownLatchTest {
+public class CountDownLatchTest { //@MsY-Doing
 
     /**
-     * CountDownLatch_闭锁测试  //todo @Ym CountDownLatch底层源码待调试
+     * 知识点：CountDownLatch_闭锁
      * （CountDown：倒数，Latch：门栓）
      *
+     * 知识点概要：
      * 1）A synchronization aid（帮组） that allows one or more threads to wait until
      *    a set of operations being performed in other threads completes.
      *
@@ -32,6 +33,11 @@ public class CountDownLatchTest {
      *
      * 6）CountDownLatch提供了对一组线程任务进行约束的能力，可以在任务中灵活根据条件来调用latch#countDown()方法，从而决定是否中断CountDownLatch#await造成的阻塞。
      *    CountDownLatch只能一次性使用，它的计数不会在回归原处。
+     *
+     *
+     * 问题点答疑：
+     * 1）CountDownLatch是怎样计数的？在计数值未达到0时，是怎么让线程阻塞的？
+     *
      */
 
     /**

@@ -8,11 +8,15 @@ import org.slf4j.LoggerFactory;
  * @author chensy
  * @date 2024/3/20
  */
-public class InnerClassTest {
+public class InnerClassTest { //@MsY-Doing
 
-    Logger logger = LoggerFactory.getLogger(InnerClassTest.class);
+    /**
+     * 知识点：
+     *
+     * 知识点概要：
+     */
 
-     /**
+    /**
      * 场景1：静态内部类（static修饰）
      */
     @Test

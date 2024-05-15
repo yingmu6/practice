@@ -10,10 +10,12 @@ import java.util.concurrent.RecursiveTask;
  * @author chensy
  * @date 2023/9/18
  */
-public class RecursiveTaskTest {
+public class RecursiveTaskTest { //@MsY-Doing
 
     /**
-     * RecursiveTask_测试
+     * 知识点：RecursiveTask
+     *
+     * 知识点概要：
      * 1）Fork/Join是JDK7中出现的高效工具，可以将大任务拆分为小任务后并行运行，然后将小任务的最终结果合并成大任务的结果。
      *
      * 2）使用Fork/Join的一个前提条件是：任务的分割必须保证子任务独立，也就是子任务之间没有相互依赖关系。
@@ -28,6 +30,9 @@ public class RecursiveTaskTest {
      *    a）ForkJoinPool类：执行任务分割的线程池，实现ExecutorService接口，即有三种执行任务方式，execute、submit、invoke和invokeAll
      *    b）ForkJoinTask抽象类：实现类Future接口，是一个异步任务。包含fork、join、invoke等方法，fork：创建子任务，join：等待任务完成合并计算结果
      *    c）RecursiveTask：异步任务，有返回结果；RecursiveAction：异步任务，无返回结果
+     *
+     * 问题点答疑：
+     * 1）RecursiveTask内部逻辑是怎么实现分拆、合并的？
      *
      * 参考链接：
      * a）https://juejin.cn/post/7119723548729573413 Fork/Join源码分析（分析的比较全面）
@@ -62,8 +67,6 @@ public class RecursiveTaskTest {
          * 结果分析：
          * 1）计算区间的前后位置，可能在每次运行会变，但最终计算的结果相同的
          *
-         * 结果总结：
-         * 1）todo @csy 大致会使用，但内部源码还待进一步分析
          */
     }
 
