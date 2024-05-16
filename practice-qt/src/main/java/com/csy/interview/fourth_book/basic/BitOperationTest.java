@@ -6,17 +6,22 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/12
  */
-public class BitOperationTest {
+public class BitOperationTest { //@MsY-Doing
 
     /**
-     * 位运算_测试
+     * 知识点：位运算
+     *
+     * 知识点概要：
+     * 1）移位运算：
+     *    1.1）左移操作符<< ：将数据转换成二进制数后，向左移若干位，高位丢弃，低位补零
+     *    1.2）右移操作符>> ：将数据转换成二进制数后，向右移若干位，高位补符号位，低位丢弃
+     *
+     * 参考链接：
+     * a）https://juejin.cn/post/6844904025880526861 Java的移位运算符
      */
 
     /**
      * 场景1：左移运算
-     *
-     * 参考链接：
-     * a）https://juejin.cn/post/6844904025880526861
      */
     @Test
     public void test_left_move() {

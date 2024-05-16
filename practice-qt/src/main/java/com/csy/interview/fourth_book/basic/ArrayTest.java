@@ -8,10 +8,30 @@ import java.util.Arrays;
  * @author chensy
  * @date 2023/7/13
  */
-public class ArrayTest {
+public class ArrayTest { //@MsY-Done
 
     /**
-     * 数组_测试
+     * 知识点：数组
+     *
+     * 知识点概要：
+     * 1）数组的声明：
+     *    1.1）数组声明的括号中不能显示行数、列数，如 char[1][2];
+     *    1.2）数组创建的时，括号中需要指定行数、列数，如char[][] c = new char[1][2];
+     *
+     * 2）数组的排序：
+     *    2.1）Arrays.sort() 方法对对象或原始数据类型的数组进行排序。它是快速排序算法的自定义实现，以实现更好的性能。
+     *    2.2）Arrays.parallelSort() 在功能上有所不同。与 sort() 使用单个线程对数据进行顺序排序不同，它使用并行排序-合并排序算法。
+     *         它将数组分成子数组，这些子数组本身先进行排序然后合并。即使用的是ForkJoinTask并发处理任务。
+     *    2.3）Arrays.parallelSort() 只有在满足某些条件时，它才会使用并行性。如果数组大小小于或等于 8192，或者处理器只有一个核心，
+     *         则它将使用顺序的Dual-Pivot Quicksort算法。否则，它使用并行排序。
+     *
+     * 3）数组的拷贝：
+     *    3.1）可以循环遍历原有数组，依次取出元素然后再设置到新的数组中
+     *    3.2）使用System.arrayCopy可以从原数组指定位置，拷贝指定数量的元素到目标数组的目标位置上
+     *    3.3）使用System.arrayCopy实现数组的新增、删除逻辑
+     *
+     * 参考链接：
+     * a）https://blog.csdn.net/qq_20971061/article/details/106602442 Arrays.sort与Arrays.parallelSort区别
      */
 
     /**
@@ -19,11 +39,11 @@ public class ArrayTest {
      */
     @Test
     public void test_declare() {
-        char c[][];
+        char c[][] = new char[1][2];
         String []s;
 
         /**
-         * 数组不能直接指定，行数和列表，需要在创建数组对象时指定，例如：
+         * 数组不能直接指定，行数和列数，需要在创建数组对象时指定，例如：
          * int iArray[][] = new int[3][4]
          */
         // String s2[50]; //语法错误，报出 ']' expected
@@ -32,16 +52,6 @@ public class ArrayTest {
 
     /**
      * 场景2：并行数组测试
-     * 1）Arrays.sort() 方法对对象或原始数据类型的数组进行排序。它是快速排序算法的自定义实现，以实现更好的性能。
-     *
-     * 2）parallelSort() 在功能上有所不同。与 sort() 使用单个线程对数据进行顺序排序不同，它使用并行排序-合并排序算法。
-     *   它将数组分成子数组，这些子数组本身先进行排序然后合并。
-     *
-     * 3）只有在满足某些条件时，它才会使用并行性。如果数组大小小于或等于 8192，或者处理器只有一个核心，
-     *    则它将使用顺序的 Dual-Pivot Quicksort 算法。否则，它使用并行排序。
-     *
-     * 参考链接：
-     * a）https://blog.csdn.net/qq_20971061/article/details/106602442 Arrays.sort与Arrays.parallelSort区别
      */
     @Test
     public void test_parallel_array() {
@@ -66,7 +76,7 @@ public class ArrayTest {
     public void test_system_array_copy() {
         int []arr = new int[] {1, 3, 5, 7};
 
-        int []arr2 = new int[arr.length];
+        int []arr2 = new int[arr.length - 2];
 
         System.arraycopy(arr, 0, arr2, 0, 2);
 

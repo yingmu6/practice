@@ -11,13 +11,25 @@ import java.util.concurrent.*;
  * @author chensy
  * @date 2024/3/23
  */
-public class ThreadTest { //@MsY-Doing
+public class ThreadTest { //@MsY-Done
 
     /**
      * 知识点：线程
      *
      * 知识点概括：
-     * 1）
+     * 1）创建Thread对象时，内部会初始化线程的相关信息，如：线程名称，线程分组，线程优先级，线程ID等
+     * 2）线程的run()是由JVM虚拟机调用的，使用者只需调用线程的start()，待线程获取到运行资源时，由虚拟机调用。
+     * 3）使用者不能手动调用run()方法，若手动调用，就是普通的调用方式，不是线程调用了
+     * 4）实现Runnable接口的run()后，就指定了线程的执行逻辑，然后Runnable作为目标对象传入给Thread，再启动start线程
+     * 5）线程池相关信息：
+     *    5.1）线程池中运行的线程为Worker，Worker继承AQS且实现Runnable接口，也就是可以执行加锁的线程的，它内部持有FutureTask的引用，而FutureTask又持有提交任务的Callable引用
+     *    5.2）当提前任务到线程池时，会先判断线程池中工作的Worker数是否超过corePoolSize，若没有超过，直接创建一个Worker执行任务，超过了就把任务先缓存到阻塞队列中
+     *    5.3）若阻塞队列已经满了，看下运行的Worker数是否超过最大线程数，若超过则执行受拒策略，没超过则创建Worker线程执行任务，但新建的线程会根据keepLiveTime进行超时回收
+     * 6）终止线程的4种方法：
+     *    6.1）正常运行结束
+     *    6.2）使用退出标志退出线程
+     *    6.3）使用interrupt方法终止线程
+     *    6.4）使用stop方法终止线程：不安全
      *
      * 问题点答疑：
      * 参考链接：线程池原理：https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html
@@ -39,10 +51,6 @@ public class ThreadTest { //@MsY-Doing
          * 结果分析：
          * 1）通过继承Thread类，并重写run()，实现线程的创建
          *
-         * 结果概括：
-         * 1）创建Thread对象时，内部会初始化线程的相关信息，如：线程名称，线程分组，线程优先级，线程ID等
-         * 2）线程的run()是由JVM虚拟机调用的，使用者只需调用线程的start()，待线程获取到运行资源时，由虚拟机调用。
-         * 3）使用者不能手动调用run()方法，若手动调用，就是普通的调用方式，不是线程调用了
          */
         System.in.read(); //若不加此句，测试用例所在的主线程就会停止，若想在NewThread的run()断点时，就看不到效果了
     }
@@ -62,9 +70,6 @@ public class ThreadTest { //@MsY-Doing
          *
          * 结果分析：
          * 1）通过实现Runnable接口，然后作为持有run()的目标对象交由线程执行
-         *
-         * 结果概括：
-         * 1）实现Runnable接口的run()后，就指定了线程的执行逻辑，然后Runnable作为目标对象传入给Thread，再启动start线程
          */
     }
 
@@ -102,10 +107,6 @@ public class ThreadTest { //@MsY-Doing
          * 1）MyCallable实现了Callable接口，即为可返回结果的线程，将其提交到线程池，每次提交都会得到一个FutureTask对象实例
          * 2）FutureTask实现了Runnable、Future接口，内部通过FutureTask调用提交任务的run()方法，并将结果存起来。
          *
-         * 结果概括：
-         * 1）线程池中运行的线程为Worker，Worker继承AQS且实现Runnable接口，也就是可以执行加锁的线程的，它内部持有FutureTask的引用，而FutureTask又持有提交任务的Callable引用
-         * 2）当提前任务到线程池时，会先判断线程池中工作的Worker数是否超过corePoolSize，若没有超过，直接创建一个Worker执行任务，超过了就把任务先缓存到阻塞队列中
-         * 3）若阻塞队列已经满了，看下运行的Worker数是否超过最大线程数，若超过则执行受拒策略，没超过则创建Worker线程执行任务，但新建的线程会根据keepLiveTime进行超时回收
          */
     }
 
@@ -154,17 +155,26 @@ public class ThreadTest { //@MsY-Doing
     @Test
     public void threadMethod_join() throws InterruptedException {
         System.out.println("子线程运行开始！");
-        NewThread newThread = new NewThread();
-        newThread.join();
-        System.out.println("子线程join()结束，开始运行主线程");
+        long startTime = System.currentTimeMillis();
+        NewThread2 thread2 = new NewThread2();
+        thread2.start(); //注意：若没有start()启动线程，则join()方法无效
+
+        thread2.join();
+        System.out.println("子线程join()结束，开始运行主线程，耗时：" + (System.currentTimeMillis() - startTime) / 1000 + " 秒");
+
+        /**
+         * 输出结果：
+         * 子线程运行开始！
+         * NewThread2 run()
+         * 子线程join()结束，开始运行主线程，耗时：5 秒
+         *
+         * 结果分析：
+         * 1）调用了线程的join()，则加入一个线程，即等待加入的线程完成后，才执行当前线程
+         */
     }
 
     /**
      * 场景6：终止线程的4种方式
-     * 1）正常运行结束
-     * 2）使用退出标志退出线程
-     * 3）使用interrupt方法终止线程
-     * 4）使用stop方法终止线程：不安全
      */
     @Test
     public void stopThreadWay_flag() {
