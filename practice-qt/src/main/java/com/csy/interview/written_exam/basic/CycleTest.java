@@ -10,19 +10,23 @@ import static java.lang.Math.sqrt;
  * @author chensy
  * @date 2023/6/30
  */
-public class CycleTest {
+public class CycleTest { //@MsY-Doing
 
     /**
-     * 循环_测试
+     * 知识点：循环
      *
-     * 可使用break+标识，跳出多重循环
+     * 知识点概括：
+     * 1）可使用break+标识，跳出多重循环
+     *
+     * 问题点：
+     * 1）素数以及输出100以内素数所用的算法是怎样的？
      */
 
     /**
      * 场景1：
      */
     @Test
-    public void test_compile_error() {
+    public void test_compile_error() { //Done
 
         /**
          * 出现编译错误的写法
@@ -45,7 +49,7 @@ public class CycleTest {
          * 编译正确的写法
           */
         for (int i = 0; i <= 10; i ++) {
-            Integer k = new Integer(i);
+            Integer k = new Integer(i); //若包含局部变量，需要使用"{}"
         }
         System.out.println("Hello world");
 
@@ -70,7 +74,7 @@ public class CycleTest {
       * b）编程原理：定义一个大小为101的数组,把被筛去的数赋值为1,留下未被筛去的并且数组下标大于等于2的数输出，输出的就是质数。
      */
     @Test
-    public void test_get_prime_by_cycle() {
+    public void test_get_prime_by_cycle() { //Doing
         int a[] = new int[101];
         int i, j;
         for (i = 1; i < 101; i++) //此处赋值后，a[0]=0，a[1~101]皆为1
@@ -97,7 +101,7 @@ public class CycleTest {
      * 场景3：使用开根号的方式筛选出100以内的素数
      */
     @Test
-    public void test_get_prime_by_sqrt() {
+    public void test_get_prime_by_sqrt() { //Doing
         int a[] = new int[101];
         int i, j, k;
         for (i = 1; i < 100; i++) {
@@ -117,30 +121,37 @@ public class CycleTest {
      * 场景4：使用break+标识，可跳出多重循环
      */
     @Test
-    public void skipCycle() {
+    public void skipCycle() { //Done
         out: //可定义标识
         for (int i = 0; i < 5; i++) {
+            System.out.println("i = " + i);
             for (int j = 0; j < 5; j++) {
                 if (j >= 2)
-                    break out; //跳到指定标识位置，跳出循环
-                System.out.println(j);
+                    break out; //跳到指定标识位置，跳出多重循环
+                   // break; //只是跳出当前循环，外面的循环可再继续
+                System.out.println("j = " + j);
             }
         }
         System.out.println("break");
 
         /**
          * 输出结果：
-         * 0
-         * 1
+         * i = 0
+         * j = 0
+         * j = 1
          * break
+         *
+         * 结果分析：
+         * 1）使用"break 标识"，可跳出多重循环
+         * 2）只使用"break"，即只跳出当前循环，外面的循环还能继续
          */
     }
 
-    /**
-     * 场景5：无限循环
+     /**
+     * 场景5：无限循环（没有循环结束条件）
      */
     @Test
-    public void test_endless_loop() {
+    public void test_endless_loop() { //Done
         for(;;) { //该种写法是无限循环，单线程环境下，直接把当前线程耗死，多线程下可以这么写，通过获取时间片执行（没有结束条件）
             System.out.println("随机值" + new Random().nextInt());
         }

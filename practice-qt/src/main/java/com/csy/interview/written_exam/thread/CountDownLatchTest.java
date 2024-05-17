@@ -70,7 +70,7 @@ public class CountDownLatchTest { //@MsY-Doing
         }).start();
 
         try {
-            latch.await(); //使当前线程阻塞，直到闭锁的计数减为0（若计数没减到0，此处会一直阻塞，除非被中断）
+            latch.await(); //使当前线程阻塞，直到latch闭锁的计数减为0（若计数没减到0，此处会一直阻塞，除非被中断）
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

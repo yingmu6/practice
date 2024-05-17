@@ -17,7 +17,7 @@ public class ArrayInit {
                 new Integer(1),
                 new Integer(2),
                 3,
-        };
+        }; //在数组声明时，进行初始化
 
         Integer[] b = {
                 new Integer(1),
@@ -27,5 +27,14 @@ public class ArrayInit {
 
         System.out.println(Arrays.toString(a));
         System.out.println(Arrays.toString(b));
+
+        /**
+         * 输出结果：
+         * [1, 2, 3]
+         * [1, 2, 3]
+         *
+         * 结果分析：
+         * 1）数组声明时，可通过"{}"进行初始化
+         */
     }
 }

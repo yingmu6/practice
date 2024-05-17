@@ -8,10 +8,12 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/1
  */
-public class CloneTest {
+public class CloneTest { //@MsY-Doing
 
     /**
-     * Clone_概述
+     * 知识点：Clone_概述
+     *
+     * 知识点概述：（可查看Object#clone方法上的注释）
      * 1）In Java, cloning is the process of creating an exact（精确的） copy of the original object.
      *    It essentially（本质上） means the ability to create an object with a similar state as the original object.
      *   （在java中，克隆就是创建原始对象的精确副本的过程。它本质上意味着创建与原有对象相近的功能）
@@ -24,7 +26,10 @@ public class CloneTest {
      *    a）浅拷贝：对基本数据类型进行值传递，对引用数据类型进行地址拷贝，不对对象内容拷贝，此为浅拷贝。
      *    b）深拷贝：对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容，此为深拷贝。
      *
-     * 4）克隆的特性：
+     * 问题点答疑：
+     * 1）Clone都有哪些特性？
+     *
+     * 2）Clone都有哪些应用场景和用途？
      *
      * 参考链接：
      * 1）https://howtodoinjava.com/java/cloning/a-guide-to-object-cloning-in-java
@@ -35,7 +40,7 @@ public class CloneTest {
      * 场景1：clone基本使用
      */
     @Test
-    public void test_basic() throws CloneNotSupportedException {
+    public void test_basic() throws CloneNotSupportedException { //Done
         Department dept = new Department(1, "Human Resource");
         Employee original = new Employee(3, "Admin", dept);
 
@@ -45,13 +50,11 @@ public class CloneTest {
         //Let verify using employee id, if cloning actually workded
         System.out.println(cloned.getEmployeeId());
 
-        //Verify JDK's rules
-
         //Must be true and objects must have different memory addresses
-        System.out.println(original != cloned);
+        System.out.println(original != cloned); //克隆出的对象与原对象有不同的内存地址
 
         //As we are returning same class; so it should be true
-        System.out.println(original.getClass() == cloned.getClass());
+        System.out.println(original.getClass() == cloned.getClass()); //克隆出的对象与原对象有相同的Class对象
 
         //Default equals method checks for references so it should be false. If we want to make it true,
         //then we need to override equals method in Employee class. （需要重写equal方法）
@@ -77,10 +80,10 @@ public class CloneTest {
     }
 
     /**
-     * 场景2：实现浅复制（Clone对象与原对象相互影响：Clone对象中的对象成员属性的改变，会影响原对象的改变，因为是地址复制，指向同一个内存地址）
+     * 场景2：实现浅复制（Clone对象与原对象相互影响：Clone对象中的对象成员的改变，会影响原对象的改变，因为是地址复制，指向同一个内存地址）
      */
     @Test
-    public void test_content_change() throws CloneNotSupportedException {
+    public void test_content_change() throws CloneNotSupportedException { //Done
         Department hr = new Department(1, "Human Resource");
 
         Employee original = new Employee(1, "Admin", hr);
@@ -104,10 +107,10 @@ public class CloneTest {
     }
 
     /**
-     * 场景3：实现深复制（Clone对象不影响原对象，因为类型为对象的成员变量，进行了内容的深度拷贝）
+     * 场景3：实现深复制（Clone对象不影响原对象，因为对象类型的成员变量，进行了内容的深度拷贝）
      */
     @Test
-    public void test_deep_copying() throws CloneNotSupportedException {
+    public void test_deep_copying() throws CloneNotSupportedException { //Done
         Department hr = new Department(1, "Human Resource");
 
         EmployeeV2 original = new EmployeeV2(1, "Admin", hr);
@@ -186,7 +189,7 @@ public class CloneTest {
 
         @Override
         protected Object clone() throws CloneNotSupportedException {
-            return super.clone(); //因为此处的成员变量是基本类型，所以直接调用super.clone()，若还包含对象类型，对应的对象还要对应实现clone()方法
+            return super.clone();
         }
     }
 
