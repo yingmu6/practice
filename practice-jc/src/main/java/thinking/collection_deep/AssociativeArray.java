@@ -6,10 +6,17 @@ import static net.mindview.util.Print.print;
  * @author chensy
  * @date 2024/4/18
  */
-public class AssociativeArray<K, V> {
+public class AssociativeArray<K, V> { //@TkY-Doing
 
     /**
-     * 知识点：关联数组
+     * 知识点：关联数组（Associative：联合的，关联的）
+     *
+     * 知识点概括：
+     * 1）
+     *
+     * 问题点答疑：
+     * 1）二维数组的元素是怎样排列的？为什么Object[][] pairs = new Object[6][2]
+     *    中的pairs.length值为6？
      */
     private Object[][] pairs;
     private int index;
@@ -19,7 +26,7 @@ public class AssociativeArray<K, V> {
     }
 
     public void put(K key, V value) {
-        if (index >= pairs.length)
+        if (index >= pairs.length) //下标越界判断
             throw new ArrayIndexOutOfBoundsException();
         pairs[index++] = new Object[]{key, value};
     }
@@ -52,12 +59,27 @@ public class AssociativeArray<K, V> {
         map.put("ocean", "dancing");
         map.put("tree", "tall");
         map.put("earth", "brown");
+        map.put("extra", "object");
         try {
-            map.put("extra", "object");
+            map.put("extra2", "object2");
         } catch (ArrayIndexOutOfBoundsException e) {
             print("Too many objects!");
         }
         print(map);
         print(map.get("ocean"));
+
+        /**
+         * 输出结果：
+         * Too many objects!
+         * sky ：blue
+         * grass ：green
+         * ocean ：dancing
+         * tree ：tall
+         * earth ：brown
+         * extra ：object
+         * dancing
+         *
+         * 结果分析：
+         */
     }
 }

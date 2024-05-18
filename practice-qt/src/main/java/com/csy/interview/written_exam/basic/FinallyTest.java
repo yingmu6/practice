@@ -8,13 +8,15 @@ import java.io.IOException;
  * @author chensy
  * @date 2023/7/25
  */
-public class FinallyTest {
+public class FinallyTest { //@MsY-Doing
 
     /**
-     * finally_测试
+     * 知识点：finally
+     *
+     * 知识点概括：
      * 1）在try关键字最后可以定义finally代码块。
-     * 2）finally块中定义的代码，总是在try和任何catch 块之后、方法完成之前运行。
-     * 3）正常情况下，不管是否抛出或捕获异常 finally 块都会执行。
+     * 2）finally块中定义的代码，总是在try和任何catch块之后、方法完成之前运行。
+     * 3）正常情况下，不管是否抛出或捕获异常finally块都会执行。
      *
      * 参考链接：https://juejin.cn/post/6844904039402962958 java finally用法（讲的比较详细）
      */
@@ -23,7 +25,7 @@ public class FinallyTest {
      * 场景1：测试执行顺序
      */
     @Test
-    public void test_finally_order_v1() {
+    public void test_finally_order_v1() { //Done
         try {
             System.out.println("before statement");
             throw new NullPointerException();
@@ -46,7 +48,7 @@ public class FinallyTest {
     }
 
     @Test
-    public void test_finally_order_v2() {
+    public void test_finally_order_v2() { //Done
         System.out.println(sayHello());
 
         /**
@@ -75,7 +77,7 @@ public class FinallyTest {
      * 4）try代码块中无限循环
      */
     @Test
-    public void test_finally_no_execution_v1() { //调用System.exit
+    public void test_finally_no_execution_v1() { //Done_调用System.exit
         try {
             System.out.println("try statement");
             System.exit(1);
@@ -93,7 +95,7 @@ public class FinallyTest {
     }
 
     @Test
-    public void test_finally_no_execution_v2() {
+    public void test_finally_no_execution_v2() { //Done
         try {
             System.out.println("try statement");
             Runtime.getRuntime().halt(1);
@@ -111,7 +113,7 @@ public class FinallyTest {
     }
 
     @Test
-    public void test_finally_no_execution_v3() throws InterruptedException, IOException {
+    public void test_finally_no_execution_v3() throws InterruptedException, IOException { //Doing
         Runnable runnable = () -> {
             try {
                 System.out.println("try statement");
@@ -127,9 +129,9 @@ public class FinallyTest {
         Thread regular = new Thread(runnable);
         Thread daemon = new Thread(runnable);
         daemon.setDaemon(true);
-        daemon.start();
-        Thread.sleep(300);
         regular.start();
+        Thread.sleep(3000);
+        daemon.start();
 
         System.in.read();
 
@@ -137,7 +139,7 @@ public class FinallyTest {
          * 输出结果：
          * try statement
          * try statement
-         * finally statement
+         * finally statemen
          * finally statement
          *
          * 结果分析：(输出的结果内容有些歧义，待分析确认)
