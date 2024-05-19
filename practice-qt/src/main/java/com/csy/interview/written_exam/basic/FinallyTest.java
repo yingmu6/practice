@@ -8,7 +8,7 @@ import java.io.IOException;
  * @author chensy
  * @date 2023/7/25
  */
-public class FinallyTest { //@MsY-Doing
+public class FinallyTest { //@MsY-Done
 
     /**
      * 知识点：finally
@@ -113,7 +113,7 @@ public class FinallyTest { //@MsY-Doing
     }
 
     @Test
-    public void test_finally_no_execution_v3() throws InterruptedException, IOException { //Doing
+    public void test_finally_no_execution_v3() throws InterruptedException, IOException { //Done_守护线程退出，未执行finally场景
         Runnable runnable = () -> {
             try {
                 System.out.println("try statement");
@@ -133,23 +133,22 @@ public class FinallyTest { //@MsY-Doing
         Thread.sleep(3000);
         daemon.start();
 
-        System.in.read();
+//        System.in.read(); //此处不能加上这句代码，加上了当前线程一直处在阻塞读状态，daemon线程就可以执行完成了
 
         /**
          * 输出结果：
          * try statement
-         * try statement
-         * finally statemen
          * finally statement
+         * try statement
          *
-         * 结果分析：(输出的结果内容有些歧义，待分析确认)
-         * 如果守护线程刚开始执行到finally代码块，此时没有任何其他非守护线程，那么虚拟机将退出，
-         * 此时JVM不会等待守护线程的finally 代码块执行完成。
+         * 结果分析：
+         * 1）如果守护线程刚开始执行到finally代码块，此时没有任何其他非守护线程，那么虚拟机将退出，
+         * 此时JVM不会等待守护线程的finally 代码块执行完成。（测试时，不能加上System.in.read()这句代码）
          */
     }
 
     @Test
-    public void test_finally_no_execution_v4() {
+    public void test_finally_no_execution_v4() { //Done_try中无限循环，finally未执行
         try {
             System.out.println("try statement");
             while (true) {
@@ -170,17 +169,18 @@ public class FinallyTest { //@MsY-Doing
     /**
      * 场景3：finally的陷阱
      * 1）忽视异常
-     * 2）覆盖其他的返回语句
+     * 2）覆盖其他的return语句
      * 3）改变throw或return行为
      */
     @Test
-    public void test_finally_trap_v1() {
+    public void test_finally_trap_v1() { //Done_忽略异常
         System.out.println(sayHello2());
 
         /**
          * 输出结果：
          * try statement
          * finally statement
+         * from finally
          *
          * 结果分析：
          * finally中含有return语句，也没有通过catch语句捕获异常，所以异常被忽视了
@@ -198,7 +198,7 @@ public class FinallyTest { //@MsY-Doing
     }
 
     @Test
-    public void test_finally_trap_v2() {
+    public void test_finally_trap_v2() { //Done_return语句的覆盖（最终执行finally中的return语句）
         System.out.println(sayHello3());
 
         /**
@@ -208,7 +208,7 @@ public class FinallyTest { //@MsY-Doing
          * from finally
          *
          * 结果分析：
-         * 如果finally中存在return语句，则try和catch代码块中的返回语句就会被忽略
+         * 如果finally中存在return语句，则try和catch代码块中的return语句就会被忽略
          */
     }
 
@@ -223,7 +223,7 @@ public class FinallyTest { //@MsY-Doing
     }
 
     @Test
-    public void test_finally_trap_v3() {
+    public void test_finally_trap_v3() { //Done_try块中return未执行的场景
         try {
             System.out.println(sayHello4());
         } catch (Exception e) {

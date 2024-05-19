@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/3
  */
-public class InheritTest {
+public class InheritTest { //@MsY-Doing
 
     /**
      * 继承_执行顺序
@@ -24,7 +24,7 @@ public class InheritTest {
      *      （父类、子类的构造方法的执行顺序）
      */
     @Test
-    public void test_constructor_order() {
+    public void test_constructor_order() { //@MsY-Done
         new ChildClass();
         new ChildClass(100);
 
@@ -38,7 +38,8 @@ public class InheritTest {
          * 结果分析：
          * 在有类继承时，会先执行父类的构造方法，再执行子类的构造方法
          * 1）对于无参的构造方法，系统会默认在构造方法中的第一行调用super()
-         * 2）对于有参数的构造方法，需要显示的在构造方法中的第一行调用super(...)父类有参数的构造方法
+         * 2）对于有参数的构造方法，需要显示的在构造方法中的第一行调用super(...)父类有参数的构造方法，
+         *    否则默认调用super()
          */
     }
 
@@ -47,14 +48,14 @@ public class InheritTest {
      *      （父类、子类的构造方法，以及成员变量初始化的顺序）
      */
     @Test
-    public void test_constructor_filed_order() {
+    public void test_constructor_filed_order() { //Done_成员变量和构造方法的执行顺序
         new Z();
 
         /**
          * 输出结果：
          * 11
-         * Y
          * 22
+         * Y
          * 33
          * X
          * Y
@@ -66,6 +67,8 @@ public class InheritTest {
          * 1）Z继承了X，所以会先构造父类X，进入父类时，会先运行代码块、成员变量初始化
          *    执行父类的构造方法，最后再构造子类构造方法
          * 2）成员变量的初始化，在构造方法执行前
+         *    代码a)、b）、c）、d）的执行顺序是：a) -> b) -> d) -> c)
+         *    即成员变量的初始化顺序按代码声明的顺序执行，初始化后才执行构造方法
          */
     }
 
@@ -74,12 +77,13 @@ public class InheritTest {
      * 参考链接：https://www.jianshu.com/p/8155e10e49cd
      */
     @Test
-    public void test_all_order() {
+    public void test_all_order() { //Doing
         Child child = new Child();
 
         /**
          * 输出结果：
          * parent：静态代码块：parent静态变量
+         * child:静态代码块1
          * child:静态代码块:child静态变量
          * parent:代码块
          * parent:构造函数parent成员变量
@@ -104,18 +108,18 @@ public class InheritTest {
             System.out.println(11);
         }
 
-        Y b = new Y();
-
         {
-            System.out.println(22);
+            System.out.println(22); // a)
         }
+
+        Y b = new Y(); // b)
 
         X() {
-            System.out.println("X");
+            System.out.println("X"); // c)
         }
 
         {
-            System.out.println(33);
+            System.out.println(33); // d）
         }
     }
 
@@ -156,7 +160,7 @@ public class InheritTest {
         }
 
         public ChildClass(int i) {
-            super(i);
+            super(i); //默认会调用无参构造方法，即super()，若调用有参数构造方法，需要显示调用
             System.out.println("ChildClass with a parameter");
         }
     }

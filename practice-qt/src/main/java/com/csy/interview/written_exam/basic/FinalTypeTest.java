@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/6/22
  */
-public class FinalTypeTest {
+public class FinalTypeTest { //@MsY-Done
 
     /**
      * final_概述
@@ -28,7 +28,7 @@ public class FinalTypeTest {
      *   （final修饰引用时，不能重新绑定另一个对象的引用）
      */
     @Test
-    public void test_final_variable() {
+    public void test_final_variable() { //Done_final修饰变量
         final int a = 3;
         Assert.assertTrue(a == 3);
 
@@ -38,6 +38,11 @@ public class FinalTypeTest {
         Assert.assertTrue(aClass.name.equals("zhang"));
 
         // aClass = new C("li"); 此处会抛出语法错误：Cannot assign a value to final variable 'aClass'（final修饰引用时，不能变更引用对象）
+
+        /**
+         * 结果分析：
+         * 1）final修饰变量时，表明为常量，一旦赋值，就不能再变更了
+         */
     }
 
     class A {
@@ -88,14 +93,17 @@ public class FinalTypeTest {
      * 场景2：final 修饰方法
      */
     @Test
-    public void test_final_method() {
+    public void test_final_method() { //Done_修饰方法
 
-        // 父类方法上，没有加final方法，可以重写
         B bClass = new B();
         bClass.setName("zhang");
         Assert.assertTrue(bClass.getName().equals("已重写:zhang"));
 
-        // 父类方法上，加了final方法，不能使用@Override进行标记重写，如B类中的getName方法，会抛出语法错误
+        /**
+         * 结果分析：
+         * 1）父类方法上，没有加final方法，可以重写
+         * 2）父类方法上，加了final方法，不能使用@Override进行标记重写，如B类中的getName方法，会抛出语法错误
+         */
     }
 
     /**

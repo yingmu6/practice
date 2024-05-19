@@ -6,14 +6,14 @@ package com.csy.interview.written_exam.basic.inherit_ext;
  */
 public class Child extends Parent {
 
-    static {
-        System.out.println("child:静态代码块1");
-    }
-
     public static String childStaticString="child静态变量";
 
     static {
         System.out.println("child:静态代码块:"+childStaticString);
+    }
+
+    static { //静态块之间执行顺序，按声明的顺序
+        System.out.println("child:静态代码块1");
     }
 
     {
