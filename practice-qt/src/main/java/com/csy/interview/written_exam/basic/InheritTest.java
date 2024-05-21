@@ -7,13 +7,22 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/3
  */
-public class InheritTest { //@MsY-Doing
+public class InheritTest { //@MsY-Done
 
     /**
-     * 继承_执行顺序
+     * 知识点：继承_执行顺序
+     *
+     * 知识点概括：
      * 1）The order of execution of constructors in Java inheritance is,
      *   firstly, the constructor of the superclass is executed then the constructor of the subclass is executed
      *  （java继承中的构造方法的执行顺序，先执行父类的构造方法，再执行子类的构造方法）
+     *
+     * 2）总体执行顺序为：
+     * 2.1）parent的静态变量 -> parent的静态代码块 -> child的静态变量 -> child的静态代码块
+     * 2.2）parent的非静态成员变量 -> parent的非静态代码块 -> parent的构造方法
+     * 2.3）child的非静态成员变量 -> child的非静态代码块 -> child的构造方法
+     *
+     *    注明：变量和代码块的执行顺序，按实际声明的顺序为准，可前可后
      *
      *  参考链接：
      *  a）https://www.javatpoint.com/order-of-execution-of-constructors-in-java-inheritance
@@ -77,7 +86,7 @@ public class InheritTest { //@MsY-Doing
      * 参考链接：https://www.jianshu.com/p/8155e10e49cd
      */
     @Test
-    public void test_all_order() { //Doing
+    public void test_all_order() { //Done
         Child child = new Child();
 
         /**
@@ -93,13 +102,6 @@ public class InheritTest { //@MsY-Doing
          * 结果分析：
          * 1）会先执行静态变量和静态代码块
          * 2）然后再执行非静态成员变量、非静态代码块、以及构造方法
-         *
-         * 总体执行顺序为：
-         * 1）parent的静态变量 -> parent的静态代码块 -> child的静态变量 -> child的静态代码块
-         * 2）parent的非静态成员变量 -> parent的非静态代码块 -> parent的构造方法
-         * 3）child的非静态成员变量 -> child的非静态代码块 -> child的构造方法
-         *
-         * 注明：变量和代码块的执行顺序，按实际声明的顺序为准，可前可后
          */
     }
 

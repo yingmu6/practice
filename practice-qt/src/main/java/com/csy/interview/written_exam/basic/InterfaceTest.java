@@ -2,40 +2,52 @@ package com.csy.interview.written_exam.basic;
 
 /**
  * @author chensy
- * @date 2023/8/9
+ * @date 2024/5/20
  */
-public interface InterfaceTest {
+public class InterfaceTest { //@MsY-Done
 
     /**
-     * 接口中声明的内容
-     * 1）变量为public static final，可以不写出修饰
-     * 2）方法为public abstract，可以不写出修饰
-     * 3）默认方法、静态默认方法都有实现体
-     * 4）外部的接口，如InterfaceTest可以用public修饰，但不能用private、protected、static修饰的
-     * 5）内部接口，如当前接口中的InnerA，可以使用public、static修饰，但不能用private、protected修饰
-     *
-     * 默认方法的主要目的：实现接口升级，不影响原有的接口和类
+     * 知识点：接口访问
      */
 
-    // 变量声明
-    public static final int var1 = 0;
-    int var2 = 1;
+    public static void main(String[] args) {
+        /**
+         * 接口中的变量访问
+         */
+        System.out.println(InterfaceDefine.var1);
+        System.out.println(InterfaceDefine.var2);
+        System.out.println(InterfaceDefine.var3);
 
-    // 方法声明
-    public abstract void f1();
-    void f2();
+        A a = new A();
+        a.f1();
 
-    // default方法
-    default void g() {
-        System.out.println("default method !");
+        /**
+         * 结果分析：
+         * 1）接口中的变量都是public static final修饰的，即为静态常量。
+         *    可以声明出来，也可不声明，且可部分声明
+         *
+         * 2）接口中的方法都是public abstract修饰的，即为抽象方法
+         *    可以声明出来，也可不声明，且可部分声明
+         *
+         * 3）接口中，可以声明默认方法default、静态方法static，实现类中可以选择实现
+         */
     }
 
-    // static默认方法
-    static void h() {
-        System.out.println("static method !");
+    static class A implements InterfaceDefine { //实现接口，就要实现接口中所有普通方法
+
+        @Override
+        public void f1() { //重写的方法，权限不能降低，此处若写protected、private就会编译错误
+            System.out.println("f1");
+        }
+
+        @Override
+        public void f2() {
+            System.out.println("f2");
+        }
+
     }
 
-    interface innerA { //内部接口：可以使用public、static修饰，但不能用private、protected修饰
+    abstract class B implements InterfaceDefine { //抽象类，可以不用重新接口中的普通方法
 
     }
 

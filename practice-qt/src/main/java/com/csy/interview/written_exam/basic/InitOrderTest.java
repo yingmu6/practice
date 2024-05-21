@@ -8,17 +8,23 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/24
  */
-public class InitOrderTest {
+public class InitOrderTest { //@MsY-Done
 
     /**
-     * 程序初始化顺序_测试
+     * 知识点：程序初始化顺序
+     *
+     * 知识点概括：
+     * 1）先初始化静态块：父类的静态块 -> 子类的静态块
+     * 2）再初始化非静态块：
+     *    a）父类的非静态块 -> 父类的构造方法
+     *    b）子类的非静态块 -> 子类的构造方法
      */
 
     /**
      * 场景1：父类、子类的初始化顺序
      */
     @Test
-    public void test_init_order() {
+    public void test_init_order() { //@MsY-Done
         new Child();
 
         /**
@@ -31,11 +37,6 @@ public class InitOrderTest {
          * 子类非静态块
          * 子类构造方法
          *
-         * 结果分析：
-         * 1）先初始化静态块：父类的静态块 -> 子类的静态块
-         * 2）再初始化非静态块：
-         *    a）父类的非静态块 -> 父类的构造方法
-         *    b）子类的非静态块 -> 子类的构造方法
          */
     }
 
@@ -52,7 +53,7 @@ public class InitOrderTest {
      * 场景2：块、成员域中初始化顺序
      */
     @Test
-    public void test_order() {
+    public void test_order() { //Done
         System.out.println(a);
         System.out.println(b);
         System.out.println(c);
@@ -72,7 +73,7 @@ public class InitOrderTest {
      * 场景3：静态变量的调用
      */
     @Test
-    public void test_static_var() {
+    public void test_static_var() { //Done
         System.out.println(InitB.c);
 
         /**
@@ -90,18 +91,18 @@ public class InitOrderTest {
      * 场景4：使用ClassLoader、以及class#forName加载类时，静态块的执行
      */
     @Test
-    public void test_static_block() throws Exception {
+    public void test_static_block() throws Exception { //Done
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         Class clazz = classLoader.loadClass("com.csy.interview.written_exam.basic.init_ext.InitA");
         clazz.forName("com.csy.interview.written_exam.basic.init_ext.InitA");
 
         String className = this.getClass().getPackage() + ".InitA";
-//        Class clazz2 = classLoader.loadClass(className); //此种方式为什么找不到类InitA？
         System.out.println(className);
 
         /**
          * 输出结果：
          * A
+         * package com.csy.interview.written_exam.basic.InitA
          *
          * 结果分析：
          * ClassLoader加载类，不会导致类的初始化。
