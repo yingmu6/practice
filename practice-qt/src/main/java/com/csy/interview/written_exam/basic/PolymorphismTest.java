@@ -7,10 +7,12 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/6
  */
-public class PolymorphismTest {
+public class PolymorphismTest { //@MsY-Doing
 
     /**
-     * 多态_测试
+     * 知识点：多态
+     *
+     * 知识点概要：
      * 1）The dictionary definition of polymorphism（多态） refers to a principle in biology（生物学） in which an organism or species can have many different forms or stages.
      *   This principle can also be applied to object-oriented programming and languages like the Java language.
      *   Subclasses of a class can define their own unique behaviors and yet share some of the same functionality of the parent class.

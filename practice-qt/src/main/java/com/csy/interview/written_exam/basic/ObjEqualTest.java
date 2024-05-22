@@ -20,7 +20,7 @@ public class ObjEqualTest { //@MsY-Doing
      * 场景1：对象_比较
      */
     @org.junit.Test
-    public void test_obj_equals() {
+    public void test_obj_equals() { //Done
         List list = new ArrayList<>();
         Test test1 = new Test("object");
         Test test2 = new Test("object");
@@ -28,22 +28,41 @@ public class ObjEqualTest { //@MsY-Doing
         Object test4 = new Test("object");
         list.add(test1);
 
+        System.out.println(list.contains(test1));
         System.out.println(list.contains(test2)); //通过列表进行比较，没有调用Test的equal
-        System.out.println(test2.equals(test3));
+        System.out.println(test1.equals(test2));
+        System.out.println(test2.equals(test3)); //会根据参数类型，调用重载的方法
         System.out.println(test3.equals(test4));
         System.out.println(test4.equals(test3));
 
         /**
          * 输出结果：
-         * false
+         * 调用重写方法equals
          * true
-         * false
-         * false
+         * 调用重写方法equals
+         * true
+         * 调用重载方法equals
+         * true
+         * 调用重载方法equals
+         * true
+         * 调用重写方法equals
+         * true
+         * 调用重写方法equals
+         * true
          *
          * 结果分析：
-         * 1）因为list中的元素为test1，不是test2，所以返回false。（contains方法有调用Object的equals()方法）
-         * 2）test2与test3都是Test类型，所以会调用Test的equals方法，该方法中是根据value是否相等，来判断对象是否相等，因为value都相等，所以返回true
-         * 3）和4）因为test4是Object类型，所以会调用Object的equals方法，因为该方法默认是比较对象的内存地址，两个对象内存地址不同，所以返回false
+         * 1）因为list中的元素包含test2，所以返回true。
+         * 2）因为list中的元素为test1，不是test2，所以返回false。（contains方法会调用重写的equals()方法）
+         * 3）test2与test3都是Test类型，所以会调用Test的equals方法，该方法中是根据value是否相等，来判断对象是否相等，因为value都相等，所以返回true
+         * 4）因为test4是Object类型，所以会调用Object的equals方法，因为该方法默认是比较对象的内存地址，两个对象内存地址不同，所以返回false
+         *
+         * 问题点答疑：
+         * 1）本用例调试中，为啥调用list.contains(test1)，调试时没有进入ArrayList的contains方法？
+         *    解答：断点位置打错了，打在Arrays的静态内部类ArrayList中的constains方法上了，所以当遇到同名的类时，要注意看包名。
+         *
+         * 2）为什么调用list.contains，在做元素比较时，没有调用Test的equals方法？
+         *    解答：因为Test中的equals方法的参数是Test类型，而不是Object类型，所以属于重载而不是重写，所以如果本意是重写
+         *         父类的方法，带上@Override注解，这样就会及时发现错误了，不然很容易迷惑人。
          */
     }
 
@@ -95,14 +114,29 @@ public class ObjEqualTest { //@MsY-Doing
          */
     }
 
-    class Test {
+    static class Test {
         private String value = null;
 
         public Test(String v) {
             value = v;
         }
 
-        public boolean equals(Test o) {
+        public boolean equals(Test o) { //重载的方法
+            System.out.println("调用重载方法equals");
+            if (o == this) { //比较对象地址
+                return true;
+            }
+
+            if (o instanceof Test) {
+                Test test = (Test) o;
+                return value.equals(test.value); //比较对象内容
+            }
+            return false;
+        }
+
+        @Override
+        public boolean equals(Object o) { //重写的方法
+            System.out.println("调用重写方法equals");
             if (o == this) {
                 return true;
             }
