@@ -17,6 +17,30 @@ import java.util.Objects;
 public class ObjEqualTest { //@MsY-Doing
 
     /**
+     * 知识点：Object的equal()使用
+     *
+     * 知识点概括：（可看Object中equals的方法描述）
+     * 1）任何一个类，覆盖Object的非final方法时，都有责任遵守这些通用规定，如果不能做到这一点，其它依赖这些约定的类（如HashMap）就无法结合该类一起正常运行
+     *   （违反了这些规定，程序将会表现不正常，甚至崩溃，而且很难找到失败的根源）
+     *
+     * 2）equals方法实现了等价关系，需要满足的通用约定
+     *   a）reflexive 自反性：对于任何非null的引用值x，x.equals(x)必须返回true
+     *   b）symmetric 对称性：对于任何非null的引用值x和y，当且仅当x.equals(y)返回true时，y.equals(x)也必须返回true
+     *   c）transitive 传递性：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)也返回true，那么x.equals(z)也必须返回true
+     *   d）consistent 一致性：对于任何非null的引用值x、y，只要equals的比较操作在对象中所有的信息没有被修改，多次调用x.equals(y)就会一致返回true，或者一致返回false
+     *
+     * 3）对于任何非null的引用值，x.equals(null)必须返回false
+     *
+     * 4）覆盖了equals方法的类中，也就必须要覆盖hashCode方法
+     *
+     * 总结：
+     * a）若重写了equals和hashCode方法，要多测试，看是否满足通用约定，写出最佳的方法
+     * b）也可以引用验证工具来测试 EqualsVerifier
+     *
+     * https://www.baeldung.com/java-equals-hashcode-contracts
+     */
+
+    /**
      * 场景1：对象_比较
      */
     @org.junit.Test
@@ -70,7 +94,7 @@ public class ObjEqualTest { //@MsY-Doing
      * 场景2：嵌套内部类
      */
     static class one { //内部类可以多层级嵌套，没有层级限制
-        private static class two { //内部类可以是私有的
+        private static class two { //Done_内部类可以是私有的
             public static void main(String[] aaa) {
                 System.out.println("two");
             }
@@ -81,7 +105,7 @@ public class ObjEqualTest { //@MsY-Doing
      * 场景3：封装类型比较
      */
     @org.junit.Test
-    public void test_wrapper_class_compare() {
+    public void test_wrapper_class_compare() { //Doing
         Integer a = 1;
         Integer b = 2;
         Integer c = 3;
@@ -93,7 +117,7 @@ public class ObjEqualTest { //@MsY-Doing
         Integer j = new Integer(1);
         System.out.println(c == d);
         System.out.println(e == f);
-        System.out.println(c == (a +b));
+        System.out.println(c == (a + b));
         System.out.println(g.equals(a + b));
         System.out.println(i == j);
 
@@ -111,6 +135,9 @@ public class ObjEqualTest { //@MsY-Doing
          * 3）由于a+b=3，c也为3，在缓存区间，所以是同一个对象
          * 4）查看Long的equals，会先判断类型是否为Long，因为a+b是Integer，所以直接返回false
          * 5）i、j通过new，产生了不同的对象，所以==比较的对象地址时不一样的
+         *
+         * 问题点答疑：
+         * 1）Integer中的静态内部类IntegerCache是在什么时候被实例化的？
          */
     }
 
@@ -150,28 +177,10 @@ public class ObjEqualTest { //@MsY-Doing
     }
 
     /**
-     * 场景4：覆盖equals的通用约定（可看Object中equals的方法描述）
-     * 1）任何一个类，覆盖Object的非final方法时，都有责任遵守这些通用规定，如果不能做到这一点，其它依赖这些约定的类（如HashMap）就无法结合该类一起正常运行
-     *   （违反了这些规定，程序将会表现不正常，甚至崩溃，而且很难找到失败的根源）
-     *
-     * 2）equals方法实现了等价关系，需要满足的通用约定
-     *   a）reflexive 自反性：对于任何非null的引用值x，x.equals(x)必须返回false
-     *   b）symmetric 对称性：对于任何非null的引用值x和y，当且仅当x.equals(y)返回true时，y.equals(x)也必须返回true
-     *   c）transitive 传递性：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)也返回true，那么x.equals(z)也必须返回true
-     *   d）consistent 一致性：对于任何非null的引用值x、y，只要equals的比较操作在对象中所有的信息没有被修改，多次调用x.equals(y)就会一个返回true，或者一致返回false
-     *
-     * 3）对于任何非null的引用值，x.equals(null)必须返回false
-     *
-     * 4）覆盖了equals方法的类中，也就必须要覆盖hashCode方法
-     *
-     * 总结：
-     * a）若重写了equals和hashCode方法，要多测试，看是否满足通用约定，写出最佳的方法
-     * b）也可以引用验证工具来测试 EqualsVerifier
-     *
-     * https://www.baeldung.com/java-equals-hashcode-contracts
+     * 场景4：覆盖equals的通用约定
      */
     @org.junit.Test
-    public void test_equals_hashcode_v1() {
+    public void test_equals_hashcode_v1() { //Done
         Money1 income = new Money1(10, "RMB");
         Money1 expense = new Money1(10, "RMB");
         System.out.println(income.equals(expense));
@@ -181,7 +190,8 @@ public class ObjEqualTest { //@MsY-Doing
          * false
          *
          * 结果分析：
-         * 因为没有重写equals，即该方法来自于Object，是比较对象的引用this == obj的内存地址是否相同，因为new了两个对象，内存地址是不同的
+         * 1）因为没有重写equals，即该方法来自于Object，是比较对象的引用this == obj的内存地址是否相同，
+         *    因为new了两个对象，内存地址是不同的
          */
     }
 
@@ -196,7 +206,7 @@ public class ObjEqualTest { //@MsY-Doing
         }
     }
     @org.junit.Test
-    public void test_equals_hashcode_v2() {
+    public void test_equals_hashcode_v2() { //Done
         Money2 income = new Money2(10, "RMB");
         Money2 expense = new Money2(10, "RMB");
         System.out.println(income.equals(expense));
@@ -221,7 +231,7 @@ public class ObjEqualTest { //@MsY-Doing
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(Object o) { //重写Object中equals方法
             if (o == this)
                 return true;
             if (!(o instanceof Money2))
@@ -297,7 +307,7 @@ public class ObjEqualTest { //@MsY-Doing
      * 场景5：使用equals的校验工具校验重写的equals方法是否正确
      */
     @org.junit.Test
-    public void test_equals_by_tool_v1() { //未重写equals或hashCode方法的场景
+    public void test_equals_by_tool_v1() { //Done_未重写equals或hashCode方法的场景
         try {
             EqualsVerifier.forClass(Money1.class).verify();
         } catch (AssertionError error) {
@@ -311,11 +321,11 @@ public class ObjEqualTest { //@MsY-Doing
          * Suppress Warning.INHERITED_DIRECTLY_FROM_OBJECT to skip this check.
          *
          * 结果分析：
-         * 从返回的异常信息看出，是不建议直接使用Object的equals的
+         * 1）从返回的异常信息看出，是不建议直接使用Object的equals的
          */
 
         try {
-            EqualsVerifier.forClass(Money2.class).verify();
+            EqualsVerifier.forClass(Money2.class).verify(); //Money2没重写hashCode()方法
         } catch (AssertionError error) {
             System.out.println("错误信息：" + error.getMessage());
         }
@@ -325,12 +335,12 @@ public class ObjEqualTest { //@MsY-Doing
          * -> hashCode: hashCodes should be equal:
          *
          * 结果分析：
-         * 从返回的异常信息看出，两个对象相等，需要hashCode也要相等，要重写hashCode方法
+         * 1）从返回的异常信息看出，两个对象相等，需要hashCode也要相等，要重写hashCode方法
          */
     }
 
     @org.junit.Test
-    public void test_equals_by_tool_v2() {
+    public void test_equals_by_tool_v2() { //Done
         try {
             EqualsVerifier.forClass(Money3.class).verify();
         } catch (AssertionError error) {
@@ -342,12 +352,13 @@ public class ObjEqualTest { //@MsY-Doing
          * 校验正常
          *
          * 结果分析：
-         * idea产生的equals、hashCode方法，通过EqualsVerifier校验时，需要成员变量和equals、hashCode都要加上final修饰，才能通过校验
+         * 1）idea产生的equals、hashCode方法，通过EqualsVerifier校验时，
+         *    需要成员变量和equals、hashCode都要加上final修饰，才能通过校验
          */
     }
 
     @org.junit.Test
-    public void test_equals_by_tool_v3() {
+    public void test_equals_by_tool_v3() { //Done
         try {
             EqualsVerifier.forClass(Money4.class).verify();
         } catch (AssertionError error) {
@@ -359,10 +370,12 @@ public class ObjEqualTest { //@MsY-Doing
          * 校验异常
          *
          * 结果分析：
-         * 自定义的equals、hashCode方法，通过EqualsVerifier校验时，需要成员变量和equals、hashCode都要加上final修饰，才能通过校验
+         * 1）自定义的equals、hashCode方法，通过EqualsVerifier校验时，
+         *    需要成员变量和equals、hashCode都要加上final修饰，才能通过校验
          *
          * 遗留问题点：
-         * 为啥此处的方法和变量都得为final的？
+         * 1）为啥此处的方法和变量都得为final的？
+         *    解答：若不加final修饰，抛出错误为Mutability（易变性）: equals depends on mutable field amount.
          */
     }
 }

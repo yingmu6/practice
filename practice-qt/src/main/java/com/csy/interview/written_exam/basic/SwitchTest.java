@@ -6,7 +6,7 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/8/9
  */
-public class SwitchTest {
+public class SwitchTest { //@MsY-Doing
 
     /**
      * switch使用
@@ -16,7 +16,7 @@ public class SwitchTest {
      * 场景1：switch类型
      */
     @Test
-    public void test_switch() {
+    public void test_switch() { //Doing
         float a= 0.123f;
 
         /**
@@ -48,6 +48,14 @@ public class SwitchTest {
                 System.out.println("banana");
                 break;
         }
+
+        /**
+         * 输出结果：
+         * xx
+         * apple
+         *
+         * 结果分析：
+         */
     }
 
     enum Fruit {

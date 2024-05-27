@@ -14,27 +14,33 @@ import static org.junit.Assert.assertTrue;
  * @author : chensy
  * Date : 2020/10/27 下午5:23
  */
-public class ClassTest {
+public class ClassTest { //@JcY-Doing
 
     /**
-     * 场景1：isAssignableFrom方法的使用
-     * 1）https://www.cnblogs.com/greatfish/p/6097507.html
-     * 2）https://www.baeldung.com/java-isinstance-isassignablefrom  与instance of的差异（用例参考的来源）
-     * 3）对应描述：
-     * In other words, instanceof operator checks if the left object is same or subclass of right class,
+     * 知识点：isAssignableFrom方法的使用
+     *
+     * 知识点概括：
+     * 1）In other words, instanceof operator checks if the left object is same or subclass of right class,
      * while isAssignableFrom checks if we can assign object of the parameter class (from) to the reference of
      * the class on which the method is called.Note that both of these consider the actual instance not the reference type
      * （instanceof检查的是左边的class是否与右边的class相同，或者是其子class）
      * （isAssignableFrom检查的是“from：来自于” 参数的class是否可以赋值给调用方法的class ）
      *
-     * 4）isAssignableFrom方法含义理解：
+     * 2）isAssignableFrom方法含义理解：
      * （形象理解：来自于（from）参数的引用class是否可以赋值给（Assignable）当前的class，使用赋值语句表示：this.Class = parameter.Class
      *           赋值语句：相同的类或子类/子接口，可以赋值。）
      * a）方法功能：（语义解释）判断当前的类或接口是否与指定的接口或类相等，或者是指定类或接口的超类或超接口。
      * b）方法名分析：isAssignableFrom，assignable：可分配的，可指定的，from：“来自”的意思
      * 注明：from对应的参数，需要是引用类型，如应该是shape.getClass()，而不是Shape.class
      *
-     * 总结：明确当前调用方案的Class和参数Class，然后使用复制语句判断 this.Class = parameter.Class
+     * 3）总结：明确当前调用方案的Class和参数Class，然后使用复制语句判断 this.Class = parameter.Class
+     *
+     * 问题点答疑：
+     * 1）Class类的本质是什么？
+     *
+     * 参考链接：
+     * 1）https://www.cnblogs.com/greatfish/p/6097507.html
+     * 2）https://www.baeldung.com/java-isinstance-isassignablefrom  与instance of的差异（用例参考的来源）
      */
     @Test
     public void test_isAssignableFrom() {

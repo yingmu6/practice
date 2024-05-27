@@ -13,4 +13,10 @@ public class A {
     {       //动态构造块
         System.out.println("dynamic block");
     }
+
+    B b = new B();
+
+    public A () {
+        System.out.println("reflect_ext.A()");
+    }
 }

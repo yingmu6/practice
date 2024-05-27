@@ -6,11 +6,15 @@ package com.csy.interview.written_exam.basic.polymor_ext;
  */
 public class Pa {
 
+    static {
+        System.out.println("Pa static block");
+    }
+
     public static void prt() {
         System.out.println("1");
     }
 
     public Pa() {
-        System.out.println("A");
+        System.out.println("Pa constructor method");
     }
 }

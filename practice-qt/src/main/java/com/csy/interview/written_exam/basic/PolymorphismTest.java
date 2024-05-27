@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/7/6
  */
-public class PolymorphismTest { //@MsY-Doing
+public class PolymorphismTest { //@MsY-Done
 
     /**
      * 知识点：多态
@@ -46,22 +46,24 @@ public class PolymorphismTest { //@MsY-Doing
      * 场景1：
      */
     @Test
-    public void test_basic() {
+    public void test_basic() { //Done
         Pa a = new Pb(); //向上转型
         a = new Pa();
 
         /**
          * 输出结果：
-         * A
-         * B
-         * A
+         * Pa static block
+         * Pb static block
+         * Pa constructor method
+         * Pb constructor method
+         * Pa constructor method
          *
          * 结果分析：
-         * 因为Pb继承了Pa，所以会先执行Pa的构造方法，然后再执行Pb的构造方法
-         * 所以先输出了 A、B
-         * 又由于执行了 new Pa()，所以又输出了A
+         * 1）因为Pb继承了Pa，所以会先执行父类Pa的static块，再执行子类Pb的static块
+         *    最后再执行父类Pa的构造方法，执行完后再执行子类Pb的构造方法
          *
-         * 注意：虽然Pa、Pb都定义的static方法prt()，但是没调用，就不会执行对应的方法
+         * 注意：虽然Pa、Pb都定义的static方法prt()，但是没调用，就不会执行对应的方法，但是static块就执行了
+         *      所以方法的调用需要类或对象去调用操作，而代码块不用显示调用，在初始化时就会输出。
          */
     }
 
@@ -69,40 +71,40 @@ public class PolymorphismTest { //@MsY-Doing
      * 场景2：父类调用子类重写的方法
      */
     @Test
-    public void test_basic_v2() {
-        ClassB objectB = new ClassB();
-        objectB.printValue(); //子类的引用，调用子类同名的方法
-        objectB.printParentValue(); //子类通过super调用父类同名的方法
+    public void test_basic_v2() { //Done
+        ClassB objectB = new ClassB(); //子类的引用指向子类的实例
+        objectB.printValue(); //调用子类重写的方法
+        objectB.printParentValue(); //调用子类新增的方法
+        objectB.printParentValueV2(); //调用子类继承的方法
+        System.out.println("----------------");
 
-        ClassA as = (ClassA) objectB;
-        as.printValue(); //父类指向子类的实例，调用子类重写的方法
+        ClassA as = objectB; //向上转型（父类引用指向子类的实例）
+        as.printValue(); //调用子类重写的方法
+        as.printParentValueV2(); //子类未重写父类的方法，则调用从父类继承的方法
 
-        as.printParentValueV2();
-        //as.printSubValueV2(); 此处会报编译错误，找不到该方法（父类不能调用子类自定义的方法，只能调用子类重写的方法）
+        //as.printSubValueV2(); 此处会报编译错误，报"找不到该方法"（父类不能调用子类新增的方法，只能调用子类重写或继承的方法）
 
-        as = new ClassA();
+        System.out.println("----------------");
+        as = new ClassA(); //父类的引用指向父类的实例
         as.printValue();
 
         /**
          * 输出结果：
-         * ClassB
-         * ClassA
-         * ClassB
-         * ClassA V2
-         * ClassA
+         * ClassB（子类） printValue()
+         * ClassA（父类） printValue()
+         * ClassA（父类） printParentValueV2()
+         * ----------------
+         * ClassB（子类） printValue()
+         * ClassA（父类） printParentValueV2()
+         * ----------------
+         * ClassA（父类） printValue()
          *
          * 结果分析：
          * ClassB是子类，ClassA是父类
-         * 1）父类引用p指向子类的实例时，通过这个引用访问同名方法时，调用的是子类重写的方法
-         * 2）子类引用调用同名方法时，默认是重写之后的同名方法
+         * 1）父类引用指向子类的实例时，通过这个引用访问方法时，调用的是子类重写或继承的方法
+         * 2）子类引用指向子类的实例时，调用的是子类重写或继承或新增的方法
          * 3）子类若想访问父类的同名方法，可以使用super关键字显示说明
          *
-         * 注意：形象记忆法 -》 看引用指向哪个实例，就调用哪个实例的方法（非静态方法）
-         * 父类引用 = 父类实例  -》 调用父类的方法
-         * 父类引用 = 子类实例  -》 调用子类的方法
-         * 子类引用 = 子类实例  -》 调用子类的方法
-         *
-         * （静态方法除外，静态方法是看哪个类调用，就执行哪个类中的方法，还有父类方法再调同名方法时，会调用子类的方法）
          */
     }
 
@@ -110,20 +112,38 @@ public class PolymorphismTest { //@MsY-Doing
      * 场景3：静态方法调用
      */
     @Test
-    public void test_basic_v3() {
+    public void test_basic_v3() { //Done
         Father father = new Father();
         Father child = new Child();
+        Child child1 = new Child();
+        System.out.println("------静态方法调用------");
         System.out.println(father.getName());
-        System.out.println(child.getName());
+        System.out.println(child.getName()); //静态方法不会被重写，哪个类的引用调用，就输出哪个类中的静态方法
+        System.out.println(father.getNameV2());
+        System.out.println(child1.getNameV2()); //子类继承父类的静态方法
+        System.out.println("------非静态方法调用------");
+        System.out.println(father.getAge());
+        System.out.println(child.getAge()); //普通方法的调用
 
         /**
          * 输出结果：
-         * Father
-         * Father
+         * ------静态方法调用------
+         * Father static getName()
+         * Father static getName()
+         * Father static getNameV2()
+         * Father static getNameV2()
+         * ------非静态方法调用------
+         * Father no-static getAge()
+         * Child no-static getAge()
          *
          * 结果分析：
-         * 因为getName是静态方法，两个静态方法在内存中占用了不同的空间
-         * 不存在方法覆盖重写，所以看由哪个类调用，就输出哪个类的方法
+         * 1）因为getName是静态方法，两个静态方法在内存中占用了不同的空间，
+         *    不存在方法覆盖重写，所以看由哪个类的引用调用，就输出哪个类的方法
+         *
+         * 2）对于非静态方法，即普通的成员方法，就要看引用最终指向的实例是哪个类，
+         *    就调用哪个类中的方法
+         *
+         * 3）子类虽然不能重写父类的静态方法，但可以继承父类的静态方法
          */
     }
 
@@ -131,38 +151,34 @@ public class PolymorphismTest { //@MsY-Doing
      * 场景4：
      */
     @Test
-    public void test_basic_v4() {
-        Base base = new MyBase();
-        base.add(8); //调用子类的add方法
+    public void test_basic_v4() { //Done
+        Base base = new SubBase();
+        base.add(8);
 
         System.out.println("-------分隔线-------");
-        /**
-         * 输出结果：
-         * 2
-         * 2
-         * 6
-         * 22
-         *
-         * 结果分析：
-         * 1）new MyBase() 先进入MyBase方法，因为MyBase继承Base，所以先执行Base的构造方法
-         * 2）Base是父类，调用add()方法时，会调用子类的构造方法，所以会执行MyBase中的add()方法
-         * 3）当父类MyBase构造方法执行完成后，就会执行子类Base的构造方法
-         * 4）由于Base base = new MyBase(); 所以父类指向子类实例，会调用子类的add方法
-         */
 
-        MyBase myBase = new MyBase();
-        myBase.add(4);
+        SubBase subBase = new SubBase();
+        subBase.add(4);
 
         /**
          * 输出结果：
-         * 2
-         * 2
-         * 6
-         * 14
+         * SubBase.add()：i = 2
+         * Base()：i = 2
+         * SubBase.add()：i = 6
+         * SubBase()：i = 6
+         * SubBase.add()：i = 22
+         * -------分隔线-------
+         * SubBase.add()：i = 2
+         * Base()：i = 2
+         * SubBase.add()：i = 6
+         * SubBase()：i = 6
+         * SubBase.add()：i = 14
          *
          * 结果分析：
-         * 1）执行MyBase myBase = new MyBase(); 与上面分析的1）、2）、3）一致
-         * 2）MyBase myBase = new MyBase(); 会调用子类的add方法
+         * 1）创建子类new SubBase()对象时，会先创建父类对象new Base()，父类构造方法中调用
+         *    add()方法被子类重写了，所以会调用子类的方法SubBase.add()
+         *
+         * 2）当父类的成员变量、构造方法完成初始化后，就会调用子类成员变量、构造方法的初始化
          */
     }
 }
