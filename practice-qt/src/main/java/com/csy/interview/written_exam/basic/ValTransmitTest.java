@@ -8,10 +8,12 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/6/29
  */
-public class ValTransmitTest {
+public class ValTransmitTest { //@MsY-Doing
 
     /**
-     * 值传递_概述
+     * 知识点：值传递
+     *
+     * 知识点概括：
      * 1）When a parameter is pass-by-value, the caller and the callee method operate on two different variables which are copies of each other.
      * Any changes to one variable don't modify the other.
      * （按值传递时，调用者和被调用者操作的是两个不同的变量，仅仅是值的拷贝，任何一个变量的改变，都不会引起另一个变量的改变）
@@ -29,33 +31,37 @@ public class ValTransmitTest {
      * 场景1：值传递（基本类型）
      */
     @Test
-    public void test_pass_by_value() {
-        boolean test = true;
-        System.out.println("Before test(boolean) : test = " + test);
-        test(test);
-        System.out.println("After test(boolean) : test = " + test);
+    public void test_pass_by_value() { //Done
+        boolean paramVal = true;
+        int val = 1;
+        System.out.println("Before test(boolean) : paramVal = " + paramVal);
+        test(paramVal);
+        System.out.println("After test(boolean) : paramVal = " + paramVal);
 
         /**
          * 输出结果：
-         * Before test(boolean) : test = true
-         * In test(boolean) : test = false
-         * After test(boolean) : test = true
+         * Before test(boolean) : paramVal = true
+         * In test(boolean) : paramVal = false
+         * After test(boolean) : paramVal = true
          *
          * 结果分析：
-         * 当传递的是基本类型时，操作的是两个变量，只是值做了拷贝，所以形参的改变不影响实参
+         * 1）当传递的是基本类型时，操作的是两个变量，只是值做了拷贝，所以形参的改变不影响实参
+         *
+         * 2）debug时，val变量显示的标签为"01"，test方法中的paramVal显示的标签为"p"
          */
     }
 
-    public void test(boolean test) {
-        test = !test; //形参改变，不会影响实参的值（操作的是两个变量，仅仅是值的拷贝）
-        System.out.println("In test(boolean) : test = " + test);
+    public void test(boolean paramVal) {
+        int val = 1;
+        paramVal = !paramVal; //形参改变，不会影响实参的值（操作的是两个变量，仅仅是值的拷贝）
+        System.out.println("In test(boolean) : paramVal = " + paramVal);
     }
 
     /**
      * 场景2：引用传递（对象类型）
      */
     @Test
-    public void test_pass_by_reference() {
+    public void test_pass_by_reference() { //Done
         A aClass = new A();
         aClass.setName("zhang");
         aClass.setAge(10);
@@ -66,16 +72,16 @@ public class ValTransmitTest {
         /**
          * 输出结果：
          * Before test(A) : name = zhang, age =10
-         * In test(A) : name = 修改：zhang
-         * After test(A) : name = 修改：zhang, age = 10
+         * In test(A) : name = zhang sir
+         * After test(A) : name = zhang sir, age = 10
          *
          * 结果分析：
-         * 当传递的是对象型变量时，传递是对象的引用，操作的是同一个对象引用，所以形参的改变会影响实参
+         * 1）当传递的是对象参数时，传递是对象的引用，操作的是同一个对象引用，所以形参的改变会影响实参
          */
     }
 
     public void test(A a) {
-        a.setName("修改：" + a.getName()); //引用传递时，操作的是同一个对象。形参对象的成员改变，实参对象也对应改变
+        a.setName(a.getName() + " sir"); //引用传递时，操作的是同一个对象。形参对象的成员改变，实参对象也对应改变
         System.out.println("In test(A) : name = " + a.getName());
     }
 
@@ -90,17 +96,17 @@ public class ValTransmitTest {
      * 场景3：String字符串传递
      */
     @Test
-    public void test_pass_by_string() {
-        String string = "Hello";
-        test(string);
-        System.out.println(string);
+    public void test_pass_by_string() { //Done
+        String str = "Hello";
+        test(str);
+        System.out.println(str);
 
         /**
          * 输出结果："Hello"
          *
          * 结果分析：
          * 1）String类是final类型的，不可以继承和修改这个类。所以 str = "World"，是隐含的创建一个新对象，既然产生新对象，就与原来对象没有关系
-         * 2）test方法中的str，会创建一个新对象，然后指向 "World"，但test方法结束，str作用消息，不影响原有的String类
+         * 2）test方法中的str，会创建一个新对象，然后指向 "World"，但test方法结束，str作用消失，不影响原有的String类
          */
     }
 
@@ -112,21 +118,21 @@ public class ValTransmitTest {
      * 场景4：StringBuffer字符串传递
      */
     @Test
-    public void test_pass_by_string_buffer() {
-        StringBuffer string = new StringBuffer("Hello");
-        test(string);
-        System.out.println(string);
+    public void test_pass_by_string_buffer() { //Doing
+        StringBuffer buffer = new StringBuffer("Hello");
+        test(buffer);
+        System.out.println(buffer);
 
         /**
          * 输出结果："Hello, World"
          *
          * 结果分析：
-         * StringBuffer可理解为字符串变量，传递StringBuffer时，操作的是同一个引用，所以形参的改变会影响实参
+         * 1）StringBuffer可理解为字符串变量，传递StringBuffer时，操作的是同一个引用，所以形参的改变会影响实参
          */
     }
 
-    public void test(StringBuffer str) {
-        str.append(", World");
+    public void test(StringBuffer buffer) {
+        buffer.append(", World");
     }
 
     /**

@@ -7,8 +7,14 @@ import java.util.concurrent.Executors;
  * @author chensy
  * @date 2024/4/13
  */
-public class SimplePriorities implements Runnable {
+public class SimplePriorities implements Runnable { //@TkY-Doing
 
+    /**
+     * 知识点：线程优先级
+     *
+     * 知识点概括：
+     * 1）
+     */
     private int countDown = 5;
 
     private volatile double d;
@@ -41,12 +47,49 @@ public class SimplePriorities implements Runnable {
         }
     }
 
-    public static void main(String[] args) { //线程优先级
+    public static void main(String[] args) {
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < 5; i++) {
             exec.execute(new SimplePriorities(Thread.MIN_PRIORITY));
         }
         exec.execute(new SimplePriorities(Thread.MAX_PRIORITY));
         exec.shutdown();
+
+        /**
+         * 输出结果：（每次运行结果，可能会变）
+         * Thread[pool-1-thread-1,1,main]：5
+         * Thread[pool-1-thread-2,1,main]：5
+         * Thread[pool-1-thread-3,1,main]：5
+         * Thread[pool-1-thread-4,1,main]：5
+         * Thread[pool-1-thread-5,1,main]：5
+         * Thread[pool-1-thread-6,10,main]：5
+         * Thread[pool-1-thread-1,1,main]：4
+         * Thread[pool-1-thread-2,1,main]：4
+         * Thread[pool-1-thread-3,1,main]：4
+         * Thread[pool-1-thread-4,1,main]：4
+         * Thread[pool-1-thread-5,1,main]：4
+         * Thread[pool-1-thread-6,10,main]：4
+         * Thread[pool-1-thread-1,1,main]：3
+         * Thread[pool-1-thread-2,1,main]：3
+         * Thread[pool-1-thread-3,1,main]：3
+         * Thread[pool-1-thread-4,1,main]：3
+         * Thread[pool-1-thread-5,1,main]：3
+         * Thread[pool-1-thread-6,10,main]：3
+         * Thread[pool-1-thread-1,1,main]：2
+         * Thread[pool-1-thread-3,1,main]：2
+         * Thread[pool-1-thread-2,1,main]：2
+         * Thread[pool-1-thread-4,1,main]：2
+         * Thread[pool-1-thread-6,10,main]：2
+         * Thread[pool-1-thread-1,1,main]：1
+         * Thread[pool-1-thread-3,1,main]：1
+         * Thread[pool-1-thread-2,1,main]：1
+         * Thread[pool-1-thread-4,1,main]：1
+         * Thread[pool-1-thread-6,10,main]：1
+         * Thread[pool-1-thread-5,1,main]：2
+         * Thread[pool-1-thread-5,1,main]：1
+         *
+         * 结果分析：
+         * 1）
+         */
     }
 }

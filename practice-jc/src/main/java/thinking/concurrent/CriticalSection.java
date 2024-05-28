@@ -12,7 +12,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author chensy
  * @date 2024/4/14
  */
-public class CriticalSection {
+public class CriticalSection { //@TkY-Doing
+
+    /**
+     * 知识点：
+     *
+     * 知识点概括：
+     * 1）
+     */
 
     static class Pair {
         private int x, y;
@@ -136,5 +143,13 @@ public class CriticalSection {
                 pman1 = new PairManager1(),
                 pman2 = new PairManager2();
         testApproaches(pman1, pman2);
+
+        /**
+         * 输出结果：（输出结果可能会变）
+         * pm1：Pair：x：117，y：117 checkCounter = 4
+         * pm2：Pair：x：118，y：118 checkCounter = 288011086
+         *
+         * 结果分析：
+         */
     }
 }

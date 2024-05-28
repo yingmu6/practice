@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @author chensy
  * @date 2024/4/13
  */
-public class SleepingTask extends LiftOff {
+public class SleepingTask extends LiftOff { //@TkY-Doing
 
     /**
      * 知识点：休眠
@@ -17,11 +17,11 @@ public class SleepingTask extends LiftOff {
      * 1）
      */
 
-    public void run() {
+    public void run() { //重写了LiftOff中的run方法，线程执行时进入当前方法
         try {
             while (countDown-- > 0) {
                 System.out.println(status());
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(100); //让当前线程睡眠100毫秒
             }
         } catch (InterruptedException e) {
             System.err.println("Interrupted");

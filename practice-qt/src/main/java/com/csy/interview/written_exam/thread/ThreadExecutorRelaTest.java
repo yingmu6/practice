@@ -12,10 +12,12 @@ import java.util.concurrent.TimeUnit;
  * @author chensy
  * @date 2023/9/13
  */
-public class ThreadExecutorRelaTest {
+public class ThreadExecutorRelaTest { //@MsY-Doing
 
     /**
-     * ExecutorService_线程池测试
+     * 知识点：ExecutorService线程池
+     *
+     * 知识点概括：
      * 1）ThreadPoolExecutor中以Worker为单位对工作线程进行管理
      *
      * 2）线程池任务运行的主流程
@@ -98,7 +100,7 @@ public class ThreadExecutorRelaTest {
     }
 
     /**
-     * 场景3：创建一个可缓存的线程池
+     * 场景3：创建线程数不受限制的线程池（按需创建线程，线程数不做限制）
      */
     @Test
     public void test_newCachedThreadPool() {

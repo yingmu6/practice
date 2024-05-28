@@ -10,7 +10,7 @@ public class LiftOff implements Runnable {
 
     private static int taskCount = 0;
 
-    private final int id = taskCount++;
+    private final int id = taskCount++; //final修饰的常量值，每个对象初始化后，不能再变更
 
     public LiftOff() {}
 
