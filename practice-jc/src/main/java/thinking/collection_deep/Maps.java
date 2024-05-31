@@ -15,11 +15,15 @@ import static net.mindview.util.Print.printnb;
  */
 public class Maps { //@TkY-Doing
 
-    /**
-     * 知识点：Map
+     /**
+     * 知识点：Map（本用例的主要含义是什么？）
      *
      * 知识点概要：
      * 1）
+     *
+     * 关联点学习：
+     * 1）AbstractMap中的toString源码阅读（Doing）
+     * 2）Map中Entry功能了解及源码阅读（Doing）
      */
 
     public static void printKeys(Map<Integer, String> map) {
@@ -29,9 +33,9 @@ public class Maps { //@TkY-Doing
     }
 
     public static void test(Map<Integer, String> map) {
-        print(map.getClass().getSimpleName());
-        map.putAll(new CountingMapData(25));
-        map.putAll(new CountingMapData(25));
+        print(map.getClass().getSimpleName()); //返回Class的简单名称，如HashMap
+        map.putAll(new CountingMapData(25)); //CountingMapData继承了AbstractMap，可以最少实现Map接口中方法
+        map.putAll(new CountingMapData(25)); //CountingMapData中元素为：{0=A0, 1=B0, 2=C0, 3=D0...}
         printKeys(map);
         printnb("Values：");
         print(map.values());
@@ -74,7 +78,7 @@ public class Maps { //@TkY-Doing
          * map.isEmpty()：true
          *
          * 结果分析：
-         * 1）
+         * 1）HashMap的putAll()方法时，putKey时，会判断key的hash值以及key值是否存在，存在则不添加
          *
          */
     }

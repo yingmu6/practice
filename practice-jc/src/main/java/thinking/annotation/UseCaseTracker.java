@@ -9,7 +9,7 @@ import java.util.List;
  * @author chensy
  * @date 2024/5/3
  */
-public class UseCaseTracker {
+public class UseCaseTracker { //@TkY-Doing
 
     /**
      * 知识点（20.2）：编写注解处理器
@@ -32,5 +32,15 @@ public class UseCaseTracker {
         List<Integer> useCases = new ArrayList<>();
         Collections.addAll(useCases, 47, 48, 49, 50);
         trackUseCases(useCases, PasswordUtils.class);
+
+        /**
+         * 输出结果：（输出结果可能会变）
+         * Found Use Case：49 New passwords can't equal previously used ones
+         * Found Use Case：48 no description
+         * Found Use Case：47 Passwords must contain at least one numeric
+         * Warning：Missing use case-50
+         *
+         * 结果分析：
+         */
     }
 }

@@ -9,7 +9,7 @@ import java.util.Set;
  * @author chensy
  * @date 2024/4/18
  */
-public class CountingMapDataSelf extends AbstractMap<Integer, String> { //自定义Map（实现entry()逻辑、以及自定义的Entry）
+public class CountingMapDataSelf extends AbstractMap<Integer, String> { //@TkY-Done， 自定义Map（实现entry()逻辑、以及自定义的Entry）
     private int size;
     private static String[] chars = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(" ");
 
@@ -77,7 +77,7 @@ public class CountingMapDataSelf extends AbstractMap<Integer, String> { //自定
             return this.index;
         }
 
-        public String getValue() { //将chars数组中的元素值与index进行拼接，形成value值，如A0、B1等
+        public String getValue() { //将chars数组中的元素值与index进行拼接，形成value值，如A0、B1等（注意：平时使用的get方法，只是简单的return变量值，此处做了逻辑处理）
             return CountingMapDataSelf.chars[this.index % CountingMapDataSelf.chars.length] + Integer.toString(this.index / CountingMapDataSelf.chars.length);
         }
 

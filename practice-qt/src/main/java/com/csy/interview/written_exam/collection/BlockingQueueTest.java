@@ -10,15 +10,16 @@ import java.util.concurrent.*;
  * @author chensy
  * @date 2023/8/27
  */
-public class BlockingQueueTest {
+public class BlockingQueueTest { //@MsY-Doing
 
     /**
-     * 阻塞队列_测试
+     * 知识点：阻塞队列
+     *
+     * 知识点概括：
      * 1）当阻塞队列是空时，从队列中获取元素的操作将会被阻塞
      *    当阻塞队列是满时，往队列中添加元素的操作将会被阻塞
      *   （为什么需要使用BlockingQueue？好处是我们不需要关心什么时候需要阻塞线程，什么时候需要唤醒线程，因为BlockingQueue都一手给你包办好了。
      *    在concurrent包发布以前，多线程环境下，我们每个程序员都必须自己去控制这些细节，尤其还要兼顾效率和线程安全，而这会给我们的程序带来不小的复杂度。)
-     *
      * 2）阻塞队列有主要以下几种：
      *    ArrayBlockingQueue: 由数组结构组成的有界阻塞队列
      *    LinkedBlockingDeque: 由链表结构组成的有界(但大小默认值Integer>MAX_VALUE)阻塞队列
@@ -27,10 +28,13 @@ public class BlockingQueueTest {
      *    SynchronousQueue:不存储元素的阻塞队列,也即是单个元素的队列
      *    LinkedTransferQueue:由链表结构组成的无界阻塞队列
      *    LinkedBlockingDeque:由了解结构组成的双向阻塞队列
-     *
      * 3）使用阻塞队列来解决生产者/消费者问题的时候，不再需要进行同步处理，这种思想在消息队列中有着广泛的应用。
-     *
      * 4）由于生产者与消费者是两个独立的并发体，他们之间是用缓冲区作为桥梁连接，生产者只需要往缓冲区里丢数据，就可以继续生产下一个数据，而消费者只需要从缓冲区了拿数据即可，这样就不会因为彼此的处理速度而发生阻塞。
+     *
+     * 关联点学习：
+     * 1）Condition功能原理了解，以及与Object的wait、notify的差异（Doing）
+     * 2）ReentrantLock中lockInterruptibly的功能用途了解（Doing）
+     * 3）
      *
      * 参考链接：
      * a）https://bbs.huaweicloud.com/blogs/345349 生产者消费者模型概念以及优点
@@ -41,7 +45,7 @@ public class BlockingQueueTest {
      * 场景1：使用ArrayBlockingQueue实现生产者、消费者模型
      */
     @Test
-    public void test_producer_consumer_by_ArrayBlockingQueue() throws IOException {
+    public void test_producer_consumer_by_ArrayBlockingQueue() throws IOException { //Doing
         BlockingQueue<String> abq = new ArrayBlockingQueue<>(5);
 
         ExecutorService pool = Executors.newCachedThreadPool();
@@ -65,6 +69,18 @@ public class BlockingQueueTest {
          *
          * 结果分析：
          * 1）从运行结果看，生产者：生产产品，产品在队列中增加，而消费者：消费产品，产品在队列中移除
+         * 2）ArrayBlockingQueue中put和take的主要逻辑；
+         *    2.1）put的主要逻辑：
+         *        a）会加锁进行添加元素，然后通过Condition的await，在队列元素慢的时候阻塞等待
+         *        b）通过putIndex下标，依次从数组头部添加元素，当元素添加满后，putIndex置为0，又重新开始
+         *        c）累加数组元素的计数count++，并唤醒等待的线程notEmpty.signal();
+         *    2.2）take的主要逻辑：
+         *        a）会加锁进行添加元素，然后通过Condition的await，在队列元素慢的时候阻塞等待
+         *        b）通过takeIndex下标，依次从数组头部获取元素，当元素取完后，takeIndex置为0，又重新开始
+         *        c）累减数组元素的计数count--，并唤醒等待的线程notFull.signal();
+         *
+         * 问题点答疑：
+         * 1）ArrayBlockingQueue中Condition的notEmpty、notFull，是怎样的含义，感觉与字面含义不匹配？
          */
     }
 

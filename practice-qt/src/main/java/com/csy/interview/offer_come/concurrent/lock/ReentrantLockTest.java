@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author chensy
  * @date 2023/9/7
  */
-public class ReentrantLockTest { //@MsY_Done
+public class ReentrantLockTest { //@MsY_Doing
 
     /**
      * 知识点：ReentrantLock可重入锁
@@ -44,6 +44,8 @@ public class ReentrantLockTest { //@MsY_Done
      *         a）使用读锁时，会检查写锁是否被其它线程占用，若没有则可以使用读锁
      *         b）使用写锁时，会判断当前线程与锁的持有线程是否相同，若不相同则加锁失败，进入AQS队列中
      *            等待拥有写锁的线程执行完逻辑后，将拥有的线程置为null，AQS队列中的写锁即可执行。
+     *
+     * 6）ReentrantLock中的lockInterruptibly的功能用途是什么？
      */
 
      /**

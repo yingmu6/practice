@@ -6,14 +6,14 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/8/9
  */
-public class VolatileTest {
+public class VolatileTest { //@MsY-Doing
 
     /**
      * 知识点：volatile_测试
      * 1）volatile能保证可见性、有序性，但不能保证原子性
      *
      * 问题点：
-     * 1）volatile的底层原理是什么？todo @Ym 待了解
+     * 1）volatile的底层原理是什么？
      */
 
     /**
@@ -39,5 +39,12 @@ public class VolatileTest {
         }
 
         System.out.println(intVal);
+
+        /**
+         * 输出结果：（输出结果可能会变）
+         * 10000
+         *
+         * 结果分析：
+         */
     }
 }
