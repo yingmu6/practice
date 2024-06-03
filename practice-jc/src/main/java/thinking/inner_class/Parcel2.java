@@ -4,7 +4,7 @@ package thinking.inner_class;
  * @author chensy
  * @date 2024/3/15
  */
-public class Parcel2 {
+public class Parcel2 { //@TkY-Doing
 
     class Contents { //此处默认为protected权限，即同一个包下的类可访问，若改为private，只有同一个类中能访问
         private int i = 11;

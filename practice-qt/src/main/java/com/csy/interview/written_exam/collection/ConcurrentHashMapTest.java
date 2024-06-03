@@ -13,23 +13,25 @@ import java.util.concurrent.TimeUnit;
  * @author chensy
  * @date 2023/8/26
  */
-public class ConcurrentHashMapTest {
+public class ConcurrentHashMapTest { //@MsY-Doing
 
     /**
-     * ConcurrentHashMap_测试
+     * 知识点：ConcurrentHashMap
+     *
+     * 知识点概括：
      * 1）判断是否多线程安全
      *   a）看是否共享资源
      *   b）按是否有非原子操作
      *   c）在非原子操作下是否加锁
      *
-     * 注明：此处所写的多线程用例，可用于测试多线程下是否线程安全
+     * 问题点答疑：
      */
 
      /**
      * 场景1：使用单线程计算
      */
     @Test
-    public void test_single_thread() {
+    public void test_single_thread() { //todo 输出结果有出入，对比下原有用例
         int threadNumber = 1;
         System.out.println("单线程运行：");
         for (int i = 0; i < 5; i++) {

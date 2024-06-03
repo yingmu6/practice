@@ -10,13 +10,17 @@ import java.util.StringTokenizer;
  * @author chensy
  * @date 2023/7/7
  */
-public class StringTest {
+public class StringTest { //@MsY-Doing
 
     /**
-     * 字符串_测试
+     * 知识点：字符串
      *
-     * String常量采用了享元模式（Flyweight）
-     * 即会共享字符串，判断字符串是否存在，若存在则使用，否则新创建
+     * 知识点概括：
+     * 1）String常量采用了享元模式（Flyweight）
+     * 2）即会共享字符串，判断字符串是否存在，若存在则使用，否则新创建
+     *
+     * 关联点学习：
+     * 1）Spring源码阅读，看下是怎么基于数组做相关的操作的？
      */
 
     /**

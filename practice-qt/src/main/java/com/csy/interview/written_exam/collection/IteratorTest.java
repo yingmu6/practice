@@ -11,16 +11,21 @@ import java.util.List;
  * @author chensy
  * @date 2023/9/1
  */
-public class IteratorTest {
+public class IteratorTest { //@MsY-Doing
 
     /**
-     * Iterator_迭代器测试
+     * 知识点：Iterator迭代器
+     *
+     * 知识点概括：
      * 1）An Iterator is one of many ways we can traverse（遍历） a collection, and as every option, it has its pros（赞成，优点） and cons（反对，缺点）.
      *
      * 2）Iterator的特点：
      *    a）introduced improved method names（引进改进的方法名）
      *    b）made it possible to remove elements from a collection we're iterating over (可以在迭代中移除元素)
      *    c）doesn't guarantee iteration order
+     *
+     * 关联点学习：
+     * 1）模拟LinkedList关联的多个类的多个层级继承，看下iterator()的执行流程。
      *
      * 参考链接：
      * a）https://www.baeldung.com/java-iterator
@@ -30,14 +35,14 @@ public class IteratorTest {
      * Iterator基本使用
      */
     @Test
-    public void test_iterator_basic() {
-        List<String> list = new LinkedList<>();
+    public void test_iterator_basic() { //Doing
+        List<String> list = new LinkedList<>(); //向上转型
         list.add("first");
         list.add("second");
         list.add("third");
         list.add("fourth");
         for (Iterator<String> it = list.iterator(); it.hasNext();) {
-            String str = (String) it.next();
+            String str = (String) it.next(); //此处id类型为：AbstractList的内部类Itr
             System.out.println(str);
         }
 
@@ -50,6 +55,13 @@ public class IteratorTest {
          *
          * 结果分析：
          * 1）Iterator中的hasNext() 判断是否还有元素，it.next() 返回迭代中的下一个元素
+         *    从Abstract$Itr的源码分析：
+         *    a）hasNext()：将游标和容量比较 cursor != size();
+         *    b）next()：获取游标对应的元素 E next = get(i); 且获取后将游标加1：cursor = i + 1;
+         *
+         * 问题点答疑：
+         * 1）为什么此处的list.iterator()执行的是AbstractList的iterator()方法，而不是AbstractSequentiaList的iterator()方法？
+         *    从类的继承关系来看：LinkedList -> AbstractSequentiaList -> AbstractList -> AbstractCollection
          */
     }
 
