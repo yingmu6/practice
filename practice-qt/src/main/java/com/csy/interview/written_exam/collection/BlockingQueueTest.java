@@ -36,12 +36,13 @@ public class BlockingQueueTest { //@MsY-Doing
      *
      * 关联点学习：
      * 1）Condition功能原理了解，以及与Object的wait、notify的差异（Doing）
-     *
      * 2）ReentrantLock中lockInterruptibly的功能用途了解（Doing）
-     *
      * 3）队列按数组和链表两种方式实现的代码实践（Doing）
-     *
      * 4）链表的CRUD的相关代码实现（Doing）
+     * 5）按位运算，左移、右移等操作了解（Doing）
+     * 6）堆的特性，PriorityBlockQueue中的堆特性（Doing）
+     * 7）PriorityBlockingQueue#offer入队、take出队源码阅读（Doing）
+     * 8）数据结构中树的实现代码实践（Doing）
      *
      * 参考链接：
      * a）https://bbs.huaweicloud.com/blogs/345349 生产者消费者模型概念以及优点
@@ -94,8 +95,8 @@ public class BlockingQueueTest { //@MsY-Doing
          * 问题点答疑：
          * 1）ArrayBlockingQueue中Condition的notEmpty、notFull，是怎样的含义，感觉与字面含义不匹配？
          *    解答：的确有些费解，不过这里使用的好处就是，一个变量两个地方使用。
-         *         看变量名的描述：变量 notFull，描述 Condition for waiting puts （用于等待put操作，即在队列不满时恢复，所以take操作时进行signal）
-         *                      变量 notEmpty，描述 Condition for waiting takes（用于等待take操作，即在队列不空时恢复，所以put操作时进行signal）
+         *         看变量名的描述：变量 notFull，描述 Condition for waiting puts （用于等待put操作，即在队列不满时唤醒，所以take操作时进行signal）
+         *                      变量 notEmpty，描述 Condition for waiting takes（用于等待take操作，即在队列不空时唤醒，所以put操作时进行signal）
          */
     }
 
@@ -127,14 +128,22 @@ public class BlockingQueueTest { //@MsY-Doing
          * ...持续生产、消费...
          *
          * 结果分析：
-         * 1）消费产品，按优先级大小消费队列中的产品
-         *
-         * 2）看源码PriorityBlockingQueue#take时，取比较器来比较元素
-         *
-         * 3）new PriorityBlockingQueue<>() 创建优先级阻塞队列时，会进行如下的初始化
+         * 1）new PriorityBlockingQueue<>() 创建优先级阻塞队列时，会进行如下的初始化
          *    a）创建ReentrantLock、lock.newCondition()
-         *    b）指定比较器Comparator，若比较器为null，按自然排序
+         *    b）指定比较器Comparator，若比较器为null，按队列中对象重写的compareTo方法进行比较
          *    c）初始化队列元素new Object[initialCapacity]，若没有指定大小，默认为11
+         *
+         * 2）PriorityBlockingQueue#offer入队的主要逻辑：
+         *    a）插入元素时，若超过队列容量，则会先扩容
+         *    b）判断是否指定比较器Comparator，指定了就用Comparator比较对象，未指定就按队列中对象重写的compareTo方法重写
+         *       b.1）插入元素时，要保持堆的不变性，确保插入的元素大于或等于根元素
+         *       b.2）若不满足条件，需要将根元素与插入的元素进行交换，直到满足条件为止
+         *
+         * 3）PriorityBlockingQueue#take出队的主要逻辑：（Doing）
+         *
+         * 问题点答疑：
+         * 1）PriorityBlocking是怎样扩容的？底层的tryGrow()逻辑是怎样的？
+         *
          */
     }
 
