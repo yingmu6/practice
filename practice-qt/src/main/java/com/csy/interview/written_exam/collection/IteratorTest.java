@@ -41,8 +41,8 @@ public class IteratorTest { //@MsY-Doing
         list.add("second");
         list.add("third");
         list.add("fourth");
-        for (Iterator<String> it = list.iterator(); it.hasNext();) {
-            String str = (String) it.next(); //此处id类型为：AbstractList的内部类Itr
+        for (Iterator<String> it = list.iterator(); it.hasNext();) { //此处it类型为：AbstractList的内部类Itr
+            String str = (String) it.next(); //it.next()：返回迭代中的下一个元素，游标cursor从0开始，返回值的同时游标值cursor会加1
             System.out.println(str);
         }
 
@@ -69,7 +69,7 @@ public class IteratorTest { //@MsY-Doing
      * 场景2：在遍历时，添加元素
      */
     @Test
-    public void test_iterator_add() {
+    public void test_iterator_add() { //Doing
         try {
             List<String> list = new LinkedList<>();
             list.add("first");
@@ -77,7 +77,7 @@ public class IteratorTest { //@MsY-Doing
             list.add("third");
             list.add("fourth");
 
-            for (Iterator<String> it = list.iterator(); it.hasNext();) {
+            for (Iterator<String> it = list.iterator(); it.hasNext();) { //此处的it类型为：ListItr
                 String str = (String) it.next();
                 System.out.println(str);
                 if (str.equals("second")) { //此处若执行remove操作，也会报异常（可以使用临时的集合，记录下需要处理的元素）
@@ -99,13 +99,9 @@ public class IteratorTest { //@MsY-Doing
          *
          * 结果分析：
          * 1）在list.add添加元素后，调用it.next()时，会调用ListItr#next方法，会比较列表中当前的数目和预期的数目，若不相等，则抛出ConcurrentModificationException异常
-         *         final void checkForComodification() {
-         *             if (modCount != expectedModCount)
-         *                 throw new ConcurrentModificationException();
-         *         }
          *
          * 2）LinkedList中的list.iterator()获取迭代器，是通过AbstractList#listIterator获取的，最后的对象类型为AbstractList的私有内部类ListItr
-         *   在获取迭代器的时候，会包容器的个数赋值给exceptionModCount，在调用next()方法时，会比较容器中实际的个数和exceptionModCount，如此处容器的值由于add了一个元素变为5
+         *   在获取迭代器的时候，会把容器的个数赋值给exceptionModCount，在调用next()方法时，会比较容器中实际的个数和exceptionModCount，如此处容器的值由于add了一个元素变为5
          *   而exceptionModCount还是最初的容器元素值4，所以就排除异常了
          *
          * 3）解决方法，在Iterator迭代时，不要进行add、remove操作，可以先记到一个集合中，迭代完后，在用集合中的元素来处理
@@ -114,6 +110,9 @@ public class IteratorTest { //@MsY-Doing
          *      b：在多线程中可能由并发问题产生了，可以用线程安全的容器，如ConcurrentHashMap和CopyOnWriteArrayList等
          *         也可以使用synchronized、lock等加锁，但要注意性能。
          *    ）
+         *
+         * 问题点答疑：
+         * 1）为什么此处list.iterator()的类型是ListItr，与test_iterator_basic()方法中有何不同？
          */
     }
 }

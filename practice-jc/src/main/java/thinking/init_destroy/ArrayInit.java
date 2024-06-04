@@ -7,10 +7,10 @@ import java.util.Arrays;
  * @author chensy
  * @date 2024/4/19
  */
-public class ArrayInit {
+public class ArrayInit { //@TkY-Done
 
     /**
-     * 知识点（5.8）：
+     * 知识点（5.8）：数组初始化
      */
     public static void main(String[] args) {
         Integer[] a = {
@@ -34,7 +34,7 @@ public class ArrayInit {
          * [1, 2, 3]
          *
          * 结果分析：
-         * 1）数组声明时，可通过"{}"进行初始化
+         * 1）数组声明时，可以在花括号{}中进行初始化
          */
     }
 }

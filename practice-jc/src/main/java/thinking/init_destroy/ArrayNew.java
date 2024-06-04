@@ -11,6 +11,10 @@ import static net.mindview.util.Print.print;
  */
 public class ArrayNew { //@TkY-Doing
 
+    /**
+     * 知识点：使用new创建数组
+     */
+
     public static void main(String[] args) {
         int[] a;
         Random rand = new Random(47);
@@ -25,6 +29,9 @@ public class ArrayNew { //@TkY-Doing
          *
          * 结果分析：
          * 1）使用new方式创建数组
+         *
+         * 问题点答疑：
+         * 1）此处rand.nextInt(20)为什么多次运行都是显示18的值？
          */
     }
 }

@@ -6,10 +6,13 @@ import static net.mindview.util.Print.print;
  * @author chensy
  * @date 2024/4/19
  */
-public class Demotion {
+public class Demotion { //@TkY-Doing
 
     /**
      * 知识点（5.2.2）：
+     *
+     * 知识点概括：
+     * 1）
      */
 
     void f1(char x) { print("f1(char)"); }
@@ -50,12 +53,32 @@ public class Demotion {
     void testDouble() {
         double x = 0;
         print("double argument：");
-        f1(x);f2((float) x);f3((long) x);f4((int) x);
-        f5((short) x);f6((byte) x);f7((char)x);
+        f1(x);
+        f2((float) x);
+        f3((long) x);
+        f4((int) x);
+        f5((short) x);
+        f6((byte) x);
+        f7((char)x);
     }
 
     public static void main(String[] args) {
         Demotion p = new Demotion();
         p.testDouble();
+
+        /**
+         * 输出结果：
+         * double argument：
+         * f1(double)
+         * f2(float)
+         * f3(long)
+         * f4(int)
+         * f5(short)
+         * f6(byte)
+         * f7(char)
+         *
+         * 结果分析：
+         * 1）当有多个重载方法时，编译器会根据参数列表调用对应的方法
+         */
     }
 }

@@ -7,10 +7,12 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/8/24
  */
-public class LinkedHashMapTest {
+public class LinkedHashMapTest { //@MsY-Doing
 
     /**
-     * LinkedHashMap_测试
+     * 知识点：LinkedHashMap
+     *
+     * 知识点概括：
      * 1）Hash table and linked list implementation of the Map interface, with predictable（可预料的） iteration（迭代） order.
      *   This implementation differs from HashMap in that it maintains a doubly-linked list（双向列表） running through all of its entries
      *
@@ -19,6 +21,9 @@ public class LinkedHashMapTest {
      * 3）afterNodeAccess方法：如果LinkedHashMap构造时，指定accessOrder=true，即按访问数据排序，则get操作时，会把当前访问的数据放在队首部，也就是为最活跃的数据
      *
      * 4）LinkedHashMap继承了HashMap，在put或putAll操作后，会调用afterNodeInsertion方法处理插入后操作（HashMap中afterNodeInsertion实现为空，由具体子类来实现）
+     *
+     * 关联点学习：
+     * 1）
      */
 
     /**
@@ -32,7 +37,7 @@ public class LinkedHashMapTest {
      *    c）如果缓存中的数据被再次访问，则将数据移到队列首部
      */
     @Test
-    public void test_lru_strategy() {
+    public void test_lru_strategy() { //Doing
         LRU<Integer, Integer> lru = new LRU<>(5);
         for (int i = 0; i < 5; i++) {
             lru.put(i, i);
