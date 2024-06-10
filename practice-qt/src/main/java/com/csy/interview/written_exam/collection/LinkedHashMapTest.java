@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/8/24
  */
-public class LinkedHashMapTest { //@MsY-Doing
+public class LinkedHashMapTest { //@MsY-Done
 
     /**
      * 知识点：LinkedHashMap
@@ -22,8 +22,6 @@ public class LinkedHashMapTest { //@MsY-Doing
      *
      * 4）LinkedHashMap继承了HashMap，在put或putAll操作后，会调用afterNodeInsertion方法处理插入后操作（HashMap中afterNodeInsertion实现为空，由具体子类来实现）
      *
-     * 关联点学习：
-     * 1）
      */
 
     /**
@@ -37,8 +35,8 @@ public class LinkedHashMapTest { //@MsY-Doing
      *    c）如果缓存中的数据被再次访问，则将数据移到队列首部
      */
     @Test
-    public void test_lru_strategy() { //Doing
-        LRU<Integer, Integer> lru = new LRU<>(5);
+    public void test_lru_strategy() { //Done
+        LRU<Integer, Integer> lru = new LRU<>(5); //LRU内部以LinkedMap做缓存队列，对重写缓冲淘汰策略removeEldestEntry
         for (int i = 0; i < 5; i++) {
             lru.put(i, i);
         }
@@ -48,20 +46,21 @@ public class LinkedHashMapTest { //@MsY-Doing
         System.out.println(lru);
         lru.put(5, 5);
         System.out.println(lru);
+        lru.get(1);
+        System.out.println(lru);
 
         /**
          * 输出结果：
          * 0->1->2->3->4->
          * 0->1->2->4->3->
          * 1->2->4->3->5->
+         * 2->4->3->5->1->
          *
          * 结果分析：
          * 1）数据没有超过操作限制，即重写的removeEldestEntry方法中size() > LRU.this.cacheSize;比较逻辑，所以能正常插入
-         * 2）get操作时，若构造LinkedHashMap时，指定的accessOrder=true，则会把访问的数据移动到队首部，表明为最近常用数据
-         * 3）put或put操作时，会调用removeEldestEntry判断是否操作缓存大小，操作则移除队尾数据
+         * 2）get操作时，若构造LinkedHashMap时，则会把访问的数据移动到队尾，表明为最近常用数据（热点数据：放到队尾，避免被删除）
+         * 3）put或put操作时，会调用removeEldestEntry判断是否操作缓存大小，操作则移除队首数据（队首数据：即为最早入队的数据）
          *
-         * 结果总结：
-         * 1）accessOrder=true移动时，因为LinkedHashMap#Entry维护着before、after，即前后节点，所以移动节点改变这两个节点指向即可
          */
     }
 }

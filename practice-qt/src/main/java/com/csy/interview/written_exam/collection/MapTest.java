@@ -1,6 +1,5 @@
 package com.csy.interview.written_exam.collection;
 
-import com.csy.interview.offer_come.basic.reflect.Person;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -11,7 +10,7 @@ import java.util.Map;
  * @author chensy
  * @date 2023/8/22
  */
-public class MapTest {
+public class MapTest { //@MsY-Doing
 
     /**
      * Map_测试
@@ -24,11 +23,11 @@ public class MapTest {
      * 场景1：hash冲突
      */
     @Test
-    public void test_hash_conflict() {
+    public void test_hash_conflict() { //Doing
         HashMap<HS, String> map = new HashMap<HS, String>();
 
         // 存入hashCode相同的HS对象
-        map.put(new HS(), "1");
+        map.put(new HS(), "1"); //在put时，会计算节点的hash值，即会调用HS重写的hashCode方法
         map.put(new HS(), "2");
         System.out.println(map);
 
