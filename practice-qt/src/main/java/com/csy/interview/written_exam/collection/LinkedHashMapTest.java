@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author chensy
  * @date 2023/8/24
  */
-public class LinkedHashMapTest { //@MsY-Done
+public class LinkedHashMapTest { //@MsY-Doing
 
     /**
      * 知识点：LinkedHashMap
@@ -21,6 +21,11 @@ public class LinkedHashMapTest { //@MsY-Done
      * 3）afterNodeAccess方法：如果LinkedHashMap构造时，指定accessOrder=true，即按访问数据排序，则get操作时，会把当前访问的数据放在队首部，也就是为最活跃的数据
      *
      * 4）LinkedHashMap继承了HashMap，在put或putAll操作后，会调用afterNodeInsertion方法处理插入后操作（HashMap中afterNodeInsertion实现为空，由具体子类来实现）
+     *
+     * 问题点答疑：
+     * 1）LinkedHashMap与HashMap有什么区别？key都是用hash计算的吗？输出顺序和插入顺序有区别吗？
+     *
+     * 2）java.util.LinkedHashMap#removeEldestEntry是怎样移除最老元素的？
      *
      */
 

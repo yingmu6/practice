@@ -1,34 +1,32 @@
-package thinking.type_info;
+package thinking.type_info.toys;
 
 /**
  * @author chensy
  * @date 2024/4/8
  */
+
+/**
+ * 知识点（14.2）：Class对象
+ */
+
+interface HasBatteries {}
+
+interface Shoots {}
+
+interface Waterproof {}
+
+class Toy {
+    Toy() {}
+    Toy(int i) {}
+}
+
+class FancyToy extends Toy implements HasBatteries, Waterproof, Shoots {
+    FancyToy() {
+        super(1);
+    }
+}
+
 public class ToyTest {
-
-    /**
-     * 知识点：Class对象
-     */
-
-    static class FancyToy extends Toy implements HasBatteries, Waterproof, Shoots {
-        FancyToy() {
-            super(1);
-        }
-    }
-
-    static class Toy {
-        Toy() {}
-        Toy(int i) {}
-    }
-
-    interface HasBatteries {
-    }
-
-    interface Shoots {
-    }
-
-    interface Waterproof {
-    }
 
     static void printInfo(Class cc) {
         System.out.println("Class name：" + cc.getName() +
@@ -40,7 +38,7 @@ public class ToyTest {
     public static void main(String[] args) {
         Class c = null;
         try {
-            c = Class.forName("thinking.type_info.ToyTest.FancyToy");
+            c = Class.forName("thinking.type_info.toys.FancyToy");
         } catch (ClassNotFoundException e) {
             System.out.println("Can't find FancyToy");
             System.exit(1);

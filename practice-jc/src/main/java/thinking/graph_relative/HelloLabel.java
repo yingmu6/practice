@@ -9,6 +9,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class HelloLabel {
 
+    /**
+     * 知识点（22.2）：Swing基础
+     */
     public static void main(String[] args) throws InterruptedException {
         JFrame frame = new JFrame("Hello Swing");
         JLabel label = new JLabel("A Label");

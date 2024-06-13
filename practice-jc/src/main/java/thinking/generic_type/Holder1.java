@@ -1,18 +1,9 @@
-package thinking.generic_type;
+package thinking.generic_type;//: generics/Holder1.java
 
-/**
- * @author chensy
- * @date 2024/5/17
- */
+class Automobile {}
+
 public class Holder1 {
-
-    private Automobile a;
-
-    public Holder1(Automobile a) {
-        this.a = a;
-    }
-
-    Automobile get() {
-        return a;
-    }
-}
+  private Automobile a;
+  public Holder1(Automobile a) { this.a = a; }
+  Automobile get() { return a; }
+} ///:~

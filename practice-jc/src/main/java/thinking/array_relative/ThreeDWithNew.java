@@ -1,22 +1,12 @@
-package thinking.array_relative;
+package thinking.array_relative;//: arrays/ThreeDWithNew.java
+import java.util.*;
 
-import java.util.Arrays;
-
-/**
- * @author orange
- * @date 2024/5/28
- */
 public class ThreeDWithNew {
-
-    /**
-     * 知识点（16.4）：三维数组
-     *
-     * 知识点概括：
-     * 1）
-     */
-
-    public static void main(String[] args) {
-        int[][][] a = new int[2][2][4];
-        System.out.println(Arrays.deepToString(a));
-    }
-}
+  public static void main(String[] args) {
+    // 3-D array with fixed length:
+    int[][][] a = new int[2][2][4];
+    System.out.println(Arrays.deepToString(a));
+  }
+} /* Output:
+[[[0, 0, 0, 0], [0, 0, 0, 0]], [[0, 0, 0, 0], [0, 0, 0, 0]]]
+*///:~

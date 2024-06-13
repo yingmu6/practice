@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static net.mindview.util.SwingConsole.run;
+
 /**
  * @author chensy
  * @date 2024/4/10
@@ -73,7 +75,6 @@ public class ShowAddListeners extends JFrame {
     }
 
     public static void main(String[] args) {
-        //run(new ShowAddListeners(), 500, 400); 此处的run是什么方法
-        new ShowAddListeners();
+        run(new ShowAddListeners(), 500, 400);
     }
 }

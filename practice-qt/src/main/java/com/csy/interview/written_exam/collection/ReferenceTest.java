@@ -8,10 +8,12 @@ import java.lang.ref.*;
  * @author chensy
  * @date 2023/8/25
  */
-public class ReferenceTest {
+public class ReferenceTest { //@MsY-Doing
 
     /**
-     * 引用_测试
+     * 知识点：引用Reference使用
+     *
+     * 知识点概括：
      * 1）A hard (or strong) reference is the default type of reference,
      *   and most of the time, we may not even think about when and how referenced objects are garbage collected
      *
@@ -29,6 +31,10 @@ public class ReferenceTest {
      *    c）弱：WeakReference.java，每次GC都会被回收；
      *    d）虚：PhantomReference.java，每次GC都会被回收；
      *
+     * 问题点答疑：
+     * 1）ReferenceQueue队列的元素是什么时候设置的？
+     *    解答：在引用的对象被垃圾回收时，会把回收的对象写到ReferenceQueue中。可调用System.gc();通知垃圾回收后，看到ReferenceQueue中的元素
+     *
      * 参考链接：
      * a）https://www.baeldung.com/java-reference-types
      * b）https://medium.com/@ramtop/weak-soft-and-phantom-references-in-java-and-why-they-matter-c04bfc9dc792
@@ -39,7 +45,7 @@ public class ReferenceTest {
      * 场景1：弱引用、虚引用、软引用基本使用
      */
     @Test
-    public void test_reference_v1() {
+    public void test_reference_v1() { //Done
         ReferenceQueue<Ref> queue = new ReferenceQueue<>();
 
         // 创建一个弱引用（指定引用的对象，以及引用对象要注册的队列）
@@ -52,7 +58,7 @@ public class ReferenceTest {
         System.out.println("引用内容：");
         System.out.println(weak.get());
         System.out.println(phantom.get()); //看源码，phantom.get()始终返回null
-        System.out.println(soft.get());
+        System.out.println(soft.get()); //维护了timestamp成员变量，每次调用时，值会更新。VM可能用这个字段进行垃圾回收
 
         System.out.println("被回收的引用：");
         for (Reference r = null; (r = queue.poll()) != null;) {
@@ -82,7 +88,7 @@ public class ReferenceTest {
     }
 
     @Test
-    public void test_reference_v2() {
+    public void test_reference_v2() { //Done
         ReferenceQueue<Ref> queue = new ReferenceQueue<>();
 
         WeakReference<Ref> weak = new WeakReference<>(new Ref("WeakV2"), queue); //注册：此处的Ref对象在外部没有任何引用，所以在某个时间点，GC应当回收这个对象
@@ -118,7 +124,7 @@ public class ReferenceTest {
 
 
     @Test
-    public void test_reference_v3() {
+    public void test_reference_v3() { //Doing
         ReferenceQueue<Ref> queue = new ReferenceQueue<>();
 
         Ref wr = new Ref("Hard"); //强引用

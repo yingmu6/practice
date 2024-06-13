@@ -10,8 +10,9 @@ import static net.mindview.util.SwingConsole.run;
  * @date 2024/4/10
  */
 public class Button1 extends JFrame {
+
     /**
-     * 知识点：创建按钮
+     * 知识点（22.3）：创建按钮
      */
     private JButton
       b1 = new JButton("Button 1"),

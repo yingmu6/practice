@@ -1,35 +1,16 @@
-package thinking.generic_type;
+package thinking.generic_type;//: generics/Holder2.java
 
-/**
- * @author chensy
- * @date 2024/5/17
- */
 public class Holder2 {
-
-    /**
-     * 知识点（15.2）：简单泛型
-     */
-
-    private Object a;
-
-    public Holder2(Object a) {
-        this.a = a;
-    }
-
-    public void set(Object a) {
-        this.a = a;
-    }
-
-    public Object get() {
-        return a;
-    }
-
-    public static void main(String[] args) {
-        Holder2 h2 = new Holder2(new Automobile());
-        Automobile a = (Automobile) h2.get();
-        h2.set("Not an Automobile");
-        String s = (String) h2.get();
-        h2.set(1);
-        Integer x = (Integer) h2.get();
-    }
-}
+  private Object a;
+  public Holder2(Object a) { this.a = a; }
+  public void set(Object a) { this.a = a; }
+  public Object get() { return a; }
+  public static void main(String[] args) {
+    Holder2 h2 = new Holder2(new Automobile());
+    Automobile a = (Automobile)h2.get();
+    h2.set("Not an Automobile");
+    String s = (String)h2.get();
+    h2.set(1); // Autoboxes to Integer
+    Integer x = (Integer)h2.get();
+  }
+} ///:~

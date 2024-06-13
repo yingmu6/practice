@@ -13,10 +13,15 @@ import java.util.Map;
 public class MapTest { //@MsY-Doing
 
     /**
-     * Map_测试
+     * 知识点：Map
+     *
+     * 知识点概括：
      * 1）负载因子、阈值的计划公式
      *    a）threshold = capacity * loadFactor
      *    b）loadFactor = size / capacity
+     *
+     * 问题点答疑：
+     * 1）HashMap是怎么解决hash冲突的？怎么判定为出现hash冲突了？
      */
 
     /**

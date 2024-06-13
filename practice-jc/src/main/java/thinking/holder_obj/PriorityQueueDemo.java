@@ -6,7 +6,7 @@ import java.util.*;
  * @author orange
  * @date 2024/6/5
  */
-public class PriorityQueueDemo {
+public class PriorityQueueDemo { //@TkY-Doing
 
     /**
      * 知识点（11.11.1）：PriorityQueue
@@ -47,5 +47,28 @@ public class PriorityQueueDemo {
         PriorityQueue<Character> characterPQ =
                 new PriorityQueue<>();
         QueueDemo.printQ(characterPQ);
+
+        /**
+         * 输出结果：
+         * 0
+         * 1
+         * 1
+         * 1
+         * ...
+         *
+         * 1
+         * 1
+         * 2
+         * 3
+         * ...
+         *
+         * A
+         * A
+         * B
+         * ...
+         *
+         * 结果分析：
+         * 1）
+         */
     }
 }
