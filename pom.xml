@@ -14,7 +14,7 @@
         <module>practice-gz</module>
         <module>practice-sf</module>
         <module>practice-sj</module>
-        <module>practice-qt</module>
+        <module>practice-zj</module>
     </modules>
 
     <properties>
@@ -24,6 +24,43 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.csy</groupId>
+                <artifactId>practice-db</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.csy</groupId>
+                <artifactId>practice-jc</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.csy</groupId>
+                <artifactId>practice-gz</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.csy</groupId>
+                <artifactId>practice-sf</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.csy</groupId>
+                <artifactId>practice-sj</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.csy</groupId>
+                <artifactId>practice-zj</artifactId>
+                <version>1.0</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>javax.cache</groupId>
