@@ -1,23 +1,32 @@
 package thinking.concurrent;//: concurrency/DelayQueueDemo.java
+import org.junit.Test;
+
 import java.util.concurrent.*;
 import java.util.*;
 import static java.util.concurrent.TimeUnit.*;
 import static net.mindview.util.Print.*;
 
-class DelayedTask implements Runnable, Delayed {
+/**
+ * 知识点：延迟队列
+ *
+ * 知识点概括：
+ * 1）
+ */
+
+class DelayedTask implements Runnable, Delayed { //@TkY-Doing
   private static int counter = 0;
-  private final int id = counter++;
+  private final int id = counter++; //每次对象创建初始化时，id值都会+1，值依次为0、1、...
   private final int delta;
-  private final long trigger;
+  private final long trigger; //任务触发时间
   protected static List<DelayedTask> sequence =
     new ArrayList<DelayedTask>();
   public DelayedTask(int delayInMilliseconds) {
     delta = delayInMilliseconds;
     trigger = System.nanoTime() +
-      NANOSECONDS.convert(delta, MILLISECONDS);
-    sequence.add(this);
+      NANOSECONDS.convert(delta, MILLISECONDS); //时间转换
+    sequence.add(this); //把延迟任务加到列表中
   }
-  public long getDelay(TimeUnit unit) {
+  public long getDelay(TimeUnit unit) { //获取延迟时间
     return unit.convert(
       trigger - System.nanoTime(), NANOSECONDS);
   }
@@ -59,7 +68,7 @@ class DelayedTaskConsumer implements Runnable {
   }
   public void run() {
     try {
-      while(!Thread.interrupted())
+      while(!Thread.interrupted()) //依次取出队列中的延迟任务并执行对应的run方法（此处的run是手动调用，不是系统调用）
         q.take().run(); // Run task with the current thread
     } catch(InterruptedException e) {
       // Acceptable way to exit
@@ -69,20 +78,51 @@ class DelayedTaskConsumer implements Runnable {
 }
 
 public class DelayQueueDemo {
-  public static void main(String[] args) {
+  public static void main(String[] args) { //Doing_@pause-06/17
     Random rand = new Random(47);
     ExecutorService exec = Executors.newCachedThreadPool();
     DelayQueue<DelayedTask> queue =
       new DelayQueue<DelayedTask>();
     // Fill with tasks that have random delays:
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < 20; i++) //将延迟任务放入队列中
       queue.put(new DelayedTask(rand.nextInt(5000)));
     // Set the stopping point
-    queue.add(new DelayedTask.EndSentinel(5000, exec));
-    exec.execute(new DelayedTaskConsumer(queue));
+    queue.add(new DelayedTask.EndSentinel(5000, exec)); //设置最后一个延迟的任务（因为延迟时间为5000，为最后一个）
+    exec.execute(new DelayedTaskConsumer(queue)); //此处不用线程池也可以，因为主线程中没有其它任务了
+
+    /**
+     * 输出结果：
+     * [128 ] Task 11 [200 ] Task 7 [429 ] Task 5 [520 ] Task 18 [555 ] Task 1 [961 ] Task 4 [998 ] Task 16 [1207] Task 9 [1693] Task 2 [1809] Task 14 [1861] Task 3 [2278] Task 15 [3288] Task 10 [3551] Task 12 [4258] Task 0 [4258] Task 19 [4522] Task 8 [4589] Task 13 [4861] Task 17 [4868] Task 6 (0:4258) (1:555) (2:1693) (3:1861) (4:961) (5:429) (6:4868) (7:200) (8:4522) (9:1207) (10:3288) (11:128) (12:3551) (13:4589) (14:1809) (15:2278) (16:998) (17:4861) (18:520) (19:4258) (20:5000)
+     * [5000] Task 20 Calling shutdownNow()
+     * Finished DelayedTaskConsumer
+     *
+     * 结果分析：
+     * 1）将延迟任务put添加到队列中以后（任务中设置的延迟时间），再调用take从队列中获取到元素，延迟队列中阻塞等待指定的时间，
+     *    然后执行任务中run逻辑，执行完以后，队列中的元素对应移除。
+     * 2）延迟队列内部，是使用PriorityQueue存储的，并且在插入和获取队列元素时，都会使用ReentrantLock进行加锁处理的。
+     *
+     *
+     *
+     */
   }
-} /* Output:
-[128 ] Task 11 [200 ] Task 7 [429 ] Task 5 [520 ] Task 18 [555 ] Task 1 [961 ] Task 4 [998 ] Task 16 [1207] Task 9 [1693] Task 2 [1809] Task 14 [1861] Task 3 [2278] Task 15 [3288] Task 10 [3551] Task 12 [4258] Task 0 [4258] Task 19 [4522] Task 8 [4589] Task 13 [4861] Task 17 [4868] Task 6 (0:4258) (1:555) (2:1693) (3:1861) (4:961) (5:429) (6:4868) (7:200) (8:4522) (9:1207) (10:3288) (11:128) (12:3551) (13:4589) (14:1809) (15:2278) (16:998) (17:4861) (18:520) (19:4258) (20:5000)
-[5000] Task 20 Calling shutdownNow()
-Finished DelayedTaskConsumer
-*///:~
+
+  @Test
+  public void test_without_executor() throws InterruptedException {
+    DelayQueue<DelayedTask> queue = new DelayQueue<>();
+    Random random = new Random(47);
+    for (int i = 0; i < 5; i++) {
+      queue.put(new DelayedTask(random.nextInt(5000)));
+    }
+
+    for (int i = 0; i < 5; i++) {
+      queue.take().run();
+    }
+
+    /**
+     * 输出结果：
+     * [555 ] Task 1 [961 ] Task 4 [1693] Task 2 [1861] Task 3 [4258] Task 0
+     *
+     * 结果分析：
+     */
+  }
+}

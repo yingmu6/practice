@@ -6,9 +6,9 @@ import java.util.ArrayList;
  * @author chensy
  * @date 2024/3/28
  */
-public class Whether implements Subject {
+public class Whether implements Subject { //主题
 
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private ArrayList<Observer> observers = new ArrayList<>(); //持有观察者引用列表
 
     private float temperature;
 
@@ -39,6 +39,6 @@ public class Whether implements Subject {
 
     public void setTemperature(float temperature) {
         this.temperature = temperature;
-        notifyObservers();
+        notifyObservers(); //主题的内容变更时，通知所有观察者
     }
 }

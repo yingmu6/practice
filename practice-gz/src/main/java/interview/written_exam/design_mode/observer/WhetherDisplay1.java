@@ -9,7 +9,7 @@ public class WhetherDisplay1 implements Observer {
     private float temprature;
 
     public WhetherDisplay1(Subject whether) {
-        whether.registerObserver(this);
+        whether.registerObserver(this); //将观察者注册到主题中
     }
 
     @Override
