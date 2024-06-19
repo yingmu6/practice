@@ -16,6 +16,15 @@ public class BitOperationTest { //@MsY-Doing
      *    1.1）左移操作符<< ：将数据转换成二进制数后，向左移若干位，高位丢弃，低位补零
      *    1.2）右移操作符>> ：将数据转换成二进制数后，向右移若干位，高位补符号位，低位丢弃
      *
+     * 关联点学习：
+     * 1）移位运算的相关规则学习：如左移<<、右移>>、无符号移动等（Doing）
+     * 2）按位运算的相关规则学习：如按位与、按位异或等（Doing）
+     * 3）补码、反码等相关规则学习（Doing）
+     *
+     * 问题点答疑：
+     * 1）移位运算的好处以及应用场景是怎样的？
+     * 2）按位运算的好处以及应用场景是怎样的？
+     *
      * 参考链接：
      * a）https://juejin.cn/post/6844904025880526861 Java的移位运算符
      */
@@ -24,7 +33,7 @@ public class BitOperationTest { //@MsY-Doing
      * 场景1：左移运算
      */
     @Test
-    public void test_left_move() {
+    public void test_left_move() { //Done
         int a = 3;
         System.out.println(a << 4);
 
@@ -41,19 +50,28 @@ public class BitOperationTest { //@MsY-Doing
 
     /**
      * 场景2：打印int的二进制形式
-     *
-     * 1）int类型占4个字节，一个字节8位，int共占32位。java中的int是无符号的（c语言还区分int整形和unsigned int无符号整型），取值范围 -2^31~2^31-1。
-     * 2）二进制数在内存中以补码的形式存储的
-     *   正数：补码就是转化为二进制
-     *   负数：补码符号位是1，其它位是对应正数的二进制的取反加一
-     *
      */
     @Test
-    public void test_print() {
+    public void test_print() { //Doing
         int num = 48;
         for(int i = 31; i >= 0; i--) {
             System.out.print((num & 1 << i) == 0 ? "0":"1");
         }
+
+        /**
+         * 输出结果：
+         * 00000000000000000000000000110000
+         *
+         * 结果分析：
+         * 1）int类型占4个字节，一个字节8位，int共占32位。java中的int是无符号的
+         *   （c语言还区分int整形和unsigned int无符号整型），取值范围 -2^31~2^31-1。
+         * 2）二进制数在内存中以补码的形式存储的
+         *   正数：补码就是转化为二进制
+         *   负数：补码符号位是1，其它位是对应正数的二进制的取反加一
+         *
+         * 问题点答疑：
+         * 1）num & 1 << i 运算的功能用途是什么？
+         */
     }
 
     /**
@@ -67,7 +85,7 @@ public class BitOperationTest { //@MsY-Doing
      * 场景3：特定运算的结果
      */
     @Test
-    public void test_special_opt() {
+    public void test_special_opt() { //Done
         int a = 1 << 13;
         System.out.println(a);
 

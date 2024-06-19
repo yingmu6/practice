@@ -15,6 +15,7 @@
         <module>practice-sf</module>
         <module>practice-sj</module>
         <module>practice-zj</module>
+        <module>practice-ja</module>
     </modules>
 
     <properties>

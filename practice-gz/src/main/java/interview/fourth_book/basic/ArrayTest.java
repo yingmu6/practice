@@ -8,12 +8,12 @@ import java.util.Arrays;
  * @author chensy
  * @date 2023/7/13
  */
-public class ArrayTest { //@MsY-Done
+public class ArrayTest { //@MsY-Doing
 
     /**
      * 知识点：数组
      *
-     * 知识点概要：
+     * 知识点概括：
      * 1）数组的声明：
      *    1.1）数组声明的括号中不能显示行数、列数，如 char[1][2];
      *    1.2）数组创建的时，括号中需要指定行数、列数，如char[][] c = new char[1][2];
@@ -23,12 +23,17 @@ public class ArrayTest { //@MsY-Done
      *    2.2）Arrays.parallelSort() 在功能上有所不同。与 sort() 使用单个线程对数据进行顺序排序不同，它使用并行排序-合并排序算法。
      *         它将数组分成子数组，这些子数组本身先进行排序然后合并。即使用的是ForkJoinTask并发处理任务。
      *    2.3）Arrays.parallelSort() 只有在满足某些条件时，它才会使用并行性。如果数组大小小于或等于 8192，或者处理器只有一个核心，
-     *         则它将使用顺序的Dual-Pivot Quicksort算法。否则，它使用并行排序。
+     *         则它将使用顺序的Dual-Pivot Quicksort（快速排序）算法。否则，它使用并行排序。
      *
      * 3）数组的拷贝：
      *    3.1）可以循环遍历原有数组，依次取出元素然后再设置到新的数组中
      *    3.2）使用System.arrayCopy可以从原数组指定位置，拷贝指定数量的元素到目标数组的目标位置上
      *    3.3）使用System.arrayCopy实现数组的新增、删除逻辑
+     *
+     * 关联点学习：
+     * 1）快速排序算法学习&实践：Arrays.parallelSort()在指定条件下，使用到快速排序
+     * 2）并行排序源码阅读&原理了解：Arrays.parallelSort()中如何使用并行排序的
+     * 3）System.arraycopy底层逻辑：学习对应native上的C++业务逻辑处理
      *
      * 参考链接：
      * a）https://blog.csdn.net/qq_20971061/article/details/106602442 Arrays.sort与Arrays.parallelSort区别
@@ -38,7 +43,7 @@ public class ArrayTest { //@MsY-Done
      * 场景1：数组声明
      */
     @Test
-    public void test_declare() {
+    public void test_declare() { //Done
         char c[][] = new char[1][2];
         String []s;
 
@@ -54,7 +59,7 @@ public class ArrayTest { //@MsY-Done
      * 场景2：并行数组测试
      */
     @Test
-    public void test_parallel_array() {
+    public void test_parallel_array() { //Doing
         int []arr = {1,5,8,3,19,40,6};
         Arrays.parallelSort(arr);
         Arrays.stream(arr).forEach(i -> System.out.print(i + " "));
@@ -73,7 +78,7 @@ public class ArrayTest { //@MsY-Done
      * 场景3：使用System.arrayCopy进行数组拷贝
      */
     @Test
-    public void test_system_array_copy() {
+    public void test_system_array_copy() { //Doing
         int []arr = new int[] {1, 3, 5, 7};
 
         int []arr2 = new int[arr.length - 2];
@@ -85,7 +90,7 @@ public class ArrayTest { //@MsY-Done
 
         /**
          * 输出结果：
-         * 拷贝后的数组：1,3,0,0
+         * 拷贝后的数组：1,3
          *
          * 结果分析：
          * 1）使用System.arrayCopy可以从原数组指定位置，拷贝指定数量的元素到目标数组的目标位置上
@@ -104,14 +109,6 @@ public class ArrayTest { //@MsY-Done
         String str1 = printArray(temp);
         System.out.println("添加元素后的数组：" + str1);
 
-        /**
-         * 输出结果：
-         * 添加元素后的数组：1,3,8,5,7,0,0,0
-         *
-         * 结果分析：
-         * 1）在数组指定下标添加元素时，分为两部分处理，index前、后，依次使用System.arraycopy即可
-         */
-
         // 移除下标为3的元素
         remove(arr, 2);
         String str2 = printArray(arr);
@@ -119,20 +116,22 @@ public class ArrayTest { //@MsY-Done
 
         /**
          * 输出结果：
+         * 添加元素后的数组：1,3,8,5,7,0,0,0
          * 移除元素后的数组：1,5,7,0
          *
          * 结果分析：
-         * 移除指定位置的元素，则位置后面的元素通过System.arraycopy整体往前移动一位，因为移除不需要扩容，所以可在原有数组执行即可。
+         * 1）在数组指定下标添加元素时，分为两部分处理，index前、后，依次使用System.arraycopy即可
+         *    1.1）依次拷贝的区间为 [0, index) 、index 、(index, length)
+         * 2）移除指定位置的元素，则位置后面的元素通过System.arraycopy整体往前移动一位，因为移除不需要扩容，所以可在原有数组执行即可。
          */
-
     }
 
     private int[] add(int []source, int index, int value) {
-        int []target = new int[source.length * 2]; //增加元素时，需要扩容
+        int []target = new int[source.length * 2]; //使用临时数组做扩容处理（增加元素时，需要扩容）
 
-        System.arraycopy(source, 0, target, 0, index);
-        target[index] = value;
-        System.arraycopy(source, index, target, index + 1, source.length - index);
+        System.arraycopy(source, 0, target, 0, index); //拷贝原数组中 [0, index) 区间元素
+        target[index] = value; //将index设置插入的值
+        System.arraycopy(source, index, target, index + 1, source.length - index); //拷贝原数组中 (index, length)区间元素
         return target;
     }
 
