@@ -10,7 +10,6 @@
     <version>1.0</version>
     <modules>
         <module>practice-db</module>
-        <module>practice-jc</module>
         <module>practice-gz</module>
         <module>practice-sf</module>
         <module>practice-sj</module>
@@ -34,7 +33,7 @@
 
             <dependency>
                 <groupId>com.csy</groupId>
-                <artifactId>practice-jc</artifactId>
+                <artifactId>practice-ja</artifactId>
                 <version>1.0</version>
             </dependency>
 
