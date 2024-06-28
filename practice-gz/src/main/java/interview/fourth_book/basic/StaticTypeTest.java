@@ -10,10 +10,12 @@ import java.util.List;
  * @author chensy
  * @date 2023/6/29
  */
-public class StaticTypeTest {
+public class StaticTypeTest { //@MsY-Done
 
     /**
-     * static关键字_概述
+     * 知识点：static关键字
+     *
+     * 知识点概括：
      * 1）We'll find out how we can apply the static keyword to variables, methods,
      *    blocks, and nested classes, and what difference it makes.
      *   （static关键字可以用于修饰变量、方法、代码块、内部类等）
@@ -42,10 +44,16 @@ public class StaticTypeTest {
      * 场景1：static成员变量使用
      */
     @Test
-    public void test_static_field() {
+    public void test_static_field() { //Done
         new StaticTypeTest().increase(); //调用方法后，NUM为1
         new StaticTypeTest().increase(); //调用方法后，NUM为2
         Assert.assertTrue(StaticTypeTest.NUM == 2);
+
+        /**
+         * 结果分析：
+         * 1）创建了不同的对象调用increase()方法，由于static是对象共享的
+         *    所以每次操作都影响了static变量的值
+         */
     }
 
     static void increaseNum() {
@@ -63,10 +71,15 @@ public class StaticTypeTest {
      *   （使用static方法，创建有用的或帮助类）
      */
     @Test
-    public void test_static_method() {
+    public void test_static_method() { //Done
         StaticTypeTest.increaseNum();
         StaticTypeTest.increaseNum();
         Assert.assertTrue(StaticTypeTest.NUM == 2);
+
+        /**
+         * 结果分析：
+         * 1）static方法属于类方法，所以可以用 "类.static方法"的方式来操作
+         */
     }
 
     public static List<String> ranks = new LinkedList<>();
@@ -79,14 +92,18 @@ public class StaticTypeTest {
 
      /**
      * 场景3：static代码块
-     * （使用static代码块，可以做预定义或初始化操作）
      */
     @Test
-    public void test_static_block() {
+    public void test_static_block() { //Done
         Assert.assertTrue(ranks.size() == 3);
+
+        /**
+         * 结果分析：
+         * 1）使用static代码块，可以做预定义或初始化操作
+         */
     }
 
-     /**
+    /**
      * 场景4：static内部类
      * 1）Java allows us to create a class within a class. It provides a way of grouping（分组） elements that we'll only use in one place.
      *    This helps to keep our code more organized（有组织的） and readable（可阅读的）.
@@ -100,19 +117,27 @@ public class StaticTypeTest {
      *   （静态内部类和非静态内部类的区别：非静态内部类可以被外部类的所有成员访问，而静态内部类只能被静态成员访问）
      */
     @Test
-    public void test_static_class() {
-        Assert.assertTrue(A.name.equals("A"));
+    public void test_static_class() { //Done
+        Assert.assertTrue(A.a_name.equals("A"));
+//        Assert.assertTrue(A.a_name2.equals("A2")); //此处报出"不能访问非静态成员"的语法错误
 
         B b = new B();
-        Assert.assertTrue(b.name.equals("B"));
+        Assert.assertTrue(b.b_name.equals("B"));
+
+        /**
+         * 结果分析：
+         * 1）可以使用"类名.static变量名" 访问static内部类的static变量
+         */
     }
 
     static class A { //静态内部类
-        private static String name = "A";
+        private static String a_name = "A";
+        private String a_name2 = "A2";
     }
 
     class B { //内部类，即非静态内部类
-        private String name = "B";
+        private String b_name = "B";
+//        private static String b_name2 = "B2"; //此处报出"不能包含static变量"的语法错误
     }
 
 
@@ -128,7 +153,7 @@ public class StaticTypeTest {
      *  （通常，当我们在静态上下文中使用非静态变量时，会发生此错误。）
      */
     @Test
-    public void test_access_error() {
+    public void test_access_error() { //Done
         // 如staticMethod中的访问，会抛出语法错误
 
         /**
@@ -143,7 +168,7 @@ public class StaticTypeTest {
      * （因为static是属于类的，而成员方法属于对象的）
      */
     @Test
-    public  void test() {
+    public  void test() { //Done
 //        static final int i = 0; //此处会抛出语法错误，成员方法中内部不能定义static变量
 //        System.out.println(i++);
     }

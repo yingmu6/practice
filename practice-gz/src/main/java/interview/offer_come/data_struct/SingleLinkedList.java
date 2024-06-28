@@ -4,7 +4,13 @@ package interview.offer_come.data_struct;
  * @author chensy
  * @date 2024/3/16
  */
-public class SingleLinkedList {
+public class SingleLinkedList { //@MsY-Doing
+
+    /**
+     * 知识点：
+     *
+     * 知识点概括：
+     */
 
     private int length;
 
@@ -74,5 +80,19 @@ public class SingleLinkedList {
             tempSize--;
         }
         return null;
+    }
+
+    public String toString() {
+      // todo 遍历列表，从头到尾输出所有元素
+      return "";
+    }
+
+    public static void main(String[] args) {
+        SingleLinkedList linkedList = new SingleLinkedList();
+        linkedList.addHead("zhang san");
+        linkedList.addHead("li si");
+        linkedList.addHead("wang wu");
+
+        System.out.println(linkedList);
     }
 }

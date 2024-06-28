@@ -12,15 +12,21 @@ import java.util.concurrent.Callable;
  * @author chensy
  * @date 2023/6/14
  */
-public class VarTypeTest {
+public class VarTypeTest { //MsY-Doing
 
     /**
-     * 场景1：进制表示：
+     * 知识点：进制表示
+     *
+     * 知识点概括：
      * 1）在整数前加0，表示八进制
      * 2）在整数前加0x，表示十六进制
      */
+
+    /**
+     * 场景1：进制表示：
+     */
     @Test
-    public void test_basic() {
+    public void test_basic() { //Done
         int i = 012;
         int j = 034;
         int k = (int) 056L; //long类型，转换为int，做强制转换
@@ -43,14 +49,21 @@ public class VarTypeTest {
     }
 
     /**
-     * 场景2：不同类型变量复制
+     * 场景2：不同类型变量赋值
      */
     @Test
-    public void test_assign() {
+    public void test_assign() { //Done
         short s = 1;
 //        s = s + 1; //此处 s + 1，经过计算后，变为int类型，所以赋值给short类型时，要做强制转换
         s = (short) (s + 1);
         System.out.println(s);
+
+        /**
+         * 结果分析：
+         * 1）不同类型之间需要转换，低类型向高类型自动转换，高类型向地类型会强制转换
+         * 2）8种基本类型的优先级为：
+         *    （byte，char，boolean）-> short -> int -> long -> float -> double
+         */
     }
 
     /**
@@ -60,46 +73,37 @@ public class VarTypeTest {
      * 1）https://www.jianshu.com/p/cfb7df8d3a8b 按位与、或、非、异或
      */
     @Test
-    public void test_calculate() {
+    public void test_calculate() { //Done
        int m = 5, n = 5;
        if ((m != 5) && (n++ == 5)) {} // &&短路运算，第一个表达式为假，则整体计算结果为假，则不再进入第二个表达式
-       System.out.println("a." + n);
+       System.out.println("a." + n); // 输出 a.5
 
        m = n = 5;
        if ((m != 5) & (n++ == 6)) {} // &按位与，两边的表达式都会执行
-       System.out.println("b." + n);
+       System.out.println("b." + n); // 输出 b.6
 
        m = n = 5;
        if ((m == 5) || (n++ == 5)) {} // ||短路运算，第一个表达为真，则整体计算结果为真，则不再进入第二个表达式
-       System.out.println("c." + n);
+       System.out.println("c." + n); // 输出 c.5
 
        m = n = 5;
        if ((m == 5) | (n++ == 5)) {} // |按位或，两边的表达式都会执行
-       System.out.println("d." + n);
+       System.out.println("d." + n); // 输出 d.6
 
        int a = 1, b = 2;
        int c = a & b;
-       System.out.println("a&b" + c); //按位与，两个都为1，位运算的结果才为1，即0&0=0; 0&1=0; 1&0=0; 1&1=1
+       System.out.println("a&b=" + c); //按位与，两个都为1，位运算的结果才为1，即0&0=0; 0&1=0; 1&0=0; 1&1=1
 
        /**
+        * 输出结果：
+        * a.5
+        * b.6
+        * c.5
+        * d.6
+        * a&b=0
+        *
         * 结果分析：
-        *
-        * 预期输出：
-        * a.5
-        * b.6
-        * c.5
-        * d.6
-        * a&b0
-        *
-        * 实际输出：
-        * a.5
-        * b.6
-        * c.5
-        * d.6
-        * a&b0
-        *
-        * 原因分析：
-        * 预期结果和实际结果相同，原因见上面代码中描述
+        * 1）参见上面代码中描述
         */
     }
 
