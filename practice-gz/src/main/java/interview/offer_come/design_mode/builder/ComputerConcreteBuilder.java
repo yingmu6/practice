@@ -1,8 +1,5 @@
 package interview.offer_come.design_mode.builder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author chensy
  * @date 2024/3/14
@@ -11,27 +8,25 @@ public class ComputerConcreteBuilder implements ComputerBuilder {
 
     Computer computer;
 
-    private final static Log logger = LogFactory.getLog(ComputerConcreteBuilder.class);
-
     public ComputerConcreteBuilder() {
         computer = new Computer();
     }
 
     @Override
     public void buildCpu() {
-        logger.info("buildCpu......");
+        System.out.println("buildCpu......");
         computer.setCpu("8core");
     }
 
     @Override
     public void buildMemory() {
-        logger.info("buildMemory......");
+        System.out.println("buildMemory......");
         computer.setMemory("16G");
     }
 
     @Override
     public void buildDisk() {
-        logger.info("buildDisk......");
+        System.out.println("buildDisk......");
         computer.setDisk("1TG");
     }
 

@@ -25,7 +25,7 @@ public class HiddenImplementation {
   static void callHiddenMethod(Object a, String methodName)
   throws Exception {
     Method g = a.getClass().getDeclaredMethod(methodName);
-    g.setAccessible(true);
+    g.setAccessible(true); //置为可访问，也就是不管是private、protected等，都能访问
     g.invoke(a);
   }
 } /* Output:

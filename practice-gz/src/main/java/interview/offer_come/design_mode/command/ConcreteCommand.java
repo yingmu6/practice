@@ -4,7 +4,14 @@ package interview.offer_come.design_mode.command;
  * @author chensy
  * @date 2024/3/15
  */
-public class ConcreteCommand implements Command {
+public class ConcreteCommand implements Command { //@MsY-Doing
+
+    /**
+     * 知识点：命令模式
+     *
+     * 知识点概括：
+     * 1）
+     */
 
     private Receiver receiver;
 
@@ -29,8 +36,10 @@ public class ConcreteCommand implements Command {
          * command received, now execute command
          *
          * 结果分析：
+         * 1）
          *
          * 问题点答疑：
+         * 1）命令模式都包含哪些角色？
          */
     }
 }

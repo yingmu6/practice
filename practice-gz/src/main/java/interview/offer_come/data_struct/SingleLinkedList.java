@@ -7,9 +7,10 @@ package interview.offer_come.data_struct;
 public class SingleLinkedList { //@MsY-Doing
 
     /**
-     * 知识点：
+     * 知识点：单向列表
      *
      * 知识点概括：
+     * 1）
      */
 
     private int length;
@@ -21,7 +22,7 @@ public class SingleLinkedList { //@MsY-Doing
         this.head = null;
     }
 
-    private class Node {
+    static private class Node {
 
         private Object data;
 
@@ -83,16 +84,32 @@ public class SingleLinkedList { //@MsY-Doing
     }
 
     public String toString() {
-      // todo 遍历列表，从头到尾输出所有元素
-      return "";
+        Node temp = head;
+      StringBuffer dataBuf = new StringBuffer((temp != null ? temp.data : "") + "\n");
+      while(temp.next != null) {
+          dataBuf.append(temp.next.data + "\n");
+          temp = temp.next;
+      }
+      return dataBuf.toString();
     }
 
     public static void main(String[] args) {
         SingleLinkedList linkedList = new SingleLinkedList();
-        linkedList.addHead("zhang san");
-        linkedList.addHead("li si");
-        linkedList.addHead("wang wu");
+        Node node1 = new Node("zhang san");
+        Node node2 = new Node("li si");
+        Node node3 = new Node("wang wu");
 
+        linkedList.addHead(node1);
+        linkedList.addHead(node2);
+        linkedList.addHead(node3);
+
+        System.out.println("------添加节点---------");
         System.out.println(linkedList);
+
+        System.out.println("------删除节点---------");
+        System.out.println(linkedList);
+
+        System.out.println("------查找节点---------");
+        System.out.println(linkedList.find(node1));
     }
 }
