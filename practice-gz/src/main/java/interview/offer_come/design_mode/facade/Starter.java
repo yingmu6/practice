@@ -12,13 +12,13 @@ public class Starter {
 
     private SelfCheck selfCheck;
 
-    public Starter() {
+    public Starter() { //初始化
         this.dashboard = new Dashboard();
         this.engine = new Engine();
         this.selfCheck = new SelfCheck();
     }
 
-    public void startUp() {
+    public void startUp() { //启动项
         System.out.println("car begin startup");
         engine.startup();
         dashboard.startup();
@@ -26,7 +26,7 @@ public class Starter {
         System.out.println("car startup finished");
     }
 
-    public void shutdown() {
+    public void shutdown() { //停止项
         System.out.println("car begin shutdown");
         selfCheck.shutdownCheck();
         engine.shutdown();

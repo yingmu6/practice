@@ -22,7 +22,7 @@ public class ZdTest { //@MsY-Doing
      * 场景1：外观模式基本使用
      */
     @Test
-    public void basicUse() { //Doing_@pause-07/01
+    public void basicUse() { //Doing
         Starter starter = new Starter();
         starter.startUp();
         System.out.println("*******************");

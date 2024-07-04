@@ -1,6 +1,6 @@
-package thinking.type_info;//: typeinfo/Operation.java
+package thinking.type_info;
 
 public interface Operation {
   String description();
   void command();
-} ///:~
+}
