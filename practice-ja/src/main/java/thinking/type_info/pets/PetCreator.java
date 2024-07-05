@@ -10,7 +10,7 @@ public abstract class PetCreator {
   public Pet randomPet() { // Create one random Pet
     int n = rand.nextInt(types().size());
     try {
-      return types().get(n).newInstance();
+      return types().get(n).newInstance(); //从具体实现类中获取Class列表，随机获取Class对象，并通过newInstance()创建实例
     } catch(InstantiationException e) {
       throw new RuntimeException(e);
     } catch(IllegalAccessException e) {

@@ -1,4 +1,4 @@
-package thinking.type_info;//: typeinfo/InnerImplementation.java
+package thinking.type_info;
 // Private inner classes can't hide from reflection.
 import thinking.type_info.interfacea.A;
 
@@ -19,9 +19,10 @@ class InnerA {
 }	
 
 public class InnerImplementation {
-  public static void main(String[] args) throws Exception {
+
+  public static void main(String[] args) throws Exception { //Doing_@pause-07/05
     A a = InnerA.makeA();
-    a.f();
+    a.f(); //引用a执行的对象为：例如 InnerA$C@482
     System.out.println(a.getClass().getName());
     // Reflection still gets into the private class:
     HiddenImplementation.callHiddenMethod(a, "g");
@@ -29,11 +30,18 @@ public class InnerImplementation {
     HiddenImplementation.callHiddenMethod(a, "v");
     HiddenImplementation.callHiddenMethod(a, "w");
   }
-} /* Output:
-public C.f()
-InnerA$C
-public C.g()
-package C.u()
-protected C.v()
-private C.w()
-*///:~
+
+  /**
+   * 输出结果：
+   * public C.f()
+   * thinking.type_info.InnerA$C
+   * public C.g()
+   * package C.u()
+   * protected C.v()
+   * private C.w()
+   *
+   * 结果分析：
+   *
+   *
+   */
+}
