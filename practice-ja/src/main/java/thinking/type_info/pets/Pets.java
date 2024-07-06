@@ -1,4 +1,3 @@
-//: typeinfo/pets/Pets.java
 // Facade to produce a default PetCreator.
 package thinking.type_info.pets;
 import java.util.*;

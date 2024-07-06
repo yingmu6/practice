@@ -1,4 +1,3 @@
-//: typeinfo/packageaccess/HiddenC.java
 package thinking.type_info.packageaccess;
 import thinking.type_info.interfacea.A;
 
@@ -10,6 +9,7 @@ class C implements A {
   void u() { print("package C.u()"); }
   protected void v() { print("protected C.v()"); }
   private void w() { print("private C.w()"); }
+  private void cc() { print("private C.cc()"); }
 }
 
 public class HiddenC {

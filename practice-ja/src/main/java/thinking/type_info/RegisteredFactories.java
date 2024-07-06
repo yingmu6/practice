@@ -1,4 +1,4 @@
-package thinking.type_info;//: typeinfo/RegisteredFactories.java
+package thinking.type_info;
 // Registering Class Factories in the base class.
 import thinking.type_info.factory.Factory;
 
@@ -13,8 +13,8 @@ class Part {
   public String toString() {
     return getClass().getSimpleName();
   }
-  static List<Factory<? extends Part>> partFactories =
-    new ArrayList<Factory<? extends Part>>();
+  static List<Factory<? extends Part>> partFactories = new ArrayList<Factory<? extends Part>>();
+
   static {
     // Collections.addAll() gives an "unchecked generic
     // array creation ... for varargs parameter" warning.
@@ -31,7 +31,7 @@ class Part {
     int n = rand.nextInt(partFactories.size());
     return partFactories.get(n).create();
   }
-}	
+}
 
 class Filter extends Part {}
 
@@ -94,19 +94,25 @@ class PowerSteeringBelt extends Belt {
 }	
 
 public class RegisteredFactories {
-  public static void main(String[] args) {
+  public static void main(String[] args) { //Doing_@pause-07/06
     for(int i = 0; i < 10; i++)
       System.out.println(Part.createRandom());
   }
-} /* Output:
-GeneratorBelt
-CabinAirFilter
-GeneratorBelt
-AirFilter
-PowerSteeringBelt
-CabinAirFilter
-FuelFilter
-PowerSteeringBelt
-PowerSteeringBelt
-FuelFilter
-*///:~
+
+  /**
+   * 输出结果：
+   * GeneratorBelt
+   * CabinAirFilter
+   * GeneratorBelt
+   * AirFilter
+   * PowerSteeringBelt
+   * CabinAirFilter
+   * FuelFilter
+   * PowerSteeringBelt
+   * PowerSteeringBelt
+   * FuelFilter
+   *
+   * 结果分析：
+   *
+   */
+}
