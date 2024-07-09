@@ -6,15 +6,16 @@ import org.junit.Test;
  * @author chensy
  * @date 2024/3/28
  */
-public class ZdTest {
+public class ZdTest { //@MsY-Doing
 
     /**
      * 知识点：策略模式
      *
-     * 总结概括：
+     * 知识点概括：
      * 1）需要一个策略的上下文类，维护单个或多个策略引用，运行时选择对应的策略实例执行
      *
-     * 参考链接：
+     * 问题点答疑：
+     * 1）策略模式与观察者用什么差异？
      *
      */
 
@@ -22,11 +23,11 @@ public class ZdTest {
      * 场景1：上下文中只维护一个策略引用
      */
     @Test
-    public void singleStrategyRef() {
+    public void singleStrategyRef() { //@Doing
         Context context = new Context();
         TravelStrategy travelByAirStrategy = new TravelByAirStrategy();
-        context.setTravelStrategy(travelByAirStrategy);
-        context.travelModel();
+        context.setTravelStrategy(travelByAirStrategy); //主动将策略的实例设置到上下文中
+        context.travelModel(); //上下文使用维护的策略实例，执行具体的逻辑
 
         System.out.println("change TravelStrategy to travelByCarStrategy......");
         TravelStrategy travelByCarStrategy = new TravelByCarStrategy();
@@ -52,7 +53,7 @@ public class ZdTest {
      * 场景2：上下文中维护多个策略引用
      */
     @Test
-    public void multiStrategyReg() {
+    public void multiStrategyReg() { //Doing
         Context2 context2 = new Context2();
         context2.travelByAir();
         System.out.println("change TravelStrategy to travelByCarStrategy......");

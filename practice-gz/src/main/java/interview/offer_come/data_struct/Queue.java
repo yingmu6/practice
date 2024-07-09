@@ -58,4 +58,8 @@ public class Queue<E> {
     public boolean empty() {
         return data.length == 0;
     }
+
+    public static void main(String[] args) {
+
+    }
 }

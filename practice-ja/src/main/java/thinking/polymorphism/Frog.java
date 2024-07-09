@@ -27,7 +27,7 @@ public class Frog extends FrogExt.Amphibian { //@TkY-Doing
         super.dispose();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { //Done
         Frog frog = new Frog(); //初始化时：从父类开始，从上到下初始化
         System.out.println("Bye!");
         frog.dispose();         //销毁时：从子类开始，通过super调用，实现从下到上销毁

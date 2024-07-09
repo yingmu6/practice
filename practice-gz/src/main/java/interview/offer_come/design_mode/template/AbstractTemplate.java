@@ -6,7 +6,7 @@ package interview.offer_come.design_mode.template;
  */
 public abstract class AbstractTemplate {
 
-    public void templateMethod() {
+    public void templateMethod() { //模版方法
         checkNumber();
         queueUp();
         handleBusiness();
@@ -21,7 +21,7 @@ public abstract class AbstractTemplate {
         System.out.println("queue up......");
     }
 
-    public abstract void handleBusiness();
+    public abstract void handleBusiness(); //交由子类实现具体的逻辑
 
     public void serviceEvaluation() {
         System.out.println("business finished, service evaluation......");

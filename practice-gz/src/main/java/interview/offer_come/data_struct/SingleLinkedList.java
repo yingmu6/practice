@@ -91,16 +91,16 @@ public class SingleLinkedList { //@MsY-Doing
     public String toString() {
         Node temp = head;
       StringBuffer dataBuf = new StringBuffer((temp != null ? temp.data : "") + "\n");
-      while(temp.next != null) {
+      while(temp.next != null) { //从第一个节点开始依次遍历
           dataBuf.append(temp.next.data + "\n");
           temp = temp.next;
       }
       return dataBuf.toString();
     }
 
-    public static void main(String[] args) { //Doing_@pause-07/04
+    public static void main(String[] args) { //Doing
         SingleLinkedList linkedList = new SingleLinkedList();
-//        Node node1 = new Node("zhang san");
+//        Node node1 = new Node("zhang san"); //数据域不传Node
 //        Node node2 = new Node("li si");
 //        Node node3 = new Node("wang wu");
 
@@ -123,11 +123,25 @@ public class SingleLinkedList { //@MsY-Doing
 
         /**
          * 输出结果：
+         * ------添加节点---------
+         * wang wu
+         * li si
+         * zhang san
+         *
+         * ------删除节点---------
+         * wang wu
+         * zhang san
+         *
+         * ------查找节点---------
+         * Node :zhang san
+         * zhang san
          *
          * 结果分析：
+         * 1）
          *
          * 问题点答疑：
          * 1）感觉这个单链表，不够纯正。因为节点的数据域data，应该是具体的基本类型，而不是又是Node类型？
+         *    解：的确如此，Node分为数据域和指针域，数据域就不该传递Node类型
          */
     }
 }

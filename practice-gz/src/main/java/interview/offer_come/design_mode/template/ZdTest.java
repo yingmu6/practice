@@ -6,14 +6,12 @@ import org.junit.Test;
  * @author chensy
  * @date 2024/3/28
  */
-public class ZdTest {
+public class ZdTest { //@MsY-Doing
 
     /**
      * 知识点：模版模式
      *
-     * 总结概括：
-     *
-     * 参考链接：
+     * 知识点概括：
      *
      */
 
@@ -21,7 +19,7 @@ public class ZdTest {
      * 场景1：基本使用
      */
     @Test
-    public void basicUse() {
+    public void basicUse() { //@Done
         AbstractTemplate template1 = new TakeMoney();
         template1.templateMethod();
 
@@ -40,8 +38,10 @@ public class ZdTest {
          * business finished, service evaluation......
          *
          * 结果分析：
+         * 1）将一组逻辑封装为模版方法，通用的逻辑放在抽象类中，而差异化的逻辑放在具体实现类中
+         *    此处不管是取钱还是存钱业务，流程都是一样的，都要先取号、排队、业务处理、业务处理完成
+         *    只是其中的取钱、存钱的业务不同，就交由TakeMoney、SaveMoney来具体实现了。
          *
-         * 问题点答疑：
          */
     }
 }

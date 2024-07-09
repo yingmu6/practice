@@ -7,6 +7,9 @@ import java.util.*;
 
 /**
  * 知识点（14.4）：注册工厂
+ *
+ * 问题点答疑：
+ * 1）为什么叫作注册工厂，是要表明一种设计思想吗？
  */
 
 class Part {
@@ -15,10 +18,10 @@ class Part {
   }
   static List<Factory<? extends Part>> partFactories = new ArrayList<Factory<? extends Part>>();
 
-  static {
+  static { //静态块，做初始化
     // Collections.addAll() gives an "unchecked generic
     // array creation ... for varargs parameter" warning.
-    partFactories.add(new FuelFilter.Factory());
+    partFactories.add(new FuelFilter.Factory()); //创建静态内部类实例
     partFactories.add(new AirFilter.Factory());
     partFactories.add(new CabinAirFilter.Factory());
     partFactories.add(new OilFilter.Factory());
@@ -37,7 +40,7 @@ class Filter extends Part {}
 
 class FuelFilter extends Filter {
   // Create a Class Factory for each specific type:
-  public static class Factory
+  public static class Factory //静态内部类
   implements thinking.type_info.factory.Factory<FuelFilter> {
     public FuelFilter create() { return new FuelFilter(); }
   }
@@ -94,9 +97,9 @@ class PowerSteeringBelt extends Belt {
 }	
 
 public class RegisteredFactories {
-  public static void main(String[] args) { //Doing_@pause-07/06
+  public static void main(String[] args) { //Done
     for(int i = 0; i < 10; i++)
-      System.out.println(Part.createRandom());
+      System.out.println(Part.createRandom()); //会调用Part的toString()输出信息
   }
 
   /**
@@ -113,6 +116,7 @@ public class RegisteredFactories {
    * FuelFilter
    *
    * 结果分析：
+   * 1）在父类Part会通过静态块进行初始化，并重写toString()方法输出类的信息
    *
    */
 }

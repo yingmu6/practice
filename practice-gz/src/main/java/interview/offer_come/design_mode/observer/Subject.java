@@ -7,7 +7,7 @@ import java.util.List;
  * @author chensy
  * @date 2024/3/15
  */
-public abstract class Subject {
+public abstract class Subject { //抽象主题
 
     protected List<Observer> observerList = new ArrayList<>();
 
