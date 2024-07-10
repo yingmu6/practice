@@ -1,9 +1,14 @@
-//: generics/decorator/Decoration.java
 package thinking.generic_type.decorator;
 import java.util.*;
 
 /**
  * 知识点（15.15.3）：使用装饰器模式
+ *
+ * 关联点学习：
+ * 1）装饰器模式了解&学习（Doing）
+ *
+ * 问题点答疑：
+ * 1）此用例是怎么体现出装饰器模式的？
  */
 class Basic {
   private String value;
@@ -35,14 +40,24 @@ class SerialNumbered extends Decorator {
 }	
 
 public class Decoration {
-  public static void main(String[] args) {
+
+  public static void main(String[] args) { //Doing
     TimeStamped t = new TimeStamped(new Basic());
     TimeStamped t2 = new TimeStamped(
-      new SerialNumbered(new Basic()));
-    //! t2.getSerialNumber(); // Not available
+      new SerialNumbered(new Basic())); //SerialNumbered继承Decorator，Decorator继承Basic
+    // ! t2.getSerialNumber(); // Not available（未找到可利用的方法）
     SerialNumbered s = new SerialNumbered(new Basic());
     SerialNumbered s2 = new SerialNumbered(
       new TimeStamped(new Basic()));
-    //! s2.getStamp(); // Not available
+    //! s2.getStamp(); // Not available（未找到可利用的方法）
+
+    /**
+     * 输出结果：
+     * （输出空白行）
+     *
+     * 结果分析：
+     * 1）
+     */
+
   }
-} ///:~
+}

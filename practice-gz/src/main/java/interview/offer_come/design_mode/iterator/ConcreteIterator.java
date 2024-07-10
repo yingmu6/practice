@@ -6,6 +6,13 @@ package interview.offer_come.design_mode.iterator;
  */
 public class ConcreteIterator implements Iterator {
 
+    /**
+     * 知识点：
+     *
+     * 知识点概括：
+     * 1）
+     */
+
     private Collection collection;
 
     private int pos = -1;
@@ -41,7 +48,9 @@ public class ConcreteIterator implements Iterator {
 
     public static void main(String[] args) {
         Collection collection1 = new ListCollection();
-        collection1.add("object1");
+        collection1.add("ccc");
+        collection1.add("aaa");
+        collection1.add("bbb");
         Iterator it = collection1.iterator();
         while (it.hasNext()) {
             System.out.println(it.next());
@@ -49,11 +58,12 @@ public class ConcreteIterator implements Iterator {
 
         /**
          * 输出结果：
-         * object1
+         * ccc
+         * aaa
+         * bbb
          *
          * 结果分析：
          *
-         * 问题点答疑：
          */
     }
 }

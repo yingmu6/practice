@@ -21,10 +21,10 @@ public class Original {
     }
 
     public Memento createMemento() {
-        return new Memento(value);
+        return new Memento(value); //把值放到备忘对象中
     }
 
     public void restoreMemento(Memento memento) {
-        this.value = memento.getValue();
+        this.value = memento.getValue(); //取备忘对象中的值更新当前值
     }
 }

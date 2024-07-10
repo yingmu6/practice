@@ -17,13 +17,17 @@ public class ZdTest { //@MsY-Doing
      * 问题点答疑：
      * 1）策略模式与观察者用什么差异？
      *
+     * 2）多态的"动态绑定"原理是怎样的？
+     *
+     * 3）设计模式的本质以及目标是怎样的？
+     *
      */
 
     /**
      * 场景1：上下文中只维护一个策略引用
      */
     @Test
-    public void singleStrategyRef() { //@Doing
+    public void singleStrategyRef() { //@Done
         Context context = new Context();
         TravelStrategy travelByAirStrategy = new TravelByAirStrategy();
         context.setTravelStrategy(travelByAirStrategy); //主动将策略的实例设置到上下文中
@@ -42,9 +46,6 @@ public class ZdTest { //@MsY-Doing
          *
          * 结果分析：
          * 1）上下文Context维护着策略的引用，然后设置怎样的策略实例，就会执行怎样的策略
-         *
-         * 总结概括：
-         * 1）需要定义一个上下文类，用于保存策略的引用，并且提供设置策略实例的set方法
          * 2）此场景中Context只维护了一个策略引用TravelStrategy，在运行时，设置了哪个实例，就执行对应的策略
          */
     }
@@ -53,11 +54,11 @@ public class ZdTest { //@MsY-Doing
      * 场景2：上下文中维护多个策略引用
      */
     @Test
-    public void multiStrategyReg() { //Doing
+    public void multiStrategyReg() { //Done
         Context2 context2 = new Context2();
-        context2.travelByAir();
+        context2.travelModel(TravelModelEnum.AIR);
         System.out.println("change TravelStrategy to travelByCarStrategy......");
-        context2.travelByCar();
+        context2.travelModel(TravelModelEnum.CAR);
 
         /**
          * 输出结果：
@@ -68,8 +69,7 @@ public class ZdTest { //@MsY-Doing
          * 结果分析：
          * 1）Context2维护了策略TravelStrategy的引用列表，并在对象创建时将所有的策略实例加到列表中
          *
-         * 总结概括：
-         * 1）这种在工作场景中比较常用。就是在项目启动时，就把已知的策略，都加载到上下文维护的列表中，
+         * 2）这种在工作场景中比较常用。就是在项目启动时，就把已知的策略，都加载到上下文维护的变量中，
          *    然后运行时根据某些条件，触发指定的策略，执行对应的逻辑。
          *
          */
