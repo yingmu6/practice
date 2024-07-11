@@ -1,10 +1,11 @@
 package thinking.generic_type.coffee;
 
 import net.mindview.util.Generator;
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author chensy

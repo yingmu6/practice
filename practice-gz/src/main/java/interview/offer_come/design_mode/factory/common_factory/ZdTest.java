@@ -6,14 +6,14 @@ import org.junit.Test;
  * @author chensy
  * @date 2024/3/14
  */
-public class ZdTest {
+public class ZdTest { //@MsY-Doing
 
     /**
      * 知识点：普通工厂模式：
      *
-     * 总结概括：
-     *
-     * 参考信息：
+     * 知识点概括：
+     * 1）工厂模式是用于创造对象实例的。普通工厂创建的对象，属于同一种类型，但可产生不同的对象实s
+     * 2）普通的工厂模式，就是工厂是具体工厂，只能产生同一类型的对象实例
      */
 
     @Test
@@ -30,11 +30,7 @@ public class ZdTest {
          * this is a Apple phone
          *
          * 结果分析：
-         * 1）Factory中的方法createPhone会根据传入的品牌类型选择new对应的实例
-         *
-         * 结果概括：
-         * 1）工厂模式是用于创造对象实例的。普通工厂创建的对象，属于同一种类型，但可产生不同的对象实例
-         * 2）普通的工厂模式，就是工厂是具体工厂，只能产生同一类型的对象实例
+         * 1）Factory中的方法createPhone会根据传入的品牌类型做判断，并选择new对应的实例
          */
     }
 }
