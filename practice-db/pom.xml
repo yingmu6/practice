@@ -86,18 +86,6 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.orange</groupId>
-            <artifactId>saas-app-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.orange</groupId>
-            <artifactId>paas-app-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
 
 </project>
