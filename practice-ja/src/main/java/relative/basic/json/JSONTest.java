@@ -25,4 +25,7 @@ public class JSONTest {
     }
 
     //复杂的JSON字符串与对象 建立数据模型
+    static class PicInfo {
+
+    }
 }

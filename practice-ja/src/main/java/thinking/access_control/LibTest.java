@@ -1,7 +1,7 @@
 package thinking.access_control;
 
-import net.mindview.simple.List;
-import net.mindview.simple.Vector;
+//import net.mindview.simple.List;
+//import net.mindview.simple.Vector;
 
 /**
  * @author chensy
@@ -13,8 +13,8 @@ public class LibTest {
      * 知识点（6.1.2）：创建独一无二的包名
      */
     public static void main(String[] args) {
-        Vector v = new Vector();
-        List l = new List(); //使用import导入
+//        Vector v = new Vector();
+//        List l = new List(); //使用import导入
 
         /**
          * 结果输出：

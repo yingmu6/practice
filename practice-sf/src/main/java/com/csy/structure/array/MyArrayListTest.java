@@ -1,7 +1,14 @@
 package com.csy.structure.array;
 
 import com.csy.structure.array.ext.MyArrayList;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.Test;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author chensy
@@ -75,5 +82,54 @@ public class MyArrayListTest {
          *
          * 结果分析：
          */
+    }
+
+    /**
+     * 场景3：列表初始化
+     */
+    @Test
+    public void test_list_init() { //Done
+
+        // 方式一：使用Arrays.asList()初始化
+        List<String> list = new ArrayList<>(Arrays.asList("a", "b", "c"));
+        System.out.println("方式一：" + list);
+
+        // 方式二：使用Collections的nCopies()拷贝
+        List<String> list2 = new ArrayList<>(Collections.nCopies(3, "haha"));
+
+        System.out.println("方式二：" + list2);
+        // 方式三：使用Java 8的Stream API初始化
+        ArrayList<Integer> list3 = Stream.of(1, 2, 3, 4, 5).collect(Collectors.toCollection(ArrayList::new));
+
+        System.out.println("方式三：" + list3);
+
+        /**
+         * 输出结果：
+         * 方式一：[a, b, c]
+         * 方式二：[haha, haha, haha]
+         * 方式三：[1, 2, 3, 4, 5]
+         *
+         */
+
+    }
+
+    /**
+     * 场景4：java8将list映射为Map
+     */
+    @Test
+    public void test_list_to_map() { //DOING
+        List<TestVO> testVOS = Arrays.asList(TestVO.builder().name("张三").age(11).build(),
+                TestVO.builder().name("李四").age(12).build(),
+                TestVO.builder().name("王五").age(12).build());
+
+       // Map<Integer, String> tempMap = testVOS.stream().collect(Collectors.toMap(item::))
+    }
+
+    @Setter
+    @Getter
+    @Builder
+    static class TestVO {
+        private String name;
+        private Integer age;
     }
 }

@@ -2,6 +2,7 @@ package com.csy.spring.basic;
 
 import com.csy.spring.event.ApplicationContextObj;
 import lombok.Getter;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,6 +19,19 @@ public class BasicTest {
 //        basic_spring();
 
 //        ChannelInboundHandlerAdapter adapter = null;
+    }
+
+    /**
+     * 场景：获取Spring的应用上下文
+     */
+    @Test
+    public void getContext() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/spring-bean-test.xml");
+        Animal animal = (Animal) applicationContext.getBean("animal");
+        animal.setName("猪PIG");
+
+        Pig pig = applicationContext.getBean(Pig.class);
+        pig.getAnimalInfo();
     }
 
     public static void basic() {

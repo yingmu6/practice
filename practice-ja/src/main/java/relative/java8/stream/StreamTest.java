@@ -336,6 +336,20 @@ public class StreamTest {
         System.out.println("第二个匹配：" + Arrays.stream(arr).noneMatch(var -> var.equals(6))); //输出：true
     }
 
+
+    /**
+     * 场景13：查找流的第一个元素
+     */
+    @Test
+    public void test_findFirst() { //Doing
+        List<Person> list = new ArrayList<>(Arrays.asList(
+//                new Person("张三", 12, 12L, 1),
+//                new Person("李四", 14, 15L, 2)
+        ));
+
+
+    }
+
     // 基础功能：获取用户列表
     public static List<Person> getPersonList() {
         Person person = new Person();

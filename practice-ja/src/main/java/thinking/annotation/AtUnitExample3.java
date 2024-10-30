@@ -1,6 +1,6 @@
 //: annotations/AtUnitExample3.java
 package thinking.annotation;
-import net.mindview.atunit.*;
+//import net.mindview.atunit.*;
 import net.mindview.util.*;
 
 public class AtUnitExample3 {
@@ -14,14 +14,14 @@ public class AtUnitExample3 {
     System.out.println("This is methodTwo");
     return 2;
   }
-  @TestObjectCreate static AtUnitExample3 create() {
-    return new AtUnitExample3(47);
-  }
-  @Test boolean initialization() { return n == 47; }
-  @Test boolean methodOneTest() {
-    return methodOne().equals("This is methodOne");
-  }
-  @Test boolean m2() { return methodTwo() == 2; }
+//  @TestObjectCreate static AtUnitExample3 create() {
+//    return new AtUnitExample3(47);
+//  }
+//  @Test boolean initialization() { return n == 47; }
+//  @Test boolean methodOneTest() {
+//    return methodOne().equals("This is methodOne");
+//  }
+//  @Test boolean m2() { return methodTwo() == 2; }
   public static void main(String[] args) throws Exception {
     OSExecute.command(
       "java net.mindview.atunit.AtUnit AtUnitExample3");
